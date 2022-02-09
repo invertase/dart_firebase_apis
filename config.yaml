@@ -1,0 +1,39 @@
+# Manually curated lists of which APIs should go into which packages, and which
+# should be ignored.
+packages:
+  - firebaseapis:
+      version: 0.1.0
+      repository: https://github.com/invertase/firebaseapis/tree/master/generated/firebaseapis
+      readme: resources/README.md
+      license: resources/LICENSE
+      changelog: resources/firebaseapis/CHANGELOG.md
+      example: resources/firebaseapis/examples/main.dart
+      extraDevDependencies:
+        googleapis_auth: ^1.0.0
+      apis:
+        - fcm:v1
+        - firebasedynamiclinks:v1
+        - firebasehosting:v1
+        - firebaseml:v1
+        - firebaserules:v1
+        - firestore:v1
+        - firebaseremoteconfig:v1
+        - identitytoolkit:v3
+
+  - firebaseapis_beta:
+      version: 0.1.0
+      repository: https://github.com/invertase/firebaseapis/tree/master/generated/firebaseapis_beta
+      readme: resources/README.md
+      license: resources/LICENSE
+      changelog: resources/firebaseapis_beta/CHANGELOG.md
+      apis:
+        - fcmdata:v1beta1
+        - firebase:v1beta1
+        - firebaseappcheck:v1beta
+        - firebasedatabase:v1beta
+        - firebasehosting:v1beta1
+        - firebaseml:v1beta2
+        - firebasestorage:v1beta
+        - firestore:v1beta1
+        - firestore:v1beta2
+        - securetoken:v2beta1

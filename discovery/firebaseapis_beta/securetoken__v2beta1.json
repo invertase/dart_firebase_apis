@@ -1,0 +1,184 @@
+{
+    "basePath": "",
+    "baseUrl": "https://securetoken.googleapis.com/",
+    "batchPath": "batch",
+    "canonicalName": "Token Service",
+    "description": "The Token Service API lets you exchange an ID token or a refresh token for an access token and a refresh token, which you can use to securely call your own APIs.",
+    "discoveryVersion": "v1",
+    "documentationLink": "https://developers.google.com/identity/toolkit/securetoken",
+    "icons": {
+        "x16": "http://www.google.com/images/icons/product/search-16.gif",
+        "x32": "http://www.google.com/images/icons/product/search-32.gif"
+    },
+    "id": "securetoken:v2beta1",
+    "kind": "discovery#restDescription",
+    "name": "securetoken",
+    "ownerDomain": "google.com",
+    "ownerName": "Google",
+    "parameters": {
+        "$.xgafv": {
+            "description": "V1 error format.",
+            "enum": [
+                "1",
+                "2"
+            ],
+            "enumDescriptions": [
+                "v1 error format",
+                "v2 error format"
+            ],
+            "location": "query",
+            "type": "string"
+        },
+        "access_token": {
+            "description": "OAuth access token.",
+            "location": "query",
+            "type": "string"
+        },
+        "alt": {
+            "default": "json",
+            "description": "Data format for response.",
+            "enum": [
+                "json",
+                "media",
+                "proto"
+            ],
+            "enumDescriptions": [
+                "Responses with Content-Type of application/json",
+                "Media download with context-dependent Content-Type",
+                "Responses with Content-Type of application/x-protobuf"
+            ],
+            "location": "query",
+            "type": "string"
+        },
+        "callback": {
+            "description": "JSONP",
+            "location": "query",
+            "type": "string"
+        },
+        "fields": {
+            "description": "Selector specifying which fields to include in a partial response.",
+            "location": "query",
+            "type": "string"
+        },
+        "key": {
+            "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
+            "location": "query",
+            "type": "string"
+        },
+        "oauth_token": {
+            "description": "OAuth 2.0 token for the current user.",
+            "location": "query",
+            "type": "string"
+        },
+        "prettyPrint": {
+            "default": "true",
+            "description": "Returns response with indentations and line breaks.",
+            "location": "query",
+            "type": "boolean"
+        },
+        "quotaUser": {
+            "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.",
+            "location": "query",
+            "type": "string"
+        },
+        "uploadType": {
+            "description": "Legacy upload protocol for media (e.g. \"media\", \"multipart\").",
+            "location": "query",
+            "type": "string"
+        },
+        "upload_protocol": {
+            "description": "Upload protocol for media (e.g. \"raw\", \"multipart\").",
+            "location": "query",
+            "type": "string"
+        }
+    },
+    "protocol": "rest",
+    "resources": {
+        "v2beta1": {
+            "methods": {
+                "token": {
+                    "description": "Exchanges a third-party credential for a Google OAuth 2.0 access token which asserts a third-party identity within a WorkloadPool, or applies an Access Boundary on a Google access token.",
+                    "flatPath": "v2beta1/token",
+                    "httpMethod": "POST",
+                    "id": "securetoken.token",
+                    "parameterOrder": [],
+                    "parameters": {},
+                    "path": "v2beta1/token",
+                    "request": {
+                        "$ref": "ExchangeTokenRequest"
+                    },
+                    "response": {
+                        "$ref": "ExchangeTokenResponse"
+                    }
+                }
+            }
+        }
+    },
+    "revision": "20220128",
+    "rootUrl": "https://securetoken.googleapis.com/",
+    "schemas": {
+        "ExchangeTokenRequest": {
+            "description": "Request message for ExchangeToken.",
+            "id": "ExchangeTokenRequest",
+            "properties": {
+                "accessBoundary": {
+                    "description": "An Access Boundary that defines the upper bound of permissions the credential may have. Only used if `subject_token` is a Google access token.",
+                    "type": "string"
+                },
+                "audience": {
+                    "description": "The resource name containing the WorkloadPool and WorkloadPoolProvider which holds the third-party identity federation configuration. This parameter is REQUIRED when the `subject_token` carries credential that is issued by a WorkloadPoolProvider. The value should be in the following format: `projects/{PROJECT_ID}/workloadPools/{WL_POOL_ID}/providers/{PROVIDER_ID}` where {WL_POOL_ID} should be the ID of the WorkloadPool and {PROVIDER_ID} should be the ID of the WorkloadPoolProvider.",
+                    "type": "string"
+                },
+                "grantType": {
+                    "description": "Required. This should be `urn:ietf:params:oauth:grant-type:token-exchange` to indicate that a token exchange is being performed.",
+                    "type": "string"
+                },
+                "requestedTokenType": {
+                    "description": "Required. Identifier for the type of the requested security token. The only currently supported value is 'urn:ietf:params:oauth:token-type:access_token'.",
+                    "type": "string"
+                },
+                "scope": {
+                    "description": "Desired OAuth 2.0 scopes that will be included in the resulting access token. This is a space-separated list of strings. This parameter is REQUIRED when the `subject_token` carries credential that is issued by a WorkloadPoolProvider.",
+                    "type": "string"
+                },
+                "subjectToken": {
+                    "description": "Required. Input token. The `subject_token` can be a third-party credential that is issued by a WorkloadPoolProvider or a short-lived access token that is issued by Google. If `subject_token` is an OIDC JWT, it must be in JWT format as defined in RFC 7523. The `subject_token_type` parameter must be 'urn:ietf:params:oauth:token-type:jwt'. Mandatory header fields: - kid: Identifier of the signing key used to secure the JWT - alg: The cryptographic algorithm used to secure the JWT. Supported value: \"RS256\". Mandatory payload fields (along the lines of RFC 7523, section 3): - iss: issuer of the token. Must provide a discovery document at $iss/.well-known/openid-configuration . The document needs to be formatted according to section 4.2 of the OpenID Connect Discovery 1.0 specification. - iat: Issue time in seconds since epoch. Must be in the past. - exp: Expiration time in seconds since epoch. Must be less than 48 hours after iat. We recommend to create tokens that last shorter than 6 hours to improve security unless business reasons mandate longer expiration times. Shorter token lifetimes are generally more secure since tokens that have been exfiltrated by attackers can be used for a shorter time. - sub: JWT subject, identity asserted in the JWT. - aud: Configured in the mapper policy. By default the service account unique ID. Example header: { \"alg\": \"RS256\", \"kid\": \"us-east-11\" } Example payload: { \"iss\": \"https://accounts.google.com\", \"iat\": 1517963104, \"exp\": 1517966704, \"aud\": \"113475438248934895348\", \"sub\": \"113475438248934895348\", \"my_claims\": { \"additional_claim\": \"value\" } } If `subject_token` is a Google short-lived access token, it can be an opaque OAuth 2.0 access token or a JWT signed by Google service account key. The `subject_token_type` should be set to 'urn:ietf:params:oauth:token-type:access_token' or 'urn:ietf:params:oauth:token-type:jwt' accordingly.",
+                    "type": "string"
+                },
+                "subjectTokenType": {
+                    "description": "Required. An identifier that indicates the type of the security token in the `subject_token` parameter. Currently, the supported values are 'urn:ietf:params:oauth:token-type:jwt', 'urn:ietf:params:aws:token-type:aws4_request' and 'urn:ietf:params:oauth:token-type:access_token'.",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "ExchangeTokenResponse": {
+            "description": "Response message for ExchangeToken.",
+            "id": "ExchangeTokenResponse",
+            "properties": {
+                "access_token": {
+                    "description": "The Google access token for third-party identity in the requested format. Currently, the token is only going to be an OAuth 2.0 access token.",
+                    "type": "string"
+                },
+                "expires_in": {
+                    "description": "The expiration time of `access_token` in seconds, measured from the time of issuance. Note that this field will be absent when the `subject_token` in request is a Google-issued short-lived access token. It is safe to assume the expiration time of the `access_token` is the same as the `subject_token` in that case.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "issued_token_type": {
+                    "description": "Same value as `requested_token_type` parameter in request.",
+                    "type": "string"
+                },
+                "token_type": {
+                    "description": "The type of `access_token`. The only currently supported value is 'Bearer'.",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "servicePath": "",
+    "title": "Token Service API",
+    "version": "v2beta1",
+    "version_module": true
+}

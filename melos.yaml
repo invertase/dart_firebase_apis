@@ -1,0 +1,15 @@
+name: firebaseapis
+
+packages:
+  - discoveryapis_commons/*
+  - discoveryapis_generator/*
+  - generator/*
+  - _test/*
+  - _test_package/*
+  - generated/**
+  - resources/**
+
+
+scripts:
+  config:download: dart generator/bin/generate.dart run_config download
+  config:generate: dart generator/bin/generate.dart run_config generate

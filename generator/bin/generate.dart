@@ -1,0 +1,145 @@
+#!/usr/bin/env dart
+// Copyright (c) 2015, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
+import 'dart:io';
+
+import 'package:args/args.dart';
+import 'package:googleapis_generator_dependency/googleapis_generator.dart';
+
+ArgParser downloadCommandArgParser() => ArgParser()
+  ..addOption('output-dir',
+      abbr: 'o',
+      help: 'Output directory of discovery documents.',
+      defaultsTo: 'googleapis-discovery-documents');
+
+ArgParser runConfigCommandArgParser() => ArgParser()
+  ..addCommand('download')
+  ..addCommand('generate')
+  ..addOption(
+    'config-file',
+    help: 'Configuration file describing package generation.',
+    defaultsTo: 'config.yaml',
+  )
+  ..addFlag('delete-existing', defaultsTo: true);
+
+ArgParser globalArgParser() => ArgParser()
+  ..addCommand('download', downloadCommandArgParser())
+  ..addCommand('run_config', runConfigCommandArgParser())
+  ..addFlag('help', abbr: 'h', help: 'Displays usage information.');
+
+ArgResults parseArguments(ArgParser parser, List<String> arguments) {
+  try {
+    return parser.parse(arguments);
+  } on FormatException catch (e) {
+    dieWithUsage('Error parsing arguments:\n${e.message}\n');
+  }
+}
+
+Never dieWithUsage([String? message]) {
+  if (message != null) {
+    print(message);
+  }
+  print('Usage:');
+  print('The discovery generator has the following sub-commands:');
+  print('');
+  print('  download');
+  print('  run_config');
+  print('');
+  print("The 'download' subcommand downloads all discovery documents. "
+      'It takes the following options:');
+  print('');
+  print(downloadCommandArgParser().usage);
+  print('');
+  print("The 'run_config' subcommand downloads discovery documents and "
+      'generates one or more API packages based on a configuration file. '
+      'It takes the following options:');
+  print('');
+  print(runConfigCommandArgParser().usage);
+  exit(1);
+}
+
+Future<void> main(List<String> arguments) async {
+  final parser = globalArgParser();
+  final options = parseArguments(parser, arguments);
+  final commandOptions = options.command!;
+  final subCommands = ['download', 'generate', 'run_config'];
+
+  if (options['help'] as bool) {
+    dieWithUsage();
+  } else if (!subCommands.contains(commandOptions.name)) {
+    dieWithUsage('Invalid command');
+  }
+
+  switch (commandOptions.name) {
+    case 'run_config':
+      if (commandOptions.command == null ||
+          !['download', 'generate'].contains(commandOptions.command!.name)) {
+        dieWithUsage('The `run_config` command has only the two subcommands: '
+            '`download` and `generate`.');
+      }
+
+      final configFile = commandOptions['config-file'] as String;
+      final deleteExisting = commandOptions['delete-existing'] as bool;
+      switch (commandOptions.command!.name) {
+        case 'download':
+          await downloadFromConfiguration(configFile);
+          await _applyDiffs(configFile);
+          print('Done!');
+          break;
+        case 'generate':
+          generateFromConfiguration(
+            configFile,
+            deleteExisting,
+          );
+          print('Done');
+          break;
+      }
+      break;
+  }
+}
+
+Future<void> _applyDiffs(String configFile) async {
+  final configFileUri = Uri.file(configFile);
+  final overridesPath = configFileUri.resolve('overrides').path;
+  final overridesType = FileSystemEntity.typeSync(overridesPath);
+  if (overridesType == FileSystemEntityType.notFound) {
+    print('No overrides to apply!');
+    return;
+  }
+
+  if (overridesType != FileSystemEntityType.directory) {
+    throw StateError(
+      '"$overridesPath" should be a directory! But it is a $overridesType',
+    );
+  }
+
+  print('');
+  print('Applying diffs!');
+
+  final overridesDirectory = Directory(overridesPath);
+  for (var entry in overridesDirectory.listSync(followLinks: false)) {
+    if (entry is! File || !entry.path.endsWith('.diff')) {
+      print('Ignoring "$entry');
+      continue;
+    }
+    print('  Running `git apply -v ${entry.path}`');
+    final result = await Process.start(
+      'git',
+      ['apply', '-v', entry.path],
+      mode: ProcessStartMode.inheritStdio,
+    );
+
+    final exitCode = await result.exitCode;
+    if (exitCode == 0) {
+      print('    Success!');
+    } else {
+      print([
+        'Failed!',
+        'Exit code: $exitCode',
+      ].map((e) => '      $e').join('\n'));
+    }
+    print('\n\n');
+  }
+}
