@@ -5,6 +5,7 @@
 
 import 'package:firebaseapis/firebaseremoteconfig/v1.dart' as remote_config;
 import 'package:firebaseapis/firebaserules/v1.dart' as firebase_rules;
+import 'package:firebaseapis/identitytoolkit/v3.dart' as firebase_auth;
 import 'package:googleapis_auth/auth_io.dart' as auth;
 
 Future<void> main() async {
@@ -12,6 +13,10 @@ Future<void> main() async {
     firebase_rules.FirebaseRulesApi.firebaseScope,
     // or read only
     firebase_rules.FirebaseRulesApi.firebaseReadonlyScope,
+
+    firebase_auth.IdentityToolkitApi.firebaseScope,
+
+    remote_config.FirebaseRemoteConfigApi.cloudPlatformScope,
   ]);
   // // or
   // final httpClient =
@@ -42,5 +47,13 @@ Future<void> main() async {
   print(config.parameters?.values.first.defaultValue);
   print(config.parameters?.values.first.description);
   print(config.parameters?.values.first.valueType);
+
+  final fa = firebase_auth.IdentityToolkitApi(httpClient);
+  await fa.relyingparty.deleteAccount(
+    firebase_auth.IdentitytoolkitRelyingpartyDeleteAccountRequest(
+      localId: 'uid goes here',
+    ),
+  );
+
   httpClient.close();
 }
