@@ -114,7 +114,7 @@
             }
         }
     },
-    "revision": "20220128",
+    "revision": "20220205",
     "rootUrl": "https://securetoken.googleapis.com/",
     "schemas": {
         "ExchangeTokenRequest": {

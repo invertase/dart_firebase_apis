@@ -164,6 +164,9 @@ class $DocumentMask {
 /// - firebase:v1beta1 : Empty
 /// - firebaseappcheck:v1beta : GoogleFirebaseAppcheckV1betaGenerateAppAttestChallengeRequest
 /// - firebaseappcheck:v1beta : GoogleProtobufEmpty
+/// - firebaseappdistribution:v1alpha : GoogleFirebaseAppdistroV1alphaCreateReleaseNotesResponse
+/// - firebaseappdistribution:v1alpha : GoogleFirebaseAppdistroV1alphaEnableAccessOnReleaseResponse
+/// - firebaseappdistribution:v1alpha : GoogleFirebaseAppdistroV1alphaProvisionAppResponse
 /// - firebasedatabase:v1beta : DisableDatabaseInstanceRequest
 /// - firebasedatabase:v1beta : ReenableDatabaseInstanceRequest
 /// - firebasehosting:v1 : CancelOperationRequest

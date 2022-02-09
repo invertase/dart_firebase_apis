@@ -14,6 +14,7 @@ packages:
         # TODO apis that are not discoverable:
         # fcmregistrations
         # firebaseinstallations
+        # firebaseapptesters
         - cloudfunctions:v1
         - fcm:v1
         - firebasedynamiclinks:v1
@@ -25,7 +26,8 @@ packages:
         - identitytoolkit:v3
         - storage:v1
         - testing:v1
-        # Betas
+        # Alphas & Betas
+        - firebaseappdistribution:v1alpha
         - fcmdata:v1beta1
         - firebase:v1beta1
         - firebaseappcheck:v1beta
