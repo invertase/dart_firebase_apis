@@ -6,6 +6,13 @@ Generated Dart libraries for accessing
 The following is a list of APIs that are currently available inside this
 package.
 
+#### Cloud Functions API - `cloudfunctions.v1`
+
+Manages lightweight user-provided functions executed in response to events.
+
+- [Documentation](https://cloud.google.com/functions)
+- [API details](https://pub.dev/documentation/firebaseapis/0.1.0/cloudfunctions.v1/cloudfunctions.v1-library.html)
+
 #### Firebase Cloud Messaging API - `fcm.v1`
 
 FCM send API that provides a cross-platform messaging solution to reliably deliver messages at no cost.

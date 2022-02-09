@@ -11,6 +11,10 @@ packages:
       extraDevDependencies:
         googleapis_auth: ^1.0.0
       apis:
+        # TODO apis that are not discoverable:
+        # fcmregistrations
+        # firebaseinstallations
+        - cloudfunctions:v1
         - fcm:v1
         - firebasedynamiclinks:v1
         - firebasehosting:v1
