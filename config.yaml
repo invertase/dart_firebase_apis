@@ -15,6 +15,7 @@ packages:
         # fcmregistrations
         # firebaseinstallations
         # firebaseapptesters
+        # firebaselogging # perf mon logging
         - cloudfunctions:v1
         - fcm:v1
         - firebasedynamiclinks:v1
