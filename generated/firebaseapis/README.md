@@ -146,3 +146,10 @@ Stores and retrieves potentially large, immutable data objects.
 - [Documentation](https://developers.google.com/storage/docs/json_api/)
 - [API details](https://pub.dev/documentation/firebaseapis/0.1.0/storage.v1/storage.v1-library.html)
 
+#### Cloud Testing API - `testing.v1`
+
+Allows developers to run automated tests for their mobile applications on Google infrastructure.
+
+- [Documentation](https://developers.google.com/cloud-test-lab/)
+- [API details](https://pub.dev/documentation/firebaseapis/0.1.0/testing.v1/testing.v1-library.html)
+

@@ -24,6 +24,7 @@ packages:
         - firestore:v1
         - identitytoolkit:v3
         - storage:v1
+        - testing:v1
         # Betas
         - fcmdata:v1beta1
         - firebase:v1beta1
