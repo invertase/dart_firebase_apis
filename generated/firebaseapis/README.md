@@ -74,6 +74,13 @@ The Firebase Hosting REST API enables programmatic and customizable management a
 - [Documentation](https://firebase.google.com/docs/hosting/)
 - [API details](https://pub.dev/documentation/firebaseapis/0.1.0/firebasehosting.v1beta1/firebasehosting.v1beta1-library.html)
 
+#### Firebase In-App Messaging API - `firebaseinappmessaging.v1`
+
+Publicly accessible APIs that allows firebase in-app messaging SDKs/Clients to communicate with servers for fetching message definitions. 
+
+- [Documentation](https://firebase.google.com)
+- [API details](https://pub.dev/documentation/firebaseapis/0.1.0/firebaseinappmessaging.v1/firebaseinappmessaging.v1-library.html)
+
 #### Firebase ML API - `firebaseml.v1`
 
 Access custom machine learning models hosted via Firebase ML.

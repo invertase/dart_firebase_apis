@@ -19,6 +19,7 @@ packages:
         - fcm:v1
         - firebasedynamiclinks:v1
         - firebasehosting:v1
+        - firebaseinappmessaging:v1
         - firebaseml:v1
         - firebaseremoteconfig:v1
         - firebaserules:v1
