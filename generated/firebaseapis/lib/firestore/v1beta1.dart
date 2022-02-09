@@ -1405,66 +1405,10 @@ class BeginTransactionRequest {
 }
 
 /// The response for Firestore.BeginTransaction.
-class BeginTransactionResponse {
-  /// The transaction that was started.
-  core.String? transaction;
-  core.List<core.int> get transactionAsBytes =>
-      convert.base64.decode(transaction!);
-
-  set transactionAsBytes(core.List<core.int> _bytes) {
-    transaction =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
-  }
-
-  BeginTransactionResponse({
-    this.transaction,
-  });
-
-  BeginTransactionResponse.fromJson(core.Map _json)
-      : this(
-          transaction: _json.containsKey('transaction')
-              ? _json['transaction'] as core.String
-              : null,
-        );
-
-  core.Map<core.String, core.dynamic> toJson() => {
-        if (transaction != null) 'transaction': transaction!,
-      };
-}
+typedef BeginTransactionResponse = $BeginTransactionResponse;
 
 /// A selection of a collection, such as `messages as m1`.
-class CollectionSelector {
-  /// When false, selects only collections that are immediate children of the
-  /// `parent` specified in the containing `RunQueryRequest`.
-  ///
-  /// When true, selects all descendant collections.
-  core.bool? allDescendants;
-
-  /// The collection ID.
-  ///
-  /// When set, selects only collections with this ID.
-  core.String? collectionId;
-
-  CollectionSelector({
-    this.allDescendants,
-    this.collectionId,
-  });
-
-  CollectionSelector.fromJson(core.Map _json)
-      : this(
-          allDescendants: _json.containsKey('allDescendants')
-              ? _json['allDescendants'] as core.bool
-              : null,
-          collectionId: _json.containsKey('collectionId')
-              ? _json['collectionId'] as core.String
-              : null,
-        );
-
-  core.Map<core.String, core.dynamic> toJson() => {
-        if (allDescendants != null) 'allDescendants': allDescendants!,
-        if (collectionId != null) 'collectionId': collectionId!,
-      };
-}
+typedef CollectionSelector = $CollectionSelector;
 
 /// The request for Firestore.Commit.
 class CommitRequest {
@@ -1793,29 +1737,7 @@ class DocumentDelete {
 /// Used to restrict a get or update operation on a document to a subset of its
 /// fields. This is different from standard field masks, as this is always
 /// scoped to a Document, and takes in account the dynamic nature of Value.
-class DocumentMask {
-  /// The list of field paths in the mask.
-  ///
-  /// See Document.fields for a field path syntax reference.
-  core.List<core.String>? fieldPaths;
-
-  DocumentMask({
-    this.fieldPaths,
-  });
-
-  DocumentMask.fromJson(core.Map _json)
-      : this(
-          fieldPaths: _json.containsKey('fieldPaths')
-              ? (_json['fieldPaths'] as core.List)
-                  .map((value) => value as core.String)
-                  .toList()
-              : null,
-        );
-
-  core.Map<core.String, core.dynamic> toJson() => {
-        if (fieldPaths != null) 'fieldPaths': fieldPaths!,
-      };
-}
+typedef DocumentMask = $DocumentMask;
 
 /// A Document has been removed from the view of the targets.
 ///
@@ -2031,24 +1953,7 @@ class FieldFilter {
 }
 
 /// A reference to a field, such as `max(messages.time) as max_time`.
-class FieldReference {
-  core.String? fieldPath;
-
-  FieldReference({
-    this.fieldPath,
-  });
-
-  FieldReference.fromJson(core.Map _json)
-      : this(
-          fieldPath: _json.containsKey('fieldPath')
-              ? _json['fieldPath'] as core.String
-              : null,
-        );
-
-  core.Map<core.String, core.dynamic> toJson() => {
-        if (fieldPath != null) 'fieldPath': fieldPath!,
-      };
-}
+typedef FieldReference = $FieldReference;
 
 /// A transformation of a field of the document.
 class FieldTransform {
@@ -2475,99 +2380,13 @@ class GoogleLongrunningOperation {
 /// This is expressed as a pair of doubles to represent degrees latitude and
 /// degrees longitude. Unless specified otherwise, this object must conform to
 /// the WGS84 standard. Values must be within normalized ranges.
-class LatLng {
-  /// The latitude in degrees.
-  ///
-  /// It must be in the range \[-90.0, +90.0\].
-  core.double? latitude;
-
-  /// The longitude in degrees.
-  ///
-  /// It must be in the range \[-180.0, +180.0\].
-  core.double? longitude;
-
-  LatLng({
-    this.latitude,
-    this.longitude,
-  });
-
-  LatLng.fromJson(core.Map _json)
-      : this(
-          latitude: _json.containsKey('latitude')
-              ? (_json['latitude'] as core.num).toDouble()
-              : null,
-          longitude: _json.containsKey('longitude')
-              ? (_json['longitude'] as core.num).toDouble()
-              : null,
-        );
-
-  core.Map<core.String, core.dynamic> toJson() => {
-        if (latitude != null) 'latitude': latitude!,
-        if (longitude != null) 'longitude': longitude!,
-      };
-}
+typedef LatLng = $LatLng;
 
 /// The request for Firestore.ListCollectionIds.
-class ListCollectionIdsRequest {
-  /// The maximum number of results to return.
-  core.int? pageSize;
-
-  /// A page token.
-  ///
-  /// Must be a value from ListCollectionIdsResponse.
-  core.String? pageToken;
-
-  ListCollectionIdsRequest({
-    this.pageSize,
-    this.pageToken,
-  });
-
-  ListCollectionIdsRequest.fromJson(core.Map _json)
-      : this(
-          pageSize: _json.containsKey('pageSize')
-              ? _json['pageSize'] as core.int
-              : null,
-          pageToken: _json.containsKey('pageToken')
-              ? _json['pageToken'] as core.String
-              : null,
-        );
-
-  core.Map<core.String, core.dynamic> toJson() => {
-        if (pageSize != null) 'pageSize': pageSize!,
-        if (pageToken != null) 'pageToken': pageToken!,
-      };
-}
+typedef ListCollectionIdsRequest = $ListCollectionIdsRequest;
 
 /// The response from Firestore.ListCollectionIds.
-class ListCollectionIdsResponse {
-  /// The collection ids.
-  core.List<core.String>? collectionIds;
-
-  /// A page token that may be used to continue the list.
-  core.String? nextPageToken;
-
-  ListCollectionIdsResponse({
-    this.collectionIds,
-    this.nextPageToken,
-  });
-
-  ListCollectionIdsResponse.fromJson(core.Map _json)
-      : this(
-          collectionIds: _json.containsKey('collectionIds')
-              ? (_json['collectionIds'] as core.List)
-                  .map((value) => value as core.String)
-                  .toList()
-              : null,
-          nextPageToken: _json.containsKey('nextPageToken')
-              ? _json['nextPageToken'] as core.String
-              : null,
-        );
-
-  core.Map<core.String, core.dynamic> toJson() => {
-        if (collectionIds != null) 'collectionIds': collectionIds!,
-        if (nextPageToken != null) 'nextPageToken': nextPageToken!,
-      };
-}
+typedef ListCollectionIdsResponse = $ListCollectionIdsResponse;
 
 /// The response for Firestore.ListDocuments.
 class ListDocumentsResponse {
@@ -2892,37 +2711,7 @@ class PartitionQueryResponse {
 }
 
 /// A precondition on a document, used for conditional operations.
-class Precondition {
-  /// When set to `true`, the target document must exist.
-  ///
-  /// When set to `false`, the target document must not exist.
-  core.bool? exists;
-
-  /// When set, the target document must exist and have been last updated at
-  /// that time.
-  ///
-  /// Timestamp must be microsecond aligned.
-  core.String? updateTime;
-
-  Precondition({
-    this.exists,
-    this.updateTime,
-  });
-
-  Precondition.fromJson(core.Map _json)
-      : this(
-          exists:
-              _json.containsKey('exists') ? _json['exists'] as core.bool : null,
-          updateTime: _json.containsKey('updateTime')
-              ? _json['updateTime'] as core.String
-              : null,
-        );
-
-  core.Map<core.String, core.dynamic> toJson() => {
-        if (exists != null) 'exists': exists!,
-        if (updateTime != null) 'updateTime': updateTime!,
-      };
-}
+typedef Precondition = $Precondition;
 
 /// The projection of document's fields to return.
 class Projection {
@@ -2988,85 +2777,13 @@ class QueryTarget {
 }
 
 /// Options for a transaction that can only be used to read documents.
-class ReadOnly {
-  /// Reads documents at the given time.
-  ///
-  /// This may not be older than 60 seconds.
-  core.String? readTime;
-
-  ReadOnly({
-    this.readTime,
-  });
-
-  ReadOnly.fromJson(core.Map _json)
-      : this(
-          readTime: _json.containsKey('readTime')
-              ? _json['readTime'] as core.String
-              : null,
-        );
-
-  core.Map<core.String, core.dynamic> toJson() => {
-        if (readTime != null) 'readTime': readTime!,
-      };
-}
+typedef ReadOnly = $ReadOnly;
 
 /// Options for a transaction that can be used to read and write documents.
-class ReadWrite {
-  /// An optional transaction to retry.
-  core.String? retryTransaction;
-  core.List<core.int> get retryTransactionAsBytes =>
-      convert.base64.decode(retryTransaction!);
-
-  set retryTransactionAsBytes(core.List<core.int> _bytes) {
-    retryTransaction =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
-  }
-
-  ReadWrite({
-    this.retryTransaction,
-  });
-
-  ReadWrite.fromJson(core.Map _json)
-      : this(
-          retryTransaction: _json.containsKey('retryTransaction')
-              ? _json['retryTransaction'] as core.String
-              : null,
-        );
-
-  core.Map<core.String, core.dynamic> toJson() => {
-        if (retryTransaction != null) 'retryTransaction': retryTransaction!,
-      };
-}
+typedef ReadWrite = $ReadWrite;
 
 /// The request for Firestore.Rollback.
-class RollbackRequest {
-  /// The transaction to roll back.
-  ///
-  /// Required.
-  core.String? transaction;
-  core.List<core.int> get transactionAsBytes =>
-      convert.base64.decode(transaction!);
-
-  set transactionAsBytes(core.List<core.int> _bytes) {
-    transaction =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
-  }
-
-  RollbackRequest({
-    this.transaction,
-  });
-
-  RollbackRequest.fromJson(core.Map _json)
-      : this(
-          transaction: _json.containsKey('transaction')
-              ? _json['transaction'] as core.String
-              : null,
-        );
-
-  core.Map<core.String, core.dynamic> toJson() => {
-        if (transaction != null) 'transaction': transaction!,
-      };
-}
+typedef RollbackRequest = $RollbackRequest;
 
 /// The request for Firestore.RunQuery.
 class RunQueryRequest {

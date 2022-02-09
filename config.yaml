@@ -15,18 +15,12 @@ packages:
         - firebasedynamiclinks:v1
         - firebasehosting:v1
         - firebaseml:v1
+        - firebaseremoteconfig:v1
         - firebaserules:v1
         - firestore:v1
-        - firebaseremoteconfig:v1
         - identitytoolkit:v3
-
-  - firebaseapis_beta:
-      version: 0.1.0
-      repository: https://github.com/invertase/firebaseapis/tree/master/generated/firebaseapis_beta
-      readme: resources/README.md
-      license: resources/LICENSE
-      changelog: resources/firebaseapis_beta/CHANGELOG.md
-      apis:
+        - storage:v1
+        # Betas
         - fcmdata:v1beta1
         - firebase:v1beta1
         - firebaseappcheck:v1beta

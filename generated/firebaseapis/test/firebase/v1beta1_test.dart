@@ -20,7 +20,7 @@ import 'dart:async' as async;
 import 'dart:convert' as convert;
 import 'dart:core' as core;
 
-import 'package:firebaseapis_beta/firebase/v1beta1.dart' as api;
+import 'package:firebaseapis/firebase/v1beta1.dart' as api;
 import 'package:http/http.dart' as http;
 import 'package:test/test.dart' as unittest;
 
