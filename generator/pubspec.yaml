@@ -12,4 +12,7 @@ dependencies:
 
 dependency_overrides:
   discoveryapis_generator:
-    path: ../discoveryapis_generator
+    git:
+      path: discoveryapis_generator
+      url: https://github.com/google/googleapis.dart.git
+      ref: c338236f20bdac0c24c9c5c5c5748b431ee6c3c0

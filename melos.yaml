@@ -1,8 +1,6 @@
 name: firebaseapis
 
 packages:
-  - discoveryapis_commons/*
-  - discoveryapis_generator/*
   - generator/*
   - _test/*
   - _test_package/*
