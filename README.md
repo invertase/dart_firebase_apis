@@ -6,6 +6,36 @@ This is based on the [`googleapis.dart`](https://github.com/google/googleapis.da
 
 > See [./generated/firebaseapis/README.md](./generated/firebaseapis/README.md) for information on all the currently supported APIs.
 
+## Usage Example
+
+```dart
+// Import the APIs you want to use
+import 'package:firebaseapis/firebaseremoteconfig/v1.dart' as remote_config;
+import 'package:firebaseapis/firebaserules/v1.dart' as firebase_rules;
+// Import Auth client
+import 'package:googleapis_auth/auth_io.dart' as auth;
+
+// Get an Auth Client
+final authClient = await auth.clientViaApplicationDefaultCredentials(scopes: [
+  remote_config.FirebaseRemoteConfigApi.cloudPlatformScope,
+]);
+
+// Call some APIs
+final rc = remote_config.FirebaseRemoteConfigApi(authClient);
+final config =
+  await rc.projects.getRemoteConfig('projects/<your-project-id>');
+print(config.parameters);
+print(config.parameters?.values.first.defaultValue);
+print(config.parameters?.values.first.description);
+print(config.parameters?.values.first.valueType);
+
+final fr = firebase_rules.FirebaseRulesApi(authClient);
+final rules =
+  await fr.projects.rulesets.list('projects/<your-project-id>');
+print(rules.rulesets?.first.name);
+print(rules.rulesets?.first.source?.files?.first.content);
+```
+
 ## Contributing
 
 This project uses [Melos](https://github.com/invertase/melos) to manage the project and dependencies.
