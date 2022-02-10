@@ -824,43 +824,7 @@ class AuditConfig {
 /// "exempted_members": \[ "user:jose@example.com" \] }, { "log_type":
 /// "DATA_WRITE" } \] } This enables 'DATA_READ' and 'DATA_WRITE' logging, while
 /// exempting jose@example.com from DATA_READ logging.
-class AuditLogConfig {
-  /// Specifies the identities that do not cause logging for this type of
-  /// permission.
-  ///
-  /// Follows the same format of Binding.members.
-  core.List<core.String>? exemptedMembers;
-
-  /// The log type that this config enables.
-  /// Possible string values are:
-  /// - "LOG_TYPE_UNSPECIFIED" : Default case. Should never be this.
-  /// - "ADMIN_READ" : Admin reads. Example: CloudIAM getIamPolicy
-  /// - "DATA_WRITE" : Data writes. Example: CloudSQL Users create
-  /// - "DATA_READ" : Data reads. Example: CloudSQL Users list
-  core.String? logType;
-
-  AuditLogConfig({
-    this.exemptedMembers,
-    this.logType,
-  });
-
-  AuditLogConfig.fromJson(core.Map _json)
-      : this(
-          exemptedMembers: _json.containsKey('exemptedMembers')
-              ? (_json['exemptedMembers'] as core.List)
-                  .map((value) => value as core.String)
-                  .toList()
-              : null,
-          logType: _json.containsKey('logType')
-              ? _json['logType'] as core.String
-              : null,
-        );
-
-  core.Map<core.String, core.dynamic> toJson() => {
-        if (exemptedMembers != null) 'exemptedMembers': exemptedMembers!,
-        if (logType != null) 'logType': logType!,
-      };
-}
+typedef AuditLogConfig = $AuditLogConfig;
 
 /// Associates `members`, or principals, with a `role`.
 class Binding {
@@ -1042,6 +1006,23 @@ class CloudFunction {
 
   /// User-provided description of a function.
   core.String? description;
+
+  /// Docker Registry to use for this deployment.
+  ///
+  /// If `docker_repository` field is specified, this field will be
+  /// automatically set as `ARTIFACT_REGISTRY`. If unspecified, it currently
+  /// defaults to `CONTAINER_REGISTRY`. This field may be overridden by the
+  /// backend for eligible deployments.
+  /// Possible string values are:
+  /// - "DOCKER_REGISTRY_UNSPECIFIED" : Unspecified.
+  /// - "CONTAINER_REGISTRY" : Docker images will be stored in multi-regional
+  /// Container Registry repositories named `gcf`.
+  /// - "ARTIFACT_REGISTRY" : Docker images will be stored in regional Artifact
+  /// Registry repositories. By default, GCF will create and use repositories
+  /// named `gcf-artifacts` in every region in which a function is deployed. But
+  /// the repository to use can also be specified by the user using the
+  /// `docker_repository` field.
+  core.String? dockerRegistry;
 
   /// User managed repository created in Artifact Registry optionally with a
   /// customer managed encryption key.
@@ -1248,6 +1229,7 @@ class CloudFunction {
     this.buildName,
     this.buildWorkerPool,
     this.description,
+    this.dockerRegistry,
     this.dockerRepository,
     this.entryPoint,
     this.environmentVariables,
@@ -1303,6 +1285,9 @@ class CloudFunction {
               : null,
           description: _json.containsKey('description')
               ? _json['description'] as core.String
+              : null,
+          dockerRegistry: _json.containsKey('dockerRegistry')
+              ? _json['dockerRegistry'] as core.String
               : null,
           dockerRepository: _json.containsKey('dockerRepository')
               ? _json['dockerRepository'] as core.String
@@ -1413,6 +1398,7 @@ class CloudFunction {
         if (buildName != null) 'buildName': buildName!,
         if (buildWorkerPool != null) 'buildWorkerPool': buildWorkerPool!,
         if (description != null) 'description': description!,
+        if (dockerRegistry != null) 'dockerRegistry': dockerRegistry!,
         if (dockerRepository != null) 'dockerRepository': dockerRepository!,
         if (entryPoint != null) 'entryPoint': entryPoint!,
         if (environmentVariables != null)
@@ -1539,61 +1525,7 @@ class EventTrigger {
 /// functions that may be referenced within an expression are determined by the
 /// service that evaluates it. See the service documentation for additional
 /// information.
-class Expr {
-  /// Description of the expression.
-  ///
-  /// This is a longer text which describes the expression, e.g. when hovered
-  /// over it in a UI.
-  ///
-  /// Optional.
-  core.String? description;
-
-  /// Textual representation of an expression in Common Expression Language
-  /// syntax.
-  core.String? expression;
-
-  /// String indicating the location of the expression for error reporting, e.g.
-  /// a file name and a position in the file.
-  ///
-  /// Optional.
-  core.String? location;
-
-  /// Title for the expression, i.e. a short string describing its purpose.
-  ///
-  /// This can be used e.g. in UIs which allow to enter the expression.
-  ///
-  /// Optional.
-  core.String? title;
-
-  Expr({
-    this.description,
-    this.expression,
-    this.location,
-    this.title,
-  });
-
-  Expr.fromJson(core.Map _json)
-      : this(
-          description: _json.containsKey('description')
-              ? _json['description'] as core.String
-              : null,
-          expression: _json.containsKey('expression')
-              ? _json['expression'] as core.String
-              : null,
-          location: _json.containsKey('location')
-              ? _json['location'] as core.String
-              : null,
-          title:
-              _json.containsKey('title') ? _json['title'] as core.String : null,
-        );
-
-  core.Map<core.String, core.dynamic> toJson() => {
-        if (description != null) 'description': description!,
-        if (expression != null) 'expression': expression!,
-        if (location != null) 'location': location!,
-        if (title != null) 'title': title!,
-      };
-}
+typedef Expr = $Expr;
 
 /// Describes the policy in case of function's execution failure.
 ///
@@ -2294,52 +2226,7 @@ class SourceRepository {
 typedef Status = $Status;
 
 /// Request message for `TestIamPermissions` method.
-class TestIamPermissionsRequest {
-  /// The set of permissions to check for the `resource`.
-  ///
-  /// Permissions with wildcards (such as '*' or 'storage.*') are not allowed.
-  /// For more information see
-  /// [IAM Overview](https://cloud.google.com/iam/docs/overview#permissions).
-  core.List<core.String>? permissions;
-
-  TestIamPermissionsRequest({
-    this.permissions,
-  });
-
-  TestIamPermissionsRequest.fromJson(core.Map _json)
-      : this(
-          permissions: _json.containsKey('permissions')
-              ? (_json['permissions'] as core.List)
-                  .map((value) => value as core.String)
-                  .toList()
-              : null,
-        );
-
-  core.Map<core.String, core.dynamic> toJson() => {
-        if (permissions != null) 'permissions': permissions!,
-      };
-}
+typedef TestIamPermissionsRequest = $TestIamPermissionsRequest;
 
 /// Response message for `TestIamPermissions` method.
-class TestIamPermissionsResponse {
-  /// A subset of `TestPermissionsRequest.permissions` that the caller is
-  /// allowed.
-  core.List<core.String>? permissions;
-
-  TestIamPermissionsResponse({
-    this.permissions,
-  });
-
-  TestIamPermissionsResponse.fromJson(core.Map _json)
-      : this(
-          permissions: _json.containsKey('permissions')
-              ? (_json['permissions'] as core.List)
-                  .map((value) => value as core.String)
-                  .toList()
-              : null,
-        );
-
-  core.Map<core.String, core.dynamic> toJson() => {
-        if (permissions != null) 'permissions': permissions!,
-      };
-}
+typedef TestIamPermissionsResponse = $TestIamPermissionsResponse;

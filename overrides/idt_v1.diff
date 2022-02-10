@@ -1,0 +1,15 @@
+diff --git a/discovery/firebaseapis/identitytoolkit__v1.json b/discovery/firebaseapis/identitytoolkit__v1.json
+index dd6c464..94c4ce6 100644
+--- a/discovery/firebaseapis/identitytoolkit__v1.json
++++ b/discovery/firebaseapis/identitytoolkit__v1.json
+@@ -1194,7 +1194,9 @@
+                     "parameterOrder": [],
+                     "parameters": {},
+                     "path": "v1/publicKeys",
+-                    "response": {},
++                    "response": {
++                        "$ref": "GoogleCloudIdentitytoolkitV1GetSessionCookiePublicKeysResponse"
++                    },
+                     "scopes": [
+                         "https://www.googleapis.com/auth/cloud-platform"
+                     ]

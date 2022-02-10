@@ -22,6 +22,73 @@ import 'dart:core' as core;
 
 /// Used by:
 ///
+/// - cloudfunctions:v1 : AuditLogConfig
+/// - identitytoolkit:v2 : GoogleIamV1AuditLogConfig
+class $AuditLogConfig {
+  /// Specifies the identities that do not cause logging for this type of
+  /// permission.
+  ///
+  /// Follows the same format of Binding.members.
+  core.List<core.String>? exemptedMembers;
+
+  /// The log type that this config enables.
+  /// Possible string values are:
+  /// - "LOG_TYPE_UNSPECIFIED" : Default case. Should never be this.
+  /// - "ADMIN_READ" : Admin reads. Example: CloudIAM getIamPolicy
+  /// - "DATA_WRITE" : Data writes. Example: CloudSQL Users create
+  /// - "DATA_READ" : Data reads. Example: CloudSQL Users list
+  core.String? logType;
+
+  $AuditLogConfig({
+    this.exemptedMembers,
+    this.logType,
+  });
+
+  $AuditLogConfig.fromJson(core.Map _json)
+      : this(
+          exemptedMembers: _json.containsKey('exemptedMembers')
+              ? (_json['exemptedMembers'] as core.List)
+                  .map((value) => value as core.String)
+                  .toList()
+              : null,
+          logType: _json.containsKey('logType')
+              ? _json['logType'] as core.String
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (exemptedMembers != null) 'exemptedMembers': exemptedMembers!,
+        if (logType != null) 'logType': logType!,
+      };
+}
+
+/// Used by:
+///
+/// - identitytoolkit:v1 : GoogleCloudIdentitytoolkitV1AutoRetrievalInfo
+/// - identitytoolkit:v2 : GoogleCloudIdentitytoolkitV2AutoRetrievalInfo
+class $AutoRetrievalInfo {
+  /// The Android app's signature hash for Google Play Service's SMS Retriever
+  /// API.
+  core.String? appSignatureHash;
+
+  $AutoRetrievalInfo({
+    this.appSignatureHash,
+  });
+
+  $AutoRetrievalInfo.fromJson(core.Map _json)
+      : this(
+          appSignatureHash: _json.containsKey('appSignatureHash')
+              ? _json['appSignatureHash'] as core.String
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (appSignatureHash != null) 'appSignatureHash': appSignatureHash!,
+      };
+}
+
+/// Used by:
+///
 /// - firestore:v1 : BeginTransactionResponse
 /// - firestore:v1beta1 : BeginTransactionResponse
 class $BeginTransactionResponse {
@@ -183,6 +250,7 @@ class $DocumentMask {
 /// - firestore:v1 : GoogleLongrunningCancelOperationRequest
 /// - firestore:v1beta1 : Empty
 /// - firestore:v1beta2 : Empty
+/// - identitytoolkit:v2 : GoogleProtobufEmpty
 /// - testing:v1 : GoogleAuto
 /// - testing:v1 : LauncherActivityIntent
 class $Empty {
@@ -238,6 +306,66 @@ class $ExportDocumentsRequest {
   core.Map<core.String, core.dynamic> toJson() => {
         if (collectionIds != null) 'collectionIds': collectionIds!,
         if (outputUriPrefix != null) 'outputUriPrefix': outputUriPrefix!,
+      };
+}
+
+/// Used by:
+///
+/// - cloudfunctions:v1 : Expr
+/// - identitytoolkit:v2 : GoogleTypeExpr
+class $Expr {
+  /// Description of the expression.
+  ///
+  /// This is a longer text which describes the expression, e.g. when hovered
+  /// over it in a UI.
+  ///
+  /// Optional.
+  core.String? description;
+
+  /// Textual representation of an expression in Common Expression Language
+  /// syntax.
+  core.String? expression;
+
+  /// String indicating the location of the expression for error reporting, e.g.
+  /// a file name and a position in the file.
+  ///
+  /// Optional.
+  core.String? location;
+
+  /// Title for the expression, i.e. a short string describing its purpose.
+  ///
+  /// This can be used e.g. in UIs which allow to enter the expression.
+  ///
+  /// Optional.
+  core.String? title;
+
+  $Expr({
+    this.description,
+    this.expression,
+    this.location,
+    this.title,
+  });
+
+  $Expr.fromJson(core.Map _json)
+      : this(
+          description: _json.containsKey('description')
+              ? _json['description'] as core.String
+              : null,
+          expression: _json.containsKey('expression')
+              ? _json['expression'] as core.String
+              : null,
+          location: _json.containsKey('location')
+              ? _json['location'] as core.String
+              : null,
+          title:
+              _json.containsKey('title') ? _json['title'] as core.String : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (description != null) 'description': description!,
+        if (expression != null) 'expression': expression!,
+        if (location != null) 'location': location!,
+        if (title != null) 'title': title!,
       };
 }
 
@@ -642,5 +770,62 @@ class $Status {
         if (code != null) 'code': code!,
         if (details != null) 'details': details!,
         if (message != null) 'message': message!,
+      };
+}
+
+/// Used by:
+///
+/// - cloudfunctions:v1 : TestIamPermissionsRequest
+/// - identitytoolkit:v2 : GoogleIamV1TestIamPermissionsRequest
+class $TestIamPermissionsRequest {
+  /// The set of permissions to check for the `resource`.
+  ///
+  /// Permissions with wildcards (such as '*' or 'storage.*') are not allowed.
+  /// For more information see
+  /// [IAM Overview](https://cloud.google.com/iam/docs/overview#permissions).
+  core.List<core.String>? permissions;
+
+  $TestIamPermissionsRequest({
+    this.permissions,
+  });
+
+  $TestIamPermissionsRequest.fromJson(core.Map _json)
+      : this(
+          permissions: _json.containsKey('permissions')
+              ? (_json['permissions'] as core.List)
+                  .map((value) => value as core.String)
+                  .toList()
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (permissions != null) 'permissions': permissions!,
+      };
+}
+
+/// Used by:
+///
+/// - cloudfunctions:v1 : TestIamPermissionsResponse
+/// - identitytoolkit:v2 : GoogleIamV1TestIamPermissionsResponse
+class $TestIamPermissionsResponse {
+  /// A subset of `TestPermissionsRequest.permissions` that the caller is
+  /// allowed.
+  core.List<core.String>? permissions;
+
+  $TestIamPermissionsResponse({
+    this.permissions,
+  });
+
+  $TestIamPermissionsResponse.fromJson(core.Map _json)
+      : this(
+          permissions: _json.containsKey('permissions')
+              ? (_json['permissions'] as core.List)
+                  .map((value) => value as core.String)
+                  .toList()
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (permissions != null) 'permissions': permissions!,
       };
 }

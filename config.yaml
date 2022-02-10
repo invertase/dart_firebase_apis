@@ -2,7 +2,7 @@
 # should be ignored.
 packages:
   - firebaseapis:
-      version: 0.1.0
+      version: 0.1.0+1
       repository: https://github.com/invertase/firebaseapis/tree/master/generated/firebaseapis
       readme: resources/README.md
       license: resources/LICENSE
@@ -11,11 +11,6 @@ packages:
       extraDevDependencies:
         googleapis_auth: ^1.0.0
       apis:
-        # TODO apis that are not discoverable:
-        # fcmregistrations
-        # firebaseinstallations
-        # firebaseapptesters
-        # firebaselogging # perf mon logging
         - cloudfunctions:v1
         - fcm:v1
         - firebasedynamiclinks:v1
@@ -25,6 +20,8 @@ packages:
         - firebaseremoteconfig:v1
         - firebaserules:v1
         - firestore:v1
+        - identitytoolkit:v1
+        - identitytoolkit:v2
         - identitytoolkit:v3
         - storage:v1
         - testing:v1
