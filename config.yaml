@@ -2,8 +2,8 @@
 # should be ignored.
 packages:
   - firebaseapis:
-      version: 0.1.0+1
-      repository: https://github.com/invertase/firebaseapis/tree/master/generated/firebaseapis
+      version: 0.1.1
+      repository: https://github.com/invertase/dart_firebase_apis/tree/master/generated/firebaseapis
       readme: resources/README.md
       license: resources/LICENSE
       changelog: resources/firebaseapis/CHANGELOG.md
