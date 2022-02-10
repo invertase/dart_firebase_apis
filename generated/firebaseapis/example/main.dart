@@ -9,10 +9,10 @@ import 'package:firebaseapis/identitytoolkit/v1.dart' as firebase_auth;
 import 'package:googleapis_auth/auth_io.dart' as auth;
 
 Future<void> main() async {
-  final httpClient = await auth.clientViaApplicationDefaultCredentials(scopes: [
+  final authClient = await auth.clientViaApplicationDefaultCredentials(scopes: [
     firebase_rules.FirebaseRulesApi.firebaseScope,
     // or read only
-    firebase_rules.FirebaseRulesApi.firebaseReadonlyScope,
+    // firebase_rules.FirebaseRulesApi.firebaseReadonlyScope,
 
     firebase_auth.IdentityToolkitApi.firebaseScope,
 
@@ -20,28 +20,28 @@ Future<void> main() async {
   ]);
 
   // // or
-  // final httpClient =
+  // final authClient =
   //     auth.clientViaApiKey('API KEY GOES HERE');
+
   // // or
-  //   final httpClient = await auth.clientViaServiceAccount(
-  //     auth.ServiceAccountCredentials.fromJson(
-  //       r'''
-  // YOUR JSON HERE
+  // final authClient = await auth.clientViaServiceAccount(
+  //   auth.ServiceAccountCredentials.fromJson(
+  //     r'''
+  //          YOUR JSON HERE
   //       ''',
-  //     ),
-  //     [
-  //       remote_config.FirebaseRemoteConfigApi.cloudPlatformScope,
-  //     ],
-  //   );
-  final fr = firebase_rules.FirebaseRulesApi(httpClient);
-  final rules =
-      await fr.projects.rulesets.list('projects/flutterfire-e2e-tests');
+  //   ),
+  //   [
+  //     remote_config.FirebaseRemoteConfigApi.cloudPlatformScope,
+  //   ],
+  // );
+
+  final fr = firebase_rules.FirebaseRulesApi(authClient);
+  final rules = await fr.projects.rulesets.list('projects/<your-project-id>');
 
   print(rules.rulesets?.first.name);
   print(rules.rulesets?.first.source?.files?.first.content);
-  // etc
 
-  final rc = remote_config.FirebaseRemoteConfigApi(httpClient);
+  final rc = remote_config.FirebaseRemoteConfigApi(authClient);
   final config =
       await rc.projects.getRemoteConfig('projects/<your-project-id>');
   print(config.parameters);
@@ -49,12 +49,12 @@ Future<void> main() async {
   print(config.parameters?.values.first.description);
   print(config.parameters?.values.first.valueType);
 
-  final fa = firebase_auth.IdentityToolkitApi(httpClient);
+  final fa = firebase_auth.IdentityToolkitApi(authClient);
   final users = await fa.accounts
       .lookup(firebase_auth.GoogleCloudIdentitytoolkitV1GetAccountInfoRequest(
     localId: ['<your-user-id>'],
   ));
   print(users.users?.first.localId);
   print(users.users?.first.email);
-  httpClient.close();
+  authClient.close();
 }
