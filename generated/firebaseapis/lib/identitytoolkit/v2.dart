@@ -3257,10 +3257,9 @@ class GoogleCloudIdentitytoolkitAdminV2MonitoringConfig {
 
 /// Options related to MultiFactor Authentication for the project.
 class GoogleCloudIdentitytoolkitAdminV2MultiFactorAuthConfig {
-  /// A list of usable second factors for this project.
   core.List<core.String>? enabledProviders;
 
-  /// Whether MultiFactor Authentication has been enabled for this project.
+  ///
   /// Possible string values are:
   /// - "STATE_UNSPECIFIED" : Illegal State, should not be used.
   /// - "DISABLED" : Multi-factor authentication cannot be used for this project
@@ -4222,6 +4221,8 @@ class GoogleCloudIdentitytoolkitV2FinalizeMfaEnrollmentRequest {
 class GoogleCloudIdentitytoolkitV2FinalizeMfaEnrollmentResponse {
   /// ID token updated to reflect MFA enrollment.
   core.String? idToken;
+
+  /// Auxiliary auth info specific to phone auth.
   GoogleCloudIdentitytoolkitV2FinalizeMfaPhoneResponseInfo? phoneAuthInfo;
 
   /// Refresh token updated to reflect MFA enrollment.

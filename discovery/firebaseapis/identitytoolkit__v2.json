@@ -1525,7 +1525,7 @@
             }
         }
     },
-    "revision": "20220128",
+    "revision": "20220205",
     "rootUrl": "https://identitytoolkit.googleapis.com/",
     "schemas": {
         "GoogleCloudIdentitytoolkitAdminV2Anonymous": {
@@ -2095,7 +2095,6 @@
             "id": "GoogleCloudIdentitytoolkitAdminV2MultiFactorAuthConfig",
             "properties": {
                 "enabledProviders": {
-                    "description": "A list of usable second factors for this project.",
                     "items": {
                         "enum": [
                             "PROVIDER_UNSPECIFIED",
@@ -2110,7 +2109,6 @@
                     "type": "array"
                 },
                 "state": {
-                    "description": "Whether MultiFactor Authentication has been enabled for this project.",
                     "enum": [
                         "STATE_UNSPECIFIED",
                         "DISABLED",
@@ -2594,7 +2592,8 @@
                     "type": "string"
                 },
                 "phoneAuthInfo": {
-                    "$ref": "GoogleCloudIdentitytoolkitV2FinalizeMfaPhoneResponseInfo"
+                    "$ref": "GoogleCloudIdentitytoolkitV2FinalizeMfaPhoneResponseInfo",
+                    "description": "Auxiliary auth info specific to phone auth."
                 },
                 "refreshToken": {
                     "description": "Refresh token updated to reflect MFA enrollment.",

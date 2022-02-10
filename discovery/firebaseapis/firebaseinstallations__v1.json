@@ -1,0 +1,263 @@
+{
+    "basePath": "",
+    "baseUrl": "https://firebaseinstallations.googleapis.com/",
+    "batchPath": "batch",
+    "canonicalName": "Firebaseinstallations",
+    "description": "",
+    "discoveryVersion": "v1",
+    "documentationLink": "https://firebase.google.com",
+    "icons": {
+        "x16": "http://www.google.com/images/icons/product/search-16.gif",
+        "x32": "http://www.google.com/images/icons/product/search-32.gif"
+    },
+    "id": "firebaseinstallations:v1",
+    "kind": "discovery#restDescription",
+    "name": "firebaseinstallations",
+    "ownerDomain": "google.com",
+    "ownerName": "Google",
+    "parameters": {
+        "$.xgafv": {
+            "description": "V1 error format.",
+            "enum": [
+                "1",
+                "2"
+            ],
+            "enumDescriptions": [
+                "v1 error format",
+                "v2 error format"
+            ],
+            "location": "query",
+            "type": "string"
+        },
+        "access_token": {
+            "description": "OAuth access token.",
+            "location": "query",
+            "type": "string"
+        },
+        "alt": {
+            "default": "json",
+            "description": "Data format for response.",
+            "enum": [
+                "json",
+                "media",
+                "proto"
+            ],
+            "enumDescriptions": [
+                "Responses with Content-Type of application/json",
+                "Media download with context-dependent Content-Type",
+                "Responses with Content-Type of application/x-protobuf"
+            ],
+            "location": "query",
+            "type": "string"
+        },
+        "callback": {
+            "description": "JSONP",
+            "location": "query",
+            "type": "string"
+        },
+        "fields": {
+            "description": "Selector specifying which fields to include in a partial response.",
+            "location": "query",
+            "type": "string"
+        },
+        "key": {
+            "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
+            "location": "query",
+            "type": "string"
+        },
+        "oauth_token": {
+            "description": "OAuth 2.0 token for the current user.",
+            "location": "query",
+            "type": "string"
+        },
+        "prettyPrint": {
+            "default": "true",
+            "description": "Returns response with indentations and line breaks.",
+            "location": "query",
+            "type": "boolean"
+        },
+        "quotaUser": {
+            "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.",
+            "location": "query",
+            "type": "string"
+        },
+        "uploadType": {
+            "description": "Legacy upload protocol for media (e.g. \"media\", \"multipart\").",
+            "location": "query",
+            "type": "string"
+        },
+        "upload_protocol": {
+            "description": "Upload protocol for media (e.g. \"raw\", \"multipart\").",
+            "location": "query",
+            "type": "string"
+        }
+    },
+    "protocol": "rest",
+    "resources": {
+        "projects": {
+            "resources": {
+                "installations": {
+                    "methods": {
+                        "create": {
+                            "description": "Creates (and registers) a new Firebase Installation, incl. its FID and associated keys/tokens for authentication: - For FIS_v1, this associates the client-side generated Verification Key with the Firebase Installation. - For FIS_v2, this creates the Refresh Token which is used to authenticate GenerateAuthToken requests. - This also creates the initial temporary FIS-Auth-Token. Refer to https://cloud.google.com/apis/design/standard_methods for method definition formats.",
+                            "flatPath": "v1/projects/{projectsId}/installations",
+                            "httpMethod": "POST",
+                            "id": "firebaseinstallations.projects.installations.create",
+                            "parameterOrder": [
+                                "parent"
+                            ],
+                            "parameters": {
+                                "parent": {
+                                    "description": "The parent resource name. Identifies the Cloud Project owning this Installation. We accept both projectID and projectNumber.",
+                                    "location": "path",
+                                    "pattern": "^projects/[^/]+$",
+                                    "required": true,
+                                    "type": "string"
+                                }
+                            },
+                            "path": "v1/{+parent}/installations",
+                            "request": {
+                                "$ref": "GoogleFirebaseInstallationsV1Installation"
+                            },
+                            "response": {
+                                "$ref": "GoogleFirebaseInstallationsV1Installation"
+                            }
+                        },
+                        "delete": {
+                            "description": "Deletes an Installation",
+                            "flatPath": "v1/projects/{projectsId}/installations/{installationsId}",
+                            "httpMethod": "DELETE",
+                            "id": "firebaseinstallations.projects.installations.delete",
+                            "parameterOrder": [
+                                "name"
+                            ],
+                            "parameters": {
+                                "name": {
+                                    "description": "Resource name of the installation. It must have the format of `projects/*/installations/*`.",
+                                    "location": "path",
+                                    "pattern": "^projects/[^/]+/installations/[^/]+$",
+                                    "required": true,
+                                    "type": "string"
+                                }
+                            },
+                            "path": "v1/{+name}",
+                            "response": {
+                                "$ref": "GoogleProtobufEmpty"
+                            }
+                        }
+                    },
+                    "resources": {
+                        "authTokens": {
+                            "methods": {
+                                "generate": {
+                                    "description": "Creates a new temporary FIS-Auth-Token (Bearer-Token for Installations).",
+                                    "flatPath": "v1/projects/{projectsId}/installations/{installationsId}/authTokens:generate",
+                                    "httpMethod": "POST",
+                                    "id": "firebaseinstallations.projects.installations.authTokens.generate",
+                                    "parameterOrder": [
+                                        "name"
+                                    ],
+                                    "parameters": {
+                                        "name": {
+                                            "description": "The Firebase Installation requesting for FIS-Auth-Token.",
+                                            "location": "path",
+                                            "pattern": "^projects/[^/]+/installations/[^/]+$",
+                                            "required": true,
+                                            "type": "string"
+                                        }
+                                    },
+                                    "path": "v1/{+name}/authTokens:generate",
+                                    "request": {
+                                        "$ref": "GoogleFirebaseInstallationsV1GenerateAuthTokenRequest"
+                                    },
+                                    "response": {
+                                        "$ref": "GoogleFirebaseInstallationsV1AuthTokenInfo"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "revision": "20220121",
+    "rootUrl": "https://firebaseinstallations.googleapis.com/",
+    "schemas": {
+        "GoogleFirebaseInstallationsV1AuthTokenInfo": {
+            "id": "GoogleFirebaseInstallationsV1AuthTokenInfo",
+            "properties": {
+                "expiresIn": {
+                    "description": "The duration for which this auth_token will be valid. In a response's JSON format, the value is encoded as a string with the suffix \"s\" (indicating seconds), preceded by the number of seconds. Example: \"604800s\"",
+                    "format": "google-duration",
+                    "type": "string"
+                },
+                "token": {
+                    "description": "A new FIS-Auth-Token, created for the Firebase Installation.",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "GoogleFirebaseInstallationsV1GenerateAuthTokenRequest": {
+            "description": "The request to create a new temporary FIS-Auth-Token (which is a Bearer-Token for Installations).",
+            "id": "GoogleFirebaseInstallationsV1GenerateAuthTokenRequest",
+            "properties": {
+                "installation": {
+                    "$ref": "GoogleFirebaseInstallationsV1Installation",
+                    "description": "Optional field that allows the Firebase Installation to update (some of) its attributes with FIS the server (ex: sdk_version) when it requests for a new FIS Auth-Token."
+                }
+            },
+            "type": "object"
+        },
+        "GoogleFirebaseInstallationsV1Installation": {
+            "description": "next_id: 9",
+            "id": "GoogleFirebaseInstallationsV1Installation",
+            "properties": {
+                "appId": {
+                    "description": "(GMP)-App-ID - Firebase Application identifier, generated by FireData API",
+                    "type": "string"
+                },
+                "authToken": {
+                    "$ref": "GoogleFirebaseInstallationsV1AuthTokenInfo",
+                    "description": "The initial FIS Auth-Token, created for the Firebase Installation. This field is set only during response."
+                },
+                "authVersion": {
+                    "description": "The version of the Firebase Installations Internal Authentication scheme. This value is used as Authorization-Type of HTTP-header \"Authorization\". Compare: https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication The internal client/server authentication of Firebase Installations may change in the future. Initial version is \"FIS_v2\". This field is optional. If not set the default version is assumed (FIS_v2).",
+                    "type": "string"
+                },
+                "fid": {
+                    "description": "Globally unique identifier of the Firebase Installation. In a CreateInstallationRequest, this should be the FID from the client, which should be initially randomly generated. In the corresponding response, this will be a unique FID that the client should then use thereafter, which will normally be the same as the FID supplied by the client, but which may be different if the FID supplied by the client is already in use or is otherwise unacceptable (e.g. invalid format).",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "URI of the Firebase Installation with the following format: projects//installations/ Example: projects/35006771263/installations/eapzYQai_g8flVQyfKoGs7 This field is set only during response.",
+                    "type": "string"
+                },
+                "refreshToken": {
+                    "description": "A refresh token created for / assigned to the Firebase Installation by FIS. The Firebase Installation can use the refresh token to send requests to # GenerateAuthToken in order to request and generate new FIS Auth-Tokens. Used for FIS Internal Auth scheme FIS_v2. This field is set only during response.",
+                    "type": "string"
+                },
+                "sdkVersion": {
+                    "description": "The current version of the used FIS client-SDK.",
+                    "type": "string"
+                },
+                "verificationKey": {
+                    "description": "The verification-key (a.k.a. public-key) is used to authenticate the digital signatures sent by the Firebase Installation in requests to FIS. Used for FIS Internal Auth scheme FIS_v1. The public key is expected to be in X.509 format (\"SubjectPublicKeyInfo\"), compare RFC 5280 (https://tools.ietf.org/html/rfc5280#section-4.1).",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "GoogleProtobufEmpty": {
+            "description": "A generic empty message that you can re-use to avoid defining duplicated empty messages in your APIs. A typical example is to use it as the request or the response type of an API method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty); } The JSON representation for `Empty` is empty JSON object `{}`.",
+            "id": "GoogleProtobufEmpty",
+            "properties": {},
+            "type": "object"
+        }
+    },
+    "servicePath": "",
+    "title": "Firebase Installations API",
+    "version": "v1",
+    "version_module": true
+}

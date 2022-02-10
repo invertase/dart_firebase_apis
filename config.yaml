@@ -37,3 +37,9 @@ packages:
         - firestore:v1beta1
         - firestore:v1beta2
         - securetoken:v2beta1
+        # APIs that require an API key to Discover
+        - firebaseapptesters:v1alpha
+        - firebaseinstallations:v1
+        - fcmregistrations:v1
+        - firebasepredictions:v1beta1
+        - firebaseextensions:v1beta

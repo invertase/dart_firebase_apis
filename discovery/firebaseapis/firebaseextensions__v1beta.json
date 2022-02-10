@@ -1,0 +1,1726 @@
+{
+    "auth": {
+        "oauth2": {
+            "scopes": {
+                "https://www.googleapis.com/auth/cloud-platform": {
+                    "description": "See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account."
+                },
+                "https://www.googleapis.com/auth/firebase": {
+                    "description": "View and administer all your Firebase data and settings"
+                },
+                "https://www.googleapis.com/auth/firebase.readonly": {
+                    "description": "View all your Firebase data and settings"
+                }
+            }
+        }
+    },
+    "basePath": "",
+    "baseUrl": "https://firebaseextensions.googleapis.com/",
+    "batchPath": "batch",
+    "canonicalName": "Firebaseextensions",
+    "description": "",
+    "discoveryVersion": "v1",
+    "documentationLink": "https://firebase.google.com",
+    "icons": {
+        "x16": "http://www.google.com/images/icons/product/search-16.gif",
+        "x32": "http://www.google.com/images/icons/product/search-32.gif"
+    },
+    "id": "firebaseextensions:v1beta",
+    "kind": "discovery#restDescription",
+    "name": "firebaseextensions",
+    "ownerDomain": "google.com",
+    "ownerName": "Google",
+    "parameters": {
+        "$.xgafv": {
+            "description": "V1 error format.",
+            "enum": [
+                "1",
+                "2"
+            ],
+            "enumDescriptions": [
+                "v1 error format",
+                "v2 error format"
+            ],
+            "location": "query",
+            "type": "string"
+        },
+        "access_token": {
+            "description": "OAuth access token.",
+            "location": "query",
+            "type": "string"
+        },
+        "alt": {
+            "default": "json",
+            "description": "Data format for response.",
+            "enum": [
+                "json",
+                "media",
+                "proto"
+            ],
+            "enumDescriptions": [
+                "Responses with Content-Type of application/json",
+                "Media download with context-dependent Content-Type",
+                "Responses with Content-Type of application/x-protobuf"
+            ],
+            "location": "query",
+            "type": "string"
+        },
+        "callback": {
+            "description": "JSONP",
+            "location": "query",
+            "type": "string"
+        },
+        "fields": {
+            "description": "Selector specifying which fields to include in a partial response.",
+            "location": "query",
+            "type": "string"
+        },
+        "key": {
+            "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
+            "location": "query",
+            "type": "string"
+        },
+        "oauth_token": {
+            "description": "OAuth 2.0 token for the current user.",
+            "location": "query",
+            "type": "string"
+        },
+        "prettyPrint": {
+            "default": "true",
+            "description": "Returns response with indentations and line breaks.",
+            "location": "query",
+            "type": "boolean"
+        },
+        "quotaUser": {
+            "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.",
+            "location": "query",
+            "type": "string"
+        },
+        "uploadType": {
+            "description": "Legacy upload protocol for media (e.g. \"media\", \"multipart\").",
+            "location": "query",
+            "type": "string"
+        },
+        "upload_protocol": {
+            "description": "Upload protocol for media (e.g. \"raw\", \"multipart\").",
+            "location": "query",
+            "type": "string"
+        }
+    },
+    "protocol": "rest",
+    "resources": {
+        "projects": {
+            "methods": {
+                "getPublisherProfile": {
+                    "description": "Gets a PublisherProfile for a Project.",
+                    "flatPath": "v1beta/projects/{projectsId}/publisherProfile",
+                    "httpMethod": "GET",
+                    "id": "firebaseextensions.projects.getPublisherProfile",
+                    "parameterOrder": [
+                        "name"
+                    ],
+                    "parameters": {
+                        "name": {
+                            "description": "Required. The name of the PublisherProfile. e.g. `projects/23427309/publisherProfile` or `projects/project-id/publisherProfile`",
+                            "location": "path",
+                            "pattern": "^projects/[^/]+$",
+                            "required": true,
+                            "type": "string"
+                        },
+                        "publisherId": {
+                            "description": "Pass “-” for project ID with this query param, to lookup publisher project using the publisher ID.",
+                            "location": "query",
+                            "type": "string"
+                        }
+                    },
+                    "path": "v1beta/{+name}/publisherProfile",
+                    "response": {
+                        "$ref": "GoogleFirebaseExtensionsV1betaPublisherProfile"
+                    },
+                    "scopes": [
+                        "https://www.googleapis.com/auth/cloud-platform",
+                        "https://www.googleapis.com/auth/firebase",
+                        "https://www.googleapis.com/auth/firebase.readonly"
+                    ]
+                }
+            },
+            "resources": {
+                "instances": {
+                    "methods": {
+                        "create": {
+                            "description": "Creates a Extension Instance in a Project.",
+                            "flatPath": "v1beta/projects/{projectsId}/instances",
+                            "httpMethod": "POST",
+                            "id": "firebaseextensions.projects.instances.create",
+                            "parameterOrder": [
+                                "parent"
+                            ],
+                            "parameters": {
+                                "instanceId": {
+                                    "description": "The ID to use for the Extension Instance, which will become the final component of the instance's name.",
+                                    "location": "query",
+                                    "type": "string"
+                                },
+                                "parent": {
+                                    "description": "Required. The project in which we are creating a Extension Instance. e.g. `projects/{project_id}`",
+                                    "location": "path",
+                                    "pattern": "^projects/[^/]+$",
+                                    "required": true,
+                                    "type": "string"
+                                },
+                                "validateOnly": {
+                                    "description": "Optional. If true, the request will just be valdated, not executed.",
+                                    "location": "query",
+                                    "type": "boolean"
+                                }
+                            },
+                            "path": "v1beta/{+parent}/instances",
+                            "request": {
+                                "$ref": "GoogleFirebaseExtensionsV1betaExtensionInstance"
+                            },
+                            "response": {
+                                "$ref": "GoogleLongrunningOperation"
+                            },
+                            "scopes": [
+                                "https://www.googleapis.com/auth/cloud-platform",
+                                "https://www.googleapis.com/auth/firebase"
+                            ]
+                        },
+                        "delete": {
+                            "description": "Deletes a Extension Instance.",
+                            "flatPath": "v1beta/projects/{projectsId}/instances/{instancesId}",
+                            "httpMethod": "DELETE",
+                            "id": "firebaseextensions.projects.instances.delete",
+                            "parameterOrder": [
+                                "name"
+                            ],
+                            "parameters": {
+                                "name": {
+                                    "description": "Required. The name of the Extension Instance to delete. e.g. `projects/{project_id}/instances/{instance_id}`",
+                                    "location": "path",
+                                    "pattern": "^projects/[^/]+/instances/[^/]+$",
+                                    "required": true,
+                                    "type": "string"
+                                }
+                            },
+                            "path": "v1beta/{+name}",
+                            "response": {
+                                "$ref": "GoogleLongrunningOperation"
+                            },
+                            "scopes": [
+                                "https://www.googleapis.com/auth/cloud-platform",
+                                "https://www.googleapis.com/auth/firebase"
+                            ]
+                        },
+                        "get": {
+                            "description": "Gets a Extension Instance.",
+                            "flatPath": "v1beta/projects/{projectsId}/instances/{instancesId}",
+                            "httpMethod": "GET",
+                            "id": "firebaseextensions.projects.instances.get",
+                            "parameterOrder": [
+                                "name"
+                            ],
+                            "parameters": {
+                                "name": {
+                                    "description": "Required. The name of the Extension Instance to fetch. e.g. `projects/{project_id}/instances/{instance_id}`",
+                                    "location": "path",
+                                    "pattern": "^projects/[^/]+/instances/[^/]+$",
+                                    "required": true,
+                                    "type": "string"
+                                }
+                            },
+                            "path": "v1beta/{+name}",
+                            "response": {
+                                "$ref": "GoogleFirebaseExtensionsV1betaExtensionInstance"
+                            },
+                            "scopes": [
+                                "https://www.googleapis.com/auth/cloud-platform",
+                                "https://www.googleapis.com/auth/firebase",
+                                "https://www.googleapis.com/auth/firebase.readonly"
+                            ]
+                        },
+                        "list": {
+                            "description": "Lists Extension Instances in a Project.",
+                            "flatPath": "v1beta/projects/{projectsId}/instances",
+                            "httpMethod": "GET",
+                            "id": "firebaseextensions.projects.instances.list",
+                            "parameterOrder": [
+                                "parent"
+                            ],
+                            "parameters": {
+                                "pageSize": {
+                                    "description": "The number of results to return. Defaults to 50.",
+                                    "format": "int32",
+                                    "location": "query",
+                                    "type": "integer"
+                                },
+                                "pageToken": {
+                                    "description": "Pagination token from a previous request.",
+                                    "location": "query",
+                                    "type": "string"
+                                },
+                                "parent": {
+                                    "description": "Required. The project in which we are listing Extension Instances.",
+                                    "location": "path",
+                                    "pattern": "^projects/[^/]+$",
+                                    "required": true,
+                                    "type": "string"
+                                }
+                            },
+                            "path": "v1beta/{+parent}/instances",
+                            "response": {
+                                "$ref": "GoogleFirebaseExtensionsV1betaListExtensionInstancesResponse"
+                            },
+                            "scopes": [
+                                "https://www.googleapis.com/auth/cloud-platform",
+                                "https://www.googleapis.com/auth/firebase",
+                                "https://www.googleapis.com/auth/firebase.readonly"
+                            ]
+                        },
+                        "patch": {
+                            "description": "Updates a Extension Instance.",
+                            "flatPath": "v1beta/projects/{projectsId}/instances/{instancesId}",
+                            "httpMethod": "PATCH",
+                            "id": "firebaseextensions.projects.instances.patch",
+                            "parameterOrder": [
+                                "name"
+                            ],
+                            "parameters": {
+                                "name": {
+                                    "description": "Required. The name of the Extension Instance to update. e.g. `projects/{project_id}/instances/{instance_id}`",
+                                    "location": "path",
+                                    "pattern": "^projects/[^/]+/instances/[^/]+$",
+                                    "required": true,
+                                    "type": "string"
+                                },
+                                "updateMask": {
+                                    "description": "A set of field names to update in the Extension Instance. A value will only be updated if and only if it is included in the update mask.",
+                                    "format": "google-fieldmask",
+                                    "location": "query",
+                                    "type": "string"
+                                },
+                                "validateOnly": {
+                                    "description": "Optional. If true, the request will just be valdated, not executed.",
+                                    "location": "query",
+                                    "type": "boolean"
+                                }
+                            },
+                            "path": "v1beta/{+name}",
+                            "request": {
+                                "$ref": "GoogleFirebaseExtensionsV1betaExtensionInstance"
+                            },
+                            "response": {
+                                "$ref": "GoogleLongrunningOperation"
+                            },
+                            "scopes": [
+                                "https://www.googleapis.com/auth/cloud-platform",
+                                "https://www.googleapis.com/auth/firebase"
+                            ]
+                        }
+                    }
+                },
+                "operations": {
+                    "methods": {
+                        "get": {
+                            "description": "Gets an Operation.",
+                            "flatPath": "v1beta/projects/{projectsId}/operations/{operationsId}",
+                            "httpMethod": "GET",
+                            "id": "firebaseextensions.projects.operations.get",
+                            "parameterOrder": [
+                                "name"
+                            ],
+                            "parameters": {
+                                "name": {
+                                    "description": "Required. The name of the long running Operation. e.g. `projects/{project_id}/operations/{operation_id}`",
+                                    "location": "path",
+                                    "pattern": "^projects/[^/]+/operations/[^/]+$",
+                                    "required": true,
+                                    "type": "string"
+                                }
+                            },
+                            "path": "v1beta/{+name}",
+                            "response": {
+                                "$ref": "GoogleLongrunningOperation"
+                            },
+                            "scopes": [
+                                "https://www.googleapis.com/auth/cloud-platform",
+                                "https://www.googleapis.com/auth/firebase",
+                                "https://www.googleapis.com/auth/firebase.readonly"
+                            ]
+                        }
+                    }
+                },
+                "publisherProfile": {
+                    "methods": {
+                        "register": {
+                            "description": "Register a PublisherProfile for a Project.",
+                            "flatPath": "v1beta/projects/{projectsId}/publisherProfile:register",
+                            "httpMethod": "POST",
+                            "id": "firebaseextensions.projects.publisherProfile.register",
+                            "parameterOrder": [
+                                "parent"
+                            ],
+                            "parameters": {
+                                "parent": {
+                                    "description": "Required. The project for which we are registering a PublisherProfile. e.g. `projects/23427309` or `projects/project-id`",
+                                    "location": "path",
+                                    "pattern": "^projects/[^/]+$",
+                                    "required": true,
+                                    "type": "string"
+                                }
+                            },
+                            "path": "v1beta/{+parent}/publisherProfile:register",
+                            "request": {
+                                "$ref": "GoogleFirebaseExtensionsV1betaPublisherProfile"
+                            },
+                            "response": {
+                                "$ref": "GoogleFirebaseExtensionsV1betaPublisherProfile"
+                            },
+                            "scopes": [
+                                "https://www.googleapis.com/auth/cloud-platform",
+                                "https://www.googleapis.com/auth/firebase"
+                            ]
+                        }
+                    }
+                },
+                "sources": {
+                    "methods": {
+                        "create": {
+                            "description": "Creates a Extension Source.",
+                            "flatPath": "v1beta/projects/{projectsId}/sources",
+                            "httpMethod": "POST",
+                            "id": "firebaseextensions.projects.sources.create",
+                            "parameterOrder": [
+                                "parent"
+                            ],
+                            "parameters": {
+                                "parent": {
+                                    "description": "Required. The project in which we are creating a Extension Source.",
+                                    "location": "path",
+                                    "pattern": "^projects/[^/]+$",
+                                    "required": true,
+                                    "type": "string"
+                                }
+                            },
+                            "path": "v1beta/{+parent}/sources",
+                            "request": {
+                                "$ref": "GoogleFirebaseExtensionsV1betaExtensionSource"
+                            },
+                            "response": {
+                                "$ref": "GoogleLongrunningOperation"
+                            },
+                            "scopes": [
+                                "https://www.googleapis.com/auth/cloud-platform",
+                                "https://www.googleapis.com/auth/firebase"
+                            ]
+                        },
+                        "get": {
+                            "description": "Gets a Extension Source.",
+                            "flatPath": "v1beta/projects/{projectsId}/sources/{sourcesId}",
+                            "httpMethod": "GET",
+                            "id": "firebaseextensions.projects.sources.get",
+                            "parameterOrder": [
+                                "name"
+                            ],
+                            "parameters": {
+                                "name": {
+                                    "description": "Required. The identifier of the Extension Source to return. e.g. `projects/{project_id}/sources/{source_id}`",
+                                    "location": "path",
+                                    "pattern": "^projects/[^/]+/sources/[^/]+$",
+                                    "required": true,
+                                    "type": "string"
+                                }
+                            },
+                            "path": "v1beta/{+name}",
+                            "response": {
+                                "$ref": "GoogleFirebaseExtensionsV1betaExtensionSource"
+                            },
+                            "scopes": [
+                                "https://www.googleapis.com/auth/cloud-platform",
+                                "https://www.googleapis.com/auth/firebase",
+                                "https://www.googleapis.com/auth/firebase.readonly"
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "publishers": {
+            "resources": {
+                "extensions": {
+                    "methods": {
+                        "batchGet": {
+                            "description": "Gets up to 1K extensions in a batch.",
+                            "flatPath": "v1beta/publishers/{publishersId}/extensions:batchGet",
+                            "httpMethod": "GET",
+                            "id": "firebaseextensions.publishers.extensions.batchGet",
+                            "parameterOrder": [
+                                "parent"
+                            ],
+                            "parameters": {
+                                "names": {
+                                    "description": "Required. The names of the extensions to retrieve. A maximum of 1000 extensions can be retrieved in a batch. Format: publishers/{publisher}/extensions/{extension}",
+                                    "location": "query",
+                                    "repeated": true,
+                                    "type": "string"
+                                },
+                                "parent": {
+                                    "description": "The parent resource shared by all extensions being retrieved. Format: publishers/{publisher} If this is set, the parent of all of the extensions specified in `names` must match this field.",
+                                    "location": "path",
+                                    "pattern": "^publishers/[^/]+$",
+                                    "required": true,
+                                    "type": "string"
+                                }
+                            },
+                            "path": "v1beta/{+parent}/extensions:batchGet",
+                            "response": {
+                                "$ref": "GoogleFirebaseExtensionsV1betaBatchGetExtensionsResponse"
+                            },
+                            "scopes": [
+                                "https://www.googleapis.com/auth/cloud-platform",
+                                "https://www.googleapis.com/auth/firebase",
+                                "https://www.googleapis.com/auth/firebase.readonly"
+                            ]
+                        },
+                        "delete": {
+                            "description": "Deletes an Extension.",
+                            "flatPath": "v1beta/publishers/{publishersId}/extensions/{extensionsId}",
+                            "httpMethod": "DELETE",
+                            "id": "firebaseextensions.publishers.extensions.delete",
+                            "parameterOrder": [
+                                "name"
+                            ],
+                            "parameters": {
+                                "name": {
+                                    "description": "Required. The name of the Extension we want to delete. e.g. `publishers/publisher-id/extensions/extension-id`",
+                                    "location": "path",
+                                    "pattern": "^publishers/[^/]+/extensions/[^/]+$",
+                                    "required": true,
+                                    "type": "string"
+                                }
+                            },
+                            "path": "v1beta/{+name}",
+                            "response": {
+                                "$ref": "GoogleProtobufEmpty"
+                            },
+                            "scopes": [
+                                "https://www.googleapis.com/auth/cloud-platform",
+                                "https://www.googleapis.com/auth/firebase"
+                            ]
+                        },
+                        "get": {
+                            "description": "Gets an Extension.",
+                            "flatPath": "v1beta/publishers/{publishersId}/extensions/{extensionsId}",
+                            "httpMethod": "GET",
+                            "id": "firebaseextensions.publishers.extensions.get",
+                            "parameterOrder": [
+                                "name"
+                            ],
+                            "parameters": {
+                                "name": {
+                                    "description": "Required. The name of the Extension. e.g. `publishers/publisher-id/extensions/extension-id`",
+                                    "location": "path",
+                                    "pattern": "^publishers/[^/]+/extensions/[^/]+$",
+                                    "required": true,
+                                    "type": "string"
+                                }
+                            },
+                            "path": "v1beta/{+name}",
+                            "response": {
+                                "$ref": "GoogleFirebaseExtensionsV1betaExtension"
+                            },
+                            "scopes": [
+                                "https://www.googleapis.com/auth/cloud-platform",
+                                "https://www.googleapis.com/auth/firebase",
+                                "https://www.googleapis.com/auth/firebase.readonly"
+                            ]
+                        },
+                        "list": {
+                            "description": "Lists all Extensions for a Publisher.",
+                            "flatPath": "v1beta/publishers/{publishersId}/extensions",
+                            "httpMethod": "GET",
+                            "id": "firebaseextensions.publishers.extensions.list",
+                            "parameterOrder": [
+                                "parent"
+                            ],
+                            "parameters": {
+                                "pageSize": {
+                                    "description": "The number of results to return. Defaults to 50.",
+                                    "format": "int32",
+                                    "location": "query",
+                                    "type": "integer"
+                                },
+                                "pageToken": {
+                                    "description": "Pagination token from a previous request.",
+                                    "location": "query",
+                                    "type": "string"
+                                },
+                                "parent": {
+                                    "description": "Required. The Publisher which we are listing Extensions for. e.g. `publishers/publisher-id`.",
+                                    "location": "path",
+                                    "pattern": "^publishers/[^/]+$",
+                                    "required": true,
+                                    "type": "string"
+                                }
+                            },
+                            "path": "v1beta/{+parent}/extensions",
+                            "response": {
+                                "$ref": "GoogleFirebaseExtensionsV1betaListExtensionsResponse"
+                            },
+                            "scopes": [
+                                "https://www.googleapis.com/auth/cloud-platform",
+                                "https://www.googleapis.com/auth/firebase",
+                                "https://www.googleapis.com/auth/firebase.readonly"
+                            ]
+                        },
+                        "unpublish": {
+                            "description": "Unpublishes an Extension.",
+                            "flatPath": "v1beta/publishers/{publishersId}/extensions/{extensionsId}:unpublish",
+                            "httpMethod": "POST",
+                            "id": "firebaseextensions.publishers.extensions.unpublish",
+                            "parameterOrder": [
+                                "name"
+                            ],
+                            "parameters": {
+                                "name": {
+                                    "description": "Required. The name of the Extension we want to unpublish. e.g. `publishers/publisher-id/extensions/extension-id`",
+                                    "location": "path",
+                                    "pattern": "^publishers/[^/]+/extensions/[^/]+$",
+                                    "required": true,
+                                    "type": "string"
+                                }
+                            },
+                            "path": "v1beta/{+name}:unpublish",
+                            "request": {
+                                "$ref": "GoogleFirebaseExtensionsV1betaUnpublishExtensionRequest"
+                            },
+                            "response": {
+                                "$ref": "GoogleProtobufEmpty"
+                            },
+                            "scopes": [
+                                "https://www.googleapis.com/auth/cloud-platform",
+                                "https://www.googleapis.com/auth/firebase"
+                            ]
+                        }
+                    },
+                    "resources": {
+                        "versions": {
+                            "methods": {
+                                "delete": {
+                                    "description": "Deletes an ExtensionVersion.",
+                                    "flatPath": "v1beta/publishers/{publishersId}/extensions/{extensionsId}/versions/{versionsId}",
+                                    "httpMethod": "DELETE",
+                                    "id": "firebaseextensions.publishers.extensions.versions.delete",
+                                    "parameterOrder": [
+                                        "name"
+                                    ],
+                                    "parameters": {
+                                        "name": {
+                                            "description": "Required. The name of the ExtensionVersion we want to delete. e.g. `publishers/publisher-id/extensions/extension-id/versions/1.2.3`",
+                                            "location": "path",
+                                            "pattern": "^publishers/[^/]+/extensions/[^/]+/versions/[^/]+$",
+                                            "required": true,
+                                            "type": "string"
+                                        }
+                                    },
+                                    "path": "v1beta/{+name}",
+                                    "response": {
+                                        "$ref": "GoogleProtobufEmpty"
+                                    }
+                                },
+                                "deprecate": {
+                                    "description": "Deprecates an ExtensionVersion.",
+                                    "flatPath": "v1beta/publishers/{publishersId}/extensions/{extensionsId}/versions/{versionsId}:deprecate",
+                                    "httpMethod": "POST",
+                                    "id": "firebaseextensions.publishers.extensions.versions.deprecate",
+                                    "parameterOrder": [
+                                        "name"
+                                    ],
+                                    "parameters": {
+                                        "name": {
+                                            "description": "Required. The name of the ExtensionVersion we want to deprecate. e.g. `publishers/publisher-id/extensions/extension-id/versions/1.2.3`",
+                                            "location": "path",
+                                            "pattern": "^publishers/[^/]+/extensions/[^/]+/versions/[^/]+$",
+                                            "required": true,
+                                            "type": "string"
+                                        }
+                                    },
+                                    "path": "v1beta/{+name}:deprecate",
+                                    "request": {
+                                        "$ref": "GoogleFirebaseExtensionsV1betaDeprecateExtensionVersionRequest"
+                                    },
+                                    "response": {
+                                        "$ref": "GoogleFirebaseExtensionsV1betaExtensionVersion"
+                                    },
+                                    "scopes": [
+                                        "https://www.googleapis.com/auth/cloud-platform",
+                                        "https://www.googleapis.com/auth/firebase"
+                                    ]
+                                },
+                                "get": {
+                                    "description": "Gets an ExtensionVersion.",
+                                    "flatPath": "v1beta/publishers/{publishersId}/extensions/{extensionsId}/versions/{versionsId}",
+                                    "httpMethod": "GET",
+                                    "id": "firebaseextensions.publishers.extensions.versions.get",
+                                    "parameterOrder": [
+                                        "name"
+                                    ],
+                                    "parameters": {
+                                        "name": {
+                                            "description": "Required. The name of the ExtensionVersion. e.g. `publishers/publisher-id/extensions/extension-id/versions/1.2.3` or `publishers/publisher-id/extensions/extension-id/versions/latest`",
+                                            "location": "path",
+                                            "pattern": "^publishers/[^/]+/extensions/[^/]+/versions/[^/]+$",
+                                            "required": true,
+                                            "type": "string"
+                                        }
+                                    },
+                                    "path": "v1beta/{+name}",
+                                    "response": {
+                                        "$ref": "GoogleFirebaseExtensionsV1betaExtensionVersion"
+                                    },
+                                    "scopes": [
+                                        "https://www.googleapis.com/auth/cloud-platform",
+                                        "https://www.googleapis.com/auth/firebase",
+                                        "https://www.googleapis.com/auth/firebase.readonly"
+                                    ]
+                                },
+                                "list": {
+                                    "description": "Lists all ExtensionVersions for an Extension.",
+                                    "flatPath": "v1beta/publishers/{publishersId}/extensions/{extensionsId}/versions",
+                                    "httpMethod": "GET",
+                                    "id": "firebaseextensions.publishers.extensions.versions.list",
+                                    "parameterOrder": [
+                                        "parent"
+                                    ],
+                                    "parameters": {
+                                        "filter": {
+                                            "description": "Filter which versions of this extension are returned, per https://google.aip.dev/160. Uses EBNF grammar https://google.aip.dev/assets/misc/ebnf-filtering.txt.",
+                                            "location": "query",
+                                            "type": "string"
+                                        },
+                                        "pageSize": {
+                                            "description": "The number of results to return. Defaults to 50.",
+                                            "format": "int32",
+                                            "location": "query",
+                                            "type": "integer"
+                                        },
+                                        "pageToken": {
+                                            "description": "Pagination token from a previous request.",
+                                            "location": "query",
+                                            "type": "string"
+                                        },
+                                        "parent": {
+                                            "description": "Required. The name of the Extenson that we are listing ExtensionVersions for for. e.g. `publishers/publisher_id/extensions/extension_id`",
+                                            "location": "path",
+                                            "pattern": "^publishers/[^/]+/extensions/[^/]+$",
+                                            "required": true,
+                                            "type": "string"
+                                        }
+                                    },
+                                    "path": "v1beta/{+parent}/versions",
+                                    "response": {
+                                        "$ref": "GoogleFirebaseExtensionsV1betaListExtensionVersionsResponse"
+                                    },
+                                    "scopes": [
+                                        "https://www.googleapis.com/auth/cloud-platform",
+                                        "https://www.googleapis.com/auth/firebase",
+                                        "https://www.googleapis.com/auth/firebase.readonly"
+                                    ]
+                                },
+                                "publish": {
+                                    "description": "Publishes an ExtensionVersion.",
+                                    "flatPath": "v1beta/publishers/{publishersId}/extensions/{extensionsId}/versions:publish",
+                                    "httpMethod": "POST",
+                                    "id": "firebaseextensions.publishers.extensions.versions.publish",
+                                    "parameterOrder": [
+                                        "parent"
+                                    ],
+                                    "parameters": {
+                                        "parent": {
+                                            "description": "Required. The Publisher and Extension for the ExtensionVersion. e.g. `publishers/publisher-id/extensions/extension-id`",
+                                            "location": "path",
+                                            "pattern": "^publishers/[^/]+/extensions/[^/]+$",
+                                            "required": true,
+                                            "type": "string"
+                                        }
+                                    },
+                                    "path": "v1beta/{+parent}/versions:publish",
+                                    "request": {
+                                        "$ref": "GoogleFirebaseExtensionsV1betaPublishExtensionVersionRequest"
+                                    },
+                                    "response": {
+                                        "$ref": "GoogleLongrunningOperation"
+                                    },
+                                    "scopes": [
+                                        "https://www.googleapis.com/auth/cloud-platform",
+                                        "https://www.googleapis.com/auth/firebase"
+                                    ]
+                                },
+                                "undeprecate": {
+                                    "description": "Un-deprecates an ExtensionVersion.",
+                                    "flatPath": "v1beta/publishers/{publishersId}/extensions/{extensionsId}/versions/{versionsId}:undeprecate",
+                                    "httpMethod": "POST",
+                                    "id": "firebaseextensions.publishers.extensions.versions.undeprecate",
+                                    "parameterOrder": [
+                                        "name"
+                                    ],
+                                    "parameters": {
+                                        "name": {
+                                            "description": "Required. The name of the ExtensionVersion we want to un-deprecate. e.g. `publishers/publisher-id/extensions/extension-id/versions/1.2.3`",
+                                            "location": "path",
+                                            "pattern": "^publishers/[^/]+/extensions/[^/]+/versions/[^/]+$",
+                                            "required": true,
+                                            "type": "string"
+                                        }
+                                    },
+                                    "path": "v1beta/{+name}:undeprecate",
+                                    "request": {
+                                        "$ref": "GoogleFirebaseExtensionsV1betaUndeprecateExtensionVersionRequest"
+                                    },
+                                    "response": {
+                                        "$ref": "GoogleFirebaseExtensionsV1betaExtensionVersion"
+                                    },
+                                    "scopes": [
+                                        "https://www.googleapis.com/auth/cloud-platform",
+                                        "https://www.googleapis.com/auth/firebase"
+                                    ]
+                                },
+                                "unpublish": {
+                                    "description": "Unpublishes an ExtensionVersion.",
+                                    "flatPath": "v1beta/publishers/{publishersId}/extensions/{extensionsId}/versions/{versionsId}:unpublish",
+                                    "httpMethod": "POST",
+                                    "id": "firebaseextensions.publishers.extensions.versions.unpublish",
+                                    "parameterOrder": [
+                                        "name"
+                                    ],
+                                    "parameters": {
+                                        "name": {
+                                            "description": "Required. The name of the ExtensionVersion we want to unpublish. e.g. `publishers/publisher-id/extensions/extension-id/versions/1.2.3`",
+                                            "location": "path",
+                                            "pattern": "^publishers/[^/]+/extensions/[^/]+/versions/[^/]+$",
+                                            "required": true,
+                                            "type": "string"
+                                        }
+                                    },
+                                    "path": "v1beta/{+name}:unpublish",
+                                    "request": {
+                                        "$ref": "GoogleFirebaseExtensionsV1betaUnpublishExtensionVersionRequest"
+                                    },
+                                    "response": {
+                                        "$ref": "GoogleProtobufEmpty"
+                                    },
+                                    "scopes": [
+                                        "https://www.googleapis.com/auth/cloud-platform",
+                                        "https://www.googleapis.com/auth/firebase"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "revision": "20220208",
+    "rootUrl": "https://firebaseextensions.googleapis.com/",
+    "schemas": {
+        "GoogleFirebaseExtensionsV1betaApi": {
+            "description": "Representation of a Google API that is used by this Extension.",
+            "id": "GoogleFirebaseExtensionsV1betaApi",
+            "properties": {
+                "apiName": {
+                    "description": "Required. Name of API.",
+                    "type": "string"
+                },
+                "reason": {
+                    "description": "Optional. Reason the API needs to be enabled.",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "GoogleFirebaseExtensionsV1betaAuthor": {
+            "description": "Representation of contact information associated with a human being or organization. Used to represent the author or creator of the Extension.",
+            "id": "GoogleFirebaseExtensionsV1betaAuthor",
+            "properties": {
+                "authorName": {
+                    "description": "Required. Name of the author.",
+                    "type": "string"
+                },
+                "email": {
+                    "description": "Optional. Public email of the author.",
+                    "type": "string"
+                },
+                "url": {
+                    "description": "Optional. URL for GitHub, Twitter, or website associated with the author.",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "GoogleFirebaseExtensionsV1betaBatchGetExtensionsResponse": {
+            "description": "Response object for BatchGetExtensions.",
+            "id": "GoogleFirebaseExtensionsV1betaBatchGetExtensionsResponse",
+            "properties": {
+                "extensions": {
+                    "description": "Extensions requested.",
+                    "items": {
+                        "$ref": "GoogleFirebaseExtensionsV1betaExtension"
+                    },
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        },
+        "GoogleFirebaseExtensionsV1betaDeprecateExtensionVersionRequest": {
+            "description": "Used to deprecate an ExtensionVersion.",
+            "id": "GoogleFirebaseExtensionsV1betaDeprecateExtensionVersionRequest",
+            "properties": {
+                "deprecationMessage": {
+                    "description": "Deprecation message. This will appear alongside any warnings to update.",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "GoogleFirebaseExtensionsV1betaExtension": {
+            "description": "An `Extension` is a published extension, for sharing with other users.",
+            "id": "GoogleFirebaseExtensionsV1betaExtension",
+            "properties": {
+                "createTime": {
+                    "description": "Output only. Creation time.",
+                    "format": "google-datetime",
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "deleteTime": {
+                    "description": "Output only. Deletion time.",
+                    "format": "google-datetime",
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "iconUri": {
+                    "description": "Output only. Uri of the extension’s icon. e.g. a g-static or Cloud Storage URL",
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "latestVersion": {
+                    "description": "Output only. ID of the latest ExtensionVersion that corresponds to this Extension, according to semver versioning (e.g. 0.3.3).",
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "latestVersionCreateTime": {
+                    "description": "Output only. Time of when the latest ExtensionVersion was created.",
+                    "format": "google-datetime",
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Output only. Fully qualified name of Extension (e.g. publishers/publisher-id/extensions/awesome-extension)",
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "publisher": {
+                    "$ref": "GoogleFirebaseExtensionsV1betaPublisherSummary",
+                    "description": "Publisher detail about the extension author."
+                },
+                "ref": {
+                    "description": "Output only. User-friendly identifier for the Extension (e.g. publisher-id/awesome-extension)",
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "registryLaunchStage": {
+                    "description": "Output only. Launch stage of the extension. Used to control badges displayed on extensions to end user.",
+                    "enum": [
+                        "REGISTRY_LAUNCH_STAGE_UNSPECIFIED",
+                        "EXPERIMENTAL",
+                        "BETA",
+                        "GA",
+                        "DEPRECATED"
+                    ],
+                    "enumDescriptions": [
+                        "Default state. Generally not used.",
+                        "Can be installed by consumers. User displayed warning shown that this is not officially supported.",
+                        "Can be installed by consumers. No warnings displayed, but no deprecation policy.",
+                        "Can be installed by consumers. No warnings displayed, but includes deprecation policy.",
+                        "Can be installed by consumers. User displayed warning that there will no longer be future updates."
+                    ],
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "state": {
+                    "description": "Output only. State of the extension.",
+                    "enum": [
+                        "STATE_UNSPECIFIED",
+                        "PUBLISHED"
+                    ],
+                    "enumDescriptions": [
+                        "Default state. Generally not used.",
+                        "Can be installed by consumers."
+                    ],
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "visibility": {
+                    "description": "Output only. Visibility of the extension on public directories.",
+                    "enum": [
+                        "VISIBILITY_UNSPECIFIED",
+                        "UNLISTED",
+                        "PUBLIC"
+                    ],
+                    "enumDescriptions": [
+                        "Default state. Generally not used.",
+                        "Not visible in search/list APIs. Extension is installable via direct link only.",
+                        "Discoverable in search/list APIs."
+                    ],
+                    "readOnly": true,
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "GoogleFirebaseExtensionsV1betaExtensionInstance": {
+            "description": "An `ExtensionInstance` is an installation of an Extension into a user's project.",
+            "id": "GoogleFirebaseExtensionsV1betaExtensionInstance",
+            "properties": {
+                "config": {
+                    "$ref": "GoogleFirebaseExtensionsV1betaExtensionInstanceConfig",
+                    "description": "Required. The current Config of the Extension Instance."
+                },
+                "createTime": {
+                    "description": "Output only. The time at which the Extension Instance was created.",
+                    "format": "google-datetime",
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "errorStatus": {
+                    "$ref": "GoogleRpcStatus",
+                    "description": "Output only. If this Instance has `state: ERRORED`, the error messages will be found here.",
+                    "readOnly": true
+                },
+                "lastOperationName": {
+                    "description": "Output only. The name of the last operation that acted on this Extension Instance. e.g. `operations/{operation_id}`",
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "lastOperationType": {
+                    "description": "Output only. The type of the last operation that acted on the Extension Instance.",
+                    "enum": [
+                        "INSTANCE_OPERATION_TYPE_UNSPECIFIED",
+                        "CREATE",
+                        "UPDATE",
+                        "CONFIGURE",
+                        "DELETE"
+                    ],
+                    "enumDescriptions": [
+                        "",
+                        "Creating an Extension Instance.",
+                        "Updating an Extension Instance.",
+                        "Configuring an Extension Instance.",
+                        "Deleting an Extension Instance."
+                    ],
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Output only. The name of the Extension Instance. e.g. `projects/{project_id}/instances/{instance_id}`",
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "serviceAccountEmail": {
+                    "description": "Optional. The email of the service account to be used at runtime by compute resources created for the operation of the Extension instance.",
+                    "type": "string"
+                },
+                "state": {
+                    "description": "Output only. The current state of the Extension Instance.",
+                    "enum": [
+                        "STATE_UNSPECIFIED",
+                        "DEPLOYING",
+                        "UNINSTALLING",
+                        "ACTIVE",
+                        "ERRORED",
+                        "PAUSED"
+                    ],
+                    "enumDescriptions": [
+                        "The default state. Generally not used for long.",
+                        "The Extension Instance is waiting on an Operation to complete. Could resolve to `ACTIVE`, `PAUSED`, `ERRORED`.",
+                        "The Extension Instance is being removed from the project. Could resolve to `ERRORED`, but more likely the instance will soon cease to exist.",
+                        "The Extension Instance is installed and ready.",
+                        "The Extension Instance encountered an error while `DEPLOYING` or `UNINSTALLING`.",
+                        "The Extension's resources have been removed from the project, but the Config remains so the Instance can be restored."
+                    ],
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "updateTime": {
+                    "description": "Output only. The time at which the Extension Instance was updated.",
+                    "format": "google-datetime",
+                    "readOnly": true,
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "GoogleFirebaseExtensionsV1betaExtensionInstanceConfig": {
+            "description": "A configuration of an Extension Instance. This is used by an Extension Instance to specify the ExtensionSource and environment configuration at a given time.",
+            "id": "GoogleFirebaseExtensionsV1betaExtensionInstanceConfig",
+            "properties": {
+                "createTime": {
+                    "description": "Output only. The time at which the Extension Instance Config was created.",
+                    "format": "google-datetime",
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "extensionRef": {
+                    "description": "Optional. If this extension is installed from the Registry, the ref of the Extension. (e.g. publisher-id/awesome-extension) Either extension_ref or source.name must be provided when creating an extension instance.",
+                    "type": "string"
+                },
+                "extensionVersion": {
+                    "description": "Optional. If this extension is installed from the Registry, the ID of the version. (e.g. 1.0.3). If left blank, latest is assumed.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Output only. The unique identifier for this configuration. e.g. `projects/{project_id}/instances/{instance_id}/configs/{config_id}`",
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "params": {
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Required. The value of configuration parameters from the ExtensionSpec (see `source.spec`).",
+                    "type": "object"
+                },
+                "populatedPostinstallContent": {
+                    "description": "Output only. Postinstall instructions to be shown for this Extension, with template strings representing function and parameter values substituted with actual values. These strings include: ${param:FOO}, ${function:myFunc.url}, ${function:myFunc.name}, and ${function:myFunc.location}",
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "source": {
+                    "$ref": "GoogleFirebaseExtensionsV1betaExtensionSource",
+                    "description": "Optional. The ExtensionSource used to install this Extension Instance."
+                }
+            },
+            "type": "object"
+        },
+        "GoogleFirebaseExtensionsV1betaExtensionSource": {
+            "description": "The source of the Extension Instance.",
+            "id": "GoogleFirebaseExtensionsV1betaExtensionSource",
+            "properties": {
+                "extensionRoot": {
+                    "description": "The directory location of extension.yaml in the archived package. If none is specified, than the package root is assumed (\"/\").",
+                    "type": "string"
+                },
+                "fetchTime": {
+                    "description": "Output only. The time at which the ExtensionSource was initially fetched.",
+                    "format": "google-datetime",
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "hash": {
+                    "description": "Output only. SHA256 hash of the archive (`package_uri`) at processing time.",
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "lastOperationName": {
+                    "description": "Output only. The name of the last operation that acted on this ExtensionSource. e.g. `operations/{operation_id}`",
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Output only. The unique identifier for this source. e.g. `projects/{project_id}/sources/{source_id}`",
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "packageUri": {
+                    "description": "Required. A URI of a zip or tar archive of an Extension package. e.g. `https://example.com/path/to/archive.zip` This is used to create the ExtensionSource, and is not guaranteed to still exist after the ExtensionSource has been created.",
+                    "type": "string"
+                },
+                "spec": {
+                    "$ref": "GoogleFirebaseExtensionsV1betaExtensionSpec",
+                    "description": "Output only. The specification for this Extension.",
+                    "readOnly": true
+                },
+                "state": {
+                    "description": "Output only. The current state of the Extension Source.",
+                    "enum": [
+                        "STATE_UNSPECIFIED",
+                        "ACTIVE",
+                        "DELETED"
+                    ],
+                    "enumDescriptions": [
+                        "The default state. Not used typically.",
+                        "Source still exists.",
+                        "Source was deleted."
+                    ],
+                    "readOnly": true,
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "GoogleFirebaseExtensionsV1betaExtensionSpec": {
+            "description": "The specification of an Extension.",
+            "id": "GoogleFirebaseExtensionsV1betaExtensionSpec",
+            "properties": {
+                "apis": {
+                    "description": "Optional. List of Google APIs that will be enabled on a project as part of the install process of this Extension.",
+                    "items": {
+                        "$ref": "GoogleFirebaseExtensionsV1betaApi"
+                    },
+                    "type": "array"
+                },
+                "author": {
+                    "$ref": "GoogleFirebaseExtensionsV1betaAuthor",
+                    "description": "Optional. Primary author of the Extension and point of contact for Extension information."
+                },
+                "billingRequired": {
+                    "description": "Optional. Indicator if an associated billing account is needed to use this Extension. Defaults to false.",
+                    "type": "boolean"
+                },
+                "contributors": {
+                    "description": "Optional. Multiple authors of the Extension. Used to give credit to other contributors to the Extension beyond the author.",
+                    "items": {
+                        "$ref": "GoogleFirebaseExtensionsV1betaAuthor"
+                    },
+                    "type": "array"
+                },
+                "description": {
+                    "description": "Optional. Description of the Extension.",
+                    "type": "string"
+                },
+                "displayName": {
+                    "description": "Optional. Human-readable name of the Extension (e.g. \"Image Resizer\").",
+                    "type": "string"
+                },
+                "externalServices": {
+                    "items": {
+                        "$ref": "GoogleFirebaseExtensionsV1betaExternalService"
+                    },
+                    "type": "array"
+                },
+                "license": {
+                    "description": "Optional. License information for the Extension. Should follow SPDX format. See: https://spdx.org/licenses/",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Required. Name of the Extension. This is an identifier the publisher chooses when publishing this extension onto the registry, and is part of the extension ref. (e.g. \"storage_resize_images\")",
+                    "type": "string"
+                },
+                "params": {
+                    "description": "Optional. List of environment variables that may be configured for the Extension.",
+                    "items": {
+                        "$ref": "GoogleFirebaseExtensionsV1betaExtensionSpecParameter"
+                    },
+                    "type": "array"
+                },
+                "postinstallContent": {
+                    "description": "Output only. Any postinstall instructions to be shown for this Extension.",
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "preinstallContent": {
+                    "description": "Output only. Any preinstall instructions to be shown for this Extension.",
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "readmeContent": {
+                    "description": "Output only. Any README content to be shown for this Extension.",
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "releaseNotesUrl": {
+                    "description": "Optional. URL of where the release notes can be found.",
+                    "type": "string"
+                },
+                "resources": {
+                    "description": "Required. List of Resources that will be created in installation.",
+                    "items": {
+                        "$ref": "GoogleFirebaseExtensionsV1betaResource"
+                    },
+                    "type": "array"
+                },
+                "roles": {
+                    "description": "Optional. List of IAM roles that define the access the Extension will have in the project.",
+                    "items": {
+                        "$ref": "GoogleFirebaseExtensionsV1betaRole"
+                    },
+                    "type": "array"
+                },
+                "sourceUrl": {
+                    "description": "Optional. URL where the source code of the Extension can be found.",
+                    "type": "string"
+                },
+                "specVersion": {
+                    "description": "Required. Version of the Extension Specification used.",
+                    "type": "string"
+                },
+                "version": {
+                    "description": "Required. Version of the Extension.",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "GoogleFirebaseExtensionsV1betaExtensionSpecParameter": {
+            "description": "Representation of a configurable parameter for an Extension. These can be used to configure resources or referenced as environment variables in a Cloud Function.",
+            "id": "GoogleFirebaseExtensionsV1betaExtensionSpecParameter",
+            "properties": {
+                "default": {
+                    "description": "Optional. Default value if an Extension consumer leaves the parameter value blank.",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "Optional. Additional description for the parameter. It will be shown to the Extension consumer when they are prompted for the parameter value. Markdown is supported.",
+                    "type": "string"
+                },
+                "example": {
+                    "description": "Optional. Example of what this value might look like.",
+                    "type": "string"
+                },
+                "immutable": {
+                    "description": "Optional. Whether or not the user should be prevented from updating the value of this parameter later. Defaults to false.",
+                    "type": "boolean"
+                },
+                "label": {
+                    "description": "Required. Label for the parameter, shown to the Extension consumer when they are prompted for the parameter value.",
+                    "type": "string"
+                },
+                "options": {
+                    "description": "Optional. A list of values that the consumer can pick from, if the param.Type is select or multiSelect",
+                    "items": {
+                        "$ref": "GoogleFirebaseExtensionsV1betaParamSelectOption"
+                    },
+                    "type": "array"
+                },
+                "param": {
+                    "description": "Required. Name of the parameter.",
+                    "type": "string"
+                },
+                "required": {
+                    "description": "Optional. Flag indicating if the parameter must be defined and not empty. Defaults to false.",
+                    "type": "boolean"
+                },
+                "resourceInfo": {
+                    "$ref": "GoogleFirebaseExtensionsV1betaResourceInfo",
+                    "description": "Optional. Additional resource information which must be specified when parameter type is RESOURCE."
+                },
+                "type": {
+                    "description": "Optional. Type of input. If unspecified, it is assumed to be STRING.",
+                    "enum": [
+                        "EXTENSION_SPEC_PARAMETER_TYPE_UNSPECIFIED",
+                        "STRING",
+                        "SELECT",
+                        "MULTISELECT",
+                        "SELECT_RESOURCE",
+                        "SECRET"
+                    ],
+                    "enumDescriptions": [
+                        "",
+                        "Param is a free-form string input.",
+                        "Param allows selecting one option to be its value.",
+                        "Param allows selecting multiple options.",
+                        "Param allows specifying some external resource, ex. Cloud Storage bucket.",
+                        "Param represents a Cloud Secret Manager Secret."
+                    ],
+                    "type": "string"
+                },
+                "validationErrorMessage": {
+                    "description": "Optional. Error message to display if regex validation fails.",
+                    "type": "string"
+                },
+                "validationRegex": {
+                    "description": "Optional. Regex string for validation of the parameter value provided by the Extension consumer.",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "GoogleFirebaseExtensionsV1betaExtensionVersion": {
+            "description": "An ExtensionVersion is a published version of an Extension, for sharing with other users.",
+            "id": "GoogleFirebaseExtensionsV1betaExtensionVersion",
+            "properties": {
+                "createTime": {
+                    "description": "Output only. Time of creation.",
+                    "format": "google-datetime",
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "deleteTime": {
+                    "description": "Output only. Deletion time.",
+                    "format": "google-datetime",
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "deprecationMessage": {
+                    "description": "Deprecation message. This will appear alongside any warnings to update. This string is already escaped and is safe to use.",
+                    "type": "string"
+                },
+                "hash": {
+                    "description": "Output only. SHA256 hash of the archive.",
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "id": {
+                    "description": "Output only. Version number.",
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Output only. Fully qualified name of ExtensionVersion (e.g. publishers/publisher-id/extensions/awesome-extension/versions/0.2.1)",
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "ref": {
+                    "description": "Output only. User-friendly identifier for the ExtensionVersion (e.g. publisher-id/awesome-extension@1.2.3)",
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "releaseNotes": {
+                    "description": "Output only. Markdown release notes describing what changed in this release.",
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "sourceDownloadUri": {
+                    "description": "Output only. URI where the underlying source code for this extension can be downloaded.",
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "spec": {
+                    "$ref": "GoogleFirebaseExtensionsV1betaExtensionSpec",
+                    "description": "Output only. Parsed spec from extension.yaml.",
+                    "readOnly": true
+                },
+                "state": {
+                    "description": "Output only. State of the ExtensionVersion.",
+                    "enum": [
+                        "STATE_UNSPECIFIED",
+                        "PUBLISHED",
+                        "DEPRECATED"
+                    ],
+                    "enumDescriptions": [
+                        "Default state. Generally not used.",
+                        "Can be installed by consumers.",
+                        "Can be reconfigured but not freshly installed by consumers."
+                    ],
+                    "readOnly": true,
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "GoogleFirebaseExtensionsV1betaExternalService": {
+            "description": "Representation of an external service that is used by this Extension.",
+            "id": "GoogleFirebaseExtensionsV1betaExternalService",
+            "properties": {
+                "name": {
+                    "description": "Required. Name of the external service.",
+                    "type": "string"
+                },
+                "pricingUri": {
+                    "description": "Required. Link to the pricing page for the external service.",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "GoogleFirebaseExtensionsV1betaListExtensionInstancesResponse": {
+            "description": "Used to list Extension instances.",
+            "id": "GoogleFirebaseExtensionsV1betaListExtensionInstancesResponse",
+            "properties": {
+                "instances": {
+                    "description": "The list of Extension Instances in this project.",
+                    "items": {
+                        "$ref": "GoogleFirebaseExtensionsV1betaExtensionInstance"
+                    },
+                    "type": "array"
+                },
+                "nextPageToken": {
+                    "description": "Pagination token, if more results exist.",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "GoogleFirebaseExtensionsV1betaListExtensionVersionsResponse": {
+            "description": "Used to list ExtensionVersions.",
+            "id": "GoogleFirebaseExtensionsV1betaListExtensionVersionsResponse",
+            "properties": {
+                "extensionVersions": {
+                    "description": "The list of ExtensionVersions for this Extension.",
+                    "items": {
+                        "$ref": "GoogleFirebaseExtensionsV1betaExtensionVersion"
+                    },
+                    "type": "array"
+                },
+                "nextPageToken": {
+                    "description": "Pagination token, if more results exist.",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "GoogleFirebaseExtensionsV1betaListExtensionsResponse": {
+            "description": "Used to list Extensions.",
+            "id": "GoogleFirebaseExtensionsV1betaListExtensionsResponse",
+            "properties": {
+                "extensions": {
+                    "description": "The list of Extensions in this project.",
+                    "items": {
+                        "$ref": "GoogleFirebaseExtensionsV1betaExtension"
+                    },
+                    "type": "array"
+                },
+                "nextPageToken": {
+                    "description": "Pagination token, if more results exist.",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "GoogleFirebaseExtensionsV1betaParamSelectOption": {
+            "description": "Representation of an option that the user can select for a param, if the param type is select or multiselect.",
+            "id": "GoogleFirebaseExtensionsV1betaParamSelectOption",
+            "properties": {
+                "label": {
+                    "description": "Optional. User-friendly description of option. If omitted, defaults to value.",
+                    "type": "string"
+                },
+                "value": {
+                    "description": "Required. Value of option.",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "GoogleFirebaseExtensionsV1betaPublishExtensionVersionRequest": {
+            "description": "Used to publish an ExtensionVersion.",
+            "id": "GoogleFirebaseExtensionsV1betaPublishExtensionVersionRequest",
+            "properties": {
+                "extensionRoot": {
+                    "description": "Optional. The directory location of extension.yaml in the archived package. If none is specified, then the package root is assumed (\"/\").",
+                    "type": "string"
+                },
+                "packageUri": {
+                    "description": "Required. Public URI of a zip or tarball of the extension source code",
+                    "type": "string"
+                },
+                "versionId": {
+                    "description": "Required. Version to publish. e.g. 1.2.3",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "GoogleFirebaseExtensionsV1betaPublisherProfile": {
+            "description": "A PublisherProfile is a singleton resource for a Project. It represents the publisher metadata. Since the project-number is considered pii, this proto is not meant for public consumption.",
+            "id": "GoogleFirebaseExtensionsV1betaPublisherProfile",
+            "properties": {
+                "displayName": {
+                    "description": "Required. Public human-readable name for the publisher.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Output only. Name for the PublisherProfile (e.g. projects/283847228472/publisherProfile)",
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "publisherId": {
+                    "description": "Immutable. Unique user-friendly ID of publisher (e.g. firebase)",
+                    "type": "string"
+                },
+                "registerTime": {
+                    "description": "Output only. Register time.",
+                    "format": "google-datetime",
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "websiteUri": {
+                    "description": "Optional. Website associated with the publisher.",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "GoogleFirebaseExtensionsV1betaPublisherSummary": {
+            "description": "A public-facing summary of a publisher. Not to be confused with \"PublisherProfile\", which is used for publisher facing APIs. It's also not intended to be used as an independent resource.",
+            "id": "GoogleFirebaseExtensionsV1betaPublisherSummary",
+            "properties": {
+                "displayName": {
+                    "description": "Display name of the publisher.",
+                    "type": "string"
+                },
+                "iconUri": {
+                    "description": "Uri of the publisher's icon.",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "GoogleFirebaseExtensionsV1betaResource": {
+            "description": "Representation of a Resource that will be created for an Extension.",
+            "id": "GoogleFirebaseExtensionsV1betaResource",
+            "properties": {
+                "deletionPolicy": {
+                    "description": "Enum representing whether the resource should get deleted or abandoned (left behind) when the Extension is uninstalled. Not yet used.",
+                    "enum": [
+                        "DELETION_POLICY_UNSPECIFIED",
+                        "DELETE",
+                        "ABANDON"
+                    ],
+                    "enumDescriptions": [
+                        "",
+                        "The default policy - delete the resource when Extension is uninstalled.",
+                        "Abandon the resource when Extension is uninstalled."
+                    ],
+                    "type": "string"
+                },
+                "description": {
+                    "description": "Optional. Description of the Resource.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Required. Name of the Resource.",
+                    "type": "string"
+                },
+                "properties": {
+                    "additionalProperties": {
+                        "additionalProperties": {
+                            "description": "Properties of the object. Contains field @type with type URL.",
+                            "type": "any"
+                        },
+                        "type": "object"
+                    },
+                    "description": "Required. Properties of the Resource. The values here will be representative of the properties available for each resource type (see `type`). For example, a [Pub/Sub Topic (`pubsub.v1.topic`)](https://cloud.google.com/pubsub/docs/reference/rest/v1/projects.topics) can accept `labels` as a property; `properties` of a Topic could include ```{ \"labels\": { \"some_key\": \"some_value\" } }```",
+                    "type": "object"
+                },
+                "propertiesYaml": {
+                    "description": "Output only. A YAML string representing the properties of the resource.",
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "type": {
+                    "description": "Required. Type of the Resource. This can be any valid [Deployment Manager type](https://cloud.google.com/deployment-manager/docs/configuration/supported-resource-types) or Extension-specific `firebaseextensions.v1beta.function`.",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "GoogleFirebaseExtensionsV1betaResourceInfo": {
+            "description": "Representation of additional resource information for parameters of type RESOURCE.",
+            "id": "GoogleFirebaseExtensionsV1betaResourceInfo",
+            "properties": {
+                "resourceType": {
+                    "description": "Required. Type of resource, e.g. storage.googleapis.com/Bucket",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "GoogleFirebaseExtensionsV1betaRole": {
+            "description": "Representation of a Firebase IAM Role or a Cloud IAM role that is required by this Extension.",
+            "id": "GoogleFirebaseExtensionsV1betaRole",
+            "properties": {
+                "reason": {
+                    "description": "Optional. Reason the role is needs to be enabled.",
+                    "type": "string"
+                },
+                "role": {
+                    "description": "Required. Name of role.",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "GoogleFirebaseExtensionsV1betaUndeprecateExtensionVersionRequest": {
+            "description": "Used to un-deprecate an ExtensionVersion.",
+            "id": "GoogleFirebaseExtensionsV1betaUndeprecateExtensionVersionRequest",
+            "properties": {},
+            "type": "object"
+        },
+        "GoogleFirebaseExtensionsV1betaUnpublishExtensionRequest": {
+            "description": "Used to unpublish an Extension.",
+            "id": "GoogleFirebaseExtensionsV1betaUnpublishExtensionRequest",
+            "properties": {},
+            "type": "object"
+        },
+        "GoogleFirebaseExtensionsV1betaUnpublishExtensionVersionRequest": {
+            "description": "Used to unpublish an ExtensionVersion.",
+            "id": "GoogleFirebaseExtensionsV1betaUnpublishExtensionVersionRequest",
+            "properties": {},
+            "type": "object"
+        },
+        "GoogleLongrunningOperation": {
+            "description": "This resource represents a long-running operation that is the result of a network API call.",
+            "id": "GoogleLongrunningOperation",
+            "properties": {
+                "done": {
+                    "description": "If the value is `false`, it means the operation is still in progress. If `true`, the operation is completed, and either `error` or `response` is available.",
+                    "type": "boolean"
+                },
+                "error": {
+                    "$ref": "GoogleRpcStatus",
+                    "description": "The error result of the operation in case of failure or cancellation."
+                },
+                "metadata": {
+                    "additionalProperties": {
+                        "description": "Properties of the object. Contains field @type with type URL.",
+                        "type": "any"
+                    },
+                    "description": "Service-specific metadata associated with the operation. It typically contains progress information and common metadata such as create time. Some services might not provide such metadata. Any method that returns a long-running operation should document the metadata type, if any.",
+                    "type": "object"
+                },
+                "name": {
+                    "description": "The server-assigned name, which is only unique within the same service that originally returns it. If you use the default HTTP mapping, the `name` should be a resource name ending with `operations/{unique_id}`.",
+                    "type": "string"
+                },
+                "response": {
+                    "additionalProperties": {
+                        "description": "Properties of the object. Contains field @type with type URL.",
+                        "type": "any"
+                    },
+                    "description": "The normal response of the operation in case of success. If the original method returns no data on success, such as `Delete`, the response is `google.protobuf.Empty`. If the original method is standard `Get`/`Create`/`Update`, the response should be the resource. For other methods, the response should have the type `XxxResponse`, where `Xxx` is the original method name. For example, if the original method name is `TakeSnapshot()`, the inferred response type is `TakeSnapshotResponse`.",
+                    "type": "object"
+                }
+            },
+            "type": "object"
+        },
+        "GoogleProtobufEmpty": {
+            "description": "A generic empty message that you can re-use to avoid defining duplicated empty messages in your APIs. A typical example is to use it as the request or the response type of an API method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty); } The JSON representation for `Empty` is empty JSON object `{}`.",
+            "id": "GoogleProtobufEmpty",
+            "properties": {},
+            "type": "object"
+        },
+        "GoogleRpcStatus": {
+            "description": "The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).",
+            "id": "GoogleRpcStatus",
+            "properties": {
+                "code": {
+                    "description": "The status code, which should be an enum value of google.rpc.Code.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "details": {
+                    "description": "A list of messages that carry the error details. There is a common set of message types for APIs to use.",
+                    "items": {
+                        "additionalProperties": {
+                            "description": "Properties of the object. Contains field @type with type URL.",
+                            "type": "any"
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "message": {
+                    "description": "A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the google.rpc.Status.details field, or localized by the client.",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "servicePath": "",
+    "title": "Firebase Extensions API",
+    "version": "v1beta",
+    "version_module": true
+}

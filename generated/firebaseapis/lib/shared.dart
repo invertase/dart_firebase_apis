@@ -228,17 +228,27 @@ class $DocumentMask {
 ///
 /// - cloudfunctions:v1 : GenerateUploadUrlRequest
 /// - cloudfunctions:v1 : Retry
+/// - fcmregistrations:v1 : GoogleProtobufEmpty
 /// - firebase:v1beta1 : Empty
 /// - firebaseappcheck:v1beta : GoogleFirebaseAppcheckV1betaGenerateAppAttestChallengeRequest
 /// - firebaseappcheck:v1beta : GoogleProtobufEmpty
 /// - firebaseappdistribution:v1alpha : GoogleFirebaseAppdistroV1alphaCreateReleaseNotesResponse
 /// - firebaseappdistribution:v1alpha : GoogleFirebaseAppdistroV1alphaEnableAccessOnReleaseResponse
 /// - firebaseappdistribution:v1alpha : GoogleFirebaseAppdistroV1alphaProvisionAppResponse
+/// - firebaseapptesters:v1alpha : GoogleFirebaseApptestersV1alphaConsentAppResponse
+/// - firebaseapptesters:v1alpha : GoogleFirebaseApptestersV1alphaSubscribeInvitationRequest
+/// - firebaseapptesters:v1alpha : GoogleFirebaseApptestersV1alphaUnsubscribeInvitationRequest
+/// - firebaseapptesters:v1alpha : GoogleProtobufEmpty
 /// - firebasedatabase:v1beta : DisableDatabaseInstanceRequest
 /// - firebasedatabase:v1beta : ReenableDatabaseInstanceRequest
+/// - firebaseextensions:v1beta : GoogleFirebaseExtensionsV1betaUndeprecateExtensionVersionRequest
+/// - firebaseextensions:v1beta : GoogleFirebaseExtensionsV1betaUnpublishExtensionRequest
+/// - firebaseextensions:v1beta : GoogleFirebaseExtensionsV1betaUnpublishExtensionVersionRequest
+/// - firebaseextensions:v1beta : GoogleProtobufEmpty
 /// - firebasehosting:v1 : CancelOperationRequest
 /// - firebasehosting:v1 : Empty
 /// - firebasehosting:v1beta1 : Empty
+/// - firebaseinstallations:v1 : GoogleProtobufEmpty
 /// - firebaseml:v1 : CancelOperationRequest
 /// - firebaseml:v1 : Empty
 /// - firebaseml:v1beta2 : Empty
@@ -722,6 +732,7 @@ class $RollbackRequest {
 ///
 /// - cloudfunctions:v1 : Status
 /// - firebase:v1beta1 : Status
+/// - firebaseextensions:v1beta : GoogleRpcStatus
 /// - firebasehosting:v1 : Status
 /// - firebasehosting:v1beta1 : Status
 /// - firebaseml:v1 : Status

@@ -43,8 +43,11 @@ Future<List<RestDescription>> fetchDiscoveryDocuments({
 
   Future<RestDescription?> download(String api) async {
     final parts = api.split(':');
-    final discoveryUrl =
+    var discoveryUrl =
         'https://${parts[0]}.googleapis.com/\$discovery/rest?version=${parts[1]}';
+    if (Platform.environment['API_KEY'] != null) {
+      discoveryUrl += '&key=${Platform.environment['API_KEY']}';
+    }
     try {
       final result = await client.get(
         Uri.parse(discoveryUrl),
