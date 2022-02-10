@@ -64,7 +64,7 @@ To add a new API and generate library code for it is fairly straightforward;
 
 1.  Add the API to the `apis` list in [`./config.yaml`](config.yaml)
 2.  Run `melos run config:download` to update the downloaded discovery document JSON files that are in [`./discovery`](discovery).
-    2.1. **Note**: several APIs require an [API key](https://cloud.google.com/docs/authentication/api-keys) to be able to read the discovery information. Set a `API_KEY` environment variable before running the command to be able to download the discovery documents for these private APIs, e.g. `API_KEY=<your-key-here> melos run config:download`.
+    - **Note**: several APIs require an [API key](https://cloud.google.com/docs/authentication/api-keys) to be able to read the discovery information. Set a `API_KEY` environment variable before running the command to be able to download the discovery documents for these private APIs, e.g. `API_KEY=<your-key-here> melos run config:download`.
 3.  Run `melos run config:generate` to generate new Dart library code for the API, which outputs to [`./generated/firebaseapis`](generated/firebaseapis).
 
 ---
