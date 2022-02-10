@@ -1,4 +1,4 @@
-# Firebase API Client Libraries with Dart
+# Firebase API Client Libraries for Dart
 
 [![melos](https://img.shields.io/badge/maintained%20with-melos-f700ff.svg?style=flat-square)](https://github.com/invertase/melos)
 
