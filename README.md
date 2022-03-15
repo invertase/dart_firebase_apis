@@ -36,6 +36,21 @@ print(rules.rulesets?.first.name);
 print(rules.rulesets?.first.source?.files?.first.content);
 ```
 
+## Custom Request Headers
+
+Custom request headers can be set by adding to `requestHeaders`:
+
+```dart
+import 'package:firebaseapis/src/user_agent.dart';
+
+Future<void> main() async {
+  requestHeaders.addAll({
+    'cool-header': 'cool-value',
+  });
+  print(requestHeaders);
+}
+```
+
 ## Contributing
 
 This project uses [Melos](https://github.com/invertase/melos) to manage the project and dependencies.
