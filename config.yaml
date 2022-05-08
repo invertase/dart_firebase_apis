@@ -25,8 +25,8 @@ packages:
         - identitytoolkit:v3
         - storage:v1
         - testing:v1
+        - firebaseappdistribution:v1
         # Alphas & Betas
-        - firebaseappdistribution:v1alpha
         - fcmdata:v1beta1
         - firebase:v1beta1
         - firebaseappcheck:v1beta

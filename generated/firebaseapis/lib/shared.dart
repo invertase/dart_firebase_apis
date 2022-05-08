@@ -226,29 +226,20 @@ class $DocumentMask {
 
 /// Used by:
 ///
-/// - cloudfunctions:v1 : GenerateUploadUrlRequest
 /// - cloudfunctions:v1 : Retry
-/// - fcmregistrations:v1 : GoogleProtobufEmpty
 /// - firebase:v1beta1 : Empty
 /// - firebaseappcheck:v1beta : GoogleFirebaseAppcheckV1betaGenerateAppAttestChallengeRequest
+/// - firebaseappcheck:v1beta : GoogleFirebaseAppcheckV1betaGeneratePlayIntegrityChallengeRequest
 /// - firebaseappcheck:v1beta : GoogleProtobufEmpty
-/// - firebaseappdistribution:v1alpha : GoogleFirebaseAppdistroV1alphaCreateReleaseNotesResponse
-/// - firebaseappdistribution:v1alpha : GoogleFirebaseAppdistroV1alphaEnableAccessOnReleaseResponse
-/// - firebaseappdistribution:v1alpha : GoogleFirebaseAppdistroV1alphaProvisionAppResponse
-/// - firebaseapptesters:v1alpha : GoogleFirebaseApptestersV1alphaConsentAppResponse
-/// - firebaseapptesters:v1alpha : GoogleFirebaseApptestersV1alphaSubscribeInvitationRequest
-/// - firebaseapptesters:v1alpha : GoogleFirebaseApptestersV1alphaUnsubscribeInvitationRequest
-/// - firebaseapptesters:v1alpha : GoogleProtobufEmpty
+/// - firebaseappdistribution:v1 : GoogleFirebaseAppdistroV1DistributeReleaseResponse
+/// - firebaseappdistribution:v1 : GoogleLongrunningCancelOperationRequest
+/// - firebaseappdistribution:v1 : GoogleProtobufEmpty
 /// - firebasedatabase:v1beta : DisableDatabaseInstanceRequest
 /// - firebasedatabase:v1beta : ReenableDatabaseInstanceRequest
-/// - firebaseextensions:v1beta : GoogleFirebaseExtensionsV1betaUndeprecateExtensionVersionRequest
-/// - firebaseextensions:v1beta : GoogleFirebaseExtensionsV1betaUnpublishExtensionRequest
-/// - firebaseextensions:v1beta : GoogleFirebaseExtensionsV1betaUnpublishExtensionVersionRequest
-/// - firebaseextensions:v1beta : GoogleProtobufEmpty
+/// - firebasedatabase:v1beta : UndeleteDatabaseInstanceRequest
 /// - firebasehosting:v1 : CancelOperationRequest
 /// - firebasehosting:v1 : Empty
 /// - firebasehosting:v1beta1 : Empty
-/// - firebaseinstallations:v1 : GoogleProtobufEmpty
 /// - firebaseml:v1 : CancelOperationRequest
 /// - firebaseml:v1 : Empty
 /// - firebaseml:v1beta2 : Empty
@@ -459,40 +450,6 @@ class $LatLng {
   core.Map<core.String, core.dynamic> toJson() => {
         if (latitude != null) 'latitude': latitude!,
         if (longitude != null) 'longitude': longitude!,
-      };
-}
-
-/// Used by:
-///
-/// - firestore:v1 : ListCollectionIdsRequest
-/// - firestore:v1beta1 : ListCollectionIdsRequest
-class $ListCollectionIdsRequest {
-  /// The maximum number of results to return.
-  core.int? pageSize;
-
-  /// A page token.
-  ///
-  /// Must be a value from ListCollectionIdsResponse.
-  core.String? pageToken;
-
-  $ListCollectionIdsRequest({
-    this.pageSize,
-    this.pageToken,
-  });
-
-  $ListCollectionIdsRequest.fromJson(core.Map _json)
-      : this(
-          pageSize: _json.containsKey('pageSize')
-              ? _json['pageSize'] as core.int
-              : null,
-          pageToken: _json.containsKey('pageToken')
-              ? _json['pageToken'] as core.String
-              : null,
-        );
-
-  core.Map<core.String, core.dynamic> toJson() => {
-        if (pageSize != null) 'pageSize': pageSize!,
-        if (pageToken != null) 'pageToken': pageToken!,
       };
 }
 
@@ -732,7 +689,7 @@ class $RollbackRequest {
 ///
 /// - cloudfunctions:v1 : Status
 /// - firebase:v1beta1 : Status
-/// - firebaseextensions:v1beta : GoogleRpcStatus
+/// - firebaseappdistribution:v1 : GoogleRpcStatus
 /// - firebasehosting:v1 : Status
 /// - firebasehosting:v1beta1 : Status
 /// - firebaseml:v1 : Status
@@ -791,7 +748,7 @@ class $Status {
 class $TestIamPermissionsRequest {
   /// The set of permissions to check for the `resource`.
   ///
-  /// Permissions with wildcards (such as '*' or 'storage.*') are not allowed.
+  /// Permissions with wildcards (such as `*` or `storage.*`) are not allowed.
   /// For more information see
   /// [IAM Overview](https://cloud.google.com/iam/docs/overview#permissions).
   core.List<core.String>? permissions;

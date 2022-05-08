@@ -32,7 +32,6 @@
 library firestore.v1;
 
 import 'dart:async' as async;
-import 'dart:collection' as collection;
 import 'dart:convert' as convert;
 import 'dart:core' as core;
 
@@ -1163,6 +1162,89 @@ class ProjectsDatabasesDocumentsResource {
         _response as core.Map<core.String, core.dynamic>);
   }
 
+  /// Lists documents.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The parent resource name. In the format:
+  /// `projects/{project_id}/databases/{database_id}/documents` or
+  /// `projects/{project_id}/databases/{database_id}/documents/{document_path}`.
+  /// For example: `projects/my-project/databases/my-database/documents` or
+  /// `projects/my-project/databases/my-database/documents/chatrooms/my-chatroom`
+  /// Value must have pattern `^projects/\[^/\]+/databases/\[^/\]+/documents$`.
+  ///
+  /// [collectionId] - Required. The collection ID, relative to `parent`, to
+  /// list. For example: `chatrooms` or `messages`.
+  ///
+  /// [mask_fieldPaths] - The list of field paths in the mask. See
+  /// Document.fields for a field path syntax reference.
+  ///
+  /// [orderBy] - The order to sort results by. For example: `priority desc,
+  /// name`.
+  ///
+  /// [pageSize] - The maximum number of documents to return.
+  ///
+  /// [pageToken] - The `next_page_token` value returned from a previous List
+  /// request, if any.
+  ///
+  /// [readTime] - Reads documents as they were at the given time. This may not
+  /// be older than 270 seconds.
+  ///
+  /// [showMissing] - If the list should show missing documents. A missing
+  /// document is a document that does not exist but has sub-documents. These
+  /// documents will be returned with a key but will not have fields,
+  /// Document.create_time, or Document.update_time set. Requests with
+  /// `show_missing` may not specify `where` or `order_by`.
+  ///
+  /// [transaction] - Reads documents in a transaction.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [ListDocumentsResponse].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<ListDocumentsResponse> listDocuments(
+    core.String parent,
+    core.String collectionId, {
+    core.List<core.String>? mask_fieldPaths,
+    core.String? orderBy,
+    core.int? pageSize,
+    core.String? pageToken,
+    core.String? readTime,
+    core.bool? showMissing,
+    core.String? transaction,
+    core.String? $fields,
+  }) async {
+    final _queryParams = <core.String, core.List<core.String>>{
+      if (mask_fieldPaths != null) 'mask.fieldPaths': mask_fieldPaths,
+      if (orderBy != null) 'orderBy': [orderBy],
+      if (pageSize != null) 'pageSize': ['${pageSize}'],
+      if (pageToken != null) 'pageToken': [pageToken],
+      if (readTime != null) 'readTime': [readTime],
+      if (showMissing != null) 'showMissing': ['${showMissing}'],
+      if (transaction != null) 'transaction': [transaction],
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final _url = 'v1/' +
+        core.Uri.encodeFull('$parent') +
+        '/' +
+        commons.escapeVariable('$collectionId');
+
+    final _response = await _requester.request(
+      _url,
+      'GET',
+      queryParams: _queryParams,
+    );
+    return ListDocumentsResponse.fromJson(
+        _response as core.Map<core.String, core.dynamic>);
+  }
+
   /// Partitions a query by returning partition cursors that can be used to run
   /// the query in parallel.
   ///
@@ -1362,7 +1444,8 @@ class ProjectsDatabasesDocumentsResource {
       body: _body,
       queryParams: _queryParams,
     );
-    return RunQueryResponse.fromJson(_response as core.List);
+    return RunQueryResponse.fromJson(
+        _response as core.Map<core.String, core.dynamic>);
   }
 
   /// Streams batches of document updates and deletes, in order.
@@ -1651,7 +1734,7 @@ class ProjectsLocationsResource {
   /// Value must have pattern `^projects/\[^/\]+$`.
   ///
   /// [filter] - A filter to narrow down results to a preferred subset. The
-  /// filtering language accepts strings like "displayName=tokyo", and is
+  /// filtering language accepts strings like `"displayName=tokyo"`, and is
   /// documented in more detail in \[AIP-160\](https://google.aip.dev/160).
   ///
   /// [pageSize] - The maximum number of results to return. If not set, the
@@ -2052,14 +2135,13 @@ class CommitResponse {
 class CompositeFilter {
   /// The list of filters to combine.
   ///
-  /// Must contain at least one filter.
+  /// Requires: * At least one filter is present.
   core.List<Filter>? filters;
 
   /// The operator for combining multiple filters.
   /// Possible string values are:
   /// - "OPERATOR_UNSPECIFIED" : Unspecified. This value must not be used.
-  /// - "AND" : The results are required to satisfy each of the combined
-  /// filters.
+  /// - "AND" : Documents are required to satisfy all of the combined filters.
   core.String? op;
 
   CompositeFilter({
@@ -2245,8 +2327,7 @@ class DocumentTransform {
 ///
 /// A typical example is to use it as the request or the response type of an API
 /// method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns
-/// (google.protobuf.Empty); } The JSON representation for `Empty` is empty JSON
-/// object `{}`.
+/// (google.protobuf.Empty); }
 typedef Empty = $Empty;
 
 /// A filter on a specific field.
@@ -2488,24 +2569,46 @@ class Filter {
 /// Currently only one database is allowed per cloud project; this database must
 /// have a `database_id` of '(default)'.
 class GoogleFirestoreAdminV1Database {
+  /// The App Engine integration mode to use for this database.
+  /// Possible string values are:
+  /// - "APP_ENGINE_INTEGRATION_MODE_UNSPECIFIED" : Not used.
+  /// - "ENABLED" : If an App Engine application exists in the same region as
+  /// this database, App Engine configuration will impact this database. This
+  /// includes disabling of the application & database, as well as disabling
+  /// writes to the database.
+  /// - "DISABLED" : Appengine has no affect on the ability of this database to
+  /// serve requests.
+  core.String? appEngineIntegrationMode;
+
   /// The concurrency control mode to use for this database.
   /// Possible string values are:
   /// - "CONCURRENCY_MODE_UNSPECIFIED" : Not used.
-  /// - "OPTIMISTIC" : Use optimistic concurrency control by default. This
-  /// setting is available for Cloud Firestore customers.
+  /// - "OPTIMISTIC" : Use optimistic concurrency control by default. This mode
+  /// is available for Cloud Firestore databases.
   /// - "PESSIMISTIC" : Use pessimistic concurrency control by default. This
-  /// setting is available for Cloud Firestore customers. This is the default
+  /// mode is available for Cloud Firestore databases. This is the default
   /// setting for Cloud Firestore.
   /// - "OPTIMISTIC_WITH_ENTITY_GROUPS" : Use optimistic concurrency control
-  /// with entity groups by default. This is the only available setting for
-  /// Cloud Datastore customers. This is the default setting for Cloud
-  /// Datastore.
+  /// with entity groups by default. This is the only available mode for Cloud
+  /// Datastore. This mode is also available for Cloud Firestore with Datastore
+  /// Mode but is not recommended.
   core.String? concurrencyMode;
 
   /// This checksum is computed by the server based on the value of other
   /// fields, and may be sent on update and delete requests to ensure the client
   /// has an up-to-date value before proceeding.
   core.String? etag;
+
+  /// The key_prefix for this database.
+  ///
+  /// This key_prefix is used, in combination with the project id ("~") to
+  /// construct the application id that is returned from the Cloud Datastore
+  /// APIs in Google App Engine first generation runtimes. This value may be
+  /// empty in which case the appid to use for URL-encoded keys is the
+  /// project_id (eg: foo instead of v~foo).
+  ///
+  /// Output only.
+  core.String? keyPrefix;
 
   /// The location of the database.
   ///
@@ -2530,8 +2633,10 @@ class GoogleFirestoreAdminV1Database {
   core.String? type;
 
   GoogleFirestoreAdminV1Database({
+    this.appEngineIntegrationMode,
     this.concurrencyMode,
     this.etag,
+    this.keyPrefix,
     this.locationId,
     this.name,
     this.type,
@@ -2539,10 +2644,17 @@ class GoogleFirestoreAdminV1Database {
 
   GoogleFirestoreAdminV1Database.fromJson(core.Map _json)
       : this(
+          appEngineIntegrationMode:
+              _json.containsKey('appEngineIntegrationMode')
+                  ? _json['appEngineIntegrationMode'] as core.String
+                  : null,
           concurrencyMode: _json.containsKey('concurrencyMode')
               ? _json['concurrencyMode'] as core.String
               : null,
           etag: _json.containsKey('etag') ? _json['etag'] as core.String : null,
+          keyPrefix: _json.containsKey('keyPrefix')
+              ? _json['keyPrefix'] as core.String
+              : null,
           locationId: _json.containsKey('locationId')
               ? _json['locationId'] as core.String
               : null,
@@ -2551,8 +2663,11 @@ class GoogleFirestoreAdminV1Database {
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
+        if (appEngineIntegrationMode != null)
+          'appEngineIntegrationMode': appEngineIntegrationMode!,
         if (concurrencyMode != null) 'concurrencyMode': concurrencyMode!,
         if (etag != null) 'etag': etag!,
+        if (keyPrefix != null) 'keyPrefix': keyPrefix!,
         if (locationId != null) 'locationId': locationId!,
         if (name != null) 'name': name!,
         if (type != null) 'type': type!,
@@ -3073,7 +3188,35 @@ class GoogleLongrunningOperation {
 typedef LatLng = $LatLng;
 
 /// The request for Firestore.ListCollectionIds.
-typedef ListCollectionIdsRequest = $ListCollectionIdsRequest;
+class ListCollectionIdsRequest {
+  /// The maximum number of results to return.
+  core.int? pageSize;
+
+  /// A page token.
+  ///
+  /// Must be a value from ListCollectionIdsResponse.
+  core.String? pageToken;
+
+  ListCollectionIdsRequest({
+    this.pageSize,
+    this.pageToken,
+  });
+
+  ListCollectionIdsRequest.fromJson(core.Map _json)
+      : this(
+          pageSize: _json.containsKey('pageSize')
+              ? _json['pageSize'] as core.int
+              : null,
+          pageToken: _json.containsKey('pageToken')
+              ? _json['pageToken'] as core.String
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (pageSize != null) 'pageSize': pageSize!,
+        if (pageToken != null) 'pageToken': pageToken!,
+      };
+}
 
 /// The response from Firestore.ListCollectionIds.
 typedef ListCollectionIdsResponse = $ListCollectionIdsResponse;
@@ -3384,7 +3527,9 @@ class RunQueryRequest {
   /// A structured query.
   StructuredQuery? structuredQuery;
 
-  /// Reads documents in a transaction.
+  /// Run the query within an already active transaction.
+  ///
+  /// The value here is the opaque transaction ID to execute the query in.
   core.String? transaction;
   core.List<core.int> get transactionAsBytes =>
       convert.base64.decode(transaction!);
@@ -3427,11 +3572,14 @@ class RunQueryRequest {
       };
 }
 
-class RunQueryResponseElement {
-  /// A query result.
-  ///
-  /// Not set when reporting partial progress.
+/// The response for Firestore.RunQuery.
+class RunQueryResponse {
+  /// A query result, not set when reporting partial progress.
   Document? document;
+
+  /// If present, Firestore has completely finished the request and no more
+  /// documents will be returned.
+  core.bool? done;
 
   /// The time at which the document was read.
   ///
@@ -3460,19 +3608,21 @@ class RunQueryResponseElement {
         convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
   }
 
-  RunQueryResponseElement({
+  RunQueryResponse({
     this.document,
+    this.done,
     this.readTime,
     this.skippedResults,
     this.transaction,
   });
 
-  RunQueryResponseElement.fromJson(core.Map _json)
+  RunQueryResponse.fromJson(core.Map _json)
       : this(
           document: _json.containsKey('document')
               ? Document.fromJson(
                   _json['document'] as core.Map<core.String, core.dynamic>)
               : null,
+          done: _json.containsKey('done') ? _json['done'] as core.bool : null,
           readTime: _json.containsKey('readTime')
               ? _json['readTime'] as core.String
               : null,
@@ -3486,44 +3636,11 @@ class RunQueryResponseElement {
 
   core.Map<core.String, core.dynamic> toJson() => {
         if (document != null) 'document': document!,
+        if (done != null) 'done': done!,
         if (readTime != null) 'readTime': readTime!,
         if (skippedResults != null) 'skippedResults': skippedResults!,
         if (transaction != null) 'transaction': transaction!,
       };
-}
-
-/// The response for Firestore.RunQuery.
-class RunQueryResponse extends collection.ListBase<RunQueryResponseElement> {
-  final core.List<RunQueryResponseElement> _inner;
-
-  RunQueryResponse() : _inner = [];
-
-  RunQueryResponse.fromJson(core.List json)
-      : _inner = json
-            .map((value) => RunQueryResponseElement.fromJson(
-                value as core.Map<core.String, core.dynamic>))
-            .toList();
-
-  @core.override
-  RunQueryResponseElement operator [](core.int key) => _inner[key];
-
-  @core.override
-  void operator []=(core.int key, RunQueryResponseElement value) {
-    _inner[key] = value;
-  }
-
-  @core.override
-  core.int get length => _inner.length;
-
-  @core.override
-  set length(core.int newLength) {
-    _inner.length = newLength;
-  }
-
-  @core.override
-  void add(RunQueryResponseElement element) {
-    _inner.add(element);
-  }
 }
 
 /// The `Status` type defines a logical error model that is suitable for

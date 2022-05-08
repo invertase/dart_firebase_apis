@@ -203,11 +203,84 @@
                             "response": {
                                 "$ref": "FetchRemoteConfigResponse"
                             }
+                        },
+                        "streamFetchInvalidations": {
+                            "description": "Streaming endpoint which allows a client to subscribe to a stream of Fetch invalidation events. These events tell the client that a previous Fetch response is no longer valid (ex: a new Template was published) and that they should perform a new Fetch request to get the latest data.",
+                            "flatPath": "v1/projects/{project}/namespaces/{namespace}:streamFetchInvalidations",
+                            "httpMethod": "POST",
+                            "id": "firebaseremoteconfig.projects.namespaces.streamFetchInvalidations",
+                            "parameterOrder": [
+                                "project",
+                                "namespace"
+                            ],
+                            "parameters": {
+                                "namespace": {
+                                    "description": "Required. The string \"firebase\".",
+                                    "location": "path",
+                                    "required": true,
+                                    "type": "string"
+                                },
+                                "project": {
+                                    "description": "Required. The Firebase project ID or project number. (NOTE: These identifiers can be retrieved from the Firebase console.)",
+                                    "location": "path",
+                                    "required": true,
+                                    "type": "string"
+                                }
+                            },
+                            "path": "v1/projects/{project}/namespaces/{namespace}:streamFetchInvalidations",
+                            "request": {
+                                "$ref": "StreamFetchInvalidationsRequest"
+                            },
+                            "response": {
+                                "$ref": "StreamFetchInvalidationsResponse"
+                            }
                         }
                     }
                 },
                 "remoteConfig": {
                     "methods": {
+                        "downloadDefaults": {
+                            "description": "Get a project's current Remote Config template parameters and default values in JSON, property list (plist), or XML format.",
+                            "flatPath": "v1/projects/{projectsId}/remoteConfig:downloadDefaults",
+                            "httpMethod": "GET",
+                            "id": "firebaseremoteconfig.projects.remoteConfig.downloadDefaults",
+                            "parameterOrder": [
+                                "project"
+                            ],
+                            "parameters": {
+                                "format": {
+                                    "description": "Required. The file structure to return.",
+                                    "enum": [
+                                        "FORMAT_UNSPECIFIED",
+                                        "XML",
+                                        "PLIST",
+                                        "JSON"
+                                    ],
+                                    "enumDescriptions": [
+                                        "Catch-all for unrecognized enum values.",
+                                        "Returns a response in XML format.",
+                                        "Returns a response in property list (plist) format.",
+                                        "Returns a response in JSON format."
+                                    ],
+                                    "location": "query",
+                                    "type": "string"
+                                },
+                                "project": {
+                                    "description": "Required. The Firebase project's Project ID or Project Number, prefixed with \"projects/\".",
+                                    "location": "path",
+                                    "pattern": "^projects/[^/]+$",
+                                    "required": true,
+                                    "type": "string"
+                                }
+                            },
+                            "path": "v1/{+project}/remoteConfig:downloadDefaults",
+                            "response": {
+                                "$ref": "HttpBody"
+                            },
+                            "scopes": [
+                                "https://www.googleapis.com/auth/cloud-platform"
+                            ]
+                        },
                         "listVersions": {
                             "description": "Get a list of Remote Config template versions that have been published, sorted in reverse chronological order. Only the last 300 versions are stored. All versions that correspond to non-active Remote Config templates (i.e., all except the template that is being fetched by clients) are also deleted if they are older than 90 days.",
                             "flatPath": "v1/projects/{projectsId}/remoteConfig:listVersions",
@@ -295,7 +368,7 @@
             }
         }
     },
-    "revision": "20220208",
+    "revision": "20220503",
     "rootUrl": "https://firebaseremoteconfig.googleapis.com/",
     "schemas": {
         "ExperimentDescription": {
@@ -367,6 +440,11 @@
                     "description": "Optional - If omitted and the template has any conditions that depend on country_code, they will be evaluated as false. Should be 2 lower-case letters, e.g. \"us\", \"tr\", or \"gb\", as defined in ISO 3166-1 alpha-2. This is case-insensitive. See https://www.iso.org/obp/ui/#search .",
                     "type": "string"
                 },
+                "firstOpenTime": {
+                    "description": "The first time a user launches an app after installing or re-installing it. This value comes from GA, and will not be set if GA SDK is not available on the client or if GA does not have the first-open time value.",
+                    "format": "google-datetime",
+                    "type": "string"
+                },
                 "languageCode": {
                     "description": "Optional - If omitted and the template has any conditions that depend on locale, they will be evaluated as false. The default locale of the device, in BCP47 format, for example \"en-US\". This is case-insensitive. See https://www.w3.org/International/core/langtags/rfc3066bis.html .",
                     "type": "string"
@@ -436,6 +514,38 @@
                         "Template found, but evaluates to empty (e.g. all keys omitted)"
                     ],
                     "type": "string"
+                },
+                "templateVersion": {
+                    "description": "Used to record the current template in the response.",
+                    "format": "int64",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "HttpBody": {
+            "description": "Message that represents an arbitrary HTTP body. It should only be used for payload formats that can't be represented as JSON, such as raw binary or an HTML page. This message can be used both in streaming and non-streaming API methods in the request as well as the response. It can be used as a top-level request field, which is convenient if one wants to extract parameters from either the URL or HTTP template into the request fields and also want access to the raw HTTP body. Example: message GetResourceRequest { // A unique request id. string request_id = 1; // The raw HTTP body is bound to this field. google.api.HttpBody http_body = 2; } service ResourceService { rpc GetResource(GetResourceRequest) returns (google.api.HttpBody); rpc UpdateResource(google.api.HttpBody) returns (google.protobuf.Empty); } Example with streaming methods: service CaldavService { rpc GetCalendar(stream google.api.HttpBody) returns (stream google.api.HttpBody); rpc UpdateCalendar(stream google.api.HttpBody) returns (stream google.api.HttpBody); } Use of this type only changes how the request and response bodies are handled, all other features will continue to work unchanged.",
+            "id": "HttpBody",
+            "properties": {
+                "contentType": {
+                    "description": "The HTTP Content-Type header value specifying the content type of the body.",
+                    "type": "string"
+                },
+                "data": {
+                    "description": "The HTTP request/response body as raw binary.",
+                    "format": "byte",
+                    "type": "string"
+                },
+                "extensions": {
+                    "description": "Application specific response metadata. Must be set in the first response for streaming APIs.",
+                    "items": {
+                        "additionalProperties": {
+                            "description": "Properties of the object. Contains field @type with type URL.",
+                            "type": "any"
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
                 }
             },
             "type": "object"
@@ -684,6 +794,30 @@
             "properties": {
                 "versionNumber": {
                     "description": "Required. The version number of the RemoteConfig to roll back to. The specified version number must be less than the current version number, and not have been deleted due to staleness.",
+                    "format": "int64",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "StreamFetchInvalidationsRequest": {
+            "description": "Open a stream of Fetch response invalidation signals.",
+            "id": "StreamFetchInvalidationsRequest",
+            "properties": {
+                "lastKnownVersionNumber": {
+                    "description": "If this client has previously performed a Fetch, this indicates which Template version was used to process it (returned in the Fetch response).",
+                    "format": "int64",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "StreamFetchInvalidationsResponse": {
+            "description": "Response indicating that the previous Fetch response is now invalid.",
+            "id": "StreamFetchInvalidationsResponse",
+            "properties": {
+                "latestTemplateVersionNumber": {
+                    "description": "Indicates the new Template version number which triggered this invalidation event.",
                     "format": "int64",
                     "type": "string"
                 }

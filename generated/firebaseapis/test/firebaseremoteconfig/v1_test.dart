@@ -102,6 +102,7 @@ api.FetchRemoteConfigRequest buildFetchRemoteConfigRequest() {
     o.appInstanceIdToken = 'foo';
     o.appVersion = 'foo';
     o.countryCode = 'foo';
+    o.firstOpenTime = 'foo';
     o.languageCode = 'foo';
     o.packageName = 'foo';
     o.platformVersion = 'foo';
@@ -138,6 +139,10 @@ void checkFetchRemoteConfigRequest(api.FetchRemoteConfigRequest o) {
     );
     unittest.expect(
       o.countryCode!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.firstOpenTime!,
       unittest.equals('foo'),
     );
     unittest.expect(
@@ -213,6 +218,7 @@ api.FetchRemoteConfigResponse buildFetchRemoteConfigResponse() {
     o.experimentDescriptions = buildUnnamed2();
     o.personalizationMetadata = buildUnnamed3();
     o.state = 'foo';
+    o.templateVersion = 'foo';
   }
   buildCounterFetchRemoteConfigResponse--;
   return o;
@@ -232,16 +238,105 @@ void checkFetchRemoteConfigResponse(api.FetchRemoteConfigResponse o) {
       o.state!,
       unittest.equals('foo'),
     );
+    unittest.expect(
+      o.templateVersion!,
+      unittest.equals('foo'),
+    );
   }
   buildCounterFetchRemoteConfigResponse--;
 }
 
-core.List<api.Version> buildUnnamed4() => [
+core.Map<core.String, core.Object?> buildUnnamed4() => {
+      'x': {
+        'list': [1, 2, 3],
+        'bool': true,
+        'string': 'foo'
+      },
+      'y': {
+        'list': [1, 2, 3],
+        'bool': true,
+        'string': 'foo'
+      },
+    };
+
+void checkUnnamed4(core.Map<core.String, core.Object?> o) {
+  unittest.expect(o, unittest.hasLength(2));
+  var casted1 = (o['x']!) as core.Map;
+  unittest.expect(casted1, unittest.hasLength(3));
+  unittest.expect(
+    casted1['list'],
+    unittest.equals([1, 2, 3]),
+  );
+  unittest.expect(
+    casted1['bool'],
+    unittest.equals(true),
+  );
+  unittest.expect(
+    casted1['string'],
+    unittest.equals('foo'),
+  );
+  var casted2 = (o['y']!) as core.Map;
+  unittest.expect(casted2, unittest.hasLength(3));
+  unittest.expect(
+    casted2['list'],
+    unittest.equals([1, 2, 3]),
+  );
+  unittest.expect(
+    casted2['bool'],
+    unittest.equals(true),
+  );
+  unittest.expect(
+    casted2['string'],
+    unittest.equals('foo'),
+  );
+}
+
+core.List<core.Map<core.String, core.Object?>> buildUnnamed5() => [
+      buildUnnamed4(),
+      buildUnnamed4(),
+    ];
+
+void checkUnnamed5(core.List<core.Map<core.String, core.Object?>> o) {
+  unittest.expect(o, unittest.hasLength(2));
+  checkUnnamed4(o[0]);
+  checkUnnamed4(o[1]);
+}
+
+core.int buildCounterHttpBody = 0;
+api.HttpBody buildHttpBody() {
+  final o = api.HttpBody();
+  buildCounterHttpBody++;
+  if (buildCounterHttpBody < 3) {
+    o.contentType = 'foo';
+    o.data = 'foo';
+    o.extensions = buildUnnamed5();
+  }
+  buildCounterHttpBody--;
+  return o;
+}
+
+void checkHttpBody(api.HttpBody o) {
+  buildCounterHttpBody++;
+  if (buildCounterHttpBody < 3) {
+    unittest.expect(
+      o.contentType!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.data!,
+      unittest.equals('foo'),
+    );
+    checkUnnamed5(o.extensions!);
+  }
+  buildCounterHttpBody--;
+}
+
+core.List<api.Version> buildUnnamed6() => [
       buildVersion(),
       buildVersion(),
     ];
 
-void checkUnnamed4(core.List<api.Version> o) {
+void checkUnnamed6(core.List<api.Version> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkVersion(o[0]);
   checkVersion(o[1]);
@@ -253,7 +348,7 @@ api.ListVersionsResponse buildListVersionsResponse() {
   buildCounterListVersionsResponse++;
   if (buildCounterListVersionsResponse < 3) {
     o.nextPageToken = 'foo';
-    o.versions = buildUnnamed4();
+    o.versions = buildUnnamed6();
   }
   buildCounterListVersionsResponse--;
   return o;
@@ -266,7 +361,7 @@ void checkListVersionsResponse(api.ListVersionsResponse o) {
       o.nextPageToken!,
       unittest.equals('foo'),
     );
-    checkUnnamed4(o.versions!);
+    checkUnnamed6(o.versions!);
   }
   buildCounterListVersionsResponse--;
 }
@@ -330,34 +425,34 @@ void checkPersonalizationValue(api.PersonalizationValue o) {
   buildCounterPersonalizationValue--;
 }
 
-core.List<api.RemoteConfigCondition> buildUnnamed5() => [
+core.List<api.RemoteConfigCondition> buildUnnamed7() => [
       buildRemoteConfigCondition(),
       buildRemoteConfigCondition(),
     ];
 
-void checkUnnamed5(core.List<api.RemoteConfigCondition> o) {
+void checkUnnamed7(core.List<api.RemoteConfigCondition> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkRemoteConfigCondition(o[0]);
   checkRemoteConfigCondition(o[1]);
 }
 
-core.Map<core.String, api.RemoteConfigParameterGroup> buildUnnamed6() => {
+core.Map<core.String, api.RemoteConfigParameterGroup> buildUnnamed8() => {
       'x': buildRemoteConfigParameterGroup(),
       'y': buildRemoteConfigParameterGroup(),
     };
 
-void checkUnnamed6(core.Map<core.String, api.RemoteConfigParameterGroup> o) {
+void checkUnnamed8(core.Map<core.String, api.RemoteConfigParameterGroup> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkRemoteConfigParameterGroup(o['x']!);
   checkRemoteConfigParameterGroup(o['y']!);
 }
 
-core.Map<core.String, api.RemoteConfigParameter> buildUnnamed7() => {
+core.Map<core.String, api.RemoteConfigParameter> buildUnnamed9() => {
       'x': buildRemoteConfigParameter(),
       'y': buildRemoteConfigParameter(),
     };
 
-void checkUnnamed7(core.Map<core.String, api.RemoteConfigParameter> o) {
+void checkUnnamed9(core.Map<core.String, api.RemoteConfigParameter> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkRemoteConfigParameter(o['x']!);
   checkRemoteConfigParameter(o['y']!);
@@ -368,9 +463,9 @@ api.RemoteConfig buildRemoteConfig() {
   final o = api.RemoteConfig();
   buildCounterRemoteConfig++;
   if (buildCounterRemoteConfig < 3) {
-    o.conditions = buildUnnamed5();
-    o.parameterGroups = buildUnnamed6();
-    o.parameters = buildUnnamed7();
+    o.conditions = buildUnnamed7();
+    o.parameterGroups = buildUnnamed8();
+    o.parameters = buildUnnamed9();
     o.version = buildVersion();
   }
   buildCounterRemoteConfig--;
@@ -380,9 +475,9 @@ api.RemoteConfig buildRemoteConfig() {
 void checkRemoteConfig(api.RemoteConfig o) {
   buildCounterRemoteConfig++;
   if (buildCounterRemoteConfig < 3) {
-    checkUnnamed5(o.conditions!);
-    checkUnnamed6(o.parameterGroups!);
-    checkUnnamed7(o.parameters!);
+    checkUnnamed7(o.conditions!);
+    checkUnnamed8(o.parameterGroups!);
+    checkUnnamed9(o.parameters!);
     checkVersion(o.version!);
   }
   buildCounterRemoteConfig--;
@@ -420,12 +515,12 @@ void checkRemoteConfigCondition(api.RemoteConfigCondition o) {
   buildCounterRemoteConfigCondition--;
 }
 
-core.Map<core.String, api.RemoteConfigParameterValue> buildUnnamed8() => {
+core.Map<core.String, api.RemoteConfigParameterValue> buildUnnamed10() => {
       'x': buildRemoteConfigParameterValue(),
       'y': buildRemoteConfigParameterValue(),
     };
 
-void checkUnnamed8(core.Map<core.String, api.RemoteConfigParameterValue> o) {
+void checkUnnamed10(core.Map<core.String, api.RemoteConfigParameterValue> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkRemoteConfigParameterValue(o['x']!);
   checkRemoteConfigParameterValue(o['y']!);
@@ -436,7 +531,7 @@ api.RemoteConfigParameter buildRemoteConfigParameter() {
   final o = api.RemoteConfigParameter();
   buildCounterRemoteConfigParameter++;
   if (buildCounterRemoteConfigParameter < 3) {
-    o.conditionalValues = buildUnnamed8();
+    o.conditionalValues = buildUnnamed10();
     o.defaultValue = buildRemoteConfigParameterValue();
     o.description = 'foo';
     o.valueType = 'foo';
@@ -448,7 +543,7 @@ api.RemoteConfigParameter buildRemoteConfigParameter() {
 void checkRemoteConfigParameter(api.RemoteConfigParameter o) {
   buildCounterRemoteConfigParameter++;
   if (buildCounterRemoteConfigParameter < 3) {
-    checkUnnamed8(o.conditionalValues!);
+    checkUnnamed10(o.conditionalValues!);
     checkRemoteConfigParameterValue(o.defaultValue!);
     unittest.expect(
       o.description!,
@@ -462,12 +557,12 @@ void checkRemoteConfigParameter(api.RemoteConfigParameter o) {
   buildCounterRemoteConfigParameter--;
 }
 
-core.Map<core.String, api.RemoteConfigParameter> buildUnnamed9() => {
+core.Map<core.String, api.RemoteConfigParameter> buildUnnamed11() => {
       'x': buildRemoteConfigParameter(),
       'y': buildRemoteConfigParameter(),
     };
 
-void checkUnnamed9(core.Map<core.String, api.RemoteConfigParameter> o) {
+void checkUnnamed11(core.Map<core.String, api.RemoteConfigParameter> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkRemoteConfigParameter(o['x']!);
   checkRemoteConfigParameter(o['y']!);
@@ -479,7 +574,7 @@ api.RemoteConfigParameterGroup buildRemoteConfigParameterGroup() {
   buildCounterRemoteConfigParameterGroup++;
   if (buildCounterRemoteConfigParameterGroup < 3) {
     o.description = 'foo';
-    o.parameters = buildUnnamed9();
+    o.parameters = buildUnnamed11();
   }
   buildCounterRemoteConfigParameterGroup--;
   return o;
@@ -492,7 +587,7 @@ void checkRemoteConfigParameterGroup(api.RemoteConfigParameterGroup o) {
       o.description!,
       unittest.equals('foo'),
     );
-    checkUnnamed9(o.parameters!);
+    checkUnnamed11(o.parameters!);
   }
   buildCounterRemoteConfigParameterGroup--;
 }
@@ -577,6 +672,52 @@ void checkRollbackRemoteConfigRequest(api.RollbackRemoteConfigRequest o) {
   buildCounterRollbackRemoteConfigRequest--;
 }
 
+core.int buildCounterStreamFetchInvalidationsRequest = 0;
+api.StreamFetchInvalidationsRequest buildStreamFetchInvalidationsRequest() {
+  final o = api.StreamFetchInvalidationsRequest();
+  buildCounterStreamFetchInvalidationsRequest++;
+  if (buildCounterStreamFetchInvalidationsRequest < 3) {
+    o.lastKnownVersionNumber = 'foo';
+  }
+  buildCounterStreamFetchInvalidationsRequest--;
+  return o;
+}
+
+void checkStreamFetchInvalidationsRequest(
+    api.StreamFetchInvalidationsRequest o) {
+  buildCounterStreamFetchInvalidationsRequest++;
+  if (buildCounterStreamFetchInvalidationsRequest < 3) {
+    unittest.expect(
+      o.lastKnownVersionNumber!,
+      unittest.equals('foo'),
+    );
+  }
+  buildCounterStreamFetchInvalidationsRequest--;
+}
+
+core.int buildCounterStreamFetchInvalidationsResponse = 0;
+api.StreamFetchInvalidationsResponse buildStreamFetchInvalidationsResponse() {
+  final o = api.StreamFetchInvalidationsResponse();
+  buildCounterStreamFetchInvalidationsResponse++;
+  if (buildCounterStreamFetchInvalidationsResponse < 3) {
+    o.latestTemplateVersionNumber = 'foo';
+  }
+  buildCounterStreamFetchInvalidationsResponse--;
+  return o;
+}
+
+void checkStreamFetchInvalidationsResponse(
+    api.StreamFetchInvalidationsResponse o) {
+  buildCounterStreamFetchInvalidationsResponse++;
+  if (buildCounterStreamFetchInvalidationsResponse < 3) {
+    unittest.expect(
+      o.latestTemplateVersionNumber!,
+      unittest.equals('foo'),
+    );
+  }
+  buildCounterStreamFetchInvalidationsResponse--;
+}
+
 core.int buildCounterVersion = 0;
 api.Version buildVersion() {
   final o = api.Version();
@@ -656,6 +797,16 @@ void main() {
       final od = api.FetchRemoteConfigResponse.fromJson(
           oJson as core.Map<core.String, core.dynamic>);
       checkFetchRemoteConfigResponse(od);
+    });
+  });
+
+  unittest.group('obj-schema-HttpBody', () {
+    unittest.test('to-json--from-json', () async {
+      final o = buildHttpBody();
+      final oJson = convert.jsonDecode(convert.jsonEncode(o));
+      final od =
+          api.HttpBody.fromJson(oJson as core.Map<core.String, core.dynamic>);
+      checkHttpBody(od);
     });
   });
 
@@ -756,6 +907,26 @@ void main() {
       final od = api.RollbackRemoteConfigRequest.fromJson(
           oJson as core.Map<core.String, core.dynamic>);
       checkRollbackRemoteConfigRequest(od);
+    });
+  });
+
+  unittest.group('obj-schema-StreamFetchInvalidationsRequest', () {
+    unittest.test('to-json--from-json', () async {
+      final o = buildStreamFetchInvalidationsRequest();
+      final oJson = convert.jsonDecode(convert.jsonEncode(o));
+      final od = api.StreamFetchInvalidationsRequest.fromJson(
+          oJson as core.Map<core.String, core.dynamic>);
+      checkStreamFetchInvalidationsRequest(od);
+    });
+  });
+
+  unittest.group('obj-schema-StreamFetchInvalidationsResponse', () {
+    unittest.test('to-json--from-json', () async {
+      final o = buildStreamFetchInvalidationsResponse();
+      final oJson = convert.jsonDecode(convert.jsonEncode(o));
+      final od = api.StreamFetchInvalidationsResponse.fromJson(
+          oJson as core.Map<core.String, core.dynamic>);
+      checkStreamFetchInvalidationsResponse(od);
     });
   });
 
@@ -978,9 +1149,156 @@ void main() {
           $fields: arg_$fields);
       checkFetchRemoteConfigResponse(response as api.FetchRemoteConfigResponse);
     });
+
+    unittest.test('method--streamFetchInvalidations', () async {
+      final mock = HttpServerMock();
+      final res = api.FirebaseRemoteConfigApi(mock).projects.namespaces;
+      final arg_request = buildStreamFetchInvalidationsRequest();
+      final arg_project = 'foo';
+      final arg_namespace = 'foo';
+      final arg_$fields = 'foo';
+      mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
+        final obj = api.StreamFetchInvalidationsRequest.fromJson(
+            json as core.Map<core.String, core.dynamic>);
+        checkStreamFetchInvalidationsRequest(obj);
+
+        final path = (req.url).path;
+        var pathOffset = 0;
+        core.int index;
+        core.String subPart;
+        unittest.expect(
+          path.substring(pathOffset, pathOffset + 1),
+          unittest.equals('/'),
+        );
+        pathOffset += 1;
+        unittest.expect(
+          path.substring(pathOffset, pathOffset + 12),
+          unittest.equals('v1/projects/'),
+        );
+        pathOffset += 12;
+        index = path.indexOf('/namespaces/', pathOffset);
+        unittest.expect(index >= 0, unittest.isTrue);
+        subPart =
+            core.Uri.decodeQueryComponent(path.substring(pathOffset, index));
+        pathOffset = index;
+        unittest.expect(
+          subPart,
+          unittest.equals('$arg_project'),
+        );
+        unittest.expect(
+          path.substring(pathOffset, pathOffset + 12),
+          unittest.equals('/namespaces/'),
+        );
+        pathOffset += 12;
+        index = path.indexOf(':streamFetchInvalidations', pathOffset);
+        unittest.expect(index >= 0, unittest.isTrue);
+        subPart =
+            core.Uri.decodeQueryComponent(path.substring(pathOffset, index));
+        pathOffset = index;
+        unittest.expect(
+          subPart,
+          unittest.equals('$arg_namespace'),
+        );
+        unittest.expect(
+          path.substring(pathOffset, pathOffset + 25),
+          unittest.equals(':streamFetchInvalidations'),
+        );
+        pathOffset += 25;
+
+        final query = (req.url).query;
+        var queryOffset = 0;
+        final queryMap = <core.String, core.List<core.String>>{};
+        void addQueryParam(core.String n, core.String v) =>
+            queryMap.putIfAbsent(n, () => []).add(v);
+
+        if (query.isNotEmpty) {
+          for (var part in query.split('&')) {
+            final keyValue = part.split('=');
+            addQueryParam(
+              core.Uri.decodeQueryComponent(keyValue[0]),
+              core.Uri.decodeQueryComponent(keyValue[1]),
+            );
+          }
+        }
+        unittest.expect(
+          queryMap['fields']!.first,
+          unittest.equals(arg_$fields),
+        );
+
+        final h = {
+          'content-type': 'application/json; charset=utf-8',
+        };
+        final resp =
+            convert.json.encode(buildStreamFetchInvalidationsResponse());
+        return async.Future.value(stringResponse(200, h, resp));
+      }), true);
+      final response = await res.streamFetchInvalidations(
+          arg_request, arg_project, arg_namespace,
+          $fields: arg_$fields);
+      checkStreamFetchInvalidationsResponse(
+          response as api.StreamFetchInvalidationsResponse);
+    });
   });
 
   unittest.group('resource-ProjectsRemoteConfigResource', () {
+    unittest.test('method--downloadDefaults', () async {
+      final mock = HttpServerMock();
+      final res = api.FirebaseRemoteConfigApi(mock).projects.remoteConfig;
+      final arg_project = 'foo';
+      final arg_format = 'foo';
+      final arg_$fields = 'foo';
+      mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
+        final path = (req.url).path;
+        var pathOffset = 0;
+        core.int index;
+        core.String subPart;
+        unittest.expect(
+          path.substring(pathOffset, pathOffset + 1),
+          unittest.equals('/'),
+        );
+        pathOffset += 1;
+        unittest.expect(
+          path.substring(pathOffset, pathOffset + 3),
+          unittest.equals('v1/'),
+        );
+        pathOffset += 3;
+        // NOTE: We cannot test reserved expansions due to the inability to reverse the operation;
+
+        final query = (req.url).query;
+        var queryOffset = 0;
+        final queryMap = <core.String, core.List<core.String>>{};
+        void addQueryParam(core.String n, core.String v) =>
+            queryMap.putIfAbsent(n, () => []).add(v);
+
+        if (query.isNotEmpty) {
+          for (var part in query.split('&')) {
+            final keyValue = part.split('=');
+            addQueryParam(
+              core.Uri.decodeQueryComponent(keyValue[0]),
+              core.Uri.decodeQueryComponent(keyValue[1]),
+            );
+          }
+        }
+        unittest.expect(
+          queryMap['format']!.first,
+          unittest.equals(arg_format),
+        );
+        unittest.expect(
+          queryMap['fields']!.first,
+          unittest.equals(arg_$fields),
+        );
+
+        final h = {
+          'content-type': 'application/json; charset=utf-8',
+        };
+        final resp = convert.json.encode(buildHttpBody());
+        return async.Future.value(stringResponse(200, h, resp));
+      }), true);
+      final response = await res.downloadDefaults(arg_project,
+          format: arg_format, $fields: arg_$fields);
+      checkHttpBody(response as api.HttpBody);
+    });
+
     unittest.test('method--listVersions', () async {
       final mock = HttpServerMock();
       final res = api.FirebaseRemoteConfigApi(mock).projects.remoteConfig;

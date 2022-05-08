@@ -31,11 +31,6 @@ Provides additional information about Firebase Cloud Messaging (FCM) message sen
 - [Documentation](https://firebase.google.com/docs/cloud-messaging)
 - [API details](https://pub.dev/documentation/firebaseapis/0.1.1/fcmdata.v1beta1/fcmdata.v1beta1-library.html)
 
-#### FCM Registration API - `fcmregistrations.v1`
-
-- [Documentation](https://firebase.google.com)
-- [API details](https://pub.dev/documentation/firebaseapis/0.1.1/fcmregistrations.v1/fcmregistrations.v1-library.html)
-
 #### Firebase Management API - `firebase.v1beta1`
 
 The Firebase Management API enables programmatic setup and management of Firebase projects, including a project's Firebase resources and Firebase apps.
@@ -50,15 +45,10 @@ Firebase App Check works alongside other Firebase services to help protect your 
 - [Documentation](https://firebase.google.com/docs/app-check)
 - [API details](https://pub.dev/documentation/firebaseapis/0.1.1/firebaseappcheck.v1beta/firebaseappcheck.v1beta-library.html)
 
-#### Firebase App Distribution API - `firebaseappdistribution.v1alpha`
+#### Firebase App Distribution API - `firebaseappdistribution.v1`
 
 - [Documentation](https://firebase.google.com/products/app-distribution)
-- [API details](https://pub.dev/documentation/firebaseapis/0.1.1/firebaseappdistribution.v1alpha/firebaseappdistribution.v1alpha-library.html)
-
-#### Firebase App Testers API - `firebaseapptesters.v1alpha`
-
-- [Documentation](https://firebase.google.com/products/app-distribution)
-- [API details](https://pub.dev/documentation/firebaseapis/0.1.1/firebaseapptesters.v1alpha/firebaseapptesters.v1alpha-library.html)
+- [API details](https://pub.dev/documentation/firebaseapis/0.1.1/firebaseappdistribution.v1/firebaseappdistribution.v1-library.html)
 
 #### Firebase Realtime Database Management API - `firebasedatabase.v1beta`
 
@@ -73,11 +63,6 @@ Programmatically creates and manages Firebase Dynamic Links.
 
 - [Documentation](https://firebase.google.com/docs/dynamic-links/)
 - [API details](https://pub.dev/documentation/firebaseapis/0.1.1/firebasedynamiclinks.v1/firebasedynamiclinks.v1-library.html)
-
-#### Firebase Extensions API - `firebaseextensions.v1beta`
-
-- [Documentation](https://firebase.google.com)
-- [API details](https://pub.dev/documentation/firebaseapis/0.1.1/firebaseextensions.v1beta/firebaseextensions.v1beta-library.html)
 
 #### Firebase Hosting API - `firebasehosting.v1`
 
@@ -100,11 +85,6 @@ Publicly accessible APIs that allows firebase in-app messaging SDKs/Clients to c
 - [Documentation](https://firebase.google.com)
 - [API details](https://pub.dev/documentation/firebaseapis/0.1.1/firebaseinappmessaging.v1/firebaseinappmessaging.v1-library.html)
 
-#### Firebase Installations API - `firebaseinstallations.v1`
-
-- [Documentation](https://firebase.google.com)
-- [API details](https://pub.dev/documentation/firebaseapis/0.1.1/firebaseinstallations.v1/firebaseinstallations.v1-library.html)
-
 #### Firebase ML API - `firebaseml.v1`
 
 Access custom machine learning models hosted via Firebase ML.
@@ -118,11 +98,6 @@ Access custom machine learning models hosted via Firebase ML.
 
 - [Documentation](https://firebase.google.com)
 - [API details](https://pub.dev/documentation/firebaseapis/0.1.1/firebaseml.v1beta2/firebaseml.v1beta2-library.html)
-
-#### Firebase Predictions API - `firebasepredictions.v1beta1`
-
-- [Documentation](https://firebase.google.com)
-- [API details](https://pub.dev/documentation/firebaseapis/0.1.1/firebasepredictions.v1beta1/firebasepredictions.v1beta1-library.html)
 
 #### Firebase Remote Config API - `firebaseremoteconfig.v1`
 
