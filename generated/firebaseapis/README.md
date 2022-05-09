@@ -50,6 +50,11 @@ Firebase App Check works alongside other Firebase services to help protect your 
 - [Documentation](https://firebase.google.com/docs/app-check)
 - [API details](https://pub.dev/documentation/firebaseapis/0.1.1/firebaseappcheck.v1beta/firebaseappcheck.v1beta-library.html)
 
+#### Firebase App Distribution API - `firebaseappdistribution.v1`
+
+- [Documentation](https://firebase.google.com/products/app-distribution)
+- [API details](https://pub.dev/documentation/firebaseapis/0.1.1/firebaseappdistribution.v1/firebaseappdistribution.v1-library.html)
+
 #### Firebase App Distribution API - `firebaseappdistribution.v1alpha`
 
 - [Documentation](https://firebase.google.com/products/app-distribution)
@@ -137,6 +142,13 @@ Creates and manages rules that determine when a Firebase Rules-enabled service s
 
 - [Documentation](https://firebase.google.com/docs/storage/security)
 - [API details](https://pub.dev/documentation/firebaseapis/0.1.1/firebaserules.v1/firebaserules.v1-library.html)
+
+#### Cloud Storage for Firebase API - `firebasestorage.v1`
+
+The Cloud Storage for Firebase API enables programmatic management of Cloud Storage buckets for use in Firebase projects
+
+- [Documentation](https://firebase.google.com/docs/storage)
+- [API details](https://pub.dev/documentation/firebaseapis/0.1.1/firebasestorage.v1/firebasestorage.v1-library.html)
 
 #### Cloud Storage for Firebase API - `firebasestorage.v1beta`
 

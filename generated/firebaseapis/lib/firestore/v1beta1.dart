@@ -662,6 +662,89 @@ class ProjectsDatabasesDocumentsResource {
         _response as core.Map<core.String, core.dynamic>);
   }
 
+  /// Lists documents.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The parent resource name. In the format:
+  /// `projects/{project_id}/databases/{database_id}/documents` or
+  /// `projects/{project_id}/databases/{database_id}/documents/{document_path}`.
+  /// For example: `projects/my-project/databases/my-database/documents` or
+  /// `projects/my-project/databases/my-database/documents/chatrooms/my-chatroom`
+  /// Value must have pattern `^projects/\[^/\]+/databases/\[^/\]+/documents$`.
+  ///
+  /// [collectionId] - Required. The collection ID, relative to `parent`, to
+  /// list. For example: `chatrooms` or `messages`.
+  ///
+  /// [mask_fieldPaths] - The list of field paths in the mask. See
+  /// Document.fields for a field path syntax reference.
+  ///
+  /// [orderBy] - The order to sort results by. For example: `priority desc,
+  /// name`.
+  ///
+  /// [pageSize] - The maximum number of documents to return.
+  ///
+  /// [pageToken] - The `next_page_token` value returned from a previous List
+  /// request, if any.
+  ///
+  /// [readTime] - Reads documents as they were at the given time. This may not
+  /// be older than 270 seconds.
+  ///
+  /// [showMissing] - If the list should show missing documents. A missing
+  /// document is a document that does not exist but has sub-documents. These
+  /// documents will be returned with a key but will not have fields,
+  /// Document.create_time, or Document.update_time set. Requests with
+  /// `show_missing` may not specify `where` or `order_by`.
+  ///
+  /// [transaction] - Reads documents in a transaction.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [ListDocumentsResponse].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<ListDocumentsResponse> listDocuments(
+    core.String parent,
+    core.String collectionId, {
+    core.List<core.String>? mask_fieldPaths,
+    core.String? orderBy,
+    core.int? pageSize,
+    core.String? pageToken,
+    core.String? readTime,
+    core.bool? showMissing,
+    core.String? transaction,
+    core.String? $fields,
+  }) async {
+    final _queryParams = <core.String, core.List<core.String>>{
+      if (mask_fieldPaths != null) 'mask.fieldPaths': mask_fieldPaths,
+      if (orderBy != null) 'orderBy': [orderBy],
+      if (pageSize != null) 'pageSize': ['${pageSize}'],
+      if (pageToken != null) 'pageToken': [pageToken],
+      if (readTime != null) 'readTime': [readTime],
+      if (showMissing != null) 'showMissing': ['${showMissing}'],
+      if (transaction != null) 'transaction': [transaction],
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final _url = 'v1beta1/' +
+        core.Uri.encodeFull('$parent') +
+        '/' +
+        commons.escapeVariable('$collectionId');
+
+    final _response = await _requester.request(
+      _url,
+      'GET',
+      queryParams: _queryParams,
+    );
+    return ListDocumentsResponse.fromJson(
+        _response as core.Map<core.String, core.dynamic>);
+  }
+
   /// Listens to changes.
   ///
   /// [request] - The metadata request object.
@@ -861,6 +944,59 @@ class ProjectsDatabasesDocumentsResource {
       queryParams: _queryParams,
     );
     return Empty.fromJson(_response as core.Map<core.String, core.dynamic>);
+  }
+
+  /// Runs an aggregation query.
+  ///
+  /// Rather than producing Document results like Firestore.RunQuery, this API
+  /// allows running an aggregation to produce a series of AggregationResult
+  /// server-side. High-Level Example: ``` -- Return the number of documents in
+  /// table given a filter. SELECT COUNT(*) FROM ( SELECT * FROM k where a =
+  /// true ); ```
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The parent resource name. In the format:
+  /// `projects/{project_id}/databases/{database_id}/documents` or
+  /// `projects/{project_id}/databases/{database_id}/documents/{document_path}`.
+  /// For example: `projects/my-project/databases/my-database/documents` or
+  /// `projects/my-project/databases/my-database/documents/chatrooms/my-chatroom`
+  /// Value must have pattern
+  /// `^projects/\[^/\]+/databases/\[^/\]+/documents/\[^/\]+/.*$`.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [RunAggregationQueryResponse].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<RunAggregationQueryResponse> runAggregationQuery(
+    RunAggregationQueryRequest request,
+    core.String parent, {
+    core.String? $fields,
+  }) async {
+    final _body = convert.json.encode(request);
+    final _queryParams = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final _url =
+        'v1beta1/' + core.Uri.encodeFull('$parent') + ':runAggregationQuery';
+
+    final _response = await _requester.request(
+      _url,
+      'POST',
+      body: _body,
+      queryParams: _queryParams,
+    );
+    return RunAggregationQueryResponse.fromJson(
+        _response as core.Map<core.String, core.dynamic>);
   }
 
   /// Runs a query.
@@ -1134,6 +1270,75 @@ class ProjectsDatabasesIndexesResource {
     return GoogleFirestoreAdminV1beta1ListIndexesResponse.fromJson(
         _response as core.Map<core.String, core.dynamic>);
   }
+}
+
+/// Defines a aggregation that produces a single result.
+class Aggregation {
+  /// The name of the field to store the result of the aggregation into.
+  ///
+  /// Requires: * Must be present. * Must be unique across all aggregation
+  /// aliases. * Conform to existing document field name limitations.
+  ///
+  /// Required.
+  core.String? alias;
+
+  /// Count aggregator.
+  Count? count;
+
+  Aggregation({
+    this.alias,
+    this.count,
+  });
+
+  Aggregation.fromJson(core.Map _json)
+      : this(
+          alias:
+              _json.containsKey('alias') ? _json['alias'] as core.String : null,
+          count: _json.containsKey('count')
+              ? Count.fromJson(
+                  _json['count'] as core.Map<core.String, core.dynamic>)
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (alias != null) 'alias': alias!,
+        if (count != null) 'count': count!,
+      };
+}
+
+/// The result of a single bucket from a Firestore aggregation query.
+///
+/// The keys of `aggregate_fields` are the same for all results in an
+/// aggregation query, unlike document queries which can have different fields
+/// present for each result.
+class AggregationResult {
+  /// The result of the aggregation functions, ex: `COUNT(*) AS total_docs`.
+  ///
+  /// The key is the alias assigned to the aggregation function on input and the
+  /// size of this map equals the number of aggregation functions in the query.
+  core.Map<core.String, Value>? aggregateFields;
+
+  AggregationResult({
+    this.aggregateFields,
+  });
+
+  AggregationResult.fromJson(core.Map _json)
+      : this(
+          aggregateFields: _json.containsKey('aggregateFields')
+              ? (_json['aggregateFields']
+                      as core.Map<core.String, core.dynamic>)
+                  .map(
+                  (key, item) => core.MapEntry(
+                    key,
+                    Value.fromJson(item as core.Map<core.String, core.dynamic>),
+                  ),
+                )
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (aggregateFields != null) 'aggregateFields': aggregateFields!,
+      };
 }
 
 /// An array value.
@@ -1492,14 +1697,13 @@ class CommitResponse {
 class CompositeFilter {
   /// The list of filters to combine.
   ///
-  /// Must contain at least one filter.
+  /// Requires: * At least one filter is present.
   core.List<Filter>? filters;
 
   /// The operator for combining multiple filters.
   /// Possible string values are:
   /// - "OPERATOR_UNSPECIFIED" : Unspecified. This value must not be used.
-  /// - "AND" : The results are required to satisfy each of the combined
-  /// filters.
+  /// - "AND" : Documents are required to satisfy all of the combined filters.
   core.String? op;
 
   CompositeFilter({
@@ -1523,6 +1727,12 @@ class CompositeFilter {
         if (op != null) 'op': op!,
       };
 }
+
+/// Count of documents that match the query.
+///
+/// The `COUNT(*)` aggregation function operates on the entire document so it
+/// does not require a field reference.
+typedef Count = $Count;
 
 /// A position in a query result set.
 class Cursor {
@@ -1854,8 +2064,7 @@ class DocumentsTarget {
 ///
 /// A typical example is to use it as the request or the response type of an API
 /// method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns
-/// (google.protobuf.Empty); } The JSON representation for `Empty` is empty JSON
-/// object `{}`.
+/// (google.protobuf.Empty); }
 typedef Empty = $Empty;
 
 /// A digest of all the documents that match a given target.
@@ -2383,7 +2592,45 @@ class GoogleLongrunningOperation {
 typedef LatLng = $LatLng;
 
 /// The request for Firestore.ListCollectionIds.
-typedef ListCollectionIdsRequest = $ListCollectionIdsRequest;
+class ListCollectionIdsRequest {
+  /// The maximum number of results to return.
+  core.int? pageSize;
+
+  /// A page token.
+  ///
+  /// Must be a value from ListCollectionIdsResponse.
+  core.String? pageToken;
+
+  /// Reads documents as they were at the given time.
+  ///
+  /// This may not be older than 270 seconds.
+  core.String? readTime;
+
+  ListCollectionIdsRequest({
+    this.pageSize,
+    this.pageToken,
+    this.readTime,
+  });
+
+  ListCollectionIdsRequest.fromJson(core.Map _json)
+      : this(
+          pageSize: _json.containsKey('pageSize')
+              ? _json['pageSize'] as core.int
+              : null,
+          pageToken: _json.containsKey('pageToken')
+              ? _json['pageToken'] as core.String
+              : null,
+          readTime: _json.containsKey('readTime')
+              ? _json['readTime'] as core.String
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (pageSize != null) 'pageSize': pageSize!,
+        if (pageToken != null) 'pageToken': pageToken!,
+        if (readTime != null) 'readTime': readTime!,
+      };
+}
 
 /// The response from Firestore.ListCollectionIds.
 typedef ListCollectionIdsResponse = $ListCollectionIdsResponse;
@@ -2625,6 +2872,11 @@ class PartitionQueryRequest {
   /// than the number of workers or compute instances available.
   core.String? partitionCount;
 
+  /// Reads documents as they were at the given time.
+  ///
+  /// This may not be older than 270 seconds.
+  core.String? readTime;
+
   /// A structured query.
   ///
   /// Query must specify collection with all descendants and be ordered by name
@@ -2636,6 +2888,7 @@ class PartitionQueryRequest {
     this.pageSize,
     this.pageToken,
     this.partitionCount,
+    this.readTime,
     this.structuredQuery,
   });
 
@@ -2650,6 +2903,9 @@ class PartitionQueryRequest {
           partitionCount: _json.containsKey('partitionCount')
               ? _json['partitionCount'] as core.String
               : null,
+          readTime: _json.containsKey('readTime')
+              ? _json['readTime'] as core.String
+              : null,
           structuredQuery: _json.containsKey('structuredQuery')
               ? StructuredQuery.fromJson(_json['structuredQuery']
                   as core.Map<core.String, core.dynamic>)
@@ -2660,6 +2916,7 @@ class PartitionQueryRequest {
         if (pageSize != null) 'pageSize': pageSize!,
         if (pageToken != null) 'pageToken': pageToken!,
         if (partitionCount != null) 'partitionCount': partitionCount!,
+        if (readTime != null) 'readTime': readTime!,
         if (structuredQuery != null) 'structuredQuery': structuredQuery!,
       };
 }
@@ -2785,6 +3042,121 @@ typedef ReadWrite = $ReadWrite;
 /// The request for Firestore.Rollback.
 typedef RollbackRequest = $RollbackRequest;
 
+/// The request for Firestore.RunAggregationQuery.
+class RunAggregationQueryRequest {
+  /// Starts a new transaction as part of the query, defaulting to read-only.
+  ///
+  /// The new transaction ID will be returned as the first response in the
+  /// stream.
+  TransactionOptions? newTransaction;
+
+  /// Executes the query at the given timestamp.
+  ///
+  /// Requires: * Cannot be more than 270 seconds in the past.
+  core.String? readTime;
+
+  /// An aggregation query.
+  StructuredAggregationQuery? structuredAggregationQuery;
+
+  /// Run the aggregation within an already active transaction.
+  ///
+  /// The value here is the opaque transaction ID to execute the query in.
+  core.String? transaction;
+  core.List<core.int> get transactionAsBytes =>
+      convert.base64.decode(transaction!);
+
+  set transactionAsBytes(core.List<core.int> _bytes) {
+    transaction =
+        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+  }
+
+  RunAggregationQueryRequest({
+    this.newTransaction,
+    this.readTime,
+    this.structuredAggregationQuery,
+    this.transaction,
+  });
+
+  RunAggregationQueryRequest.fromJson(core.Map _json)
+      : this(
+          newTransaction: _json.containsKey('newTransaction')
+              ? TransactionOptions.fromJson(_json['newTransaction']
+                  as core.Map<core.String, core.dynamic>)
+              : null,
+          readTime: _json.containsKey('readTime')
+              ? _json['readTime'] as core.String
+              : null,
+          structuredAggregationQuery:
+              _json.containsKey('structuredAggregationQuery')
+                  ? StructuredAggregationQuery.fromJson(
+                      _json['structuredAggregationQuery']
+                          as core.Map<core.String, core.dynamic>)
+                  : null,
+          transaction: _json.containsKey('transaction')
+              ? _json['transaction'] as core.String
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (newTransaction != null) 'newTransaction': newTransaction!,
+        if (readTime != null) 'readTime': readTime!,
+        if (structuredAggregationQuery != null)
+          'structuredAggregationQuery': structuredAggregationQuery!,
+        if (transaction != null) 'transaction': transaction!,
+      };
+}
+
+/// The response for Firestore.RunAggregationQuery.
+class RunAggregationQueryResponse {
+  /// The time at which the aggregate value is valid for.
+  core.String? readTime;
+
+  /// A single aggregation result.
+  ///
+  /// Not present when reporting partial progress or when the query produced
+  /// zero results.
+  AggregationResult? result;
+
+  /// The transaction that was started as part of this request.
+  ///
+  /// Only present on the first response when the request requested to start a
+  /// new transaction.
+  core.String? transaction;
+  core.List<core.int> get transactionAsBytes =>
+      convert.base64.decode(transaction!);
+
+  set transactionAsBytes(core.List<core.int> _bytes) {
+    transaction =
+        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+  }
+
+  RunAggregationQueryResponse({
+    this.readTime,
+    this.result,
+    this.transaction,
+  });
+
+  RunAggregationQueryResponse.fromJson(core.Map _json)
+      : this(
+          readTime: _json.containsKey('readTime')
+              ? _json['readTime'] as core.String
+              : null,
+          result: _json.containsKey('result')
+              ? AggregationResult.fromJson(
+                  _json['result'] as core.Map<core.String, core.dynamic>)
+              : null,
+          transaction: _json.containsKey('transaction')
+              ? _json['transaction'] as core.String
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (readTime != null) 'readTime': readTime!,
+        if (result != null) 'result': result!,
+        if (transaction != null) 'transaction': transaction!,
+      };
+}
+
 /// The request for Firestore.RunQuery.
 class RunQueryRequest {
   /// Starts a new transaction and reads the documents.
@@ -2801,7 +3173,9 @@ class RunQueryRequest {
   /// A structured query.
   StructuredQuery? structuredQuery;
 
-  /// Reads documents in a transaction.
+  /// Run the query within an already active transaction.
+  ///
+  /// The value here is the opaque transaction ID to execute the query in.
   core.String? transaction;
   core.List<core.int> get transactionAsBytes =>
       convert.base64.decode(transaction!);
@@ -2846,9 +3220,7 @@ class RunQueryRequest {
 
 /// The response for Firestore.RunQuery.
 class RunQueryResponse {
-  /// A query result.
-  ///
-  /// Not set when reporting partial progress.
+  /// A query result, not set when reporting partial progress.
   Document? document;
 
   /// The time at which the document was read.
@@ -2918,6 +3290,41 @@ class RunQueryResponse {
 /// You can find out more about this error model and how to work with it in the
 /// [API Design Guide](https://cloud.google.com/apis/design/errors).
 typedef Status = $Status;
+
+/// Firestore query for running an aggregation over a StructuredQuery.
+class StructuredAggregationQuery {
+  /// Series of aggregations to apply on top of the `structured_query`.
+  ///
+  /// Optional.
+  core.List<Aggregation>? aggregations;
+
+  /// Nested structured query.
+  StructuredQuery? structuredQuery;
+
+  StructuredAggregationQuery({
+    this.aggregations,
+    this.structuredQuery,
+  });
+
+  StructuredAggregationQuery.fromJson(core.Map _json)
+      : this(
+          aggregations: _json.containsKey('aggregations')
+              ? (_json['aggregations'] as core.List)
+                  .map((value) => Aggregation.fromJson(
+                      value as core.Map<core.String, core.dynamic>))
+                  .toList()
+              : null,
+          structuredQuery: _json.containsKey('structuredQuery')
+              ? StructuredQuery.fromJson(_json['structuredQuery']
+                  as core.Map<core.String, core.dynamic>)
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (aggregations != null) 'aggregations': aggregations!,
+        if (structuredQuery != null) 'structuredQuery': structuredQuery!,
+      };
+}
 
 /// A Firestore query.
 class StructuredQuery {

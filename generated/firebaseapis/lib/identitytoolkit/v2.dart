@@ -2194,6 +2194,58 @@ class ProjectsTenantsOauthIdpConfigsResource {
   }
 }
 
+/// Defines a policy of allowing every region by default and adding disallowed
+/// regions to a disallow list.
+class GoogleCloudIdentitytoolkitAdminV2AllowByDefault {
+  /// Two letter unicode region codes to disallow as defined by
+  /// https://cldr.unicode.org/ The full list of these region codes is here:
+  /// https://github.com/unicode-cldr/cldr-localenames-full/blob/master/main/en/territories.json
+  core.List<core.String>? disallowedRegions;
+
+  GoogleCloudIdentitytoolkitAdminV2AllowByDefault({
+    this.disallowedRegions,
+  });
+
+  GoogleCloudIdentitytoolkitAdminV2AllowByDefault.fromJson(core.Map _json)
+      : this(
+          disallowedRegions: _json.containsKey('disallowedRegions')
+              ? (_json['disallowedRegions'] as core.List)
+                  .map((value) => value as core.String)
+                  .toList()
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (disallowedRegions != null) 'disallowedRegions': disallowedRegions!,
+      };
+}
+
+/// Defines a policy of only allowing regions by explicitly adding them to an
+/// allowlist.
+class GoogleCloudIdentitytoolkitAdminV2AllowlistOnly {
+  /// Two letter unicode region codes to allow as defined by
+  /// https://cldr.unicode.org/ The full list of these region codes is here:
+  /// https://github.com/unicode-cldr/cldr-localenames-full/blob/master/main/en/territories.json
+  core.List<core.String>? allowedRegions;
+
+  GoogleCloudIdentitytoolkitAdminV2AllowlistOnly({
+    this.allowedRegions,
+  });
+
+  GoogleCloudIdentitytoolkitAdminV2AllowlistOnly.fromJson(core.Map _json)
+      : this(
+          allowedRegions: _json.containsKey('allowedRegions')
+              ? (_json['allowedRegions'] as core.List)
+                  .map((value) => value as core.String)
+                  .toList()
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (allowedRegions != null) 'allowedRegions': allowedRegions!,
+      };
+}
+
 /// Configuration options related to authenticating an anonymous user.
 class GoogleCloudIdentitytoolkitAdminV2Anonymous {
   /// Whether anonymous user auth is enabled for the project or not.
@@ -3257,9 +3309,10 @@ class GoogleCloudIdentitytoolkitAdminV2MonitoringConfig {
 
 /// Options related to MultiFactor Authentication for the project.
 class GoogleCloudIdentitytoolkitAdminV2MultiFactorAuthConfig {
+  /// A list of usable second factors for this project.
   core.List<core.String>? enabledProviders;
 
-  ///
+  /// Whether MultiFactor Authentication has been enabled for this project.
   /// Possible string values are:
   /// - "STATE_UNSPECIFIED" : Illegal State, should not be used.
   /// - "DISABLED" : Multi-factor authentication cannot be used for this project
@@ -3805,6 +3858,43 @@ class GoogleCloudIdentitytoolkitAdminV2SignInConfig {
       };
 }
 
+/// Configures the regions where users are allowed to send verification SMS for
+/// the project or tenant.
+///
+/// This is based on the calling code of the destination phone number.
+class GoogleCloudIdentitytoolkitAdminV2SmsRegionConfig {
+  /// A policy of allowing SMS to every region by default and adding disallowed
+  /// regions to a disallow list.
+  GoogleCloudIdentitytoolkitAdminV2AllowByDefault? allowByDefault;
+
+  /// A policy of only allowing regions by explicitly adding them to an
+  /// allowlist.
+  GoogleCloudIdentitytoolkitAdminV2AllowlistOnly? allowlistOnly;
+
+  GoogleCloudIdentitytoolkitAdminV2SmsRegionConfig({
+    this.allowByDefault,
+    this.allowlistOnly,
+  });
+
+  GoogleCloudIdentitytoolkitAdminV2SmsRegionConfig.fromJson(core.Map _json)
+      : this(
+          allowByDefault: _json.containsKey('allowByDefault')
+              ? GoogleCloudIdentitytoolkitAdminV2AllowByDefault.fromJson(
+                  _json['allowByDefault']
+                      as core.Map<core.String, core.dynamic>)
+              : null,
+          allowlistOnly: _json.containsKey('allowlistOnly')
+              ? GoogleCloudIdentitytoolkitAdminV2AllowlistOnly.fromJson(
+                  _json['allowlistOnly'] as core.Map<core.String, core.dynamic>)
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (allowByDefault != null) 'allowByDefault': allowByDefault!,
+        if (allowlistOnly != null) 'allowlistOnly': allowlistOnly!,
+      };
+}
+
 /// The template to use when sending an SMS.
 class GoogleCloudIdentitytoolkitAdminV2SmsTemplate {
   /// The SMS's content.
@@ -4050,6 +4140,9 @@ class GoogleCloudIdentitytoolkitAdminV2Tenant {
   /// Output only.
   core.String? name;
 
+  /// Configures which regions are enabled for SMS verification code sending.
+  GoogleCloudIdentitytoolkitAdminV2SmsRegionConfig? smsRegionConfig;
+
   /// A map of pairs that can be used for MFA.
   ///
   /// The phone number should be in E.164 format
@@ -4067,6 +4160,7 @@ class GoogleCloudIdentitytoolkitAdminV2Tenant {
     this.inheritance,
     this.mfaConfig,
     this.name,
+    this.smsRegionConfig,
     this.testPhoneNumbers,
   });
 
@@ -4100,6 +4194,11 @@ class GoogleCloudIdentitytoolkitAdminV2Tenant {
                   _json['mfaConfig'] as core.Map<core.String, core.dynamic>)
               : null,
           name: _json.containsKey('name') ? _json['name'] as core.String : null,
+          smsRegionConfig: _json.containsKey('smsRegionConfig')
+              ? GoogleCloudIdentitytoolkitAdminV2SmsRegionConfig.fromJson(
+                  _json['smsRegionConfig']
+                      as core.Map<core.String, core.dynamic>)
+              : null,
           testPhoneNumbers: _json.containsKey('testPhoneNumbers')
               ? (_json['testPhoneNumbers']
                       as core.Map<core.String, core.dynamic>)
@@ -4125,6 +4224,7 @@ class GoogleCloudIdentitytoolkitAdminV2Tenant {
         if (inheritance != null) 'inheritance': inheritance!,
         if (mfaConfig != null) 'mfaConfig': mfaConfig!,
         if (name != null) 'name': name!,
+        if (smsRegionConfig != null) 'smsRegionConfig': smsRegionConfig!,
         if (testPhoneNumbers != null) 'testPhoneNumbers': testPhoneNumbers!,
       };
 }
@@ -4777,8 +4877,8 @@ class GoogleCloudIdentitytoolkitV2WithdrawMfaResponse {
 /// "audit_log_configs": \[ { "log_type": "DATA_READ" }, { "log_type":
 /// "DATA_WRITE", "exempted_members": \[ "user:aliya@example.com" \] } \] } \] }
 /// For sampleservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ
-/// logging. It also exempts jose@example.com from DATA_READ logging, and
-/// aliya@example.com from DATA_WRITE logging.
+/// logging. It also exempts `jose@example.com` from DATA_READ logging, and
+/// `aliya@example.com` from DATA_WRITE logging.
 class GoogleIamV1AuditConfig {
   /// The configuration for logging of each type of permission.
   core.List<GoogleIamV1AuditLogConfig>? auditLogConfigs;
@@ -4834,7 +4934,7 @@ class GoogleIamV1Binding {
   /// [IAM documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
   GoogleTypeExpr? condition;
 
-  /// Specifies the principals requesting access for a Cloud Platform resource.
+  /// Specifies the principals requesting access for a Google Cloud resource.
   ///
   /// `members` can have the following values: * `allUsers`: A special
   /// identifier that represents anyone who is on the internet; with or without
@@ -5081,7 +5181,7 @@ class GoogleIamV1SetIamPolicyRequest {
   /// REQUIRED: The complete policy to be applied to the `resource`.
   ///
   /// The size of the policy is limited to a few 10s of KB. An empty policy is a
-  /// valid policy but certain Cloud Platform services (such as Projects) might
+  /// valid policy but certain Google Cloud services (such as Projects) might
   /// reject them.
   GoogleIamV1Policy? policy;
 
@@ -5124,8 +5224,7 @@ typedef GoogleIamV1TestIamPermissionsResponse = $TestIamPermissionsResponse;
 ///
 /// A typical example is to use it as the request or the response type of an API
 /// method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns
-/// (google.protobuf.Empty); } The JSON representation for `Empty` is empty JSON
-/// object `{}`.
+/// (google.protobuf.Empty); }
 typedef GoogleProtobufEmpty = $Empty;
 
 /// Represents a textual expression in the Common Expression Language (CEL)

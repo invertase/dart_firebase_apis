@@ -36,6 +36,8 @@ import 'dart:core' as core;
 import 'package:_discoveryapis_commons/_discoveryapis_commons.dart' as commons;
 import 'package:http/http.dart' as http;
 
+// ignore: deprecated_member_use_from_same_package
+import '../shared.dart';
 import '../src/user_agent.dart';
 
 export 'package:_discoveryapis_commons/_discoveryapis_commons.dart'
@@ -240,6 +242,59 @@ class ProjectsNamespacesResource {
     return FetchRemoteConfigResponse.fromJson(
         _response as core.Map<core.String, core.dynamic>);
   }
+
+  /// Streaming endpoint which allows a client to subscribe to a stream of Fetch
+  /// invalidation events.
+  ///
+  /// These events tell the client that a previous Fetch response is no longer
+  /// valid (ex: a new Template was published) and that they should perform a
+  /// new Fetch request to get the latest data.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [project] - Required. The Firebase project ID or project number. (NOTE:
+  /// These identifiers can be retrieved from the Firebase console.)
+  ///
+  /// [namespace] - Required. The string "firebase".
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [StreamFetchInvalidationsResponse].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<StreamFetchInvalidationsResponse> streamFetchInvalidations(
+    StreamFetchInvalidationsRequest request,
+    core.String project,
+    core.String namespace, {
+    core.String? $fields,
+  }) async {
+    final _body = convert.json.encode(request);
+    final _queryParams = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final _url = 'v1/projects/' +
+        commons.escapeVariable('$project') +
+        '/namespaces/' +
+        commons.escapeVariable('$namespace') +
+        ':streamFetchInvalidations';
+
+    final _response = await _requester.request(
+      _url,
+      'POST',
+      body: _body,
+      queryParams: _queryParams,
+    );
+    return StreamFetchInvalidationsResponse.fromJson(
+        _response as core.Map<core.String, core.dynamic>);
+  }
 }
 
 class ProjectsRemoteConfigResource {
@@ -247,6 +302,54 @@ class ProjectsRemoteConfigResource {
 
   ProjectsRemoteConfigResource(commons.ApiRequester client)
       : _requester = client;
+
+  /// Get a project's current Remote Config template parameters and default
+  /// values in JSON, property list (plist), or XML format.
+  ///
+  /// Request parameters:
+  ///
+  /// [project] - Required. The Firebase project's Project ID or Project Number,
+  /// prefixed with "projects/".
+  /// Value must have pattern `^projects/\[^/\]+$`.
+  ///
+  /// [format] - Required. The file structure to return.
+  /// Possible string values are:
+  /// - "FORMAT_UNSPECIFIED" : Catch-all for unrecognized enum values.
+  /// - "XML" : Returns a response in XML format.
+  /// - "PLIST" : Returns a response in property list (plist) format.
+  /// - "JSON" : Returns a response in JSON format.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [HttpBody].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<HttpBody> downloadDefaults(
+    core.String project, {
+    core.String? format,
+    core.String? $fields,
+  }) async {
+    final _queryParams = <core.String, core.List<core.String>>{
+      if (format != null) 'format': [format],
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final _url = 'v1/' +
+        core.Uri.encodeFull('$project') +
+        '/remoteConfig:downloadDefaults';
+
+    final _response = await _requester.request(
+      _url,
+      'GET',
+      queryParams: _queryParams,
+    );
+    return HttpBody.fromJson(_response as core.Map<core.String, core.dynamic>);
+  }
 
   /// Get a list of Remote Config template versions that have been published,
   /// sorted in reverse chronological order.
@@ -494,6 +597,13 @@ class FetchRemoteConfigRequest {
   /// https://www.iso.org/obp/ui/#search .
   core.String? countryCode;
 
+  /// The first time a user launches an app after installing or re-installing
+  /// it.
+  ///
+  /// This value comes from GA, and will not be set if GA SDK is not available
+  /// on the client or if GA does not have the first-open time value.
+  core.String? firstOpenTime;
+
   /// Optional - If omitted and the template has any conditions that depend on
   /// locale, they will be evaluated as false.
   ///
@@ -536,6 +646,7 @@ class FetchRemoteConfigRequest {
     this.appInstanceIdToken,
     this.appVersion,
     this.countryCode,
+    this.firstOpenTime,
     this.languageCode,
     this.packageName,
     this.platformVersion,
@@ -572,6 +683,9 @@ class FetchRemoteConfigRequest {
           countryCode: _json.containsKey('countryCode')
               ? _json['countryCode'] as core.String
               : null,
+          firstOpenTime: _json.containsKey('firstOpenTime')
+              ? _json['firstOpenTime'] as core.String
+              : null,
           languageCode: _json.containsKey('languageCode')
               ? _json['languageCode'] as core.String
               : null,
@@ -599,6 +713,7 @@ class FetchRemoteConfigRequest {
           'appInstanceIdToken': appInstanceIdToken!,
         if (appVersion != null) 'appVersion': appVersion!,
         if (countryCode != null) 'countryCode': countryCode!,
+        if (firstOpenTime != null) 'firstOpenTime': firstOpenTime!,
         if (languageCode != null) 'languageCode': languageCode!,
         if (packageName != null) 'packageName': packageName!,
         if (platformVersion != null) 'platformVersion': platformVersion!,
@@ -638,12 +753,16 @@ class FetchRemoteConfigResponse {
   /// omitted)
   core.String? state;
 
+  /// Used to record the current template in the response.
+  core.String? templateVersion;
+
   FetchRemoteConfigResponse({
     this.appName,
     this.entries,
     this.experimentDescriptions,
     this.personalizationMetadata,
     this.state,
+    this.templateVersion,
   });
 
   FetchRemoteConfigResponse.fromJson(core.Map _json)
@@ -678,6 +797,9 @@ class FetchRemoteConfigResponse {
               : null,
           state:
               _json.containsKey('state') ? _json['state'] as core.String : null,
+          templateVersion: _json.containsKey('templateVersion')
+              ? _json['templateVersion'] as core.String
+              : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
@@ -688,8 +810,29 @@ class FetchRemoteConfigResponse {
         if (personalizationMetadata != null)
           'personalizationMetadata': personalizationMetadata!,
         if (state != null) 'state': state!,
+        if (templateVersion != null) 'templateVersion': templateVersion!,
       };
 }
+
+/// Message that represents an arbitrary HTTP body.
+///
+/// It should only be used for payload formats that can't be represented as
+/// JSON, such as raw binary or an HTML page. This message can be used both in
+/// streaming and non-streaming API methods in the request as well as the
+/// response. It can be used as a top-level request field, which is convenient
+/// if one wants to extract parameters from either the URL or HTTP template into
+/// the request fields and also want access to the raw HTTP body. Example:
+/// message GetResourceRequest { // A unique request id. string request_id = 1;
+/// // The raw HTTP body is bound to this field. google.api.HttpBody http_body =
+/// 2; } service ResourceService { rpc GetResource(GetResourceRequest) returns
+/// (google.api.HttpBody); rpc UpdateResource(google.api.HttpBody) returns
+/// (google.protobuf.Empty); } Example with streaming methods: service
+/// CaldavService { rpc GetCalendar(stream google.api.HttpBody) returns (stream
+/// google.api.HttpBody); rpc UpdateCalendar(stream google.api.HttpBody) returns
+/// (stream google.api.HttpBody); } Use of this type only changes how the
+/// request and response bodies are handled, all other features will continue to
+/// work unchanged.
+typedef HttpBody = $HttpBody;
 
 /// Contains a paginated list of versions of the RemoteConfig.
 class ListVersionsResponse {
@@ -1199,6 +1342,53 @@ class RollbackRemoteConfigRequest {
 
   core.Map<core.String, core.dynamic> toJson() => {
         if (versionNumber != null) 'versionNumber': versionNumber!,
+      };
+}
+
+/// Open a stream of Fetch response invalidation signals.
+class StreamFetchInvalidationsRequest {
+  /// If this client has previously performed a Fetch, this indicates which
+  /// Template version was used to process it (returned in the Fetch response).
+  core.String? lastKnownVersionNumber;
+
+  StreamFetchInvalidationsRequest({
+    this.lastKnownVersionNumber,
+  });
+
+  StreamFetchInvalidationsRequest.fromJson(core.Map _json)
+      : this(
+          lastKnownVersionNumber: _json.containsKey('lastKnownVersionNumber')
+              ? _json['lastKnownVersionNumber'] as core.String
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (lastKnownVersionNumber != null)
+          'lastKnownVersionNumber': lastKnownVersionNumber!,
+      };
+}
+
+/// Response indicating that the previous Fetch response is now invalid.
+class StreamFetchInvalidationsResponse {
+  /// Indicates the new Template version number which triggered this
+  /// invalidation event.
+  core.String? latestTemplateVersionNumber;
+
+  StreamFetchInvalidationsResponse({
+    this.latestTemplateVersionNumber,
+  });
+
+  StreamFetchInvalidationsResponse.fromJson(core.Map _json)
+      : this(
+          latestTemplateVersionNumber:
+              _json.containsKey('latestTemplateVersionNumber')
+                  ? _json['latestTemplateVersionNumber'] as core.String
+                  : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (latestTemplateVersionNumber != null)
+          'latestTemplateVersionNumber': latestTemplateVersionNumber!,
       };
 }
 

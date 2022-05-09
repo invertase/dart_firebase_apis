@@ -148,7 +148,7 @@
             }
         }
     },
-    "revision": "20220208",
+    "revision": "20220505",
     "rootUrl": "https://firebasepredictions.googleapis.com/",
     "schemas": {
         "GoogleFirebasePredictionsV1beta1ComputePredictionsRequest": {

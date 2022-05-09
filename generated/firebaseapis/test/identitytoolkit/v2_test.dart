@@ -26,6 +26,82 @@ import 'package:test/test.dart' as unittest;
 
 import '../test_shared.dart';
 
+core.List<core.String> buildUnnamed0() => [
+      'foo',
+      'foo',
+    ];
+
+void checkUnnamed0(core.List<core.String> o) {
+  unittest.expect(o, unittest.hasLength(2));
+  unittest.expect(
+    o[0],
+    unittest.equals('foo'),
+  );
+  unittest.expect(
+    o[1],
+    unittest.equals('foo'),
+  );
+}
+
+core.int buildCounterGoogleCloudIdentitytoolkitAdminV2AllowByDefault = 0;
+api.GoogleCloudIdentitytoolkitAdminV2AllowByDefault
+    buildGoogleCloudIdentitytoolkitAdminV2AllowByDefault() {
+  final o = api.GoogleCloudIdentitytoolkitAdminV2AllowByDefault();
+  buildCounterGoogleCloudIdentitytoolkitAdminV2AllowByDefault++;
+  if (buildCounterGoogleCloudIdentitytoolkitAdminV2AllowByDefault < 3) {
+    o.disallowedRegions = buildUnnamed0();
+  }
+  buildCounterGoogleCloudIdentitytoolkitAdminV2AllowByDefault--;
+  return o;
+}
+
+void checkGoogleCloudIdentitytoolkitAdminV2AllowByDefault(
+    api.GoogleCloudIdentitytoolkitAdminV2AllowByDefault o) {
+  buildCounterGoogleCloudIdentitytoolkitAdminV2AllowByDefault++;
+  if (buildCounterGoogleCloudIdentitytoolkitAdminV2AllowByDefault < 3) {
+    checkUnnamed0(o.disallowedRegions!);
+  }
+  buildCounterGoogleCloudIdentitytoolkitAdminV2AllowByDefault--;
+}
+
+core.List<core.String> buildUnnamed1() => [
+      'foo',
+      'foo',
+    ];
+
+void checkUnnamed1(core.List<core.String> o) {
+  unittest.expect(o, unittest.hasLength(2));
+  unittest.expect(
+    o[0],
+    unittest.equals('foo'),
+  );
+  unittest.expect(
+    o[1],
+    unittest.equals('foo'),
+  );
+}
+
+core.int buildCounterGoogleCloudIdentitytoolkitAdminV2AllowlistOnly = 0;
+api.GoogleCloudIdentitytoolkitAdminV2AllowlistOnly
+    buildGoogleCloudIdentitytoolkitAdminV2AllowlistOnly() {
+  final o = api.GoogleCloudIdentitytoolkitAdminV2AllowlistOnly();
+  buildCounterGoogleCloudIdentitytoolkitAdminV2AllowlistOnly++;
+  if (buildCounterGoogleCloudIdentitytoolkitAdminV2AllowlistOnly < 3) {
+    o.allowedRegions = buildUnnamed1();
+  }
+  buildCounterGoogleCloudIdentitytoolkitAdminV2AllowlistOnly--;
+  return o;
+}
+
+void checkGoogleCloudIdentitytoolkitAdminV2AllowlistOnly(
+    api.GoogleCloudIdentitytoolkitAdminV2AllowlistOnly o) {
+  buildCounterGoogleCloudIdentitytoolkitAdminV2AllowlistOnly++;
+  if (buildCounterGoogleCloudIdentitytoolkitAdminV2AllowlistOnly < 3) {
+    checkUnnamed1(o.allowedRegions!);
+  }
+  buildCounterGoogleCloudIdentitytoolkitAdminV2AllowlistOnly--;
+}
+
 core.int buildCounterGoogleCloudIdentitytoolkitAdminV2Anonymous = 0;
 api.GoogleCloudIdentitytoolkitAdminV2Anonymous
     buildGoogleCloudIdentitytoolkitAdminV2Anonymous() {
@@ -47,12 +123,12 @@ void checkGoogleCloudIdentitytoolkitAdminV2Anonymous(
   buildCounterGoogleCloudIdentitytoolkitAdminV2Anonymous--;
 }
 
-core.List<core.String> buildUnnamed0() => [
+core.List<core.String> buildUnnamed2() => [
       'foo',
       'foo',
     ];
 
-void checkUnnamed0(core.List<core.String> o) {
+void checkUnnamed2(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(
     o[0],
@@ -70,7 +146,7 @@ api.GoogleCloudIdentitytoolkitAdminV2AppleSignInConfig
   final o = api.GoogleCloudIdentitytoolkitAdminV2AppleSignInConfig();
   buildCounterGoogleCloudIdentitytoolkitAdminV2AppleSignInConfig++;
   if (buildCounterGoogleCloudIdentitytoolkitAdminV2AppleSignInConfig < 3) {
-    o.bundleIds = buildUnnamed0();
+    o.bundleIds = buildUnnamed2();
     o.codeFlowConfig = buildGoogleCloudIdentitytoolkitAdminV2CodeFlowConfig();
   }
   buildCounterGoogleCloudIdentitytoolkitAdminV2AppleSignInConfig--;
@@ -81,19 +157,19 @@ void checkGoogleCloudIdentitytoolkitAdminV2AppleSignInConfig(
     api.GoogleCloudIdentitytoolkitAdminV2AppleSignInConfig o) {
   buildCounterGoogleCloudIdentitytoolkitAdminV2AppleSignInConfig++;
   if (buildCounterGoogleCloudIdentitytoolkitAdminV2AppleSignInConfig < 3) {
-    checkUnnamed0(o.bundleIds!);
+    checkUnnamed2(o.bundleIds!);
     checkGoogleCloudIdentitytoolkitAdminV2CodeFlowConfig(o.codeFlowConfig!);
   }
   buildCounterGoogleCloudIdentitytoolkitAdminV2AppleSignInConfig--;
 }
 
 core.Map<core.String, api.GoogleCloudIdentitytoolkitAdminV2Trigger>
-    buildUnnamed1() => {
+    buildUnnamed3() => {
           'x': buildGoogleCloudIdentitytoolkitAdminV2Trigger(),
           'y': buildGoogleCloudIdentitytoolkitAdminV2Trigger(),
         };
 
-void checkUnnamed1(
+void checkUnnamed3(
     core.Map<core.String, api.GoogleCloudIdentitytoolkitAdminV2Trigger> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkGoogleCloudIdentitytoolkitAdminV2Trigger(o['x']!);
@@ -110,7 +186,7 @@ api.GoogleCloudIdentitytoolkitAdminV2BlockingFunctionsConfig
       3) {
     o.forwardInboundCredentials =
         buildGoogleCloudIdentitytoolkitAdminV2ForwardInboundCredentials();
-    o.triggers = buildUnnamed1();
+    o.triggers = buildUnnamed3();
   }
   buildCounterGoogleCloudIdentitytoolkitAdminV2BlockingFunctionsConfig--;
   return o;
@@ -123,7 +199,7 @@ void checkGoogleCloudIdentitytoolkitAdminV2BlockingFunctionsConfig(
       3) {
     checkGoogleCloudIdentitytoolkitAdminV2ForwardInboundCredentials(
         o.forwardInboundCredentials!);
-    checkUnnamed1(o.triggers!);
+    checkUnnamed3(o.triggers!);
   }
   buildCounterGoogleCloudIdentitytoolkitAdminV2BlockingFunctionsConfig--;
 }
@@ -193,12 +269,12 @@ void checkGoogleCloudIdentitytoolkitAdminV2CodeFlowConfig(
   buildCounterGoogleCloudIdentitytoolkitAdminV2CodeFlowConfig--;
 }
 
-core.List<core.String> buildUnnamed2() => [
+core.List<core.String> buildUnnamed4() => [
       'foo',
       'foo',
     ];
 
-void checkUnnamed2(core.List<core.String> o) {
+void checkUnnamed4(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(
     o[0],
@@ -216,7 +292,7 @@ api.GoogleCloudIdentitytoolkitAdminV2Config
   final o = api.GoogleCloudIdentitytoolkitAdminV2Config();
   buildCounterGoogleCloudIdentitytoolkitAdminV2Config++;
   if (buildCounterGoogleCloudIdentitytoolkitAdminV2Config < 3) {
-    o.authorizedDomains = buildUnnamed2();
+    o.authorizedDomains = buildUnnamed4();
     o.blockingFunctions =
         buildGoogleCloudIdentitytoolkitAdminV2BlockingFunctionsConfig();
     o.client = buildGoogleCloudIdentitytoolkitAdminV2ClientConfig();
@@ -237,7 +313,7 @@ void checkGoogleCloudIdentitytoolkitAdminV2Config(
     api.GoogleCloudIdentitytoolkitAdminV2Config o) {
   buildCounterGoogleCloudIdentitytoolkitAdminV2Config++;
   if (buildCounterGoogleCloudIdentitytoolkitAdminV2Config < 3) {
-    checkUnnamed2(o.authorizedDomains!);
+    checkUnnamed4(o.authorizedDomains!);
     checkGoogleCloudIdentitytoolkitAdminV2BlockingFunctionsConfig(
         o.blockingFunctions!);
     checkGoogleCloudIdentitytoolkitAdminV2ClientConfig(o.client!);
@@ -543,12 +619,12 @@ void checkGoogleCloudIdentitytoolkitAdminV2IdpCertificate(
 }
 
 core.List<api.GoogleCloudIdentitytoolkitAdminV2IdpCertificate>
-    buildUnnamed3() => [
+    buildUnnamed5() => [
           buildGoogleCloudIdentitytoolkitAdminV2IdpCertificate(),
           buildGoogleCloudIdentitytoolkitAdminV2IdpCertificate(),
         ];
 
-void checkUnnamed3(
+void checkUnnamed5(
     core.List<api.GoogleCloudIdentitytoolkitAdminV2IdpCertificate> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkGoogleCloudIdentitytoolkitAdminV2IdpCertificate(o[0]);
@@ -561,7 +637,7 @@ api.GoogleCloudIdentitytoolkitAdminV2IdpConfig
   final o = api.GoogleCloudIdentitytoolkitAdminV2IdpConfig();
   buildCounterGoogleCloudIdentitytoolkitAdminV2IdpConfig++;
   if (buildCounterGoogleCloudIdentitytoolkitAdminV2IdpConfig < 3) {
-    o.idpCertificates = buildUnnamed3();
+    o.idpCertificates = buildUnnamed5();
     o.idpEntityId = 'foo';
     o.signRequest = true;
     o.ssoUrl = 'foo';
@@ -574,7 +650,7 @@ void checkGoogleCloudIdentitytoolkitAdminV2IdpConfig(
     api.GoogleCloudIdentitytoolkitAdminV2IdpConfig o) {
   buildCounterGoogleCloudIdentitytoolkitAdminV2IdpConfig++;
   if (buildCounterGoogleCloudIdentitytoolkitAdminV2IdpConfig < 3) {
-    checkUnnamed3(o.idpCertificates!);
+    checkUnnamed5(o.idpCertificates!);
     unittest.expect(
       o.idpEntityId!,
       unittest.equals('foo'),
@@ -645,12 +721,12 @@ void checkGoogleCloudIdentitytoolkitAdminV2Inheritance(
 }
 
 core.List<api.GoogleCloudIdentitytoolkitAdminV2DefaultSupportedIdpConfig>
-    buildUnnamed4() => [
+    buildUnnamed6() => [
           buildGoogleCloudIdentitytoolkitAdminV2DefaultSupportedIdpConfig(),
           buildGoogleCloudIdentitytoolkitAdminV2DefaultSupportedIdpConfig(),
         ];
 
-void checkUnnamed4(
+void checkUnnamed6(
     core.List<api.GoogleCloudIdentitytoolkitAdminV2DefaultSupportedIdpConfig>
         o) {
   unittest.expect(o, unittest.hasLength(2));
@@ -668,7 +744,7 @@ api.GoogleCloudIdentitytoolkitAdminV2ListDefaultSupportedIdpConfigsResponse
   buildCounterGoogleCloudIdentitytoolkitAdminV2ListDefaultSupportedIdpConfigsResponse++;
   if (buildCounterGoogleCloudIdentitytoolkitAdminV2ListDefaultSupportedIdpConfigsResponse <
       3) {
-    o.defaultSupportedIdpConfigs = buildUnnamed4();
+    o.defaultSupportedIdpConfigs = buildUnnamed6();
     o.nextPageToken = 'foo';
   }
   buildCounterGoogleCloudIdentitytoolkitAdminV2ListDefaultSupportedIdpConfigsResponse--;
@@ -681,7 +757,7 @@ void checkGoogleCloudIdentitytoolkitAdminV2ListDefaultSupportedIdpConfigsRespons
   buildCounterGoogleCloudIdentitytoolkitAdminV2ListDefaultSupportedIdpConfigsResponse++;
   if (buildCounterGoogleCloudIdentitytoolkitAdminV2ListDefaultSupportedIdpConfigsResponse <
       3) {
-    checkUnnamed4(o.defaultSupportedIdpConfigs!);
+    checkUnnamed6(o.defaultSupportedIdpConfigs!);
     unittest.expect(
       o.nextPageToken!,
       unittest.equals('foo'),
@@ -691,12 +767,12 @@ void checkGoogleCloudIdentitytoolkitAdminV2ListDefaultSupportedIdpConfigsRespons
 }
 
 core.List<api.GoogleCloudIdentitytoolkitAdminV2DefaultSupportedIdp>
-    buildUnnamed5() => [
+    buildUnnamed7() => [
           buildGoogleCloudIdentitytoolkitAdminV2DefaultSupportedIdp(),
           buildGoogleCloudIdentitytoolkitAdminV2DefaultSupportedIdp(),
         ];
 
-void checkUnnamed5(
+void checkUnnamed7(
     core.List<api.GoogleCloudIdentitytoolkitAdminV2DefaultSupportedIdp> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkGoogleCloudIdentitytoolkitAdminV2DefaultSupportedIdp(o[0]);
@@ -713,7 +789,7 @@ api.GoogleCloudIdentitytoolkitAdminV2ListDefaultSupportedIdpsResponse
   buildCounterGoogleCloudIdentitytoolkitAdminV2ListDefaultSupportedIdpsResponse++;
   if (buildCounterGoogleCloudIdentitytoolkitAdminV2ListDefaultSupportedIdpsResponse <
       3) {
-    o.defaultSupportedIdps = buildUnnamed5();
+    o.defaultSupportedIdps = buildUnnamed7();
     o.nextPageToken = 'foo';
   }
   buildCounterGoogleCloudIdentitytoolkitAdminV2ListDefaultSupportedIdpsResponse--;
@@ -725,7 +801,7 @@ void checkGoogleCloudIdentitytoolkitAdminV2ListDefaultSupportedIdpsResponse(
   buildCounterGoogleCloudIdentitytoolkitAdminV2ListDefaultSupportedIdpsResponse++;
   if (buildCounterGoogleCloudIdentitytoolkitAdminV2ListDefaultSupportedIdpsResponse <
       3) {
-    checkUnnamed5(o.defaultSupportedIdps!);
+    checkUnnamed7(o.defaultSupportedIdps!);
     unittest.expect(
       o.nextPageToken!,
       unittest.equals('foo'),
@@ -735,12 +811,12 @@ void checkGoogleCloudIdentitytoolkitAdminV2ListDefaultSupportedIdpsResponse(
 }
 
 core.List<api.GoogleCloudIdentitytoolkitAdminV2InboundSamlConfig>
-    buildUnnamed6() => [
+    buildUnnamed8() => [
           buildGoogleCloudIdentitytoolkitAdminV2InboundSamlConfig(),
           buildGoogleCloudIdentitytoolkitAdminV2InboundSamlConfig(),
         ];
 
-void checkUnnamed6(
+void checkUnnamed8(
     core.List<api.GoogleCloudIdentitytoolkitAdminV2InboundSamlConfig> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkGoogleCloudIdentitytoolkitAdminV2InboundSamlConfig(o[0]);
@@ -757,7 +833,7 @@ api.GoogleCloudIdentitytoolkitAdminV2ListInboundSamlConfigsResponse
   buildCounterGoogleCloudIdentitytoolkitAdminV2ListInboundSamlConfigsResponse++;
   if (buildCounterGoogleCloudIdentitytoolkitAdminV2ListInboundSamlConfigsResponse <
       3) {
-    o.inboundSamlConfigs = buildUnnamed6();
+    o.inboundSamlConfigs = buildUnnamed8();
     o.nextPageToken = 'foo';
   }
   buildCounterGoogleCloudIdentitytoolkitAdminV2ListInboundSamlConfigsResponse--;
@@ -769,7 +845,7 @@ void checkGoogleCloudIdentitytoolkitAdminV2ListInboundSamlConfigsResponse(
   buildCounterGoogleCloudIdentitytoolkitAdminV2ListInboundSamlConfigsResponse++;
   if (buildCounterGoogleCloudIdentitytoolkitAdminV2ListInboundSamlConfigsResponse <
       3) {
-    checkUnnamed6(o.inboundSamlConfigs!);
+    checkUnnamed8(o.inboundSamlConfigs!);
     unittest.expect(
       o.nextPageToken!,
       unittest.equals('foo'),
@@ -779,12 +855,12 @@ void checkGoogleCloudIdentitytoolkitAdminV2ListInboundSamlConfigsResponse(
 }
 
 core.List<api.GoogleCloudIdentitytoolkitAdminV2OAuthIdpConfig>
-    buildUnnamed7() => [
+    buildUnnamed9() => [
           buildGoogleCloudIdentitytoolkitAdminV2OAuthIdpConfig(),
           buildGoogleCloudIdentitytoolkitAdminV2OAuthIdpConfig(),
         ];
 
-void checkUnnamed7(
+void checkUnnamed9(
     core.List<api.GoogleCloudIdentitytoolkitAdminV2OAuthIdpConfig> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkGoogleCloudIdentitytoolkitAdminV2OAuthIdpConfig(o[0]);
@@ -801,7 +877,7 @@ api.GoogleCloudIdentitytoolkitAdminV2ListOAuthIdpConfigsResponse
   if (buildCounterGoogleCloudIdentitytoolkitAdminV2ListOAuthIdpConfigsResponse <
       3) {
     o.nextPageToken = 'foo';
-    o.oauthIdpConfigs = buildUnnamed7();
+    o.oauthIdpConfigs = buildUnnamed9();
   }
   buildCounterGoogleCloudIdentitytoolkitAdminV2ListOAuthIdpConfigsResponse--;
   return o;
@@ -816,17 +892,17 @@ void checkGoogleCloudIdentitytoolkitAdminV2ListOAuthIdpConfigsResponse(
       o.nextPageToken!,
       unittest.equals('foo'),
     );
-    checkUnnamed7(o.oauthIdpConfigs!);
+    checkUnnamed9(o.oauthIdpConfigs!);
   }
   buildCounterGoogleCloudIdentitytoolkitAdminV2ListOAuthIdpConfigsResponse--;
 }
 
-core.List<api.GoogleCloudIdentitytoolkitAdminV2Tenant> buildUnnamed8() => [
+core.List<api.GoogleCloudIdentitytoolkitAdminV2Tenant> buildUnnamed10() => [
       buildGoogleCloudIdentitytoolkitAdminV2Tenant(),
       buildGoogleCloudIdentitytoolkitAdminV2Tenant(),
     ];
 
-void checkUnnamed8(core.List<api.GoogleCloudIdentitytoolkitAdminV2Tenant> o) {
+void checkUnnamed10(core.List<api.GoogleCloudIdentitytoolkitAdminV2Tenant> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkGoogleCloudIdentitytoolkitAdminV2Tenant(o[0]);
   checkGoogleCloudIdentitytoolkitAdminV2Tenant(o[1]);
@@ -839,7 +915,7 @@ api.GoogleCloudIdentitytoolkitAdminV2ListTenantsResponse
   buildCounterGoogleCloudIdentitytoolkitAdminV2ListTenantsResponse++;
   if (buildCounterGoogleCloudIdentitytoolkitAdminV2ListTenantsResponse < 3) {
     o.nextPageToken = 'foo';
-    o.tenants = buildUnnamed8();
+    o.tenants = buildUnnamed10();
   }
   buildCounterGoogleCloudIdentitytoolkitAdminV2ListTenantsResponse--;
   return o;
@@ -853,7 +929,7 @@ void checkGoogleCloudIdentitytoolkitAdminV2ListTenantsResponse(
       o.nextPageToken!,
       unittest.equals('foo'),
     );
-    checkUnnamed8(o.tenants!);
+    checkUnnamed10(o.tenants!);
   }
   buildCounterGoogleCloudIdentitytoolkitAdminV2ListTenantsResponse--;
 }
@@ -879,12 +955,12 @@ void checkGoogleCloudIdentitytoolkitAdminV2MonitoringConfig(
   buildCounterGoogleCloudIdentitytoolkitAdminV2MonitoringConfig--;
 }
 
-core.List<core.String> buildUnnamed9() => [
+core.List<core.String> buildUnnamed11() => [
       'foo',
       'foo',
     ];
 
-void checkUnnamed9(core.List<core.String> o) {
+void checkUnnamed11(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(
     o[0],
@@ -902,7 +978,7 @@ api.GoogleCloudIdentitytoolkitAdminV2MultiFactorAuthConfig
   final o = api.GoogleCloudIdentitytoolkitAdminV2MultiFactorAuthConfig();
   buildCounterGoogleCloudIdentitytoolkitAdminV2MultiFactorAuthConfig++;
   if (buildCounterGoogleCloudIdentitytoolkitAdminV2MultiFactorAuthConfig < 3) {
-    o.enabledProviders = buildUnnamed9();
+    o.enabledProviders = buildUnnamed11();
     o.state = 'foo';
   }
   buildCounterGoogleCloudIdentitytoolkitAdminV2MultiFactorAuthConfig--;
@@ -913,7 +989,7 @@ void checkGoogleCloudIdentitytoolkitAdminV2MultiFactorAuthConfig(
     api.GoogleCloudIdentitytoolkitAdminV2MultiFactorAuthConfig o) {
   buildCounterGoogleCloudIdentitytoolkitAdminV2MultiFactorAuthConfig++;
   if (buildCounterGoogleCloudIdentitytoolkitAdminV2MultiFactorAuthConfig < 3) {
-    checkUnnamed9(o.enabledProviders!);
+    checkUnnamed11(o.enabledProviders!);
     unittest.expect(
       o.state!,
       unittest.equals('foo'),
@@ -1072,12 +1148,12 @@ void checkGoogleCloudIdentitytoolkitAdminV2Permissions(
   buildCounterGoogleCloudIdentitytoolkitAdminV2Permissions--;
 }
 
-core.Map<core.String, core.String> buildUnnamed10() => {
+core.Map<core.String, core.String> buildUnnamed12() => {
       'x': 'foo',
       'y': 'foo',
     };
 
-void checkUnnamed10(core.Map<core.String, core.String> o) {
+void checkUnnamed12(core.Map<core.String, core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(
     o['x']!,
@@ -1096,7 +1172,7 @@ api.GoogleCloudIdentitytoolkitAdminV2PhoneNumber
   buildCounterGoogleCloudIdentitytoolkitAdminV2PhoneNumber++;
   if (buildCounterGoogleCloudIdentitytoolkitAdminV2PhoneNumber < 3) {
     o.enabled = true;
-    o.testPhoneNumbers = buildUnnamed10();
+    o.testPhoneNumbers = buildUnnamed12();
   }
   buildCounterGoogleCloudIdentitytoolkitAdminV2PhoneNumber--;
   return o;
@@ -1107,7 +1183,7 @@ void checkGoogleCloudIdentitytoolkitAdminV2PhoneNumber(
   buildCounterGoogleCloudIdentitytoolkitAdminV2PhoneNumber++;
   if (buildCounterGoogleCloudIdentitytoolkitAdminV2PhoneNumber < 3) {
     unittest.expect(o.enabled!, unittest.isTrue);
-    checkUnnamed10(o.testPhoneNumbers!);
+    checkUnnamed12(o.testPhoneNumbers!);
   }
   buildCounterGoogleCloudIdentitytoolkitAdminV2PhoneNumber--;
 }
@@ -1258,6 +1334,29 @@ void checkGoogleCloudIdentitytoolkitAdminV2SignInConfig(
   buildCounterGoogleCloudIdentitytoolkitAdminV2SignInConfig--;
 }
 
+core.int buildCounterGoogleCloudIdentitytoolkitAdminV2SmsRegionConfig = 0;
+api.GoogleCloudIdentitytoolkitAdminV2SmsRegionConfig
+    buildGoogleCloudIdentitytoolkitAdminV2SmsRegionConfig() {
+  final o = api.GoogleCloudIdentitytoolkitAdminV2SmsRegionConfig();
+  buildCounterGoogleCloudIdentitytoolkitAdminV2SmsRegionConfig++;
+  if (buildCounterGoogleCloudIdentitytoolkitAdminV2SmsRegionConfig < 3) {
+    o.allowByDefault = buildGoogleCloudIdentitytoolkitAdminV2AllowByDefault();
+    o.allowlistOnly = buildGoogleCloudIdentitytoolkitAdminV2AllowlistOnly();
+  }
+  buildCounterGoogleCloudIdentitytoolkitAdminV2SmsRegionConfig--;
+  return o;
+}
+
+void checkGoogleCloudIdentitytoolkitAdminV2SmsRegionConfig(
+    api.GoogleCloudIdentitytoolkitAdminV2SmsRegionConfig o) {
+  buildCounterGoogleCloudIdentitytoolkitAdminV2SmsRegionConfig++;
+  if (buildCounterGoogleCloudIdentitytoolkitAdminV2SmsRegionConfig < 3) {
+    checkGoogleCloudIdentitytoolkitAdminV2AllowByDefault(o.allowByDefault!);
+    checkGoogleCloudIdentitytoolkitAdminV2AllowlistOnly(o.allowlistOnly!);
+  }
+  buildCounterGoogleCloudIdentitytoolkitAdminV2SmsRegionConfig--;
+}
+
 core.int buildCounterGoogleCloudIdentitytoolkitAdminV2SmsTemplate = 0;
 api.GoogleCloudIdentitytoolkitAdminV2SmsTemplate
     buildGoogleCloudIdentitytoolkitAdminV2SmsTemplate() {
@@ -1361,12 +1460,12 @@ void checkGoogleCloudIdentitytoolkitAdminV2SpCertificate(
 }
 
 core.List<api.GoogleCloudIdentitytoolkitAdminV2SpCertificate>
-    buildUnnamed11() => [
+    buildUnnamed13() => [
           buildGoogleCloudIdentitytoolkitAdminV2SpCertificate(),
           buildGoogleCloudIdentitytoolkitAdminV2SpCertificate(),
         ];
 
-void checkUnnamed11(
+void checkUnnamed13(
     core.List<api.GoogleCloudIdentitytoolkitAdminV2SpCertificate> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkGoogleCloudIdentitytoolkitAdminV2SpCertificate(o[0]);
@@ -1380,7 +1479,7 @@ api.GoogleCloudIdentitytoolkitAdminV2SpConfig
   buildCounterGoogleCloudIdentitytoolkitAdminV2SpConfig++;
   if (buildCounterGoogleCloudIdentitytoolkitAdminV2SpConfig < 3) {
     o.callbackUri = 'foo';
-    o.spCertificates = buildUnnamed11();
+    o.spCertificates = buildUnnamed13();
     o.spEntityId = 'foo';
   }
   buildCounterGoogleCloudIdentitytoolkitAdminV2SpConfig--;
@@ -1395,7 +1494,7 @@ void checkGoogleCloudIdentitytoolkitAdminV2SpConfig(
       o.callbackUri!,
       unittest.equals('foo'),
     );
-    checkUnnamed11(o.spCertificates!);
+    checkUnnamed13(o.spCertificates!);
     unittest.expect(
       o.spEntityId!,
       unittest.equals('foo'),
@@ -1438,12 +1537,12 @@ void checkGoogleCloudIdentitytoolkitAdminV2TemporaryQuota(
   buildCounterGoogleCloudIdentitytoolkitAdminV2TemporaryQuota--;
 }
 
-core.Map<core.String, core.String> buildUnnamed12() => {
+core.Map<core.String, core.String> buildUnnamed14() => {
       'x': 'foo',
       'y': 'foo',
     };
 
-void checkUnnamed12(core.Map<core.String, core.String> o) {
+void checkUnnamed14(core.Map<core.String, core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(
     o['x']!,
@@ -1470,7 +1569,8 @@ api.GoogleCloudIdentitytoolkitAdminV2Tenant
     o.inheritance = buildGoogleCloudIdentitytoolkitAdminV2Inheritance();
     o.mfaConfig = buildGoogleCloudIdentitytoolkitAdminV2MultiFactorAuthConfig();
     o.name = 'foo';
-    o.testPhoneNumbers = buildUnnamed12();
+    o.smsRegionConfig = buildGoogleCloudIdentitytoolkitAdminV2SmsRegionConfig();
+    o.testPhoneNumbers = buildUnnamed14();
   }
   buildCounterGoogleCloudIdentitytoolkitAdminV2Tenant--;
   return o;
@@ -1495,7 +1595,8 @@ void checkGoogleCloudIdentitytoolkitAdminV2Tenant(
       o.name!,
       unittest.equals('foo'),
     );
-    checkUnnamed12(o.testPhoneNumbers!);
+    checkGoogleCloudIdentitytoolkitAdminV2SmsRegionConfig(o.smsRegionConfig!);
+    checkUnnamed14(o.testPhoneNumbers!);
   }
   buildCounterGoogleCloudIdentitytoolkitAdminV2Tenant--;
 }
@@ -2023,12 +2124,12 @@ void checkGoogleCloudIdentitytoolkitV2WithdrawMfaResponse(
   buildCounterGoogleCloudIdentitytoolkitV2WithdrawMfaResponse--;
 }
 
-core.List<api.GoogleIamV1AuditLogConfig> buildUnnamed13() => [
+core.List<api.GoogleIamV1AuditLogConfig> buildUnnamed15() => [
       buildGoogleIamV1AuditLogConfig(),
       buildGoogleIamV1AuditLogConfig(),
     ];
 
-void checkUnnamed13(core.List<api.GoogleIamV1AuditLogConfig> o) {
+void checkUnnamed15(core.List<api.GoogleIamV1AuditLogConfig> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkGoogleIamV1AuditLogConfig(o[0]);
   checkGoogleIamV1AuditLogConfig(o[1]);
@@ -2039,7 +2140,7 @@ api.GoogleIamV1AuditConfig buildGoogleIamV1AuditConfig() {
   final o = api.GoogleIamV1AuditConfig();
   buildCounterGoogleIamV1AuditConfig++;
   if (buildCounterGoogleIamV1AuditConfig < 3) {
-    o.auditLogConfigs = buildUnnamed13();
+    o.auditLogConfigs = buildUnnamed15();
     o.service = 'foo';
   }
   buildCounterGoogleIamV1AuditConfig--;
@@ -2049,7 +2150,7 @@ api.GoogleIamV1AuditConfig buildGoogleIamV1AuditConfig() {
 void checkGoogleIamV1AuditConfig(api.GoogleIamV1AuditConfig o) {
   buildCounterGoogleIamV1AuditConfig++;
   if (buildCounterGoogleIamV1AuditConfig < 3) {
-    checkUnnamed13(o.auditLogConfigs!);
+    checkUnnamed15(o.auditLogConfigs!);
     unittest.expect(
       o.service!,
       unittest.equals('foo'),
@@ -2058,12 +2159,12 @@ void checkGoogleIamV1AuditConfig(api.GoogleIamV1AuditConfig o) {
   buildCounterGoogleIamV1AuditConfig--;
 }
 
-core.List<core.String> buildUnnamed14() => [
+core.List<core.String> buildUnnamed16() => [
       'foo',
       'foo',
     ];
 
-void checkUnnamed14(core.List<core.String> o) {
+void checkUnnamed16(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(
     o[0],
@@ -2080,7 +2181,7 @@ api.GoogleIamV1AuditLogConfig buildGoogleIamV1AuditLogConfig() {
   final o = api.GoogleIamV1AuditLogConfig();
   buildCounterGoogleIamV1AuditLogConfig++;
   if (buildCounterGoogleIamV1AuditLogConfig < 3) {
-    o.exemptedMembers = buildUnnamed14();
+    o.exemptedMembers = buildUnnamed16();
     o.logType = 'foo';
   }
   buildCounterGoogleIamV1AuditLogConfig--;
@@ -2090,7 +2191,7 @@ api.GoogleIamV1AuditLogConfig buildGoogleIamV1AuditLogConfig() {
 void checkGoogleIamV1AuditLogConfig(api.GoogleIamV1AuditLogConfig o) {
   buildCounterGoogleIamV1AuditLogConfig++;
   if (buildCounterGoogleIamV1AuditLogConfig < 3) {
-    checkUnnamed14(o.exemptedMembers!);
+    checkUnnamed16(o.exemptedMembers!);
     unittest.expect(
       o.logType!,
       unittest.equals('foo'),
@@ -2099,12 +2200,12 @@ void checkGoogleIamV1AuditLogConfig(api.GoogleIamV1AuditLogConfig o) {
   buildCounterGoogleIamV1AuditLogConfig--;
 }
 
-core.List<core.String> buildUnnamed15() => [
+core.List<core.String> buildUnnamed17() => [
       'foo',
       'foo',
     ];
 
-void checkUnnamed15(core.List<core.String> o) {
+void checkUnnamed17(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(
     o[0],
@@ -2122,7 +2223,7 @@ api.GoogleIamV1Binding buildGoogleIamV1Binding() {
   buildCounterGoogleIamV1Binding++;
   if (buildCounterGoogleIamV1Binding < 3) {
     o.condition = buildGoogleTypeExpr();
-    o.members = buildUnnamed15();
+    o.members = buildUnnamed17();
     o.role = 'foo';
   }
   buildCounterGoogleIamV1Binding--;
@@ -2133,7 +2234,7 @@ void checkGoogleIamV1Binding(api.GoogleIamV1Binding o) {
   buildCounterGoogleIamV1Binding++;
   if (buildCounterGoogleIamV1Binding < 3) {
     checkGoogleTypeExpr(o.condition!);
-    checkUnnamed15(o.members!);
+    checkUnnamed17(o.members!);
     unittest.expect(
       o.role!,
       unittest.equals('foo'),
@@ -2183,23 +2284,23 @@ void checkGoogleIamV1GetPolicyOptions(api.GoogleIamV1GetPolicyOptions o) {
   buildCounterGoogleIamV1GetPolicyOptions--;
 }
 
-core.List<api.GoogleIamV1AuditConfig> buildUnnamed16() => [
+core.List<api.GoogleIamV1AuditConfig> buildUnnamed18() => [
       buildGoogleIamV1AuditConfig(),
       buildGoogleIamV1AuditConfig(),
     ];
 
-void checkUnnamed16(core.List<api.GoogleIamV1AuditConfig> o) {
+void checkUnnamed18(core.List<api.GoogleIamV1AuditConfig> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkGoogleIamV1AuditConfig(o[0]);
   checkGoogleIamV1AuditConfig(o[1]);
 }
 
-core.List<api.GoogleIamV1Binding> buildUnnamed17() => [
+core.List<api.GoogleIamV1Binding> buildUnnamed19() => [
       buildGoogleIamV1Binding(),
       buildGoogleIamV1Binding(),
     ];
 
-void checkUnnamed17(core.List<api.GoogleIamV1Binding> o) {
+void checkUnnamed19(core.List<api.GoogleIamV1Binding> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkGoogleIamV1Binding(o[0]);
   checkGoogleIamV1Binding(o[1]);
@@ -2210,8 +2311,8 @@ api.GoogleIamV1Policy buildGoogleIamV1Policy() {
   final o = api.GoogleIamV1Policy();
   buildCounterGoogleIamV1Policy++;
   if (buildCounterGoogleIamV1Policy < 3) {
-    o.auditConfigs = buildUnnamed16();
-    o.bindings = buildUnnamed17();
+    o.auditConfigs = buildUnnamed18();
+    o.bindings = buildUnnamed19();
     o.etag = 'foo';
     o.version = 42;
   }
@@ -2222,8 +2323,8 @@ api.GoogleIamV1Policy buildGoogleIamV1Policy() {
 void checkGoogleIamV1Policy(api.GoogleIamV1Policy o) {
   buildCounterGoogleIamV1Policy++;
   if (buildCounterGoogleIamV1Policy < 3) {
-    checkUnnamed16(o.auditConfigs!);
-    checkUnnamed17(o.bindings!);
+    checkUnnamed18(o.auditConfigs!);
+    checkUnnamed19(o.bindings!);
     unittest.expect(
       o.etag!,
       unittest.equals('foo'),
@@ -2260,12 +2361,12 @@ void checkGoogleIamV1SetIamPolicyRequest(api.GoogleIamV1SetIamPolicyRequest o) {
   buildCounterGoogleIamV1SetIamPolicyRequest--;
 }
 
-core.List<core.String> buildUnnamed18() => [
+core.List<core.String> buildUnnamed20() => [
       'foo',
       'foo',
     ];
 
-void checkUnnamed18(core.List<core.String> o) {
+void checkUnnamed20(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(
     o[0],
@@ -2283,7 +2384,7 @@ api.GoogleIamV1TestIamPermissionsRequest
   final o = api.GoogleIamV1TestIamPermissionsRequest();
   buildCounterGoogleIamV1TestIamPermissionsRequest++;
   if (buildCounterGoogleIamV1TestIamPermissionsRequest < 3) {
-    o.permissions = buildUnnamed18();
+    o.permissions = buildUnnamed20();
   }
   buildCounterGoogleIamV1TestIamPermissionsRequest--;
   return o;
@@ -2293,17 +2394,17 @@ void checkGoogleIamV1TestIamPermissionsRequest(
     api.GoogleIamV1TestIamPermissionsRequest o) {
   buildCounterGoogleIamV1TestIamPermissionsRequest++;
   if (buildCounterGoogleIamV1TestIamPermissionsRequest < 3) {
-    checkUnnamed18(o.permissions!);
+    checkUnnamed20(o.permissions!);
   }
   buildCounterGoogleIamV1TestIamPermissionsRequest--;
 }
 
-core.List<core.String> buildUnnamed19() => [
+core.List<core.String> buildUnnamed21() => [
       'foo',
       'foo',
     ];
 
-void checkUnnamed19(core.List<core.String> o) {
+void checkUnnamed21(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(
     o[0],
@@ -2321,7 +2422,7 @@ api.GoogleIamV1TestIamPermissionsResponse
   final o = api.GoogleIamV1TestIamPermissionsResponse();
   buildCounterGoogleIamV1TestIamPermissionsResponse++;
   if (buildCounterGoogleIamV1TestIamPermissionsResponse < 3) {
-    o.permissions = buildUnnamed19();
+    o.permissions = buildUnnamed21();
   }
   buildCounterGoogleIamV1TestIamPermissionsResponse--;
   return o;
@@ -2331,7 +2432,7 @@ void checkGoogleIamV1TestIamPermissionsResponse(
     api.GoogleIamV1TestIamPermissionsResponse o) {
   buildCounterGoogleIamV1TestIamPermissionsResponse++;
   if (buildCounterGoogleIamV1TestIamPermissionsResponse < 3) {
-    checkUnnamed19(o.permissions!);
+    checkUnnamed21(o.permissions!);
   }
   buildCounterGoogleIamV1TestIamPermissionsResponse--;
 }
@@ -2389,6 +2490,28 @@ void checkGoogleTypeExpr(api.GoogleTypeExpr o) {
 }
 
 void main() {
+  unittest.group('obj-schema-GoogleCloudIdentitytoolkitAdminV2AllowByDefault',
+      () {
+    unittest.test('to-json--from-json', () async {
+      final o = buildGoogleCloudIdentitytoolkitAdminV2AllowByDefault();
+      final oJson = convert.jsonDecode(convert.jsonEncode(o));
+      final od = api.GoogleCloudIdentitytoolkitAdminV2AllowByDefault.fromJson(
+          oJson as core.Map<core.String, core.dynamic>);
+      checkGoogleCloudIdentitytoolkitAdminV2AllowByDefault(od);
+    });
+  });
+
+  unittest.group('obj-schema-GoogleCloudIdentitytoolkitAdminV2AllowlistOnly',
+      () {
+    unittest.test('to-json--from-json', () async {
+      final o = buildGoogleCloudIdentitytoolkitAdminV2AllowlistOnly();
+      final oJson = convert.jsonDecode(convert.jsonEncode(o));
+      final od = api.GoogleCloudIdentitytoolkitAdminV2AllowlistOnly.fromJson(
+          oJson as core.Map<core.String, core.dynamic>);
+      checkGoogleCloudIdentitytoolkitAdminV2AllowlistOnly(od);
+    });
+  });
+
   unittest.group('obj-schema-GoogleCloudIdentitytoolkitAdminV2Anonymous', () {
     unittest.test('to-json--from-json', () async {
       final o = buildGoogleCloudIdentitytoolkitAdminV2Anonymous();
@@ -2787,6 +2910,17 @@ void main() {
       final od = api.GoogleCloudIdentitytoolkitAdminV2SignInConfig.fromJson(
           oJson as core.Map<core.String, core.dynamic>);
       checkGoogleCloudIdentitytoolkitAdminV2SignInConfig(od);
+    });
+  });
+
+  unittest.group('obj-schema-GoogleCloudIdentitytoolkitAdminV2SmsRegionConfig',
+      () {
+    unittest.test('to-json--from-json', () async {
+      final o = buildGoogleCloudIdentitytoolkitAdminV2SmsRegionConfig();
+      final oJson = convert.jsonDecode(convert.jsonEncode(o));
+      final od = api.GoogleCloudIdentitytoolkitAdminV2SmsRegionConfig.fromJson(
+          oJson as core.Map<core.String, core.dynamic>);
+      checkGoogleCloudIdentitytoolkitAdminV2SmsRegionConfig(od);
     });
   });
 

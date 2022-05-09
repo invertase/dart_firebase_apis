@@ -1553,6 +1553,66 @@ void main() {
       checkGoogleApiHttpBody(response as api.GoogleApiHttpBody);
     });
 
+    unittest.test('method--get', () async {
+      final mock = HttpServerMock();
+      final res = api.FirebaseapptestersApi(mock).devices.testerApps.releases;
+      final arg_name = 'foo';
+      final arg_testerClient = 'foo';
+      final arg_$fields = 'foo';
+      mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
+        final path = (req.url).path;
+        var pathOffset = 0;
+        core.int index;
+        core.String subPart;
+        unittest.expect(
+          path.substring(pathOffset, pathOffset + 1),
+          unittest.equals('/'),
+        );
+        pathOffset += 1;
+        unittest.expect(
+          path.substring(pathOffset, pathOffset + 8),
+          unittest.equals('v1alpha/'),
+        );
+        pathOffset += 8;
+        // NOTE: We cannot test reserved expansions due to the inability to reverse the operation;
+
+        final query = (req.url).query;
+        var queryOffset = 0;
+        final queryMap = <core.String, core.List<core.String>>{};
+        void addQueryParam(core.String n, core.String v) =>
+            queryMap.putIfAbsent(n, () => []).add(v);
+
+        if (query.isNotEmpty) {
+          for (var part in query.split('&')) {
+            final keyValue = part.split('=');
+            addQueryParam(
+              core.Uri.decodeQueryComponent(keyValue[0]),
+              core.Uri.decodeQueryComponent(keyValue[1]),
+            );
+          }
+        }
+        unittest.expect(
+          queryMap['testerClient']!.first,
+          unittest.equals(arg_testerClient),
+        );
+        unittest.expect(
+          queryMap['fields']!.first,
+          unittest.equals(arg_$fields),
+        );
+
+        final h = {
+          'content-type': 'application/json; charset=utf-8',
+        };
+        final resp =
+            convert.json.encode(buildGoogleFirebaseApptestersV1alphaRelease());
+        return async.Future.value(stringResponse(200, h, resp));
+      }), true);
+      final response = await res.get(arg_name,
+          testerClient: arg_testerClient, $fields: arg_$fields);
+      checkGoogleFirebaseApptestersV1alphaRelease(
+          response as api.GoogleFirebaseApptestersV1alphaRelease);
+    });
+
     unittest.test('method--list', () async {
       final mock = HttpServerMock();
       final res = api.FirebaseapptestersApi(mock).devices.testerApps.releases;
