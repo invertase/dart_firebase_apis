@@ -1,5 +1,5 @@
 name: firebaseapis
-version: 0.1.1
+version: 0.1.2
 description: Auto-generated client libraries for accessing Firebase APIs described through the API discovery service.
 repository: https://github.com/invertase/dart_firebase_apis/tree/master/generated/firebaseapis
 environment:
