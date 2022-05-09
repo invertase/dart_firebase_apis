@@ -1981,6 +1981,15 @@ class AnalyticsProperty {
 
 /// Details of a Firebase App for Android.
 class AndroidApp {
+  /// The key_id of the GCP ApiKey associated with this App.
+  ///
+  /// If set must have no restrictions, or only have restrictions that are valid
+  /// for the associated Firebase App. Cannot be set in create requests, instead
+  /// an existing valid API Key will be chosen, or if no valid API Keys exist,
+  /// one will be provisioned for you. Cannot be set to an empty value in update
+  /// requests.
+  core.String? apiKeyId;
+
   /// The globally unique, Firebase-assigned identifier for the `AndroidApp`.
   ///
   /// This identifier should be treated as an opaque token, as the data format
@@ -2019,6 +2028,7 @@ class AndroidApp {
   core.String? projectId;
 
   AndroidApp({
+    this.apiKeyId,
     this.appId,
     this.displayName,
     this.name,
@@ -2028,6 +2038,9 @@ class AndroidApp {
 
   AndroidApp.fromJson(core.Map _json)
       : this(
+          apiKeyId: _json.containsKey('apiKeyId')
+              ? _json['apiKeyId'] as core.String
+              : null,
           appId:
               _json.containsKey('appId') ? _json['appId'] as core.String : null,
           displayName: _json.containsKey('displayName')
@@ -2043,6 +2056,7 @@ class AndroidApp {
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
+        if (apiKeyId != null) 'apiKeyId': apiKeyId!,
         if (appId != null) 'appId': appId!,
         if (displayName != null) 'displayName': displayName!,
         if (name != null) 'name': name!,
@@ -2168,8 +2182,7 @@ class DefaultResources {
 ///
 /// A typical example is to use it as the request or the response type of an API
 /// method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns
-/// (google.protobuf.Empty); } The JSON representation for `Empty` is empty JSON
-/// object `{}`.
+/// (google.protobuf.Empty); }
 typedef Empty = $Empty;
 
 class FinalizeDefaultLocationRequest {
@@ -2369,6 +2382,15 @@ class FirebaseProject {
 
 /// Details of a Firebase App for iOS.
 class IosApp {
+  /// The key_id of the GCP ApiKey associated with this App.
+  ///
+  /// If set must have no restrictions, or only have restrictions that are valid
+  /// for the associated Firebase App. Cannot be set in create requests, instead
+  /// an existing valid API Key will be chosen, or if no valid API Keys exist,
+  /// one will be provisioned for you. Cannot be set to an empty value in update
+  /// requests.
+  core.String? apiKeyId;
+
   /// The globally unique, Firebase-assigned identifier for the `IosApp`.
   ///
   /// This identifier should be treated as an opaque token, as the data format
@@ -2414,6 +2436,7 @@ class IosApp {
   core.String? teamId;
 
   IosApp({
+    this.apiKeyId,
     this.appId,
     this.appStoreId,
     this.bundleId,
@@ -2425,6 +2448,9 @@ class IosApp {
 
   IosApp.fromJson(core.Map _json)
       : this(
+          apiKeyId: _json.containsKey('apiKeyId')
+              ? _json['apiKeyId'] as core.String
+              : null,
           appId:
               _json.containsKey('appId') ? _json['appId'] as core.String : null,
           appStoreId: _json.containsKey('appStoreId')
@@ -2446,6 +2472,7 @@ class IosApp {
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
+        if (apiKeyId != null) 'apiKeyId': apiKeyId!,
         if (appId != null) 'appId': appId!,
         if (appStoreId != null) 'appStoreId': appStoreId!,
         if (bundleId != null) 'bundleId': bundleId!,
@@ -3097,6 +3124,15 @@ class StreamMapping {
 
 /// Details of a Firebase App for the web.
 class WebApp {
+  /// The key_id of the GCP ApiKey associated with this App.
+  ///
+  /// If set must have no restrictions, or only have restrictions that are valid
+  /// for the associated Firebase App. Cannot be set in create requests, instead
+  /// an existing valid API Key will be chosen, or if no valid API Keys exist,
+  /// one will be provisioned for you. Cannot be set to an empty value in update
+  /// requests.
+  core.String? apiKeyId;
+
   /// The globally unique, Firebase-assigned identifier for the `WebApp`.
   ///
   /// This identifier should be treated as an opaque token, as the data format
@@ -3142,6 +3178,7 @@ class WebApp {
   core.String? webId;
 
   WebApp({
+    this.apiKeyId,
     this.appId,
     this.appUrls,
     this.displayName,
@@ -3152,6 +3189,9 @@ class WebApp {
 
   WebApp.fromJson(core.Map _json)
       : this(
+          apiKeyId: _json.containsKey('apiKeyId')
+              ? _json['apiKeyId'] as core.String
+              : null,
           appId:
               _json.containsKey('appId') ? _json['appId'] as core.String : null,
           appUrls: _json.containsKey('appUrls')
@@ -3171,6 +3211,7 @@ class WebApp {
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
+        if (apiKeyId != null) 'apiKeyId': apiKeyId!,
         if (appId != null) 'appId': appId!,
         if (appUrls != null) 'appUrls': appUrls!,
         if (displayName != null) 'displayName': displayName!,

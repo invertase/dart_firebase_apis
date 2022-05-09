@@ -551,6 +551,55 @@ class DevicesTesterAppsReleasesResource {
         _response as core.Map<core.String, core.dynamic>);
   }
 
+  /// Get a single release for the app
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The name of the release to retrieve Format:
+  /// devices/{device}/testerApps/{tester_app}/releases/{release}
+  /// Value must have pattern
+  /// `^devices/\[^/\]+/testerApps/\[^/\]+/releases/\[^/\]+$`.
+  ///
+  /// [testerClient] - The tester client which this download request is coming
+  /// from
+  /// Possible string values are:
+  /// - "TESTER_CLIENT_UNSPECIFIED" : Tester client unspecified
+  /// - "ANDROID_TESTER_APP" : App Tester native android app
+  /// - "WEB" : Web-based tester client (Android & iOS)
+  /// - "IOS_SDK" : iOS SDK (new build alerts)
+  /// - "ANDROID_SDK" : Android SDK (new build alerts)
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleFirebaseApptestersV1alphaRelease].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleFirebaseApptestersV1alphaRelease> get(
+    core.String name, {
+    core.String? testerClient,
+    core.String? $fields,
+  }) async {
+    final _queryParams = <core.String, core.List<core.String>>{
+      if (testerClient != null) 'testerClient': [testerClient],
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final _url = 'v1alpha/' + core.Uri.encodeFull('$name');
+
+    final _response = await _requester.request(
+      _url,
+      'GET',
+      queryParams: _queryParams,
+    );
+    return GoogleFirebaseApptestersV1alphaRelease.fromJson(
+        _response as core.Map<core.String, core.dynamic>);
+  }
+
   /// List releases for the app
   ///
   /// Request parameters:
@@ -563,7 +612,7 @@ class DevicesTesterAppsReleasesResource {
   ///
   /// [pageSize] - Maximum number of releases to return
   ///
-  /// [pageToken] - Page token received from previous ListDevices call
+  /// [pageToken] - Page token received from previous `ListReleases` call
   ///
   /// [testerClient] - The tester client which this download request is coming
   /// from
@@ -892,53 +941,7 @@ class V1alphaResource {
 /// (stream google.api.HttpBody); } Use of this type only changes how the
 /// request and response bodies are handled, all other features will continue to
 /// work unchanged.
-class GoogleApiHttpBody {
-  /// The HTTP Content-Type header value specifying the content type of the
-  /// body.
-  core.String? contentType;
-
-  /// The HTTP request/response body as raw binary.
-  core.String? data;
-  core.List<core.int> get dataAsBytes => convert.base64.decode(data!);
-
-  set dataAsBytes(core.List<core.int> _bytes) {
-    data =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
-  }
-
-  /// Application specific response metadata.
-  ///
-  /// Must be set in the first response for streaming APIs.
-  ///
-  /// The values for Object must be JSON objects. It can consist of `num`,
-  /// `String`, `bool` and `null` as well as `Map` and `List` values.
-  core.List<core.Map<core.String, core.Object?>>? extensions;
-
-  GoogleApiHttpBody({
-    this.contentType,
-    this.data,
-    this.extensions,
-  });
-
-  GoogleApiHttpBody.fromJson(core.Map _json)
-      : this(
-          contentType: _json.containsKey('contentType')
-              ? _json['contentType'] as core.String
-              : null,
-          data: _json.containsKey('data') ? _json['data'] as core.String : null,
-          extensions: _json.containsKey('extensions')
-              ? (_json['extensions'] as core.List)
-                  .map((value) => value as core.Map<core.String, core.dynamic>)
-                  .toList()
-              : null,
-        );
-
-  core.Map<core.String, core.dynamic> toJson() => {
-        if (contentType != null) 'contentType': contentType!,
-        if (data != null) 'data': data!,
-        if (extensions != null) 'extensions': extensions!,
-      };
-}
+typedef GoogleApiHttpBody = $HttpBody;
 
 /// The request object for the AcceptInviteLink call
 class GoogleFirebaseApptestersV1alphaAcceptInviteLinkRequest {
@@ -1622,6 +1625,5 @@ typedef GoogleFirebaseApptestersV1alphaUnsubscribeInvitationRequest = $Empty;
 ///
 /// A typical example is to use it as the request or the response type of an API
 /// method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns
-/// (google.protobuf.Empty); } The JSON representation for `Empty` is empty JSON
-/// object `{}`.
+/// (google.protobuf.Empty); }
 typedef GoogleProtobufEmpty = $Empty;

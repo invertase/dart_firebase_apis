@@ -152,6 +152,35 @@ void checkGoogleFirebaseExtensionsV1betaDeprecateExtensionVersionRequest(
   buildCounterGoogleFirebaseExtensionsV1betaDeprecateExtensionVersionRequest--;
 }
 
+core.int buildCounterGoogleFirebaseExtensionsV1betaEventDescriptor = 0;
+api.GoogleFirebaseExtensionsV1betaEventDescriptor
+    buildGoogleFirebaseExtensionsV1betaEventDescriptor() {
+  final o = api.GoogleFirebaseExtensionsV1betaEventDescriptor();
+  buildCounterGoogleFirebaseExtensionsV1betaEventDescriptor++;
+  if (buildCounterGoogleFirebaseExtensionsV1betaEventDescriptor < 3) {
+    o.description = 'foo';
+    o.type = 'foo';
+  }
+  buildCounterGoogleFirebaseExtensionsV1betaEventDescriptor--;
+  return o;
+}
+
+void checkGoogleFirebaseExtensionsV1betaEventDescriptor(
+    api.GoogleFirebaseExtensionsV1betaEventDescriptor o) {
+  buildCounterGoogleFirebaseExtensionsV1betaEventDescriptor++;
+  if (buildCounterGoogleFirebaseExtensionsV1betaEventDescriptor < 3) {
+    unittest.expect(
+      o.description!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.type!,
+      unittest.equals('foo'),
+    );
+  }
+  buildCounterGoogleFirebaseExtensionsV1betaEventDescriptor--;
+}
+
 core.int buildCounterGoogleFirebaseExtensionsV1betaExtension = 0;
 api.GoogleFirebaseExtensionsV1betaExtension
     buildGoogleFirebaseExtensionsV1betaExtension() {
@@ -232,6 +261,7 @@ api.GoogleFirebaseExtensionsV1betaExtensionInstance
     o.config = buildGoogleFirebaseExtensionsV1betaExtensionInstanceConfig();
     o.createTime = 'foo';
     o.errorStatus = buildGoogleRpcStatus();
+    o.etag = 'foo';
     o.lastOperationName = 'foo';
     o.lastOperationType = 'foo';
     o.name = 'foo';
@@ -253,6 +283,10 @@ void checkGoogleFirebaseExtensionsV1betaExtensionInstance(
       unittest.equals('foo'),
     );
     checkGoogleRpcStatus(o.errorStatus!);
+    unittest.expect(
+      o.etag!,
+      unittest.equals('foo'),
+    );
     unittest.expect(
       o.lastOperationName!,
       unittest.equals('foo'),
@@ -281,12 +315,29 @@ void checkGoogleFirebaseExtensionsV1betaExtensionInstance(
   buildCounterGoogleFirebaseExtensionsV1betaExtensionInstance--;
 }
 
-core.Map<core.String, core.String> buildUnnamed1() => {
+core.List<core.String> buildUnnamed1() => [
+      'foo',
+      'foo',
+    ];
+
+void checkUnnamed1(core.List<core.String> o) {
+  unittest.expect(o, unittest.hasLength(2));
+  unittest.expect(
+    o[0],
+    unittest.equals('foo'),
+  );
+  unittest.expect(
+    o[1],
+    unittest.equals('foo'),
+  );
+}
+
+core.Map<core.String, core.String> buildUnnamed2() => {
       'x': 'foo',
       'y': 'foo',
     };
 
-void checkUnnamed1(core.Map<core.String, core.String> o) {
+void checkUnnamed2(core.Map<core.String, core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(
     o['x']!,
@@ -304,11 +355,13 @@ api.GoogleFirebaseExtensionsV1betaExtensionInstanceConfig
   final o = api.GoogleFirebaseExtensionsV1betaExtensionInstanceConfig();
   buildCounterGoogleFirebaseExtensionsV1betaExtensionInstanceConfig++;
   if (buildCounterGoogleFirebaseExtensionsV1betaExtensionInstanceConfig < 3) {
+    o.allowedEventTypes = buildUnnamed1();
     o.createTime = 'foo';
+    o.eventarcChannel = 'foo';
     o.extensionRef = 'foo';
     o.extensionVersion = 'foo';
     o.name = 'foo';
-    o.params = buildUnnamed1();
+    o.params = buildUnnamed2();
     o.populatedPostinstallContent = 'foo';
     o.source = buildGoogleFirebaseExtensionsV1betaExtensionSource();
   }
@@ -320,8 +373,13 @@ void checkGoogleFirebaseExtensionsV1betaExtensionInstanceConfig(
     api.GoogleFirebaseExtensionsV1betaExtensionInstanceConfig o) {
   buildCounterGoogleFirebaseExtensionsV1betaExtensionInstanceConfig++;
   if (buildCounterGoogleFirebaseExtensionsV1betaExtensionInstanceConfig < 3) {
+    checkUnnamed1(o.allowedEventTypes!);
     unittest.expect(
       o.createTime!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.eventarcChannel!,
       unittest.equals('foo'),
     );
     unittest.expect(
@@ -336,7 +394,7 @@ void checkGoogleFirebaseExtensionsV1betaExtensionInstanceConfig(
       o.name!,
       unittest.equals('foo'),
     );
-    checkUnnamed1(o.params!);
+    checkUnnamed2(o.params!);
     unittest.expect(
       o.populatedPostinstallContent!,
       unittest.equals('foo'),
@@ -402,35 +460,48 @@ void checkGoogleFirebaseExtensionsV1betaExtensionSource(
   buildCounterGoogleFirebaseExtensionsV1betaExtensionSource--;
 }
 
-core.List<api.GoogleFirebaseExtensionsV1betaApi> buildUnnamed2() => [
+core.List<api.GoogleFirebaseExtensionsV1betaApi> buildUnnamed3() => [
       buildGoogleFirebaseExtensionsV1betaApi(),
       buildGoogleFirebaseExtensionsV1betaApi(),
     ];
 
-void checkUnnamed2(core.List<api.GoogleFirebaseExtensionsV1betaApi> o) {
+void checkUnnamed3(core.List<api.GoogleFirebaseExtensionsV1betaApi> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkGoogleFirebaseExtensionsV1betaApi(o[0]);
   checkGoogleFirebaseExtensionsV1betaApi(o[1]);
 }
 
-core.List<api.GoogleFirebaseExtensionsV1betaAuthor> buildUnnamed3() => [
+core.List<api.GoogleFirebaseExtensionsV1betaAuthor> buildUnnamed4() => [
       buildGoogleFirebaseExtensionsV1betaAuthor(),
       buildGoogleFirebaseExtensionsV1betaAuthor(),
     ];
 
-void checkUnnamed3(core.List<api.GoogleFirebaseExtensionsV1betaAuthor> o) {
+void checkUnnamed4(core.List<api.GoogleFirebaseExtensionsV1betaAuthor> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkGoogleFirebaseExtensionsV1betaAuthor(o[0]);
   checkGoogleFirebaseExtensionsV1betaAuthor(o[1]);
 }
 
-core.List<api.GoogleFirebaseExtensionsV1betaExternalService> buildUnnamed4() =>
+core.List<api.GoogleFirebaseExtensionsV1betaEventDescriptor> buildUnnamed5() =>
+    [
+      buildGoogleFirebaseExtensionsV1betaEventDescriptor(),
+      buildGoogleFirebaseExtensionsV1betaEventDescriptor(),
+    ];
+
+void checkUnnamed5(
+    core.List<api.GoogleFirebaseExtensionsV1betaEventDescriptor> o) {
+  unittest.expect(o, unittest.hasLength(2));
+  checkGoogleFirebaseExtensionsV1betaEventDescriptor(o[0]);
+  checkGoogleFirebaseExtensionsV1betaEventDescriptor(o[1]);
+}
+
+core.List<api.GoogleFirebaseExtensionsV1betaExternalService> buildUnnamed6() =>
     [
       buildGoogleFirebaseExtensionsV1betaExternalService(),
       buildGoogleFirebaseExtensionsV1betaExternalService(),
     ];
 
-void checkUnnamed4(
+void checkUnnamed6(
     core.List<api.GoogleFirebaseExtensionsV1betaExternalService> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkGoogleFirebaseExtensionsV1betaExternalService(o[0]);
@@ -438,35 +509,35 @@ void checkUnnamed4(
 }
 
 core.List<api.GoogleFirebaseExtensionsV1betaExtensionSpecParameter>
-    buildUnnamed5() => [
+    buildUnnamed7() => [
           buildGoogleFirebaseExtensionsV1betaExtensionSpecParameter(),
           buildGoogleFirebaseExtensionsV1betaExtensionSpecParameter(),
         ];
 
-void checkUnnamed5(
+void checkUnnamed7(
     core.List<api.GoogleFirebaseExtensionsV1betaExtensionSpecParameter> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkGoogleFirebaseExtensionsV1betaExtensionSpecParameter(o[0]);
   checkGoogleFirebaseExtensionsV1betaExtensionSpecParameter(o[1]);
 }
 
-core.List<api.GoogleFirebaseExtensionsV1betaResource> buildUnnamed6() => [
+core.List<api.GoogleFirebaseExtensionsV1betaResource> buildUnnamed8() => [
       buildGoogleFirebaseExtensionsV1betaResource(),
       buildGoogleFirebaseExtensionsV1betaResource(),
     ];
 
-void checkUnnamed6(core.List<api.GoogleFirebaseExtensionsV1betaResource> o) {
+void checkUnnamed8(core.List<api.GoogleFirebaseExtensionsV1betaResource> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkGoogleFirebaseExtensionsV1betaResource(o[0]);
   checkGoogleFirebaseExtensionsV1betaResource(o[1]);
 }
 
-core.List<api.GoogleFirebaseExtensionsV1betaRole> buildUnnamed7() => [
+core.List<api.GoogleFirebaseExtensionsV1betaRole> buildUnnamed9() => [
       buildGoogleFirebaseExtensionsV1betaRole(),
       buildGoogleFirebaseExtensionsV1betaRole(),
     ];
 
-void checkUnnamed7(core.List<api.GoogleFirebaseExtensionsV1betaRole> o) {
+void checkUnnamed9(core.List<api.GoogleFirebaseExtensionsV1betaRole> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkGoogleFirebaseExtensionsV1betaRole(o[0]);
   checkGoogleFirebaseExtensionsV1betaRole(o[1]);
@@ -478,22 +549,23 @@ api.GoogleFirebaseExtensionsV1betaExtensionSpec
   final o = api.GoogleFirebaseExtensionsV1betaExtensionSpec();
   buildCounterGoogleFirebaseExtensionsV1betaExtensionSpec++;
   if (buildCounterGoogleFirebaseExtensionsV1betaExtensionSpec < 3) {
-    o.apis = buildUnnamed2();
+    o.apis = buildUnnamed3();
     o.author = buildGoogleFirebaseExtensionsV1betaAuthor();
     o.billingRequired = true;
-    o.contributors = buildUnnamed3();
+    o.contributors = buildUnnamed4();
     o.description = 'foo';
     o.displayName = 'foo';
-    o.externalServices = buildUnnamed4();
+    o.events = buildUnnamed5();
+    o.externalServices = buildUnnamed6();
     o.license = 'foo';
     o.name = 'foo';
-    o.params = buildUnnamed5();
+    o.params = buildUnnamed7();
     o.postinstallContent = 'foo';
     o.preinstallContent = 'foo';
     o.readmeContent = 'foo';
     o.releaseNotesUrl = 'foo';
-    o.resources = buildUnnamed6();
-    o.roles = buildUnnamed7();
+    o.resources = buildUnnamed8();
+    o.roles = buildUnnamed9();
     o.sourceUrl = 'foo';
     o.specVersion = 'foo';
     o.version = 'foo';
@@ -506,10 +578,10 @@ void checkGoogleFirebaseExtensionsV1betaExtensionSpec(
     api.GoogleFirebaseExtensionsV1betaExtensionSpec o) {
   buildCounterGoogleFirebaseExtensionsV1betaExtensionSpec++;
   if (buildCounterGoogleFirebaseExtensionsV1betaExtensionSpec < 3) {
-    checkUnnamed2(o.apis!);
+    checkUnnamed3(o.apis!);
     checkGoogleFirebaseExtensionsV1betaAuthor(o.author!);
     unittest.expect(o.billingRequired!, unittest.isTrue);
-    checkUnnamed3(o.contributors!);
+    checkUnnamed4(o.contributors!);
     unittest.expect(
       o.description!,
       unittest.equals('foo'),
@@ -518,7 +590,8 @@ void checkGoogleFirebaseExtensionsV1betaExtensionSpec(
       o.displayName!,
       unittest.equals('foo'),
     );
-    checkUnnamed4(o.externalServices!);
+    checkUnnamed5(o.events!);
+    checkUnnamed6(o.externalServices!);
     unittest.expect(
       o.license!,
       unittest.equals('foo'),
@@ -527,7 +600,7 @@ void checkGoogleFirebaseExtensionsV1betaExtensionSpec(
       o.name!,
       unittest.equals('foo'),
     );
-    checkUnnamed5(o.params!);
+    checkUnnamed7(o.params!);
     unittest.expect(
       o.postinstallContent!,
       unittest.equals('foo'),
@@ -544,8 +617,8 @@ void checkGoogleFirebaseExtensionsV1betaExtensionSpec(
       o.releaseNotesUrl!,
       unittest.equals('foo'),
     );
-    checkUnnamed6(o.resources!);
-    checkUnnamed7(o.roles!);
+    checkUnnamed8(o.resources!);
+    checkUnnamed9(o.roles!);
     unittest.expect(
       o.sourceUrl!,
       unittest.equals('foo'),
@@ -563,12 +636,12 @@ void checkGoogleFirebaseExtensionsV1betaExtensionSpec(
 }
 
 core.List<api.GoogleFirebaseExtensionsV1betaParamSelectOption>
-    buildUnnamed8() => [
+    buildUnnamed10() => [
           buildGoogleFirebaseExtensionsV1betaParamSelectOption(),
           buildGoogleFirebaseExtensionsV1betaParamSelectOption(),
         ];
 
-void checkUnnamed8(
+void checkUnnamed10(
     core.List<api.GoogleFirebaseExtensionsV1betaParamSelectOption> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkGoogleFirebaseExtensionsV1betaParamSelectOption(o[0]);
@@ -586,7 +659,7 @@ api.GoogleFirebaseExtensionsV1betaExtensionSpecParameter
     o.example = 'foo';
     o.immutable = true;
     o.label = 'foo';
-    o.options = buildUnnamed8();
+    o.options = buildUnnamed10();
     o.param = 'foo';
     o.required = true;
     o.resourceInfo = buildGoogleFirebaseExtensionsV1betaResourceInfo();
@@ -619,7 +692,7 @@ void checkGoogleFirebaseExtensionsV1betaExtensionSpecParameter(
       o.label!,
       unittest.equals('foo'),
     );
-    checkUnnamed8(o.options!);
+    checkUnnamed10(o.options!);
     unittest.expect(
       o.param!,
       unittest.equals('foo'),
@@ -743,12 +816,12 @@ void checkGoogleFirebaseExtensionsV1betaExternalService(
 }
 
 core.List<api.GoogleFirebaseExtensionsV1betaExtensionInstance>
-    buildUnnamed9() => [
+    buildUnnamed11() => [
           buildGoogleFirebaseExtensionsV1betaExtensionInstance(),
           buildGoogleFirebaseExtensionsV1betaExtensionInstance(),
         ];
 
-void checkUnnamed9(
+void checkUnnamed11(
     core.List<api.GoogleFirebaseExtensionsV1betaExtensionInstance> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkGoogleFirebaseExtensionsV1betaExtensionInstance(o[0]);
@@ -764,7 +837,7 @@ api.GoogleFirebaseExtensionsV1betaListExtensionInstancesResponse
   buildCounterGoogleFirebaseExtensionsV1betaListExtensionInstancesResponse++;
   if (buildCounterGoogleFirebaseExtensionsV1betaListExtensionInstancesResponse <
       3) {
-    o.instances = buildUnnamed9();
+    o.instances = buildUnnamed11();
     o.nextPageToken = 'foo';
   }
   buildCounterGoogleFirebaseExtensionsV1betaListExtensionInstancesResponse--;
@@ -776,7 +849,7 @@ void checkGoogleFirebaseExtensionsV1betaListExtensionInstancesResponse(
   buildCounterGoogleFirebaseExtensionsV1betaListExtensionInstancesResponse++;
   if (buildCounterGoogleFirebaseExtensionsV1betaListExtensionInstancesResponse <
       3) {
-    checkUnnamed9(o.instances!);
+    checkUnnamed11(o.instances!);
     unittest.expect(
       o.nextPageToken!,
       unittest.equals('foo'),
@@ -786,12 +859,12 @@ void checkGoogleFirebaseExtensionsV1betaListExtensionInstancesResponse(
 }
 
 core.List<api.GoogleFirebaseExtensionsV1betaExtensionVersion>
-    buildUnnamed10() => [
+    buildUnnamed12() => [
           buildGoogleFirebaseExtensionsV1betaExtensionVersion(),
           buildGoogleFirebaseExtensionsV1betaExtensionVersion(),
         ];
 
-void checkUnnamed10(
+void checkUnnamed12(
     core.List<api.GoogleFirebaseExtensionsV1betaExtensionVersion> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkGoogleFirebaseExtensionsV1betaExtensionVersion(o[0]);
@@ -806,7 +879,7 @@ api.GoogleFirebaseExtensionsV1betaListExtensionVersionsResponse
   buildCounterGoogleFirebaseExtensionsV1betaListExtensionVersionsResponse++;
   if (buildCounterGoogleFirebaseExtensionsV1betaListExtensionVersionsResponse <
       3) {
-    o.extensionVersions = buildUnnamed10();
+    o.extensionVersions = buildUnnamed12();
     o.nextPageToken = 'foo';
   }
   buildCounterGoogleFirebaseExtensionsV1betaListExtensionVersionsResponse--;
@@ -818,7 +891,7 @@ void checkGoogleFirebaseExtensionsV1betaListExtensionVersionsResponse(
   buildCounterGoogleFirebaseExtensionsV1betaListExtensionVersionsResponse++;
   if (buildCounterGoogleFirebaseExtensionsV1betaListExtensionVersionsResponse <
       3) {
-    checkUnnamed10(o.extensionVersions!);
+    checkUnnamed12(o.extensionVersions!);
     unittest.expect(
       o.nextPageToken!,
       unittest.equals('foo'),
@@ -827,12 +900,12 @@ void checkGoogleFirebaseExtensionsV1betaListExtensionVersionsResponse(
   buildCounterGoogleFirebaseExtensionsV1betaListExtensionVersionsResponse--;
 }
 
-core.List<api.GoogleFirebaseExtensionsV1betaExtension> buildUnnamed11() => [
+core.List<api.GoogleFirebaseExtensionsV1betaExtension> buildUnnamed13() => [
       buildGoogleFirebaseExtensionsV1betaExtension(),
       buildGoogleFirebaseExtensionsV1betaExtension(),
     ];
 
-void checkUnnamed11(core.List<api.GoogleFirebaseExtensionsV1betaExtension> o) {
+void checkUnnamed13(core.List<api.GoogleFirebaseExtensionsV1betaExtension> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkGoogleFirebaseExtensionsV1betaExtension(o[0]);
   checkGoogleFirebaseExtensionsV1betaExtension(o[1]);
@@ -844,7 +917,7 @@ api.GoogleFirebaseExtensionsV1betaListExtensionsResponse
   final o = api.GoogleFirebaseExtensionsV1betaListExtensionsResponse();
   buildCounterGoogleFirebaseExtensionsV1betaListExtensionsResponse++;
   if (buildCounterGoogleFirebaseExtensionsV1betaListExtensionsResponse < 3) {
-    o.extensions = buildUnnamed11();
+    o.extensions = buildUnnamed13();
     o.nextPageToken = 'foo';
   }
   buildCounterGoogleFirebaseExtensionsV1betaListExtensionsResponse--;
@@ -855,7 +928,7 @@ void checkGoogleFirebaseExtensionsV1betaListExtensionsResponse(
     api.GoogleFirebaseExtensionsV1betaListExtensionsResponse o) {
   buildCounterGoogleFirebaseExtensionsV1betaListExtensionsResponse++;
   if (buildCounterGoogleFirebaseExtensionsV1betaListExtensionsResponse < 3) {
-    checkUnnamed11(o.extensions!);
+    checkUnnamed13(o.extensions!);
     unittest.expect(
       o.nextPageToken!,
       unittest.equals('foo'),
@@ -1004,7 +1077,7 @@ void checkGoogleFirebaseExtensionsV1betaPublisherSummary(
   buildCounterGoogleFirebaseExtensionsV1betaPublisherSummary--;
 }
 
-core.Map<core.String, core.Object?> buildUnnamed12() => {
+core.Map<core.String, core.Object?> buildUnnamed14() => {
       'x': {
         'list': [1, 2, 3],
         'bool': true,
@@ -1017,7 +1090,7 @@ core.Map<core.String, core.Object?> buildUnnamed12() => {
       },
     };
 
-void checkUnnamed12(core.Map<core.String, core.Object?> o) {
+void checkUnnamed14(core.Map<core.String, core.Object?> o) {
   unittest.expect(o, unittest.hasLength(2));
   var casted1 = (o['x']!) as core.Map;
   unittest.expect(casted1, unittest.hasLength(3));
@@ -1049,16 +1122,16 @@ void checkUnnamed12(core.Map<core.String, core.Object?> o) {
   );
 }
 
-core.Map<core.String, core.Map<core.String, core.Object?>> buildUnnamed13() => {
-      'x': buildUnnamed12(),
-      'y': buildUnnamed12(),
+core.Map<core.String, core.Map<core.String, core.Object?>> buildUnnamed15() => {
+      'x': buildUnnamed14(),
+      'y': buildUnnamed14(),
     };
 
-void checkUnnamed13(
+void checkUnnamed15(
     core.Map<core.String, core.Map<core.String, core.Object?>> o) {
   unittest.expect(o, unittest.hasLength(2));
-  checkUnnamed12(o['x']!);
-  checkUnnamed12(o['y']!);
+  checkUnnamed14(o['x']!);
+  checkUnnamed14(o['y']!);
 }
 
 core.int buildCounterGoogleFirebaseExtensionsV1betaResource = 0;
@@ -1070,7 +1143,7 @@ api.GoogleFirebaseExtensionsV1betaResource
     o.deletionPolicy = 'foo';
     o.description = 'foo';
     o.name = 'foo';
-    o.properties = buildUnnamed13();
+    o.properties = buildUnnamed15();
     o.propertiesYaml = 'foo';
     o.type = 'foo';
   }
@@ -1094,7 +1167,7 @@ void checkGoogleFirebaseExtensionsV1betaResource(
       o.name!,
       unittest.equals('foo'),
     );
-    checkUnnamed13(o.properties!);
+    checkUnnamed15(o.properties!);
     unittest.expect(
       o.propertiesYaml!,
       unittest.equals('foo'),
@@ -1224,7 +1297,7 @@ void checkGoogleFirebaseExtensionsV1betaUnpublishExtensionVersionRequest(
   buildCounterGoogleFirebaseExtensionsV1betaUnpublishExtensionVersionRequest--;
 }
 
-core.Map<core.String, core.Object?> buildUnnamed14() => {
+core.Map<core.String, core.Object?> buildUnnamed16() => {
       'x': {
         'list': [1, 2, 3],
         'bool': true,
@@ -1237,7 +1310,7 @@ core.Map<core.String, core.Object?> buildUnnamed14() => {
       },
     };
 
-void checkUnnamed14(core.Map<core.String, core.Object?> o) {
+void checkUnnamed16(core.Map<core.String, core.Object?> o) {
   unittest.expect(o, unittest.hasLength(2));
   var casted3 = (o['x']!) as core.Map;
   unittest.expect(casted3, unittest.hasLength(3));
@@ -1269,7 +1342,7 @@ void checkUnnamed14(core.Map<core.String, core.Object?> o) {
   );
 }
 
-core.Map<core.String, core.Object?> buildUnnamed15() => {
+core.Map<core.String, core.Object?> buildUnnamed17() => {
       'x': {
         'list': [1, 2, 3],
         'bool': true,
@@ -1282,7 +1355,7 @@ core.Map<core.String, core.Object?> buildUnnamed15() => {
       },
     };
 
-void checkUnnamed15(core.Map<core.String, core.Object?> o) {
+void checkUnnamed17(core.Map<core.String, core.Object?> o) {
   unittest.expect(o, unittest.hasLength(2));
   var casted5 = (o['x']!) as core.Map;
   unittest.expect(casted5, unittest.hasLength(3));
@@ -1321,9 +1394,9 @@ api.GoogleLongrunningOperation buildGoogleLongrunningOperation() {
   if (buildCounterGoogleLongrunningOperation < 3) {
     o.done = true;
     o.error = buildGoogleRpcStatus();
-    o.metadata = buildUnnamed14();
+    o.metadata = buildUnnamed16();
     o.name = 'foo';
-    o.response = buildUnnamed15();
+    o.response = buildUnnamed17();
   }
   buildCounterGoogleLongrunningOperation--;
   return o;
@@ -1334,12 +1407,12 @@ void checkGoogleLongrunningOperation(api.GoogleLongrunningOperation o) {
   if (buildCounterGoogleLongrunningOperation < 3) {
     unittest.expect(o.done!, unittest.isTrue);
     checkGoogleRpcStatus(o.error!);
-    checkUnnamed14(o.metadata!);
+    checkUnnamed16(o.metadata!);
     unittest.expect(
       o.name!,
       unittest.equals('foo'),
     );
-    checkUnnamed15(o.response!);
+    checkUnnamed17(o.response!);
   }
   buildCounterGoogleLongrunningOperation--;
 }
@@ -1359,7 +1432,7 @@ void checkGoogleProtobufEmpty(api.GoogleProtobufEmpty o) {
   buildCounterGoogleProtobufEmpty--;
 }
 
-core.Map<core.String, core.Object?> buildUnnamed16() => {
+core.Map<core.String, core.Object?> buildUnnamed18() => {
       'x': {
         'list': [1, 2, 3],
         'bool': true,
@@ -1372,7 +1445,7 @@ core.Map<core.String, core.Object?> buildUnnamed16() => {
       },
     };
 
-void checkUnnamed16(core.Map<core.String, core.Object?> o) {
+void checkUnnamed18(core.Map<core.String, core.Object?> o) {
   unittest.expect(o, unittest.hasLength(2));
   var casted7 = (o['x']!) as core.Map;
   unittest.expect(casted7, unittest.hasLength(3));
@@ -1404,15 +1477,15 @@ void checkUnnamed16(core.Map<core.String, core.Object?> o) {
   );
 }
 
-core.List<core.Map<core.String, core.Object?>> buildUnnamed17() => [
-      buildUnnamed16(),
-      buildUnnamed16(),
+core.List<core.Map<core.String, core.Object?>> buildUnnamed19() => [
+      buildUnnamed18(),
+      buildUnnamed18(),
     ];
 
-void checkUnnamed17(core.List<core.Map<core.String, core.Object?>> o) {
+void checkUnnamed19(core.List<core.Map<core.String, core.Object?>> o) {
   unittest.expect(o, unittest.hasLength(2));
-  checkUnnamed16(o[0]);
-  checkUnnamed16(o[1]);
+  checkUnnamed18(o[0]);
+  checkUnnamed18(o[1]);
 }
 
 core.int buildCounterGoogleRpcStatus = 0;
@@ -1421,7 +1494,7 @@ api.GoogleRpcStatus buildGoogleRpcStatus() {
   buildCounterGoogleRpcStatus++;
   if (buildCounterGoogleRpcStatus < 3) {
     o.code = 42;
-    o.details = buildUnnamed17();
+    o.details = buildUnnamed19();
     o.message = 'foo';
   }
   buildCounterGoogleRpcStatus--;
@@ -1435,7 +1508,7 @@ void checkGoogleRpcStatus(api.GoogleRpcStatus o) {
       o.code!,
       unittest.equals(42),
     );
-    checkUnnamed17(o.details!);
+    checkUnnamed19(o.details!);
     unittest.expect(
       o.message!,
       unittest.equals('foo'),
@@ -1444,12 +1517,12 @@ void checkGoogleRpcStatus(api.GoogleRpcStatus o) {
   buildCounterGoogleRpcStatus--;
 }
 
-core.List<core.String> buildUnnamed18() => [
+core.List<core.String> buildUnnamed20() => [
       'foo',
       'foo',
     ];
 
-void checkUnnamed18(core.List<core.String> o) {
+void checkUnnamed20(core.List<core.String> o) {
   unittest.expect(o, unittest.hasLength(2));
   unittest.expect(
     o[0],
@@ -1506,6 +1579,17 @@ void main() {
           api.GoogleFirebaseExtensionsV1betaDeprecateExtensionVersionRequest
               .fromJson(oJson as core.Map<core.String, core.dynamic>);
       checkGoogleFirebaseExtensionsV1betaDeprecateExtensionVersionRequest(od);
+    });
+  });
+
+  unittest.group('obj-schema-GoogleFirebaseExtensionsV1betaEventDescriptor',
+      () {
+    unittest.test('to-json--from-json', () async {
+      final o = buildGoogleFirebaseExtensionsV1betaEventDescriptor();
+      final oJson = convert.jsonDecode(convert.jsonEncode(o));
+      final od = api.GoogleFirebaseExtensionsV1betaEventDescriptor.fromJson(
+          oJson as core.Map<core.String, core.dynamic>);
+      checkGoogleFirebaseExtensionsV1betaEventDescriptor(od);
     });
   });
 
@@ -2404,7 +2488,7 @@ void main() {
       final mock = HttpServerMock();
       final res = api.FirebaseextensionsApi(mock).publishers.extensions;
       final arg_parent = 'foo';
-      final arg_names = buildUnnamed18();
+      final arg_names = buildUnnamed20();
       final arg_$fields = 'foo';
       mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
         final path = (req.url).path;

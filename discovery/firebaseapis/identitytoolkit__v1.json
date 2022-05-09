@@ -1231,7 +1231,7 @@
             }
         }
     },
-    "revision": "20220205",
+    "revision": "20220428",
     "rootUrl": "https://identitytoolkit.googleapis.com/",
     "schemas": {
         "GoogleCloudIdentitytoolkitV1Argon2Parameters": {
@@ -2537,9 +2537,11 @@
             "id": "GoogleCloudIdentitytoolkitV1SetAccountInfoResponse",
             "properties": {
                 "displayName": {
+                    "description": "The account's display name.",
                     "type": "string"
                 },
                 "email": {
+                    "description": "The account's email address.",
                     "type": "string"
                 },
                 "emailVerified": {
@@ -2567,9 +2569,11 @@
                     "type": "string"
                 },
                 "passwordHash": {
+                    "description": "Deprecated. No actual password hash is currently returned.",
                     "type": "string"
                 },
                 "photoUrl": {
+                    "description": "The user's photo URL for the account's profile photo.",
                     "type": "string"
                 },
                 "providerUserInfo": {

@@ -157,6 +157,35 @@ class $CollectionSelector {
 
 /// Used by:
 ///
+/// - firestore:v1 : Count
+/// - firestore:v1beta1 : Count
+class $Count {
+  /// Optional constraint on the maximum number of documents to count.
+  ///
+  /// This provides a way to set an upper bound on the number of documents to
+  /// scan, limiting latency and cost. High-Level Example: ``` SELECT
+  /// COUNT_UP_TO(1000) FROM ( SELECT * FROM k ); ``` Requires: * Must be
+  /// greater than zero when present.
+  ///
+  /// Optional.
+  core.int? upTo;
+
+  $Count({
+    this.upTo,
+  });
+
+  $Count.fromJson(core.Map _json)
+      : this(
+          upTo: _json.containsKey('upTo') ? _json['upTo'] as core.int : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (upTo != null) 'upTo': upTo!,
+      };
+}
+
+/// Used by:
+///
 /// - fcmdata:v1beta1 : GoogleTypeDate
 /// - testing:v1 : Date
 class $Date {
@@ -226,12 +255,15 @@ class $DocumentMask {
 
 /// Used by:
 ///
-/// - cloudfunctions:v1 : GenerateUploadUrlRequest
 /// - cloudfunctions:v1 : Retry
 /// - fcmregistrations:v1 : GoogleProtobufEmpty
 /// - firebase:v1beta1 : Empty
 /// - firebaseappcheck:v1beta : GoogleFirebaseAppcheckV1betaGenerateAppAttestChallengeRequest
+/// - firebaseappcheck:v1beta : GoogleFirebaseAppcheckV1betaGeneratePlayIntegrityChallengeRequest
 /// - firebaseappcheck:v1beta : GoogleProtobufEmpty
+/// - firebaseappdistribution:v1 : GoogleFirebaseAppdistroV1DistributeReleaseResponse
+/// - firebaseappdistribution:v1 : GoogleLongrunningCancelOperationRequest
+/// - firebaseappdistribution:v1 : GoogleProtobufEmpty
 /// - firebaseappdistribution:v1alpha : GoogleFirebaseAppdistroV1alphaCreateReleaseNotesResponse
 /// - firebaseappdistribution:v1alpha : GoogleFirebaseAppdistroV1alphaEnableAccessOnReleaseResponse
 /// - firebaseappdistribution:v1alpha : GoogleFirebaseAppdistroV1alphaProvisionAppResponse
@@ -241,6 +273,7 @@ class $DocumentMask {
 /// - firebaseapptesters:v1alpha : GoogleProtobufEmpty
 /// - firebasedatabase:v1beta : DisableDatabaseInstanceRequest
 /// - firebasedatabase:v1beta : ReenableDatabaseInstanceRequest
+/// - firebasedatabase:v1beta : UndeleteDatabaseInstanceRequest
 /// - firebaseextensions:v1beta : GoogleFirebaseExtensionsV1betaUndeprecateExtensionVersionRequest
 /// - firebaseextensions:v1beta : GoogleFirebaseExtensionsV1betaUnpublishExtensionRequest
 /// - firebaseextensions:v1beta : GoogleFirebaseExtensionsV1betaUnpublishExtensionVersionRequest
@@ -428,6 +461,58 @@ class $FieldReference {
 
 /// Used by:
 ///
+/// - firebaseapptesters:v1alpha : GoogleApiHttpBody
+/// - firebaseremoteconfig:v1 : HttpBody
+class $HttpBody {
+  /// The HTTP Content-Type header value specifying the content type of the
+  /// body.
+  core.String? contentType;
+
+  /// The HTTP request/response body as raw binary.
+  core.String? data;
+  core.List<core.int> get dataAsBytes => convert.base64.decode(data!);
+
+  set dataAsBytes(core.List<core.int> _bytes) {
+    data =
+        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+  }
+
+  /// Application specific response metadata.
+  ///
+  /// Must be set in the first response for streaming APIs.
+  ///
+  /// The values for Object must be JSON objects. It can consist of `num`,
+  /// `String`, `bool` and `null` as well as `Map` and `List` values.
+  core.List<core.Map<core.String, core.Object?>>? extensions;
+
+  $HttpBody({
+    this.contentType,
+    this.data,
+    this.extensions,
+  });
+
+  $HttpBody.fromJson(core.Map _json)
+      : this(
+          contentType: _json.containsKey('contentType')
+              ? _json['contentType'] as core.String
+              : null,
+          data: _json.containsKey('data') ? _json['data'] as core.String : null,
+          extensions: _json.containsKey('extensions')
+              ? (_json['extensions'] as core.List)
+                  .map((value) => value as core.Map<core.String, core.dynamic>)
+                  .toList()
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (contentType != null) 'contentType': contentType!,
+        if (data != null) 'data': data!,
+        if (extensions != null) 'extensions': extensions!,
+      };
+}
+
+/// Used by:
+///
 /// - firestore:v1 : LatLng
 /// - firestore:v1beta1 : LatLng
 class $LatLng {
@@ -459,40 +544,6 @@ class $LatLng {
   core.Map<core.String, core.dynamic> toJson() => {
         if (latitude != null) 'latitude': latitude!,
         if (longitude != null) 'longitude': longitude!,
-      };
-}
-
-/// Used by:
-///
-/// - firestore:v1 : ListCollectionIdsRequest
-/// - firestore:v1beta1 : ListCollectionIdsRequest
-class $ListCollectionIdsRequest {
-  /// The maximum number of results to return.
-  core.int? pageSize;
-
-  /// A page token.
-  ///
-  /// Must be a value from ListCollectionIdsResponse.
-  core.String? pageToken;
-
-  $ListCollectionIdsRequest({
-    this.pageSize,
-    this.pageToken,
-  });
-
-  $ListCollectionIdsRequest.fromJson(core.Map _json)
-      : this(
-          pageSize: _json.containsKey('pageSize')
-              ? _json['pageSize'] as core.int
-              : null,
-          pageToken: _json.containsKey('pageToken')
-              ? _json['pageToken'] as core.String
-              : null,
-        );
-
-  core.Map<core.String, core.dynamic> toJson() => {
-        if (pageSize != null) 'pageSize': pageSize!,
-        if (pageToken != null) 'pageToken': pageToken!,
       };
 }
 
@@ -732,6 +783,7 @@ class $RollbackRequest {
 ///
 /// - cloudfunctions:v1 : Status
 /// - firebase:v1beta1 : Status
+/// - firebaseappdistribution:v1 : GoogleRpcStatus
 /// - firebaseextensions:v1beta : GoogleRpcStatus
 /// - firebasehosting:v1 : Status
 /// - firebasehosting:v1beta1 : Status
@@ -791,7 +843,7 @@ class $Status {
 class $TestIamPermissionsRequest {
   /// The set of permissions to check for the `resource`.
   ///
-  /// Permissions with wildcards (such as '*' or 'storage.*') are not allowed.
+  /// Permissions with wildcards (such as `*` or `storage.*`) are not allowed.
   /// For more information see
   /// [IAM Overview](https://cloud.google.com/iam/docs/overview#permissions).
   core.List<core.String>? permissions;

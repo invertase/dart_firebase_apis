@@ -23,6 +23,8 @@ packages:
         - identitytoolkit:v1
         - identitytoolkit:v2
         - identitytoolkit:v3
+        - firebasestorage:v1
+        - firebaseappdistribution:v1
         - storage:v1
         - testing:v1
         # Alphas & Betas

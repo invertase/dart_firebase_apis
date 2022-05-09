@@ -1201,6 +1201,40 @@ class GoogleFirebaseExtensionsV1betaDeprecateExtensionVersionRequest {
       };
 }
 
+/// EventDescriptor contains the minimum information to describe a CloudEvent.
+class GoogleFirebaseExtensionsV1betaEventDescriptor {
+  /// Description of the event.
+  ///
+  /// Required.
+  core.String? description;
+
+  /// The type of the event.
+  ///
+  /// Should follow CloudEvent schema requirements for "type" field.
+  /// https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#type
+  ///
+  /// Required.
+  core.String? type;
+
+  GoogleFirebaseExtensionsV1betaEventDescriptor({
+    this.description,
+    this.type,
+  });
+
+  GoogleFirebaseExtensionsV1betaEventDescriptor.fromJson(core.Map _json)
+      : this(
+          description: _json.containsKey('description')
+              ? _json['description'] as core.String
+              : null,
+          type: _json.containsKey('type') ? _json['type'] as core.String : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (description != null) 'description': description!,
+        if (type != null) 'type': type!,
+      };
+}
+
 /// An `Extension` is a published extension, for sharing with other users.
 class GoogleFirebaseExtensionsV1betaExtension {
   /// Creation time.
@@ -1364,6 +1398,11 @@ class GoogleFirebaseExtensionsV1betaExtensionInstance {
   /// Output only.
   GoogleRpcStatus? errorStatus;
 
+  /// A weak etag that is computed by the server based on other configuration
+  /// values and may be sent on update and delete requests to ensure the client
+  /// has an up-to-date value before proceeding.
+  core.String? etag;
+
   /// The name of the last operation that acted on this Extension Instance.
   ///
   /// e.g. `operations/{operation_id}`
@@ -1421,6 +1460,7 @@ class GoogleFirebaseExtensionsV1betaExtensionInstance {
     this.config,
     this.createTime,
     this.errorStatus,
+    this.etag,
     this.lastOperationName,
     this.lastOperationType,
     this.name,
@@ -1442,6 +1482,7 @@ class GoogleFirebaseExtensionsV1betaExtensionInstance {
               ? GoogleRpcStatus.fromJson(
                   _json['errorStatus'] as core.Map<core.String, core.dynamic>)
               : null,
+          etag: _json.containsKey('etag') ? _json['etag'] as core.String : null,
           lastOperationName: _json.containsKey('lastOperationName')
               ? _json['lastOperationName'] as core.String
               : null,
@@ -1463,6 +1504,7 @@ class GoogleFirebaseExtensionsV1betaExtensionInstance {
         if (config != null) 'config': config!,
         if (createTime != null) 'createTime': createTime!,
         if (errorStatus != null) 'errorStatus': errorStatus!,
+        if (etag != null) 'etag': etag!,
         if (lastOperationName != null) 'lastOperationName': lastOperationName!,
         if (lastOperationType != null) 'lastOperationType': lastOperationType!,
         if (name != null) 'name': name!,
@@ -1478,10 +1520,28 @@ class GoogleFirebaseExtensionsV1betaExtensionInstance {
 /// This is used by an Extension Instance to specify the ExtensionSource and
 /// environment configuration at a given time.
 class GoogleFirebaseExtensionsV1betaExtensionInstanceConfig {
+  /// List of extension events selected by consumer that extension is allowed to
+  /// emit, identified by their types.
+  ///
+  /// Optional.
+  core.List<core.String>? allowedEventTypes;
+
   /// The time at which the Extension Instance Config was created.
   ///
   /// Output only.
   core.String? createTime;
+
+  /// Fully qualified Eventarc resource name that consumers should use for event
+  /// triggers.
+  ///
+  /// Follows the format
+  /// `projects/{project_id}/locations/{location}/channels/{channel_id}`
+  /// Extensions emit events using Eventarc as the underlying eventing solution,
+  /// but the design should be agnostic such that we could switch to another
+  /// eventing solution in the future.
+  ///
+  /// Optional.
+  core.String? eventarcChannel;
 
   /// If this extension is installed from the Registry, the ref of the
   /// Extension.
@@ -1528,7 +1588,9 @@ class GoogleFirebaseExtensionsV1betaExtensionInstanceConfig {
   GoogleFirebaseExtensionsV1betaExtensionSource? source;
 
   GoogleFirebaseExtensionsV1betaExtensionInstanceConfig({
+    this.allowedEventTypes,
     this.createTime,
+    this.eventarcChannel,
     this.extensionRef,
     this.extensionVersion,
     this.name,
@@ -1539,8 +1601,16 @@ class GoogleFirebaseExtensionsV1betaExtensionInstanceConfig {
 
   GoogleFirebaseExtensionsV1betaExtensionInstanceConfig.fromJson(core.Map _json)
       : this(
+          allowedEventTypes: _json.containsKey('allowedEventTypes')
+              ? (_json['allowedEventTypes'] as core.List)
+                  .map((value) => value as core.String)
+                  .toList()
+              : null,
           createTime: _json.containsKey('createTime')
               ? _json['createTime'] as core.String
+              : null,
+          eventarcChannel: _json.containsKey('eventarcChannel')
+              ? _json['eventarcChannel'] as core.String
               : null,
           extensionRef: _json.containsKey('extensionRef')
               ? _json['extensionRef'] as core.String
@@ -1568,7 +1638,9 @@ class GoogleFirebaseExtensionsV1betaExtensionInstanceConfig {
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
+        if (allowedEventTypes != null) 'allowedEventTypes': allowedEventTypes!,
         if (createTime != null) 'createTime': createTime!,
+        if (eventarcChannel != null) 'eventarcChannel': eventarcChannel!,
         if (extensionRef != null) 'extensionRef': extensionRef!,
         if (extensionVersion != null) 'extensionVersion': extensionVersion!,
         if (name != null) 'name': name!,
@@ -1719,6 +1791,12 @@ class GoogleFirebaseExtensionsV1betaExtensionSpec {
   ///
   /// Optional.
   core.String? displayName;
+
+  /// A list of descriptors describing what events are emitted by this
+  /// extension.
+  ///
+  /// Optional.
+  core.List<GoogleFirebaseExtensionsV1betaEventDescriptor>? events;
   core.List<GoogleFirebaseExtensionsV1betaExternalService>? externalServices;
 
   /// License information for the Extension.
@@ -1795,6 +1873,7 @@ class GoogleFirebaseExtensionsV1betaExtensionSpec {
     this.contributors,
     this.description,
     this.displayName,
+    this.events,
     this.externalServices,
     this.license,
     this.name,
@@ -1836,6 +1915,13 @@ class GoogleFirebaseExtensionsV1betaExtensionSpec {
               : null,
           displayName: _json.containsKey('displayName')
               ? _json['displayName'] as core.String
+              : null,
+          events: _json.containsKey('events')
+              ? (_json['events'] as core.List)
+                  .map((value) =>
+                      GoogleFirebaseExtensionsV1betaEventDescriptor.fromJson(
+                          value as core.Map<core.String, core.dynamic>))
+                  .toList()
               : null,
           externalServices: _json.containsKey('externalServices')
               ? (_json['externalServices'] as core.List)
@@ -1899,6 +1985,7 @@ class GoogleFirebaseExtensionsV1betaExtensionSpec {
         if (contributors != null) 'contributors': contributors!,
         if (description != null) 'description': description!,
         if (displayName != null) 'displayName': displayName!,
+        if (events != null) 'events': events!,
         if (externalServices != null) 'externalServices': externalServices!,
         if (license != null) 'license': license!,
         if (name != null) 'name': name!,
@@ -2753,8 +2840,7 @@ class GoogleLongrunningOperation {
 ///
 /// A typical example is to use it as the request or the response type of an API
 /// method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns
-/// (google.protobuf.Empty); } The JSON representation for `Empty` is empty JSON
-/// object `{}`.
+/// (google.protobuf.Empty); }
 typedef GoogleProtobufEmpty = $Empty;
 
 /// The `Status` type defines a logical error model that is suitable for

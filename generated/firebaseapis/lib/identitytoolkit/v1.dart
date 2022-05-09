@@ -4746,7 +4746,10 @@ class GoogleCloudIdentitytoolkitV1SetAccountInfoRequest {
 
 /// Response message for SetAccountInfo
 class GoogleCloudIdentitytoolkitV1SetAccountInfoResponse {
+  /// The account's display name.
   core.String? displayName;
+
+  /// The account's email address.
   core.String? email;
 
   /// Whether the account's email has been verified.
@@ -4766,7 +4769,13 @@ class GoogleCloudIdentitytoolkitV1SetAccountInfoResponse {
 
   /// The new email that has been set on the user's account attributes.
   core.String? newEmail;
+
+  /// No actual password hash is currently returned.
+  ///
+  /// Deprecated.
   core.String? passwordHash;
+
+  /// The user's photo URL for the account's profile photo.
   core.String? photoUrl;
 
   /// The linked Identity Providers on the account.

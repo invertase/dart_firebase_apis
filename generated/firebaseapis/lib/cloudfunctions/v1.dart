@@ -193,7 +193,7 @@ class ProjectsLocationsResource {
   /// Value must have pattern `^projects/\[^/\]+$`.
   ///
   /// [filter] - A filter to narrow down results to a preferred subset. The
-  /// filtering language accepts strings like "displayName=tokyo", and is
+  /// filtering language accepts strings like `"displayName=tokyo"`, and is
   /// documented in more detail in \[AIP-160\](https://google.aip.dev/160).
   ///
   /// [pageSize] - The maximum number of results to return. If not set, the
@@ -782,8 +782,8 @@ class ProjectsLocationsFunctionsResource {
 /// "audit_log_configs": \[ { "log_type": "DATA_READ" }, { "log_type":
 /// "DATA_WRITE", "exempted_members": \[ "user:aliya@example.com" \] } \] } \] }
 /// For sampleservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ
-/// logging. It also exempts jose@example.com from DATA_READ logging, and
-/// aliya@example.com from DATA_WRITE logging.
+/// logging. It also exempts `jose@example.com` from DATA_READ logging, and
+/// `aliya@example.com` from DATA_WRITE logging.
 class AuditConfig {
   /// The configuration for logging of each type of permission.
   core.List<AuditLogConfig>? auditLogConfigs;
@@ -839,7 +839,7 @@ class Binding {
   /// [IAM documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
   Expr? condition;
 
-  /// Specifies the principals requesting access for a Cloud Platform resource.
+  /// Specifies the principals requesting access for a Google Cloud resource.
   ///
   /// `members` can have the following values: * `allUsers`: A special
   /// identifier that represents anyone who is on the internet; with or without
@@ -968,7 +968,7 @@ class CallFunctionResponse {
 /// Describes a Cloud Function that contains user computation executed in
 /// response to an event.
 ///
-/// It encapsulate function and triggers configurations. Next tag: 36
+/// It encapsulate function and triggers configurations.
 class CloudFunction {
   /// The amount of memory in MB available for a function.
   ///
@@ -1597,7 +1597,41 @@ class GenerateDownloadUrlResponse {
 }
 
 /// Request of `GenerateSourceUploadUrl` method.
-typedef GenerateUploadUrlRequest = $Empty;
+class GenerateUploadUrlRequest {
+  /// Resource name of a KMS crypto key (managed by the user) used to
+  /// encrypt/decrypt function source code objects in staging Cloud Storage
+  /// buckets.
+  ///
+  /// When you generate an upload url and upload your source code, it gets
+  /// copied to a staging Cloud Storage bucket in an internal regional project.
+  /// The source code is then copied to a versioned directory in the sources
+  /// bucket in the consumer project during the function deployment. It must
+  /// match the pattern
+  /// `projects/{project}/locations/{location}/keyRings/{key_ring}/cryptoKeys/{crypto_key}`.
+  /// The Google Cloud Functions service account
+  /// (service-{project_number}@gcf-admin-robot.iam.gserviceaccount.com) must be
+  /// granted the role 'Cloud KMS CryptoKey Encrypter/Decrypter
+  /// (roles/cloudkms.cryptoKeyEncrypterDecrypter)' on the
+  /// Key/KeyRing/Project/Organization (least access preferred). GCF will
+  /// delegate access to the Google Storage service account in the internal
+  /// project.
+  core.String? kmsKeyName;
+
+  GenerateUploadUrlRequest({
+    this.kmsKeyName,
+  });
+
+  GenerateUploadUrlRequest.fromJson(core.Map _json)
+      : this(
+          kmsKeyName: _json.containsKey('kmsKeyName')
+              ? _json['kmsKeyName'] as core.String
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (kmsKeyName != null) 'kmsKeyName': kmsKeyName!,
+      };
+}
 
 /// Response of `GenerateSourceUploadUrl` method.
 class GenerateUploadUrlResponse {
@@ -1980,9 +2014,7 @@ typedef Retry = $Empty;
 /// Configuration for a secret environment variable.
 ///
 /// It has the information necessary to fetch the secret value from secret
-/// manager and expose it as an environment variable. Secret value is not a part
-/// of the configuration. Secret values are only fetched when a new clone
-/// starts.
+/// manager and expose it as an environment variable.
 class SecretEnvVar {
   /// Name of the environment variable.
   core.String? key;
@@ -2001,7 +2033,7 @@ class SecretEnvVar {
   ///
   /// It is recommended to use a numeric version for secret environment
   /// variables as any updates to the secret value is not reflected until new
-  /// clones start.
+  /// instances start.
   core.String? version;
 
   SecretEnvVar({
@@ -2140,7 +2172,7 @@ class SetIamPolicyRequest {
   /// REQUIRED: The complete policy to be applied to the `resource`.
   ///
   /// The size of the policy is limited to a few 10s of KB. An empty policy is a
-  /// valid policy but certain Cloud Platform services (such as Projects) might
+  /// valid policy but certain Google Cloud services (such as Projects) might
   /// reject them.
   Policy? policy;
 

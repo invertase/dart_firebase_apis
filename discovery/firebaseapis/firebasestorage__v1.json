@@ -1,0 +1,203 @@
+{
+    "basePath": "",
+    "baseUrl": "https://firebasestorage.googleapis.com/",
+    "batchPath": "batch",
+    "canonicalName": "Firebasestorage",
+    "description": "The Cloud Storage for Firebase API enables programmatic management of Cloud Storage buckets for use in Firebase projects",
+    "discoveryVersion": "v1",
+    "documentationLink": "https://firebase.google.com/docs/storage",
+    "icons": {
+        "x16": "http://www.google.com/images/icons/product/search-16.gif",
+        "x32": "http://www.google.com/images/icons/product/search-32.gif"
+    },
+    "id": "firebasestorage:v1",
+    "kind": "discovery#restDescription",
+    "name": "firebasestorage",
+    "ownerDomain": "google.com",
+    "ownerName": "Google",
+    "parameters": {
+        "$.xgafv": {
+            "description": "V1 error format.",
+            "enum": [
+                "1",
+                "2"
+            ],
+            "enumDescriptions": [
+                "v1 error format",
+                "v2 error format"
+            ],
+            "location": "query",
+            "type": "string"
+        },
+        "access_token": {
+            "description": "OAuth access token.",
+            "location": "query",
+            "type": "string"
+        },
+        "alt": {
+            "default": "json",
+            "description": "Data format for response.",
+            "enum": [
+                "json",
+                "media",
+                "proto"
+            ],
+            "enumDescriptions": [
+                "Responses with Content-Type of application/json",
+                "Media download with context-dependent Content-Type",
+                "Responses with Content-Type of application/x-protobuf"
+            ],
+            "location": "query",
+            "type": "string"
+        },
+        "callback": {
+            "description": "JSONP",
+            "location": "query",
+            "type": "string"
+        },
+        "fields": {
+            "description": "Selector specifying which fields to include in a partial response.",
+            "location": "query",
+            "type": "string"
+        },
+        "key": {
+            "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
+            "location": "query",
+            "type": "string"
+        },
+        "oauth_token": {
+            "description": "OAuth 2.0 token for the current user.",
+            "location": "query",
+            "type": "string"
+        },
+        "prettyPrint": {
+            "default": "true",
+            "description": "Returns response with indentations and line breaks.",
+            "location": "query",
+            "type": "boolean"
+        },
+        "quotaUser": {
+            "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.",
+            "location": "query",
+            "type": "string"
+        },
+        "uploadType": {
+            "description": "Legacy upload protocol for media (e.g. \"media\", \"multipart\").",
+            "location": "query",
+            "type": "string"
+        },
+        "upload_protocol": {
+            "description": "Upload protocol for media (e.g. \"raw\", \"multipart\").",
+            "location": "query",
+            "type": "string"
+        }
+    },
+    "protocol": "rest",
+    "resources": {},
+    "revision": "20220429",
+    "rootUrl": "https://firebasestorage.googleapis.com/",
+    "schemas": {
+        "GoogleFirebaseStorageControlplaneV1alphaMigrateLocationDestructivelyMetadata": {
+            "description": "Metadata for MigrateLocationDestructively LRO.",
+            "id": "GoogleFirebaseStorageControlplaneV1alphaMigrateLocationDestructivelyMetadata",
+            "properties": {
+                "createTime": {
+                    "description": "The time the LRO was created.",
+                    "format": "google-datetime",
+                    "type": "string"
+                },
+                "lastUpdateTime": {
+                    "description": "The time the LRO was last updated.",
+                    "format": "google-datetime",
+                    "type": "string"
+                },
+                "state": {
+                    "description": "The current state of the migration.",
+                    "enum": [
+                        "STATE_UNSPECIFIED",
+                        "PENDING",
+                        "CREATING_TEMP_BUCKET",
+                        "TRANSFERRING_TO_TEMP",
+                        "DELETING_SOURCE_BUCKET",
+                        "CREATING_DESTINATION_BUCKET",
+                        "TRANSFERRING_TO_DESTINATION",
+                        "DELETING_TEMP_BUCKET",
+                        "SUCCEEDED",
+                        "FAILED",
+                        "ROLLING_BACK",
+                        "ROLLED_BACK"
+                    ],
+                    "enumDescriptions": [
+                        "Unspecified state. Should not be used.",
+                        "The MigrateLocationDestructively request has passed precondition checks and the bucket migration will begin soon.",
+                        "Generating a unique bucket name, storing the source -> temp mapping in Spanner, and actually creating the temporary bucket via Bigstore.",
+                        "The first STS transfer to move all objects from the source bucket to the temp bucket is underway.",
+                        "The source bucket is being emptied and deleted.",
+                        "The source bucket is being recreated in the new location.",
+                        "The second STS transfer to move all objects from the temp bucket to the final bucket is underway.",
+                        "The temp bucket is being emptied and deleted.",
+                        "All stages of the migration have completed and the operation has been marked done and updated with a response.",
+                        "The migration failed at some stage and it is not possible to continue retrying that stage. Manual recovery may be needed. Rollback is either impossible at this stage, or has been attempted and failed.",
+                        "The migration has encountered a permanent failure and is now being rolled back so that the source bucket is restored to its original state.",
+                        "The migration has been successfully rolled back."
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "GoogleFirebaseStorageControlplaneV1betaMigrateLocationDestructivelyMetadata": {
+            "description": "Metadata for MigrateLocationDestructively LRO.",
+            "id": "GoogleFirebaseStorageControlplaneV1betaMigrateLocationDestructivelyMetadata",
+            "properties": {
+                "createTime": {
+                    "description": "The time the LRO was created.",
+                    "format": "google-datetime",
+                    "type": "string"
+                },
+                "lastUpdateTime": {
+                    "description": "The time the LRO was last updated.",
+                    "format": "google-datetime",
+                    "type": "string"
+                },
+                "state": {
+                    "description": "The current state of the migration.",
+                    "enum": [
+                        "STATE_UNSPECIFIED",
+                        "PENDING",
+                        "CREATING_TEMP_BUCKET",
+                        "TRANSFERRING_TO_TEMP",
+                        "DELETING_SOURCE_BUCKET",
+                        "CREATING_DESTINATION_BUCKET",
+                        "TRANSFERRING_TO_DESTINATION",
+                        "DELETING_TEMP_BUCKET",
+                        "SUCCEEDED",
+                        "FAILED",
+                        "ROLLING_BACK",
+                        "ROLLED_BACK"
+                    ],
+                    "enumDescriptions": [
+                        "Unspecified state. Should not be used.",
+                        "The MigrateLocationDestructively request has passed precondition checks and the bucket migration will begin soon.",
+                        "Generating a unique bucket name, storing the source -> temp mapping in Spanner, and actually creating the temporary bucket via Bigstore.",
+                        "The first STS transfer to move all objects from the source bucket to the temp bucket is underway.",
+                        "The source bucket is being emptied and deleted.",
+                        "The source bucket is being recreated in the new location.",
+                        "The second STS transfer to move all objects from the temp bucket to the final bucket is underway.",
+                        "The temp bucket is being emptied and deleted.",
+                        "All stages of the migration have completed and the operation has been marked done and updated with a response.",
+                        "The migration failed at some stage and it is not possible to continue retrying that stage. Manual recovery may be needed. Rollback is either impossible at this stage, or has been attempted and failed.",
+                        "The migration has encountered a permanent failure and is now being rolled back so that the source bucket is restored to its original state.",
+                        "The migration has been successfully rolled back."
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "servicePath": "",
+    "title": "Cloud Storage for Firebase API",
+    "version": "v1",
+    "version_module": true
+}
