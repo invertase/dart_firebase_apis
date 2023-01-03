@@ -1,5 +1,9 @@
 # Firebase API Client Libraries for Dart
 
+<a href="https://invertase.link/discord">
+  <img src="https://img.shields.io/discord/295953187817521152.svg?style=flat-square&colorA=7289da&label=Chat%20on%20Discord" alt="Chat on Discord">
+</a>
+
 [![melos](https://img.shields.io/badge/maintained%20with-melos-f700ff.svg?style=flat-square)](https://github.com/invertase/melos)
 
 This is based on the [`googleapis.dart`](https://github.com/google/googleapis.dart) repository but instead aimed at supporting Firebase related APIs only. Additionally, this adds support for several unlisted (but discoverable) Firebase APIs that are not listed on the official [discovery API](https://discovery.googleapis.com/discovery/v1/apis) that `googleapis.dart` uses (and is currently limited to) as well as several private APIs (APIs that require an API key to view discovery information).
