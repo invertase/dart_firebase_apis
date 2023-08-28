@@ -2,14 +2,13 @@
 
 // ignore_for_file: camel_case_types
 // ignore_for_file: comment_references
-// ignore_for_file: file_names
-// ignore_for_file: library_names
+// ignore_for_file: deprecated_member_use_from_same_package
 // ignore_for_file: lines_longer_than_80_chars
 // ignore_for_file: non_constant_identifier_names
-// ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: prefer_interpolation_to_compose_strings
 // ignore_for_file: unnecessary_brace_in_string_interps
 // ignore_for_file: unnecessary_lambdas
+// ignore_for_file: unnecessary_library_directive
 // ignore_for_file: unnecessary_string_interpolations
 
 /// Firebase ML API - v1beta2
@@ -23,7 +22,7 @@
 /// - [ProjectsResource]
 ///   - [ProjectsModelsResource]
 ///   - [ProjectsOperationsResource]
-library firebaseml.v1beta2;
+library firebaseml_v1beta2;
 
 import 'dart:async' as async;
 import 'dart:convert' as convert;
@@ -32,7 +31,6 @@ import 'dart:core' as core;
 import 'package:_discoveryapis_commons/_discoveryapis_commons.dart' as commons;
 import 'package:http/http.dart' as http;
 
-// ignore: deprecated_member_use_from_same_package
 import '../shared.dart';
 import '../src/user_agent.dart';
 
@@ -99,20 +97,20 @@ class ProjectsModelsResource {
     core.String parent, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta2/' + core.Uri.encodeFull('$parent') + '/models';
+    final url_ = 'v1beta2/' + core.Uri.encodeFull('$parent') + '/models';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Operation.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Operation.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Deletes a model
@@ -137,18 +135,18 @@ class ProjectsModelsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta2/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta2/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'DELETE',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
-    return Empty.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Empty.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Gets Download information for a model.
@@ -176,19 +174,19 @@ class ProjectsModelsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta2/' + core.Uri.encodeFull('$name') + ':download';
+    final url_ = 'v1beta2/' + core.Uri.encodeFull('$name') + ':download';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return DownloadModelResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Gets a model resource.
@@ -213,18 +211,18 @@ class ProjectsModelsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta2/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta2/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
-    return Model.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Model.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Lists the models
@@ -260,22 +258,22 @@ class ProjectsModelsResource {
     core.String? pageToken,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (filter != null) 'filter': [filter],
       if (pageSize != null) 'pageSize': ['${pageSize}'],
       if (pageToken != null) 'pageToken': [pageToken],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta2/' + core.Uri.encodeFull('$parent') + '/models';
+    final url_ = 'v1beta2/' + core.Uri.encodeFull('$parent') + '/models';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return ListModelsResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Updates a model.
@@ -309,21 +307,21 @@ class ProjectsModelsResource {
     core.String? updateMask,
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (updateMask != null) 'updateMask': [updateMask],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta2/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta2/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'PATCH',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Operation.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Operation.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -356,18 +354,18 @@ class ProjectsOperationsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta2/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta2/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
-    return Operation.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Operation.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -405,19 +403,19 @@ class DownloadModelResponse {
     this.sizeBytes,
   });
 
-  DownloadModelResponse.fromJson(core.Map _json)
+  DownloadModelResponse.fromJson(core.Map json_)
       : this(
-          downloadUri: _json.containsKey('downloadUri')
-              ? _json['downloadUri'] as core.String
+          downloadUri: json_.containsKey('downloadUri')
+              ? json_['downloadUri'] as core.String
               : null,
-          expireTime: _json.containsKey('expireTime')
-              ? _json['expireTime'] as core.String
+          expireTime: json_.containsKey('expireTime')
+              ? json_['expireTime'] as core.String
               : null,
-          modelFormat: _json.containsKey('modelFormat')
-              ? _json['modelFormat'] as core.String
+          modelFormat: json_.containsKey('modelFormat')
+              ? json_['modelFormat'] as core.String
               : null,
-          sizeBytes: _json.containsKey('sizeBytes')
-              ? _json['sizeBytes'] as core.String
+          sizeBytes: json_.containsKey('sizeBytes')
+              ? json_['sizeBytes'] as core.String
               : null,
         );
 
@@ -451,16 +449,16 @@ class ListModelsResponse {
     this.nextPageToken,
   });
 
-  ListModelsResponse.fromJson(core.Map _json)
+  ListModelsResponse.fromJson(core.Map json_)
       : this(
-          models: _json.containsKey('models')
-              ? (_json['models'] as core.List)
+          models: json_.containsKey('models')
+              ? (json_['models'] as core.List)
                   .map((value) => Model.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          nextPageToken: _json.containsKey('nextPageToken')
-              ? _json['nextPageToken'] as core.String
+          nextPageToken: json_.containsKey('nextPageToken')
+              ? json_['nextPageToken'] as core.String
               : null,
         );
 
@@ -536,40 +534,40 @@ class Model {
     this.updateTime,
   });
 
-  Model.fromJson(core.Map _json)
+  Model.fromJson(core.Map json_)
       : this(
-          activeOperations: _json.containsKey('activeOperations')
-              ? (_json['activeOperations'] as core.List)
+          activeOperations: json_.containsKey('activeOperations')
+              ? (json_['activeOperations'] as core.List)
                   .map((value) => Operation.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          createTime: _json.containsKey('createTime')
-              ? _json['createTime'] as core.String
+          createTime: json_.containsKey('createTime')
+              ? json_['createTime'] as core.String
               : null,
-          displayName: _json.containsKey('displayName')
-              ? _json['displayName'] as core.String
+          displayName: json_.containsKey('displayName')
+              ? json_['displayName'] as core.String
               : null,
-          etag: _json.containsKey('etag') ? _json['etag'] as core.String : null,
-          modelHash: _json.containsKey('modelHash')
-              ? _json['modelHash'] as core.String
+          etag: json_.containsKey('etag') ? json_['etag'] as core.String : null,
+          modelHash: json_.containsKey('modelHash')
+              ? json_['modelHash'] as core.String
               : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
-          state: _json.containsKey('state')
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+          state: json_.containsKey('state')
               ? ModelState.fromJson(
-                  _json['state'] as core.Map<core.String, core.dynamic>)
+                  json_['state'] as core.Map<core.String, core.dynamic>)
               : null,
-          tags: _json.containsKey('tags')
-              ? (_json['tags'] as core.List)
+          tags: json_.containsKey('tags')
+              ? (json_['tags'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
-          tfliteModel: _json.containsKey('tfliteModel')
+          tfliteModel: json_.containsKey('tfliteModel')
               ? TfLiteModel.fromJson(
-                  _json['tfliteModel'] as core.Map<core.String, core.dynamic>)
+                  json_['tfliteModel'] as core.Map<core.String, core.dynamic>)
               : null,
-          updateTime: _json.containsKey('updateTime')
-              ? _json['updateTime'] as core.String
+          updateTime: json_.containsKey('updateTime')
+              ? json_['updateTime'] as core.String
               : null,
         );
 
@@ -609,13 +607,13 @@ class ModelState {
     this.validationError,
   });
 
-  ModelState.fromJson(core.Map _json)
+  ModelState.fromJson(core.Map json_)
       : this(
-          published: _json.containsKey('published')
-              ? _json['published'] as core.bool
+          published: json_.containsKey('published')
+              ? json_['published'] as core.bool
               : null,
-          validationError: _json.containsKey('validationError')
-              ? Status.fromJson(_json['validationError']
+          validationError: json_.containsKey('validationError')
+              ? Status.fromJson(json_['validationError']
                   as core.Map<core.String, core.dynamic>)
               : null,
         );
@@ -656,7 +654,7 @@ class Operation {
   /// ending with `operations/{unique_id}`.
   core.String? name;
 
-  /// The normal response of the operation in case of success.
+  /// The normal, successful response of the operation.
   ///
   /// If the original method returns no data on success, such as `Delete`, the
   /// response is `google.protobuf.Empty`. If the original method is standard
@@ -677,19 +675,19 @@ class Operation {
     this.response,
   });
 
-  Operation.fromJson(core.Map _json)
+  Operation.fromJson(core.Map json_)
       : this(
-          done: _json.containsKey('done') ? _json['done'] as core.bool : null,
-          error: _json.containsKey('error')
+          done: json_.containsKey('done') ? json_['done'] as core.bool : null,
+          error: json_.containsKey('error')
               ? Status.fromJson(
-                  _json['error'] as core.Map<core.String, core.dynamic>)
+                  json_['error'] as core.Map<core.String, core.dynamic>)
               : null,
-          metadata: _json.containsKey('metadata')
-              ? _json['metadata'] as core.Map<core.String, core.dynamic>
+          metadata: json_.containsKey('metadata')
+              ? json_['metadata'] as core.Map<core.String, core.dynamic>
               : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
-          response: _json.containsKey('response')
-              ? _json['response'] as core.Map<core.String, core.dynamic>
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+          response: json_.containsKey('response')
+              ? json_['response'] as core.Map<core.String, core.dynamic>
               : null,
         );
 
@@ -738,16 +736,16 @@ class TfLiteModel {
     this.sizeBytes,
   });
 
-  TfLiteModel.fromJson(core.Map _json)
+  TfLiteModel.fromJson(core.Map json_)
       : this(
-          automlModel: _json.containsKey('automlModel')
-              ? _json['automlModel'] as core.String
+          automlModel: json_.containsKey('automlModel')
+              ? json_['automlModel'] as core.String
               : null,
-          gcsTfliteUri: _json.containsKey('gcsTfliteUri')
-              ? _json['gcsTfliteUri'] as core.String
+          gcsTfliteUri: json_.containsKey('gcsTfliteUri')
+              ? json_['gcsTfliteUri'] as core.String
               : null,
-          sizeBytes: _json.containsKey('sizeBytes')
-              ? _json['sizeBytes'] as core.String
+          sizeBytes: json_.containsKey('sizeBytes')
+              ? json_['sizeBytes'] as core.String
               : null,
         );
 

@@ -3,18 +3,17 @@
   'Avoid importing this library. '
   'Use the members defined in the target API library instead.',
 )
-library $shared;
+library;
 
 // ignore_for_file: camel_case_types
 // ignore_for_file: comment_references
-// ignore_for_file: file_names
-// ignore_for_file: library_names
+// ignore_for_file: deprecated_member_use_from_same_package
 // ignore_for_file: lines_longer_than_80_chars
 // ignore_for_file: non_constant_identifier_names
-// ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: prefer_interpolation_to_compose_strings
 // ignore_for_file: unnecessary_brace_in_string_interps
 // ignore_for_file: unnecessary_lambdas
+// ignore_for_file: unnecessary_library_directive
 // ignore_for_file: unnecessary_string_interpolations
 
 import 'dart:convert' as convert;
@@ -44,15 +43,15 @@ class $AuditLogConfig {
     this.logType,
   });
 
-  $AuditLogConfig.fromJson(core.Map _json)
+  $AuditLogConfig.fromJson(core.Map json_)
       : this(
-          exemptedMembers: _json.containsKey('exemptedMembers')
-              ? (_json['exemptedMembers'] as core.List)
+          exemptedMembers: json_.containsKey('exemptedMembers')
+              ? (json_['exemptedMembers'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
-          logType: _json.containsKey('logType')
-              ? _json['logType'] as core.String
+          logType: json_.containsKey('logType')
+              ? json_['logType'] as core.String
               : null,
         );
 
@@ -75,10 +74,10 @@ class $AutoRetrievalInfo {
     this.appSignatureHash,
   });
 
-  $AutoRetrievalInfo.fromJson(core.Map _json)
+  $AutoRetrievalInfo.fromJson(core.Map json_)
       : this(
-          appSignatureHash: _json.containsKey('appSignatureHash')
-              ? _json['appSignatureHash'] as core.String
+          appSignatureHash: json_.containsKey('appSignatureHash')
+              ? json_['appSignatureHash'] as core.String
               : null,
         );
 
@@ -97,19 +96,19 @@ class $BeginTransactionResponse {
   core.List<core.int> get transactionAsBytes =>
       convert.base64.decode(transaction!);
 
-  set transactionAsBytes(core.List<core.int> _bytes) {
+  set transactionAsBytes(core.List<core.int> bytes_) {
     transaction =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   $BeginTransactionResponse({
     this.transaction,
   });
 
-  $BeginTransactionResponse.fromJson(core.Map _json)
+  $BeginTransactionResponse.fromJson(core.Map json_)
       : this(
-          transaction: _json.containsKey('transaction')
-              ? _json['transaction'] as core.String
+          transaction: json_.containsKey('transaction')
+              ? json_['transaction'] as core.String
               : null,
         );
 
@@ -139,13 +138,13 @@ class $CollectionSelector {
     this.collectionId,
   });
 
-  $CollectionSelector.fromJson(core.Map _json)
+  $CollectionSelector.fromJson(core.Map json_)
       : this(
-          allDescendants: _json.containsKey('allDescendants')
-              ? _json['allDescendants'] as core.bool
+          allDescendants: json_.containsKey('allDescendants')
+              ? json_['allDescendants'] as core.bool
               : null,
-          collectionId: _json.containsKey('collectionId')
-              ? _json['collectionId'] as core.String
+          collectionId: json_.containsKey('collectionId')
+              ? json_['collectionId'] as core.String
               : null,
         );
 
@@ -163,20 +162,20 @@ class $Count {
   /// Optional constraint on the maximum number of documents to count.
   ///
   /// This provides a way to set an upper bound on the number of documents to
-  /// scan, limiting latency and cost. High-Level Example: ``` SELECT
-  /// COUNT_UP_TO(1000) FROM ( SELECT * FROM k ); ``` Requires: * Must be
-  /// greater than zero when present.
+  /// scan, limiting latency, and cost. Unspecified is interpreted as no bound.
+  /// High-Level Example: ``` AGGREGATE COUNT_UP_TO(1000) OVER ( SELECT * FROM k
+  /// ); ``` Requires: * Must be greater than zero when present.
   ///
   /// Optional.
-  core.int? upTo;
+  core.String? upTo;
 
   $Count({
     this.upTo,
   });
 
-  $Count.fromJson(core.Map _json)
+  $Count.fromJson(core.Map json_)
       : this(
-          upTo: _json.containsKey('upTo') ? _json['upTo'] as core.int : null,
+          upTo: json_.containsKey('upTo') ? json_['upTo'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
@@ -211,11 +210,11 @@ class $Date {
     this.year,
   });
 
-  $Date.fromJson(core.Map _json)
+  $Date.fromJson(core.Map json_)
       : this(
-          day: _json.containsKey('day') ? _json['day'] as core.int : null,
-          month: _json.containsKey('month') ? _json['month'] as core.int : null,
-          year: _json.containsKey('year') ? _json['year'] as core.int : null,
+          day: json_.containsKey('day') ? json_['day'] as core.int : null,
+          month: json_.containsKey('month') ? json_['month'] as core.int : null,
+          year: json_.containsKey('year') ? json_['year'] as core.int : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
@@ -239,10 +238,10 @@ class $DocumentMask {
     this.fieldPaths,
   });
 
-  $DocumentMask.fromJson(core.Map _json)
+  $DocumentMask.fromJson(core.Map json_)
       : this(
-          fieldPaths: _json.containsKey('fieldPaths')
-              ? (_json['fieldPaths'] as core.List)
+          fieldPaths: json_.containsKey('fieldPaths')
+              ? (json_['fieldPaths'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
@@ -256,7 +255,6 @@ class $DocumentMask {
 /// Used by:
 ///
 /// - cloudfunctions:v1 : Retry
-/// - fcmregistrations:v1 : GoogleProtobufEmpty
 /// - firebase:v1beta1 : Empty
 /// - firebaseappcheck:v1beta : GoogleFirebaseAppcheckV1betaGenerateAppAttestChallengeRequest
 /// - firebaseappcheck:v1beta : GoogleFirebaseAppcheckV1betaGeneratePlayIntegrityChallengeRequest
@@ -264,24 +262,12 @@ class $DocumentMask {
 /// - firebaseappdistribution:v1 : GoogleFirebaseAppdistroV1DistributeReleaseResponse
 /// - firebaseappdistribution:v1 : GoogleLongrunningCancelOperationRequest
 /// - firebaseappdistribution:v1 : GoogleProtobufEmpty
-/// - firebaseappdistribution:v1alpha : GoogleFirebaseAppdistroV1alphaCreateReleaseNotesResponse
-/// - firebaseappdistribution:v1alpha : GoogleFirebaseAppdistroV1alphaEnableAccessOnReleaseResponse
-/// - firebaseappdistribution:v1alpha : GoogleFirebaseAppdistroV1alphaProvisionAppResponse
-/// - firebaseapptesters:v1alpha : GoogleFirebaseApptestersV1alphaConsentAppResponse
-/// - firebaseapptesters:v1alpha : GoogleFirebaseApptestersV1alphaSubscribeInvitationRequest
-/// - firebaseapptesters:v1alpha : GoogleFirebaseApptestersV1alphaUnsubscribeInvitationRequest
-/// - firebaseapptesters:v1alpha : GoogleProtobufEmpty
 /// - firebasedatabase:v1beta : DisableDatabaseInstanceRequest
 /// - firebasedatabase:v1beta : ReenableDatabaseInstanceRequest
 /// - firebasedatabase:v1beta : UndeleteDatabaseInstanceRequest
-/// - firebaseextensions:v1beta : GoogleFirebaseExtensionsV1betaUndeprecateExtensionVersionRequest
-/// - firebaseextensions:v1beta : GoogleFirebaseExtensionsV1betaUnpublishExtensionRequest
-/// - firebaseextensions:v1beta : GoogleFirebaseExtensionsV1betaUnpublishExtensionVersionRequest
-/// - firebaseextensions:v1beta : GoogleProtobufEmpty
 /// - firebasehosting:v1 : CancelOperationRequest
 /// - firebasehosting:v1 : Empty
 /// - firebasehosting:v1beta1 : Empty
-/// - firebaseinstallations:v1 : GoogleProtobufEmpty
 /// - firebaseml:v1 : CancelOperationRequest
 /// - firebaseml:v1 : Empty
 /// - firebaseml:v1beta2 : Empty
@@ -290,25 +276,32 @@ class $DocumentMask {
 /// - firebasestorage:v1beta : Empty
 /// - firebasestorage:v1beta : RemoveFirebaseRequest
 /// - firestore:v1 : Empty
+/// - firestore:v1 : GoogleFirestoreAdminV1DailyRecurrence
 /// - firestore:v1 : GoogleLongrunningCancelOperationRequest
 /// - firestore:v1beta1 : Empty
 /// - firestore:v1beta2 : Empty
+/// - identitytoolkit:v1 : GoogleCloudIdentitytoolkitV1TotpInfo
+/// - identitytoolkit:v2 : GoogleCloudIdentitytoolkitAdminV2InitializeIdentityPlatformRequest
+/// - identitytoolkit:v2 : GoogleCloudIdentitytoolkitAdminV2InitializeIdentityPlatformResponse
+/// - identitytoolkit:v2 : GoogleCloudIdentitytoolkitV2FinalizeMfaTotpEnrollmentResponseInfo
+/// - identitytoolkit:v2 : GoogleCloudIdentitytoolkitV2RevokeTokenResponse
+/// - identitytoolkit:v2 : GoogleCloudIdentitytoolkitV2StartMfaTotpEnrollmentRequestInfo
 /// - identitytoolkit:v2 : GoogleProtobufEmpty
 /// - testing:v1 : GoogleAuto
 /// - testing:v1 : LauncherActivityIntent
+/// - testing:v1 : NoActivityIntent
 class $Empty {
   $Empty();
 
   $Empty.fromJson(
       // ignore: avoid_unused_constructor_parameters
-      core.Map _json);
+      core.Map json_);
 
   core.Map<core.String, core.dynamic> toJson() => {};
 }
 
 /// Used by:
 ///
-/// - firestore:v1 : GoogleFirestoreAdminV1ExportDocumentsRequest
 /// - firestore:v1beta1 : GoogleFirestoreAdminV1beta1ExportDocumentsRequest
 /// - firestore:v1beta2 : GoogleFirestoreAdminV1beta2ExportDocumentsRequest
 class $ExportDocumentsRequest {
@@ -334,15 +327,15 @@ class $ExportDocumentsRequest {
     this.outputUriPrefix,
   });
 
-  $ExportDocumentsRequest.fromJson(core.Map _json)
+  $ExportDocumentsRequest.fromJson(core.Map json_)
       : this(
-          collectionIds: _json.containsKey('collectionIds')
-              ? (_json['collectionIds'] as core.List)
+          collectionIds: json_.containsKey('collectionIds')
+              ? (json_['collectionIds'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
-          outputUriPrefix: _json.containsKey('outputUriPrefix')
-              ? _json['outputUriPrefix'] as core.String
+          outputUriPrefix: json_.containsKey('outputUriPrefix')
+              ? json_['outputUriPrefix'] as core.String
               : null,
         );
 
@@ -389,19 +382,19 @@ class $Expr {
     this.title,
   });
 
-  $Expr.fromJson(core.Map _json)
+  $Expr.fromJson(core.Map json_)
       : this(
-          description: _json.containsKey('description')
-              ? _json['description'] as core.String
+          description: json_.containsKey('description')
+              ? json_['description'] as core.String
               : null,
-          expression: _json.containsKey('expression')
-              ? _json['expression'] as core.String
+          expression: json_.containsKey('expression')
+              ? json_['expression'] as core.String
               : null,
-          location: _json.containsKey('location')
-              ? _json['location'] as core.String
+          location: json_.containsKey('location')
+              ? json_['location'] as core.String
               : null,
           title:
-              _json.containsKey('title') ? _json['title'] as core.String : null,
+              json_.containsKey('title') ? json_['title'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
@@ -424,10 +417,10 @@ class $FcmOptions {
     this.analyticsLabel,
   });
 
-  $FcmOptions.fromJson(core.Map _json)
+  $FcmOptions.fromJson(core.Map json_)
       : this(
-          analyticsLabel: _json.containsKey('analyticsLabel')
-              ? _json['analyticsLabel'] as core.String
+          analyticsLabel: json_.containsKey('analyticsLabel')
+              ? json_['analyticsLabel'] as core.String
               : null,
         );
 
@@ -441,73 +434,24 @@ class $FcmOptions {
 /// - firestore:v1 : FieldReference
 /// - firestore:v1beta1 : FieldReference
 class $FieldReference {
+  /// The relative path of the document being referenced.
+  ///
+  /// Requires: * Conform to document field name limitations.
   core.String? fieldPath;
 
   $FieldReference({
     this.fieldPath,
   });
 
-  $FieldReference.fromJson(core.Map _json)
+  $FieldReference.fromJson(core.Map json_)
       : this(
-          fieldPath: _json.containsKey('fieldPath')
-              ? _json['fieldPath'] as core.String
+          fieldPath: json_.containsKey('fieldPath')
+              ? json_['fieldPath'] as core.String
               : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
         if (fieldPath != null) 'fieldPath': fieldPath!,
-      };
-}
-
-/// Used by:
-///
-/// - firebaseapptesters:v1alpha : GoogleApiHttpBody
-/// - firebaseremoteconfig:v1 : HttpBody
-class $HttpBody {
-  /// The HTTP Content-Type header value specifying the content type of the
-  /// body.
-  core.String? contentType;
-
-  /// The HTTP request/response body as raw binary.
-  core.String? data;
-  core.List<core.int> get dataAsBytes => convert.base64.decode(data!);
-
-  set dataAsBytes(core.List<core.int> _bytes) {
-    data =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
-  }
-
-  /// Application specific response metadata.
-  ///
-  /// Must be set in the first response for streaming APIs.
-  ///
-  /// The values for Object must be JSON objects. It can consist of `num`,
-  /// `String`, `bool` and `null` as well as `Map` and `List` values.
-  core.List<core.Map<core.String, core.Object?>>? extensions;
-
-  $HttpBody({
-    this.contentType,
-    this.data,
-    this.extensions,
-  });
-
-  $HttpBody.fromJson(core.Map _json)
-      : this(
-          contentType: _json.containsKey('contentType')
-              ? _json['contentType'] as core.String
-              : null,
-          data: _json.containsKey('data') ? _json['data'] as core.String : null,
-          extensions: _json.containsKey('extensions')
-              ? (_json['extensions'] as core.List)
-                  .map((value) => value as core.Map<core.String, core.dynamic>)
-                  .toList()
-              : null,
-        );
-
-  core.Map<core.String, core.dynamic> toJson() => {
-        if (contentType != null) 'contentType': contentType!,
-        if (data != null) 'data': data!,
-        if (extensions != null) 'extensions': extensions!,
       };
 }
 
@@ -531,19 +475,65 @@ class $LatLng {
     this.longitude,
   });
 
-  $LatLng.fromJson(core.Map _json)
+  $LatLng.fromJson(core.Map json_)
       : this(
-          latitude: _json.containsKey('latitude')
-              ? (_json['latitude'] as core.num).toDouble()
+          latitude: json_.containsKey('latitude')
+              ? (json_['latitude'] as core.num).toDouble()
               : null,
-          longitude: _json.containsKey('longitude')
-              ? (_json['longitude'] as core.num).toDouble()
+          longitude: json_.containsKey('longitude')
+              ? (json_['longitude'] as core.num).toDouble()
               : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
         if (latitude != null) 'latitude': latitude!,
         if (longitude != null) 'longitude': longitude!,
+      };
+}
+
+/// Used by:
+///
+/// - firestore:v1 : ListCollectionIdsRequest
+/// - firestore:v1beta1 : ListCollectionIdsRequest
+class $ListCollectionIdsRequest {
+  /// The maximum number of results to return.
+  core.int? pageSize;
+
+  /// A page token.
+  ///
+  /// Must be a value from ListCollectionIdsResponse.
+  core.String? pageToken;
+
+  /// Reads documents as they were at the given time.
+  ///
+  /// This must be a microsecond precision timestamp within the past one hour,
+  /// or if Point-in-Time Recovery is enabled, can additionally be a whole
+  /// minute timestamp within the past 7 days.
+  core.String? readTime;
+
+  $ListCollectionIdsRequest({
+    this.pageSize,
+    this.pageToken,
+    this.readTime,
+  });
+
+  $ListCollectionIdsRequest.fromJson(core.Map json_)
+      : this(
+          pageSize: json_.containsKey('pageSize')
+              ? json_['pageSize'] as core.int
+              : null,
+          pageToken: json_.containsKey('pageToken')
+              ? json_['pageToken'] as core.String
+              : null,
+          readTime: json_.containsKey('readTime')
+              ? json_['readTime'] as core.String
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (pageSize != null) 'pageSize': pageSize!,
+        if (pageToken != null) 'pageToken': pageToken!,
+        if (readTime != null) 'readTime': readTime!,
       };
 }
 
@@ -563,15 +553,15 @@ class $ListCollectionIdsResponse {
     this.nextPageToken,
   });
 
-  $ListCollectionIdsResponse.fromJson(core.Map _json)
+  $ListCollectionIdsResponse.fromJson(core.Map json_)
       : this(
-          collectionIds: _json.containsKey('collectionIds')
-              ? (_json['collectionIds'] as core.List)
+          collectionIds: json_.containsKey('collectionIds')
+              ? (json_['collectionIds'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
-          nextPageToken: _json.containsKey('nextPageToken')
-              ? _json['nextPageToken'] as core.String
+          nextPageToken: json_.containsKey('nextPageToken')
+              ? json_['nextPageToken'] as core.String
               : null,
         );
 
@@ -622,26 +612,26 @@ class $Location {
     this.name,
   });
 
-  $Location.fromJson(core.Map _json)
+  $Location.fromJson(core.Map json_)
       : this(
-          displayName: _json.containsKey('displayName')
-              ? _json['displayName'] as core.String
+          displayName: json_.containsKey('displayName')
+              ? json_['displayName'] as core.String
               : null,
-          labels: _json.containsKey('labels')
-              ? (_json['labels'] as core.Map<core.String, core.dynamic>).map(
-                  (key, item) => core.MapEntry(
+          labels: json_.containsKey('labels')
+              ? (json_['labels'] as core.Map<core.String, core.dynamic>).map(
+                  (key, value) => core.MapEntry(
                     key,
-                    item as core.String,
+                    value as core.String,
                   ),
                 )
               : null,
-          locationId: _json.containsKey('locationId')
-              ? _json['locationId'] as core.String
+          locationId: json_.containsKey('locationId')
+              ? json_['locationId'] as core.String
               : null,
-          metadata: _json.containsKey('metadata')
-              ? _json['metadata'] as core.Map<core.String, core.dynamic>
+          metadata: json_.containsKey('metadata')
+              ? json_['metadata'] as core.Map<core.String, core.dynamic>
               : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
@@ -650,6 +640,42 @@ class $Location {
         if (locationId != null) 'locationId': locationId!,
         if (metadata != null) 'metadata': metadata!,
         if (name != null) 'name': name!,
+      };
+}
+
+/// Used by:
+///
+/// - identitytoolkit:v2 : GoogleCloudIdentitytoolkitAdminV2ClientPermissions
+/// - identitytoolkit:v2 : GoogleCloudIdentitytoolkitAdminV2Permissions
+class $Permissions {
+  /// When true, end users cannot delete their account on the associated project
+  /// through any of our API methods
+  core.bool? disabledUserDeletion;
+
+  /// When true, end users cannot sign up for a new account on the associated
+  /// project through any of our API methods
+  core.bool? disabledUserSignup;
+
+  $Permissions({
+    this.disabledUserDeletion,
+    this.disabledUserSignup,
+  });
+
+  $Permissions.fromJson(core.Map json_)
+      : this(
+          disabledUserDeletion: json_.containsKey('disabledUserDeletion')
+              ? json_['disabledUserDeletion'] as core.bool
+              : null,
+          disabledUserSignup: json_.containsKey('disabledUserSignup')
+              ? json_['disabledUserSignup'] as core.bool
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (disabledUserDeletion != null)
+          'disabledUserDeletion': disabledUserDeletion!,
+        if (disabledUserSignup != null)
+          'disabledUserSignup': disabledUserSignup!,
       };
 }
 
@@ -674,12 +700,12 @@ class $Precondition {
     this.updateTime,
   });
 
-  $Precondition.fromJson(core.Map _json)
+  $Precondition.fromJson(core.Map json_)
       : this(
           exists:
-              _json.containsKey('exists') ? _json['exists'] as core.bool : null,
-          updateTime: _json.containsKey('updateTime')
-              ? _json['updateTime'] as core.String
+              json_.containsKey('exists') ? json_['exists'] as core.bool : null,
+          updateTime: json_.containsKey('updateTime')
+              ? json_['updateTime'] as core.String
               : null,
         );
 
@@ -696,17 +722,19 @@ class $Precondition {
 class $ReadOnly {
   /// Reads documents at the given time.
   ///
-  /// This may not be older than 60 seconds.
+  /// This must be a microsecond precision timestamp within the past one hour,
+  /// or if Point-in-Time Recovery is enabled, can additionally be a whole
+  /// minute timestamp within the past 7 days.
   core.String? readTime;
 
   $ReadOnly({
     this.readTime,
   });
 
-  $ReadOnly.fromJson(core.Map _json)
+  $ReadOnly.fromJson(core.Map json_)
       : this(
-          readTime: _json.containsKey('readTime')
-              ? _json['readTime'] as core.String
+          readTime: json_.containsKey('readTime')
+              ? json_['readTime'] as core.String
               : null,
         );
 
@@ -725,19 +753,19 @@ class $ReadWrite {
   core.List<core.int> get retryTransactionAsBytes =>
       convert.base64.decode(retryTransaction!);
 
-  set retryTransactionAsBytes(core.List<core.int> _bytes) {
+  set retryTransactionAsBytes(core.List<core.int> bytes_) {
     retryTransaction =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   $ReadWrite({
     this.retryTransaction,
   });
 
-  $ReadWrite.fromJson(core.Map _json)
+  $ReadWrite.fromJson(core.Map json_)
       : this(
-          retryTransaction: _json.containsKey('retryTransaction')
-              ? _json['retryTransaction'] as core.String
+          retryTransaction: json_.containsKey('retryTransaction')
+              ? json_['retryTransaction'] as core.String
               : null,
         );
 
@@ -758,19 +786,19 @@ class $RollbackRequest {
   core.List<core.int> get transactionAsBytes =>
       convert.base64.decode(transaction!);
 
-  set transactionAsBytes(core.List<core.int> _bytes) {
+  set transactionAsBytes(core.List<core.int> bytes_) {
     transaction =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   $RollbackRequest({
     this.transaction,
   });
 
-  $RollbackRequest.fromJson(core.Map _json)
+  $RollbackRequest.fromJson(core.Map json_)
       : this(
-          transaction: _json.containsKey('transaction')
-              ? _json['transaction'] as core.String
+          transaction: json_.containsKey('transaction')
+              ? json_['transaction'] as core.String
               : null,
         );
 
@@ -784,7 +812,6 @@ class $RollbackRequest {
 /// - cloudfunctions:v1 : Status
 /// - firebase:v1beta1 : Status
 /// - firebaseappdistribution:v1 : GoogleRpcStatus
-/// - firebaseextensions:v1beta : GoogleRpcStatus
 /// - firebasehosting:v1 : Status
 /// - firebasehosting:v1beta1 : Status
 /// - firebaseml:v1 : Status
@@ -816,16 +843,16 @@ class $Status {
     this.message,
   });
 
-  $Status.fromJson(core.Map _json)
+  $Status.fromJson(core.Map json_)
       : this(
-          code: _json.containsKey('code') ? _json['code'] as core.int : null,
-          details: _json.containsKey('details')
-              ? (_json['details'] as core.List)
+          code: json_.containsKey('code') ? json_['code'] as core.int : null,
+          details: json_.containsKey('details')
+              ? (json_['details'] as core.List)
                   .map((value) => value as core.Map<core.String, core.dynamic>)
                   .toList()
               : null,
-          message: _json.containsKey('message')
-              ? _json['message'] as core.String
+          message: json_.containsKey('message')
+              ? json_['message'] as core.String
               : null,
         );
 
@@ -852,10 +879,10 @@ class $TestIamPermissionsRequest {
     this.permissions,
   });
 
-  $TestIamPermissionsRequest.fromJson(core.Map _json)
+  $TestIamPermissionsRequest.fromJson(core.Map json_)
       : this(
-          permissions: _json.containsKey('permissions')
-              ? (_json['permissions'] as core.List)
+          permissions: json_.containsKey('permissions')
+              ? (json_['permissions'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
@@ -879,10 +906,10 @@ class $TestIamPermissionsResponse {
     this.permissions,
   });
 
-  $TestIamPermissionsResponse.fromJson(core.Map _json)
+  $TestIamPermissionsResponse.fromJson(core.Map json_)
       : this(
-          permissions: _json.containsKey('permissions')
-              ? (_json['permissions'] as core.List)
+          permissions: json_.containsKey('permissions')
+              ? (json_['permissions'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
@@ -890,5 +917,81 @@ class $TestIamPermissionsResponse {
 
   core.Map<core.String, core.dynamic> toJson() => {
         if (permissions != null) 'permissions': permissions!,
+      };
+}
+
+/// Used by:
+///
+/// - identitytoolkit:v2 : GoogleCloudIdentitytoolkitAdminV2CustomStrengthOptions
+/// - identitytoolkit:v2 : GoogleCloudIdentitytoolkitV2CustomStrengthOptions
+class $V2CustomStrengthOptions {
+  /// The password must contain a lower case character.
+  core.bool? containsLowercaseCharacter;
+
+  /// The password must contain a non alpha numeric character.
+  core.bool? containsNonAlphanumericCharacter;
+
+  /// The password must contain a number.
+  core.bool? containsNumericCharacter;
+
+  /// The password must contain an upper case character.
+  core.bool? containsUppercaseCharacter;
+
+  /// Maximum password length.
+  ///
+  /// No default max length
+  core.int? maxPasswordLength;
+
+  /// Minimum password length.
+  ///
+  /// Range from 6 to 30
+  core.int? minPasswordLength;
+
+  $V2CustomStrengthOptions({
+    this.containsLowercaseCharacter,
+    this.containsNonAlphanumericCharacter,
+    this.containsNumericCharacter,
+    this.containsUppercaseCharacter,
+    this.maxPasswordLength,
+    this.minPasswordLength,
+  });
+
+  $V2CustomStrengthOptions.fromJson(core.Map json_)
+      : this(
+          containsLowercaseCharacter:
+              json_.containsKey('containsLowercaseCharacter')
+                  ? json_['containsLowercaseCharacter'] as core.bool
+                  : null,
+          containsNonAlphanumericCharacter:
+              json_.containsKey('containsNonAlphanumericCharacter')
+                  ? json_['containsNonAlphanumericCharacter'] as core.bool
+                  : null,
+          containsNumericCharacter:
+              json_.containsKey('containsNumericCharacter')
+                  ? json_['containsNumericCharacter'] as core.bool
+                  : null,
+          containsUppercaseCharacter:
+              json_.containsKey('containsUppercaseCharacter')
+                  ? json_['containsUppercaseCharacter'] as core.bool
+                  : null,
+          maxPasswordLength: json_.containsKey('maxPasswordLength')
+              ? json_['maxPasswordLength'] as core.int
+              : null,
+          minPasswordLength: json_.containsKey('minPasswordLength')
+              ? json_['minPasswordLength'] as core.int
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (containsLowercaseCharacter != null)
+          'containsLowercaseCharacter': containsLowercaseCharacter!,
+        if (containsNonAlphanumericCharacter != null)
+          'containsNonAlphanumericCharacter': containsNonAlphanumericCharacter!,
+        if (containsNumericCharacter != null)
+          'containsNumericCharacter': containsNumericCharacter!,
+        if (containsUppercaseCharacter != null)
+          'containsUppercaseCharacter': containsUppercaseCharacter!,
+        if (maxPasswordLength != null) 'maxPasswordLength': maxPasswordLength!,
+        if (minPasswordLength != null) 'minPasswordLength': minPasswordLength!,
       };
 }

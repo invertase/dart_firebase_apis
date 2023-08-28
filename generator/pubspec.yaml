@@ -2,10 +2,12 @@ name: googleapis_generator_dependency
 publish_to: none
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: ^3.0.0
 
 dependencies:
+  args: ^2.3.1
   discoveryapis_generator: any
+  http: '>=0.13.5 <2.0.0'
   io: ^1.0.0
   pool: ^1.4.0
   yaml: '>=2.1.0 <4.0.0'
@@ -15,4 +17,4 @@ dependency_overrides:
     git:
       path: discoveryapis_generator
       url: https://github.com/google/googleapis.dart.git
-      ref: c338236f20bdac0c24c9c5c5c5748b431ee6c3c0
+      ref: 5e36e5b195ceaa9188533f4b768ce3ce1d9316a0

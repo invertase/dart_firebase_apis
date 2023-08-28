@@ -2,14 +2,13 @@
 
 // ignore_for_file: camel_case_types
 // ignore_for_file: comment_references
-// ignore_for_file: file_names
-// ignore_for_file: library_names
+// ignore_for_file: deprecated_member_use_from_same_package
 // ignore_for_file: lines_longer_than_80_chars
 // ignore_for_file: non_constant_identifier_names
-// ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: prefer_interpolation_to_compose_strings
 // ignore_for_file: unnecessary_brace_in_string_interps
 // ignore_for_file: unnecessary_lambdas
+// ignore_for_file: unnecessary_library_directive
 // ignore_for_file: unnecessary_string_interpolations
 
 /// Cloud Firestore API - v1beta2
@@ -26,7 +25,7 @@
 ///     - [ProjectsDatabasesCollectionGroupsResource]
 ///       - [ProjectsDatabasesCollectionGroupsFieldsResource]
 ///       - [ProjectsDatabasesCollectionGroupsIndexesResource]
-library firestore.v1beta2;
+library firestore_v1beta2;
 
 import 'dart:async' as async;
 import 'dart:convert' as convert;
@@ -35,7 +34,6 @@ import 'dart:core' as core;
 import 'package:_discoveryapis_commons/_discoveryapis_commons.dart' as commons;
 import 'package:http/http.dart' as http;
 
-// ignore: deprecated_member_use_from_same_package
 import '../shared.dart';
 import '../src/user_agent.dart';
 
@@ -114,21 +112,21 @@ class ProjectsDatabasesResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta2/' + core.Uri.encodeFull('$name') + ':exportDocuments';
+    final url_ = 'v1beta2/' + core.Uri.encodeFull('$name') + ':exportDocuments';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return GoogleLongrunningOperation.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Imports documents into Google Cloud Firestore.
@@ -162,21 +160,21 @@ class ProjectsDatabasesResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta2/' + core.Uri.encodeFull('$name') + ':importDocuments';
+    final url_ = 'v1beta2/' + core.Uri.encodeFull('$name') + ':importDocuments';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return GoogleLongrunningOperation.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -221,19 +219,19 @@ class ProjectsDatabasesCollectionGroupsFieldsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta2/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta2/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return GoogleFirestoreAdminV1beta2Field.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Lists the field configuration and metadata for this database.
@@ -278,22 +276,22 @@ class ProjectsDatabasesCollectionGroupsFieldsResource {
     core.String? pageToken,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (filter != null) 'filter': [filter],
       if (pageSize != null) 'pageSize': ['${pageSize}'],
       if (pageToken != null) 'pageToken': [pageToken],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta2/' + core.Uri.encodeFull('$parent') + '/fields';
+    final url_ = 'v1beta2/' + core.Uri.encodeFull('$parent') + '/fields';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return GoogleFirestoreAdminV1beta2ListFieldsResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Updates a field configuration.
@@ -353,22 +351,22 @@ class ProjectsDatabasesCollectionGroupsFieldsResource {
     core.String? updateMask,
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (updateMask != null) 'updateMask': [updateMask],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta2/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta2/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'PATCH',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return GoogleLongrunningOperation.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -408,21 +406,21 @@ class ProjectsDatabasesCollectionGroupsIndexesResource {
     core.String parent, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta2/' + core.Uri.encodeFull('$parent') + '/indexes';
+    final url_ = 'v1beta2/' + core.Uri.encodeFull('$parent') + '/indexes';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return GoogleLongrunningOperation.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Deletes a composite index.
@@ -448,18 +446,18 @@ class ProjectsDatabasesCollectionGroupsIndexesResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta2/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta2/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'DELETE',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
-    return Empty.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Empty.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Gets a composite index.
@@ -485,19 +483,19 @@ class ProjectsDatabasesCollectionGroupsIndexesResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta2/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta2/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return GoogleFirestoreAdminV1beta2Index.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Lists composite indexes.
@@ -534,22 +532,22 @@ class ProjectsDatabasesCollectionGroupsIndexesResource {
     core.String? pageToken,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (filter != null) 'filter': [filter],
       if (pageSize != null) 'pageSize': ['${pageSize}'],
       if (pageToken != null) 'pageToken': [pageToken],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta2/' + core.Uri.encodeFull('$parent') + '/indexes';
+    final url_ = 'v1beta2/' + core.Uri.encodeFull('$parent') + '/indexes';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return GoogleFirestoreAdminV1beta2ListIndexesResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -603,13 +601,13 @@ class GoogleFirestoreAdminV1beta2Field {
     this.name,
   });
 
-  GoogleFirestoreAdminV1beta2Field.fromJson(core.Map _json)
+  GoogleFirestoreAdminV1beta2Field.fromJson(core.Map json_)
       : this(
-          indexConfig: _json.containsKey('indexConfig')
+          indexConfig: json_.containsKey('indexConfig')
               ? GoogleFirestoreAdminV1beta2IndexConfig.fromJson(
-                  _json['indexConfig'] as core.Map<core.String, core.dynamic>)
+                  json_['indexConfig'] as core.Map<core.String, core.dynamic>)
               : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
@@ -637,15 +635,15 @@ class GoogleFirestoreAdminV1beta2ImportDocumentsRequest {
     this.inputUriPrefix,
   });
 
-  GoogleFirestoreAdminV1beta2ImportDocumentsRequest.fromJson(core.Map _json)
+  GoogleFirestoreAdminV1beta2ImportDocumentsRequest.fromJson(core.Map json_)
       : this(
-          collectionIds: _json.containsKey('collectionIds')
-              ? (_json['collectionIds'] as core.List)
+          collectionIds: json_.containsKey('collectionIds')
+              ? (json_['collectionIds'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
-          inputUriPrefix: _json.containsKey('inputUriPrefix')
-              ? _json['inputUriPrefix'] as core.String
+          inputUriPrefix: json_.containsKey('inputUriPrefix')
+              ? json_['inputUriPrefix'] as core.String
               : null,
         );
 
@@ -724,21 +722,21 @@ class GoogleFirestoreAdminV1beta2Index {
     this.state,
   });
 
-  GoogleFirestoreAdminV1beta2Index.fromJson(core.Map _json)
+  GoogleFirestoreAdminV1beta2Index.fromJson(core.Map json_)
       : this(
-          fields: _json.containsKey('fields')
-              ? (_json['fields'] as core.List)
+          fields: json_.containsKey('fields')
+              ? (json_['fields'] as core.List)
                   .map((value) =>
                       GoogleFirestoreAdminV1beta2IndexField.fromJson(
                           value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
-          queryScope: _json.containsKey('queryScope')
-              ? _json['queryScope'] as core.String
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+          queryScope: json_.containsKey('queryScope')
+              ? json_['queryScope'] as core.String
               : null,
           state:
-              _json.containsKey('state') ? _json['state'] as core.String : null,
+              json_.containsKey('state') ? json_['state'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
@@ -785,22 +783,22 @@ class GoogleFirestoreAdminV1beta2IndexConfig {
     this.usesAncestorConfig,
   });
 
-  GoogleFirestoreAdminV1beta2IndexConfig.fromJson(core.Map _json)
+  GoogleFirestoreAdminV1beta2IndexConfig.fromJson(core.Map json_)
       : this(
-          ancestorField: _json.containsKey('ancestorField')
-              ? _json['ancestorField'] as core.String
+          ancestorField: json_.containsKey('ancestorField')
+              ? json_['ancestorField'] as core.String
               : null,
-          indexes: _json.containsKey('indexes')
-              ? (_json['indexes'] as core.List)
+          indexes: json_.containsKey('indexes')
+              ? (json_['indexes'] as core.List)
                   .map((value) => GoogleFirestoreAdminV1beta2Index.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          reverting: _json.containsKey('reverting')
-              ? _json['reverting'] as core.bool
+          reverting: json_.containsKey('reverting')
+              ? json_['reverting'] as core.bool
               : null,
-          usesAncestorConfig: _json.containsKey('usesAncestorConfig')
-              ? _json['usesAncestorConfig'] as core.bool
+          usesAncestorConfig: json_.containsKey('usesAncestorConfig')
+              ? json_['usesAncestorConfig'] as core.bool
               : null,
         );
 
@@ -845,16 +843,16 @@ class GoogleFirestoreAdminV1beta2IndexField {
     this.order,
   });
 
-  GoogleFirestoreAdminV1beta2IndexField.fromJson(core.Map _json)
+  GoogleFirestoreAdminV1beta2IndexField.fromJson(core.Map json_)
       : this(
-          arrayConfig: _json.containsKey('arrayConfig')
-              ? _json['arrayConfig'] as core.String
+          arrayConfig: json_.containsKey('arrayConfig')
+              ? json_['arrayConfig'] as core.String
               : null,
-          fieldPath: _json.containsKey('fieldPath')
-              ? _json['fieldPath'] as core.String
+          fieldPath: json_.containsKey('fieldPath')
+              ? json_['fieldPath'] as core.String
               : null,
           order:
-              _json.containsKey('order') ? _json['order'] as core.String : null,
+              json_.containsKey('order') ? json_['order'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
@@ -879,16 +877,16 @@ class GoogleFirestoreAdminV1beta2ListFieldsResponse {
     this.nextPageToken,
   });
 
-  GoogleFirestoreAdminV1beta2ListFieldsResponse.fromJson(core.Map _json)
+  GoogleFirestoreAdminV1beta2ListFieldsResponse.fromJson(core.Map json_)
       : this(
-          fields: _json.containsKey('fields')
-              ? (_json['fields'] as core.List)
+          fields: json_.containsKey('fields')
+              ? (json_['fields'] as core.List)
                   .map((value) => GoogleFirestoreAdminV1beta2Field.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          nextPageToken: _json.containsKey('nextPageToken')
-              ? _json['nextPageToken'] as core.String
+          nextPageToken: json_.containsKey('nextPageToken')
+              ? json_['nextPageToken'] as core.String
               : null,
         );
 
@@ -913,16 +911,16 @@ class GoogleFirestoreAdminV1beta2ListIndexesResponse {
     this.nextPageToken,
   });
 
-  GoogleFirestoreAdminV1beta2ListIndexesResponse.fromJson(core.Map _json)
+  GoogleFirestoreAdminV1beta2ListIndexesResponse.fromJson(core.Map json_)
       : this(
-          indexes: _json.containsKey('indexes')
-              ? (_json['indexes'] as core.List)
+          indexes: json_.containsKey('indexes')
+              ? (json_['indexes'] as core.List)
                   .map((value) => GoogleFirestoreAdminV1beta2Index.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          nextPageToken: _json.containsKey('nextPageToken')
-              ? _json['nextPageToken'] as core.String
+          nextPageToken: json_.containsKey('nextPageToken')
+              ? json_['nextPageToken'] as core.String
               : null,
         );
 
@@ -962,7 +960,7 @@ class GoogleLongrunningOperation {
   /// ending with `operations/{unique_id}`.
   core.String? name;
 
-  /// The normal response of the operation in case of success.
+  /// The normal, successful response of the operation.
   ///
   /// If the original method returns no data on success, such as `Delete`, the
   /// response is `google.protobuf.Empty`. If the original method is standard
@@ -983,19 +981,19 @@ class GoogleLongrunningOperation {
     this.response,
   });
 
-  GoogleLongrunningOperation.fromJson(core.Map _json)
+  GoogleLongrunningOperation.fromJson(core.Map json_)
       : this(
-          done: _json.containsKey('done') ? _json['done'] as core.bool : null,
-          error: _json.containsKey('error')
+          done: json_.containsKey('done') ? json_['done'] as core.bool : null,
+          error: json_.containsKey('error')
               ? Status.fromJson(
-                  _json['error'] as core.Map<core.String, core.dynamic>)
+                  json_['error'] as core.Map<core.String, core.dynamic>)
               : null,
-          metadata: _json.containsKey('metadata')
-              ? _json['metadata'] as core.Map<core.String, core.dynamic>
+          metadata: json_.containsKey('metadata')
+              ? json_['metadata'] as core.Map<core.String, core.dynamic>
               : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
-          response: _json.containsKey('response')
-              ? _json['response'] as core.Map<core.String, core.dynamic>
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+          response: json_.containsKey('response')
+              ? json_['response'] as core.Map<core.String, core.dynamic>
               : null,
         );
 

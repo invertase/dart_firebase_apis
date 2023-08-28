@@ -2,20 +2,19 @@
 
 // ignore_for_file: camel_case_types
 // ignore_for_file: comment_references
-// ignore_for_file: file_names
-// ignore_for_file: library_names
+// ignore_for_file: deprecated_member_use_from_same_package
 // ignore_for_file: lines_longer_than_80_chars
 // ignore_for_file: non_constant_identifier_names
-// ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: prefer_interpolation_to_compose_strings
 // ignore_for_file: unnecessary_brace_in_string_interps
 // ignore_for_file: unnecessary_lambdas
+// ignore_for_file: unnecessary_library_directive
 // ignore_for_file: unnecessary_string_interpolations
 
-/// Firebase Realtime Database Management API - v1beta
+/// Firebase Realtime Database API - v1beta
 ///
-/// The Firebase Realtime Database Management API enables programmatic
-/// provisioning and management of Realtime Database instances.
+/// The Firebase Realtime Database API enables programmatic provisioning and
+/// management of Realtime Database instances.
 ///
 /// For more information, see
 /// <https://firebase.google.com/docs/reference/rest/database/database-management/rest/>
@@ -26,7 +25,7 @@
 /// - [ProjectsResource]
 ///   - [ProjectsLocationsResource]
 ///     - [ProjectsLocationsInstancesResource]
-library firebasedatabase.v1beta;
+library firebasedatabase_v1beta;
 
 import 'dart:async' as async;
 import 'dart:convert' as convert;
@@ -35,15 +34,14 @@ import 'dart:core' as core;
 import 'package:_discoveryapis_commons/_discoveryapis_commons.dart' as commons;
 import 'package:http/http.dart' as http;
 
-// ignore: deprecated_member_use_from_same_package
 import '../shared.dart';
 import '../src/user_agent.dart';
 
 export 'package:_discoveryapis_commons/_discoveryapis_commons.dart'
     show ApiRequestError, DetailedApiRequestError;
 
-/// The Firebase Realtime Database Management API enables programmatic
-/// provisioning and management of Realtime Database instances.
+/// The Firebase Realtime Database API enables programmatic provisioning and
+/// management of Realtime Database instances.
 class FirebaseRealtimeDatabaseApi {
   /// See, edit, configure, and delete your Google Cloud data and see the email
   /// address for your Google Account.
@@ -110,8 +108,9 @@ class ProjectsLocationsInstancesResource {
   ///
   /// Request parameters:
   ///
-  /// [parent] - The parent project for which to create a database instance, in
-  /// the form: `projects/{project-number}/locations/{location-id}`.
+  /// [parent] - Required. The parent project for which to create a database
+  /// instance, in the form:
+  /// `projects/{project-number}/locations/{location-id}`.
   /// Value must have pattern `^projects/\[^/\]+/locations/\[^/\]+$`.
   ///
   /// [databaseId] - The globally unique identifier of the database instance.
@@ -136,36 +135,36 @@ class ProjectsLocationsInstancesResource {
     core.bool? validateOnly,
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (databaseId != null) 'databaseId': [databaseId],
       if (validateOnly != null) 'validateOnly': ['${validateOnly}'],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta/' + core.Uri.encodeFull('$parent') + '/instances';
+    final url_ = 'v1beta/' + core.Uri.encodeFull('$parent') + '/instances';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return DatabaseInstance.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Marks a DatabaseInstance to be deleted.
   ///
-  /// The DatabaseInstance will be purged within 30 days. The default database
-  /// cannot be deleted. IDs for deleted database instances may never be
-  /// recovered or re-used. The Database may only be deleted if it is already in
-  /// a DISABLED state.
+  /// The DatabaseInstance will be set to the DELETED state for 20 days, and
+  /// will be purged within 30 days. The default database cannot be deleted. IDs
+  /// for deleted database instances may never be recovered or re-used. The
+  /// Database may only be deleted if it is already in a DISABLED state.
   ///
   /// Request parameters:
   ///
-  /// [name] - The fully qualified resource name of the database instance, in
-  /// the form:
+  /// [name] - Required. The fully qualified resource name of the database
+  /// instance, in the form:
   /// `projects/{project-number}/locations/{location-id}/instances/{database-id}`
   /// Value must have pattern
   /// `^projects/\[^/\]+/locations/\[^/\]+/instances/\[^/\]+$`.
@@ -184,19 +183,19 @@ class ProjectsLocationsInstancesResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'DELETE',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return DatabaseInstance.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Disables a DatabaseInstance.
@@ -209,8 +208,8 @@ class ProjectsLocationsInstancesResource {
   ///
   /// Request parameters:
   ///
-  /// [name] - The fully qualified resource name of the database instance, in
-  /// the form:
+  /// [name] - Required. The fully qualified resource name of the database
+  /// instance, in the form:
   /// `projects/{project-number}/locations/{location-id}/instances/{database-id}`
   /// Value must have pattern
   /// `^projects/\[^/\]+/locations/\[^/\]+/instances/\[^/\]+$`.
@@ -230,29 +229,29 @@ class ProjectsLocationsInstancesResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta/' + core.Uri.encodeFull('$name') + ':disable';
+    final url_ = 'v1beta/' + core.Uri.encodeFull('$name') + ':disable';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return DatabaseInstance.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Gets the DatabaseInstance identified by the specified resource name.
   ///
   /// Request parameters:
   ///
-  /// [name] - The fully qualified resource name of the database instance, in
-  /// the form:
+  /// [name] - Required. The fully qualified resource name of the database
+  /// instance, in the form:
   /// `projects/{project-number}/locations/{location-id}/instances/{database-id}`.
   /// `database-id` is a globally unique identifier across all parent
   /// collections. For convenience, this method allows you to supply `-` as a
@@ -276,19 +275,19 @@ class ProjectsLocationsInstancesResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return DatabaseInstance.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Lists each DatabaseInstance associated with the specified parent project.
@@ -301,9 +300,10 @@ class ProjectsLocationsInstancesResource {
   ///
   /// Request parameters:
   ///
-  /// [parent] - The parent project for which to list database instances, in the
-  /// form: `projects/{project-number}/locations/{location-id}` To list across
-  /// all locations, use a parent in the form:
+  /// [parent] - Required. The parent project for which to list database
+  /// instances, in the form:
+  /// `projects/{project-number}/locations/{location-id}` To list across all
+  /// locations, use a parent in the form:
   /// `projects/{project-number}/locations/-`
   /// Value must have pattern `^projects/\[^/\]+/locations/\[^/\]+$`.
   ///
@@ -336,22 +336,22 @@ class ProjectsLocationsInstancesResource {
     core.bool? showDeleted,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (pageSize != null) 'pageSize': ['${pageSize}'],
       if (pageToken != null) 'pageToken': [pageToken],
       if (showDeleted != null) 'showDeleted': ['${showDeleted}'],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta/' + core.Uri.encodeFull('$parent') + '/instances';
+    final url_ = 'v1beta/' + core.Uri.encodeFull('$parent') + '/instances';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return ListDatabaseInstancesResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Enables a DatabaseInstance.
@@ -364,8 +364,8 @@ class ProjectsLocationsInstancesResource {
   ///
   /// Request parameters:
   ///
-  /// [name] - The fully qualified resource name of the database instance, in
-  /// the form:
+  /// [name] - Required. The fully qualified resource name of the database
+  /// instance, in the form:
   /// `projects/{project-number}/locations/{location-id}/instances/{database-id}`
   /// Value must have pattern
   /// `^projects/\[^/\]+/locations/\[^/\]+/instances/\[^/\]+$`.
@@ -385,34 +385,37 @@ class ProjectsLocationsInstancesResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta/' + core.Uri.encodeFull('$name') + ':reenable';
+    final url_ = 'v1beta/' + core.Uri.encodeFull('$name') + ':reenable';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return DatabaseInstance.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Restores a DatabaseInstance that was previously marked to be deleted.
   ///
-  /// This may only be used on a DatabaseInstance in the DELETED state. Purged
-  /// DatabaseInstance's may not be recovered.
+  /// After the delete method is used, DatabaseInstances are set to the DELETED
+  /// state for 20 days, and will be purged within 30 days. Databases in the
+  /// DELETED state can be undeleted without losing any data. This method may
+  /// only be used on a DatabaseInstance in the DELETED state. Purged
+  /// DatabaseInstances may not be recovered.
   ///
   /// [request] - The metadata request object.
   ///
   /// Request parameters:
   ///
-  /// [name] - The fully qualified resource name of the database instance, in
-  /// the form:
+  /// [name] - Required. The fully qualified resource name of the database
+  /// instance, in the form:
   /// `projects/{project-number}/locations/{location-id}/instances/{database-id}`
   /// Value must have pattern
   /// `^projects/\[^/\]+/locations/\[^/\]+/instances/\[^/\]+$`.
@@ -432,21 +435,21 @@ class ProjectsLocationsInstancesResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta/' + core.Uri.encodeFull('$name') + ':undelete';
+    final url_ = 'v1beta/' + core.Uri.encodeFull('$name') + ':undelete';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return DatabaseInstance.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -457,7 +460,7 @@ class ProjectsLocationsInstancesResource {
 class DatabaseInstance {
   /// The globally unique hostname of the database.
   ///
-  /// Immutable.
+  /// Output only.
   core.String? databaseUrl;
 
   /// The fully qualified resource name of the database instance, in the form:
@@ -467,11 +470,15 @@ class DatabaseInstance {
   /// The resource name of the project this instance belongs to.
   ///
   /// For example: `projects/{project-number}`.
+  ///
+  /// Output only.
   core.String? project;
 
   /// The database's lifecycle state.
   ///
   /// Read-only.
+  ///
+  /// Output only.
   /// Possible string values are:
   /// - "LIFECYCLE_STATE_UNSPECIFIED" : Unspecified state, likely the result of
   /// an error on the backend. This is only used for distinguishing unset
@@ -486,6 +493,8 @@ class DatabaseInstance {
   ///
   /// On creation only USER_DATABASE is allowed, which is also the default when
   /// omitted.
+  ///
+  /// Immutable.
   /// Possible string values are:
   /// - "DATABASE_INSTANCE_TYPE_UNSPECIFIED" : Unknown state, likely the result
   /// of an error on the backend. This is only used for distinguishing unset
@@ -503,18 +512,18 @@ class DatabaseInstance {
     this.type,
   });
 
-  DatabaseInstance.fromJson(core.Map _json)
+  DatabaseInstance.fromJson(core.Map json_)
       : this(
-          databaseUrl: _json.containsKey('databaseUrl')
-              ? _json['databaseUrl'] as core.String
+          databaseUrl: json_.containsKey('databaseUrl')
+              ? json_['databaseUrl'] as core.String
               : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
-          project: _json.containsKey('project')
-              ? _json['project'] as core.String
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+          project: json_.containsKey('project')
+              ? json_['project'] as core.String
               : null,
           state:
-              _json.containsKey('state') ? _json['state'] as core.String : null,
-          type: _json.containsKey('type') ? _json['type'] as core.String : null,
+              json_.containsKey('state') ? json_['state'] as core.String : null,
+          type: json_.containsKey('type') ? json_['type'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
@@ -548,16 +557,16 @@ class ListDatabaseInstancesResponse {
     this.nextPageToken,
   });
 
-  ListDatabaseInstancesResponse.fromJson(core.Map _json)
+  ListDatabaseInstancesResponse.fromJson(core.Map json_)
       : this(
-          instances: _json.containsKey('instances')
-              ? (_json['instances'] as core.List)
+          instances: json_.containsKey('instances')
+              ? (json_['instances'] as core.List)
                   .map((value) => DatabaseInstance.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          nextPageToken: _json.containsKey('nextPageToken')
-              ? _json['nextPageToken'] as core.String
+          nextPageToken: json_.containsKey('nextPageToken')
+              ? json_['nextPageToken'] as core.String
               : null,
         );
 

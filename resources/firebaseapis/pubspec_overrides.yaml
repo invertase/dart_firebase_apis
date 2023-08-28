@@ -1,0 +1,4 @@
+# melos_managed_dependency_overrides: firebaseapis
+dependency_overrides:
+  firebaseapis:
+    path: ../../generated/firebaseapis

@@ -2,14 +2,13 @@
 
 // ignore_for_file: camel_case_types
 // ignore_for_file: comment_references
-// ignore_for_file: file_names
-// ignore_for_file: library_names
+// ignore_for_file: deprecated_member_use_from_same_package
 // ignore_for_file: lines_longer_than_80_chars
 // ignore_for_file: non_constant_identifier_names
-// ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: prefer_interpolation_to_compose_strings
 // ignore_for_file: unnecessary_brace_in_string_interps
 // ignore_for_file: unnecessary_lambdas
+// ignore_for_file: unnecessary_library_directive
 // ignore_for_file: unnecessary_string_interpolations
 
 /// Firebase Management API - v1beta1
@@ -31,7 +30,7 @@
 ///   - [ProjectsDefaultLocationResource]
 ///   - [ProjectsIosAppsResource]
 ///   - [ProjectsWebAppsResource]
-library firebase.v1beta1;
+library firebase_v1beta1;
 
 import 'dart:async' as async;
 import 'dart:convert' as convert;
@@ -40,7 +39,6 @@ import 'dart:core' as core;
 import 'package:_discoveryapis_commons/_discoveryapis_commons.dart' as commons;
 import 'package:http/http.dart' as http;
 
-// ignore: deprecated_member_use_from_same_package
 import '../shared.dart';
 import '../src/user_agent.dart';
 
@@ -123,21 +121,21 @@ class AvailableProjectsResource {
     core.String? pageToken,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (pageSize != null) 'pageSize': ['${pageSize}'],
       if (pageToken != null) 'pageToken': [pageToken],
       if ($fields != null) 'fields': [$fields],
     };
 
-    const _url = 'v1beta1/availableProjects';
+    const url_ = 'v1beta1/availableProjects';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return ListAvailableProjectsResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -170,18 +168,18 @@ class OperationsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
-    return Operation.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Operation.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -255,20 +253,20 @@ class ProjectsResource {
     core.String project, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$project') + ':addFirebase';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$project') + ':addFirebase';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Operation.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Operation.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Links the specified FirebaseProject with an existing
@@ -336,21 +334,21 @@ class ProjectsResource {
     core.String parent, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url =
+    final url_ =
         'v1beta1/' + core.Uri.encodeFull('$parent') + ':addGoogleAnalytics';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Operation.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Operation.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Gets the specified FirebaseProject.
@@ -377,19 +375,19 @@ class ProjectsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return FirebaseProject.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Gets the configuration artifact associated with the specified
@@ -421,19 +419,19 @@ class ProjectsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return AdminSdkConfig.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Gets the Google Analytics details currently associated with the specified
@@ -464,19 +462,19 @@ class ProjectsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return AnalyticsDetails.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Lists each FirebaseProject accessible to the caller.
@@ -500,6 +498,10 @@ class ProjectsResource {
   /// `ListFirebaseProjects` indicating where in the set of Projects to resume
   /// listing.
   ///
+  /// [showDeleted] - Optional. Controls whether Projects in the DELETED state
+  /// should be returned in the response. If not specified, only `ACTIVE`
+  /// Projects will be returned.
+  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -513,23 +515,25 @@ class ProjectsResource {
   async.Future<ListFirebaseProjectsResponse> list({
     core.int? pageSize,
     core.String? pageToken,
+    core.bool? showDeleted,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (pageSize != null) 'pageSize': ['${pageSize}'],
       if (pageToken != null) 'pageToken': [pageToken],
+      if (showDeleted != null) 'showDeleted': ['${showDeleted}'],
       if ($fields != null) 'fields': [$fields],
     };
 
-    const _url = 'v1beta1/projects';
+    const url_ = 'v1beta1/projects';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return ListFirebaseProjectsResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Updates the attributes of the specified FirebaseProject.
@@ -550,9 +554,13 @@ class ProjectsResource {
   /// value for PROJECT_IDENTIFIER in any response body will be the `ProjectId`.
   /// Value must have pattern `^projects/\[^/\]+$`.
   ///
-  /// [updateMask] - Specifies which fields to update. If this list is empty,
-  /// then no state will be updated. Note that the fields `name`, `projectId`,
-  /// and `projectNumber` are all immutable.
+  /// [updateMask] - Specifies which fields of the FirebaseProject to update.
+  /// Note that the following fields are immutable: `name`, `project_id`, and
+  /// `project_number`. To update `state`, use any of the following Google Cloud
+  /// endpoints:
+  /// \[`projects.delete`\](https://cloud.google.com/resource-manager/reference/rest/v1/projects/delete)
+  /// or
+  /// \[`projects.undelete`\](https://cloud.google.com/resource-manager/reference/rest/v1/projects/undelete)
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -570,22 +578,22 @@ class ProjectsResource {
     core.String? updateMask,
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (updateMask != null) 'updateMask': [updateMask],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'PATCH',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return FirebaseProject.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Unlinks the specified FirebaseProject from its Google Analytics account.
@@ -628,21 +636,21 @@ class ProjectsResource {
     core.String parent, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url =
+    final url_ =
         'v1beta1/' + core.Uri.encodeFull('$parent') + ':removeAnalytics';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Empty.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Empty.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Lists all available Apps for the specified FirebaseProject.
@@ -659,26 +667,27 @@ class ProjectsResource {
   /// about PROJECT_IDENTIFIER values.
   /// Value must have pattern `^projects/\[^/\]+$`.
   ///
-  /// [filter] - A query string compatible with Google's
-  /// \[AIP-160\](https://google.aip.dev/160) standard. Use any of the following
-  /// fields in a query: *
-  /// \[`app_id`\](../projects.apps#FirebaseAppInfo.FIELDS.app_id) *
-  /// \[`namespace`\](../projects.apps#FirebaseAppInfo.FIELDS.namespace) *
-  /// \[`platform`\](../projects.apps#FirebaseAppInfo.FIELDS.platform) We also
-  /// support the following "virtual" fields (fields which are not actually part
-  /// of the returned resource object, but can be queried as if they are
-  /// pre-populated with specific values): * `sha1_hash`: This field is
-  /// considered to be a repeated `string` field, populated with the list of all
-  /// SHA-1 certificate fingerprints registered with the app. This list is empty
-  /// if the app is not an Android app. * `sha256_hash`: This field is
-  /// considered to be a repeated `string` field, populated with the list of all
-  /// SHA-256 certificate fingerprints registered with the app. This list is
-  /// empty if the app is not an Android app. * `app_store_id`: This field is
-  /// considered to be a singular `string` field, populated with the Apple App
-  /// Store ID registered with the app. This field is empty if the app is not an
-  /// iOS app. * `team_id`: This field is considered to be a singular `string`
-  /// field, populated with the Apple team ID registered with the app. This
-  /// field is empty if the app is not an iOS app.
+  /// [filter] - A query string compatible with Google's \[AIP-160
+  /// standard\](https://google.aip.dev/160). Use any of the following fields in
+  /// a query: *
+  /// \[`app_id`\](../projects/searchApps#FirebaseAppInfo.FIELDS.app_id) *
+  /// \[`namespace`\](../projects/searchApps#FirebaseAppInfo.FIELDS.namespace) *
+  /// \[`platform`\](../projects/searchApps#FirebaseAppInfo.FIELDS.platform)
+  /// This query also supports the following "virtual" fields. These are fields
+  /// which are not actually part of the returned resource object, but they can
+  /// be queried as if they are pre-populated with specific values. *
+  /// `sha1_hash` or `sha1_hashes`: This field is considered to be a _repeated_
+  /// `string` field, populated with the list of all SHA-1 certificate
+  /// fingerprints registered with the AndroidApp. This list is empty if the App
+  /// is not an `AndroidApp`. * `sha256_hash` or `sha256_hashes`: This field is
+  /// considered to be a _repeated_ `string` field, populated with the list of
+  /// all SHA-256 certificate fingerprints registered with the AndroidApp. This
+  /// list is empty if the App is not an `AndroidApp`. * `app_store_id`: This
+  /// field is considered to be a _singular_ `string` field, populated with the
+  /// Apple App Store ID registered with the IosApp. This field is empty if the
+  /// App is not an `IosApp`. * `team_id`: This field is considered to be a
+  /// _singular_ `string` field, populated with the Apple team ID registered
+  /// with the IosApp. This field is empty if the App is not an `IosApp`.
   ///
   /// [pageSize] - The maximum number of Apps to return in the response. The
   /// server may return fewer than this value at its discretion. If no value is
@@ -687,6 +696,9 @@ class ProjectsResource {
   ///
   /// [pageToken] - Token returned from a previous call to `SearchFirebaseApps`
   /// indicating where in the set of Apps to resume listing.
+  ///
+  /// [showDeleted] - Controls whether Apps in the DELETED state should be
+  /// returned. If not specified, only `ACTIVE` Apps will be returned.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -703,24 +715,26 @@ class ProjectsResource {
     core.String? filter,
     core.int? pageSize,
     core.String? pageToken,
+    core.bool? showDeleted,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (filter != null) 'filter': [filter],
       if (pageSize != null) 'pageSize': ['${pageSize}'],
       if (pageToken != null) 'pageToken': [pageToken],
+      if (showDeleted != null) 'showDeleted': ['${showDeleted}'],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + ':searchApps';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + ':searchApps';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return SearchFirebaseAppsResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -766,20 +780,20 @@ class ProjectsAndroidAppsResource {
     core.String parent, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/androidApps';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/androidApps';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Operation.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Operation.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Gets the specified AndroidApp.
@@ -808,19 +822,19 @@ class ProjectsAndroidAppsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return AndroidApp.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Gets the configuration artifact associated with the specified AndroidApp.
@@ -850,19 +864,19 @@ class ProjectsAndroidAppsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return AndroidAppConfig.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Lists each AndroidApp associated with the specified FirebaseProject.
@@ -887,6 +901,10 @@ class ProjectsAndroidAppsResource {
   /// [pageToken] - Token returned from a previous call to `ListAndroidApps`
   /// indicating where in the set of Apps to resume listing.
   ///
+  /// [showDeleted] - Controls whether Apps in the DELETED state should be
+  /// returned in the response. If not specified, only `ACTIVE` Apps will be
+  /// returned.
+  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -901,23 +919,25 @@ class ProjectsAndroidAppsResource {
     core.String parent, {
     core.int? pageSize,
     core.String? pageToken,
+    core.bool? showDeleted,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (pageSize != null) 'pageSize': ['${pageSize}'],
       if (pageToken != null) 'pageToken': [pageToken],
+      if (showDeleted != null) 'showDeleted': ['${showDeleted}'],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/androidApps';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/androidApps';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return ListAndroidAppsResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Updates the attributes of the specified AndroidApp.
@@ -939,8 +959,10 @@ class ProjectsAndroidAppsResource {
   /// (see \[`appId`\](../projects.androidApps#AndroidApp.FIELDS.app_id)).
   /// Value must have pattern `^projects/\[^/\]+/androidApps/\[^/\]+$`.
   ///
-  /// [updateMask] - Specifies which fields to update. Note that the fields
-  /// `name`, `app_id`, `project_id`, and `package_name` are all immutable.
+  /// [updateMask] - Specifies which fields of the AndroidApp to update. Note
+  /// that the following fields are immutable: `name`, `app_id`, `project_id`,
+  /// and `package_name`. To update `state`, use any of the following endpoints:
+  /// RemoveAndroidApp or UndeleteAndroidApp.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -958,22 +980,112 @@ class ProjectsAndroidAppsResource {
     core.String? updateMask,
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (updateMask != null) 'updateMask': [updateMask],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'PATCH',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return AndroidApp.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
+  }
+
+  /// Removes the specified AndroidApp from the FirebaseProject.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The resource name of the AndroidApp, in the format:
+  /// projects/ PROJECT_IDENTIFIER/androidApps/APP_ID Since an APP_ID is a
+  /// unique identifier, the Unique Resource from Sub-Collection access pattern
+  /// may be used here, in the format: projects/-/androidApps/APP_ID Refer to
+  /// the AndroidApp \[name\](../projects.androidApps#AndroidApp.FIELDS.name)
+  /// field for details about PROJECT_IDENTIFIER and APP_ID values.
+  /// Value must have pattern `^projects/\[^/\]+/androidApps/\[^/\]+$`.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [Operation].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<Operation> remove(
+    RemoveAndroidAppRequest request,
+    core.String name, {
+    core.String? $fields,
+  }) async {
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name') + ':remove';
+
+    final response_ = await _requester.request(
+      url_,
+      'POST',
+      body: body_,
+      queryParams: queryParams_,
+    );
+    return Operation.fromJson(response_ as core.Map<core.String, core.dynamic>);
+  }
+
+  /// Restores the specified AndroidApp to the FirebaseProject.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The resource name of the AndroidApp, in the format:
+  /// projects/ PROJECT_IDENTIFIER/androidApps/APP_ID Since an APP_ID is a
+  /// unique identifier, the Unique Resource from Sub-Collection access pattern
+  /// may be used here, in the format: projects/-/androidApps/APP_ID Refer to
+  /// the AndroidApp \[name\](../projects.androidApps#AndroidApp.FIELDS.name)
+  /// field for details about PROJECT_IDENTIFIER and APP_ID values.
+  /// Value must have pattern `^projects/\[^/\]+/androidApps/\[^/\]+$`.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [Operation].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<Operation> undelete(
+    UndeleteAndroidAppRequest request,
+    core.String name, {
+    core.String? $fields,
+  }) async {
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name') + ':undelete';
+
+    final response_ = await _requester.request(
+      url_,
+      'POST',
+      body: body_,
+      queryParams: queryParams_,
+    );
+    return Operation.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -1013,21 +1125,21 @@ class ProjectsAndroidAppsShaResource {
     core.String parent, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/sha';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/sha';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return ShaCertificate.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Removes a ShaCertificate from the specified AndroidApp.
@@ -1059,18 +1171,18 @@ class ProjectsAndroidAppsShaResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'DELETE',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
-    return Empty.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Empty.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Lists the SHA-1 and SHA-256 certificates for the specified AndroidApp.
@@ -1100,19 +1212,19 @@ class ProjectsAndroidAppsShaResource {
     core.String parent, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/sha';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/sha';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return ListShaCertificatesResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -1176,22 +1288,22 @@ class ProjectsAvailableLocationsResource {
     core.String? pageToken,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (pageSize != null) 'pageSize': ['${pageSize}'],
       if (pageToken != null) 'pageToken': [pageToken],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url =
+    final url_ =
         'v1beta1/' + core.Uri.encodeFull('$parent') + '/availableLocations';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return ListAvailableLocationsResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -1257,22 +1369,22 @@ class ProjectsDefaultLocationResource {
     core.String parent, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' +
+    final url_ = 'v1beta1/' +
         core.Uri.encodeFull('$parent') +
         '/defaultLocation:finalize';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Operation.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Operation.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -1313,20 +1425,20 @@ class ProjectsIosAppsResource {
     core.String parent, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/iosApps';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/iosApps';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Operation.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Operation.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Gets the specified IosApp.
@@ -1355,18 +1467,18 @@ class ProjectsIosAppsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
-    return IosApp.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return IosApp.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Gets the configuration artifact associated with the specified IosApp.
@@ -1395,19 +1507,19 @@ class ProjectsIosAppsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return IosAppConfig.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Lists each IosApp associated with the specified FirebaseProject.
@@ -1432,6 +1544,10 @@ class ProjectsIosAppsResource {
   /// [pageToken] - Token returned from a previous call to `ListIosApps`
   /// indicating where in the set of Apps to resume listing.
   ///
+  /// [showDeleted] - Controls whether Apps in the DELETED state should be
+  /// returned in the response. If not specified, only `ACTIVE` Apps will be
+  /// returned.
+  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -1446,23 +1562,25 @@ class ProjectsIosAppsResource {
     core.String parent, {
     core.int? pageSize,
     core.String? pageToken,
+    core.bool? showDeleted,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (pageSize != null) 'pageSize': ['${pageSize}'],
       if (pageToken != null) 'pageToken': [pageToken],
+      if (showDeleted != null) 'showDeleted': ['${showDeleted}'],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/iosApps';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/iosApps';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return ListIosAppsResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Updates the attributes of the specified IosApp.
@@ -1484,8 +1602,10 @@ class ProjectsIosAppsResource {
   /// (see \[`appId`\](../projects.iosApps#IosApp.FIELDS.app_id)).
   /// Value must have pattern `^projects/\[^/\]+/iosApps/\[^/\]+$`.
   ///
-  /// [updateMask] - Specifies which fields to update. Note that the fields
-  /// `name`, `appId`, `projectId`, and `bundleId` are all immutable.
+  /// [updateMask] - Specifies which fields of the IosApp to update. Note that
+  /// the following fields are immutable: `name`, `app_id`, `project_id`, and
+  /// `bundle_id`. To update `state`, use any of the following endpoints:
+  /// RemoveIosApp or UndeleteIosApp.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -1503,21 +1623,111 @@ class ProjectsIosAppsResource {
     core.String? updateMask,
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (updateMask != null) 'updateMask': [updateMask],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'PATCH',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return IosApp.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return IosApp.fromJson(response_ as core.Map<core.String, core.dynamic>);
+  }
+
+  /// Removes the specified IosApp from the FirebaseProject.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The resource name of the IosApp, in the format:
+  /// projects/ PROJECT_IDENTIFIER/iosApps/APP_ID Since an APP_ID is a unique
+  /// identifier, the Unique Resource from Sub-Collection access pattern may be
+  /// used here, in the format: projects/-/iosApps/APP_ID Refer to the IosApp
+  /// \[name\](../projects.iosApps#IosApp.FIELDS.name) field for details about
+  /// PROJECT_IDENTIFIER and APP_ID values.
+  /// Value must have pattern `^projects/\[^/\]+/iosApps/\[^/\]+$`.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [Operation].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<Operation> remove(
+    RemoveIosAppRequest request,
+    core.String name, {
+    core.String? $fields,
+  }) async {
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name') + ':remove';
+
+    final response_ = await _requester.request(
+      url_,
+      'POST',
+      body: body_,
+      queryParams: queryParams_,
+    );
+    return Operation.fromJson(response_ as core.Map<core.String, core.dynamic>);
+  }
+
+  /// Restores the specified IosApp to the FirebaseProject.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The resource name of the IosApp, in the format:
+  /// projects/ PROJECT_IDENTIFIER/iosApps/APP_ID Since an APP_ID is a unique
+  /// identifier, the Unique Resource from Sub-Collection access pattern may be
+  /// used here, in the format: projects/-/iosApps/APP_ID Refer to the IosApp
+  /// \[name\](../projects.iosApps#IosApp.FIELDS.name) field for details about
+  /// PROJECT_IDENTIFIER and APP_ID values.
+  /// Value must have pattern `^projects/\[^/\]+/iosApps/\[^/\]+$`.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [Operation].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<Operation> undelete(
+    UndeleteIosAppRequest request,
+    core.String name, {
+    core.String? $fields,
+  }) async {
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name') + ':undelete';
+
+    final response_ = await _requester.request(
+      url_,
+      'POST',
+      body: body_,
+      queryParams: queryParams_,
+    );
+    return Operation.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -1558,20 +1768,20 @@ class ProjectsWebAppsResource {
     core.String parent, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/webApps';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/webApps';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Operation.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Operation.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Gets the specified WebApp.
@@ -1600,18 +1810,18 @@ class ProjectsWebAppsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
-    return WebApp.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return WebApp.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Gets the configuration artifact associated with the specified WebApp.
@@ -1640,19 +1850,19 @@ class ProjectsWebAppsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return WebAppConfig.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Lists each WebApp associated with the specified FirebaseProject.
@@ -1677,6 +1887,10 @@ class ProjectsWebAppsResource {
   /// [pageToken] - Token returned from a previous call to `ListWebApps`
   /// indicating where in the set of Apps to resume listing.
   ///
+  /// [showDeleted] - Controls whether Apps in the DELETED state should be
+  /// returned in the response. If not specified, only `ACTIVE` Apps will be
+  /// returned.
+  ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
   ///
@@ -1691,23 +1905,25 @@ class ProjectsWebAppsResource {
     core.String parent, {
     core.int? pageSize,
     core.String? pageToken,
+    core.bool? showDeleted,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (pageSize != null) 'pageSize': ['${pageSize}'],
       if (pageToken != null) 'pageToken': [pageToken],
+      if (showDeleted != null) 'showDeleted': ['${showDeleted}'],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/webApps';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/webApps';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return ListWebAppsResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Updates the attributes of the specified WebApp.
@@ -1729,8 +1945,10 @@ class ProjectsWebAppsResource {
   /// (see \[`appId`\](../projects.webApps#WebApp.FIELDS.app_id)).
   /// Value must have pattern `^projects/\[^/\]+/webApps/\[^/\]+$`.
   ///
-  /// [updateMask] - Specifies which fields to update. Note that the fields
-  /// `name`, `appId`, and `projectId` are all immutable.
+  /// [updateMask] - Specifies which fields of the WebApp to update. Note that
+  /// the following fields are immutable: `name`, `app_id`, and `project_id`. To
+  /// update `state`, use any of the following endpoints: RemoveWebApp or
+  /// UndeleteWebApp.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -1748,21 +1966,111 @@ class ProjectsWebAppsResource {
     core.String? updateMask,
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (updateMask != null) 'updateMask': [updateMask],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'PATCH',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return WebApp.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return WebApp.fromJson(response_ as core.Map<core.String, core.dynamic>);
+  }
+
+  /// Removes the specified WebApp from the FirebaseProject.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The resource name of the WebApp, in the format:
+  /// projects/ PROJECT_IDENTIFIER/webApps/APP_ID Since an APP_ID is a unique
+  /// identifier, the Unique Resource from Sub-Collection access pattern may be
+  /// used here, in the format: projects/-/webApps/APP_ID Refer to the WebApp
+  /// \[name\](../projects.webApps#WebApp.FIELDS.name) field for details about
+  /// PROJECT_IDENTIFIER and APP_ID values.
+  /// Value must have pattern `^projects/\[^/\]+/webApps/\[^/\]+$`.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [Operation].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<Operation> remove(
+    RemoveWebAppRequest request,
+    core.String name, {
+    core.String? $fields,
+  }) async {
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name') + ':remove';
+
+    final response_ = await _requester.request(
+      url_,
+      'POST',
+      body: body_,
+      queryParams: queryParams_,
+    );
+    return Operation.fromJson(response_ as core.Map<core.String, core.dynamic>);
+  }
+
+  /// Restores the specified WebApp to the FirebaseProject.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The resource name of the WebApp, in the format:
+  /// projects/ PROJECT_IDENTIFIER/webApps/APP_ID Since an APP_ID is a unique
+  /// identifier, the Unique Resource from Sub-Collection access pattern may be
+  /// used here, in the format: projects/-/webApps/APP_ID Refer to the WebApp
+  /// \[name\](../projects.webApps#WebApp.FIELDS.name) field for details about
+  /// PROJECT_IDENTIFIER and APP_ID values.
+  /// Value must have pattern `^projects/\[^/\]+/webApps/\[^/\]+$`.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [Operation].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<Operation> undelete(
+    UndeleteWebAppRequest request,
+    core.String name, {
+    core.String? $fields,
+  }) async {
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name') + ':undelete';
+
+    final response_ = await _requester.request(
+      url_,
+      'POST',
+      body: body_,
+      queryParams: queryParams_,
+    );
+    return Operation.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -1783,10 +2091,10 @@ class AddFirebaseRequest {
     this.locationId,
   });
 
-  AddFirebaseRequest.fromJson(core.Map _json)
+  AddFirebaseRequest.fromJson(core.Map json_)
       : this(
-          locationId: _json.containsKey('locationId')
-              ? _json['locationId'] as core.String
+          locationId: json_.containsKey('locationId')
+              ? json_['locationId'] as core.String
               : null,
         );
 
@@ -1814,13 +2122,13 @@ class AddGoogleAnalyticsRequest {
     this.analyticsPropertyId,
   });
 
-  AddGoogleAnalyticsRequest.fromJson(core.Map _json)
+  AddGoogleAnalyticsRequest.fromJson(core.Map json_)
       : this(
-          analyticsAccountId: _json.containsKey('analyticsAccountId')
-              ? _json['analyticsAccountId'] as core.String
+          analyticsAccountId: json_.containsKey('analyticsAccountId')
+              ? json_['analyticsAccountId'] as core.String
               : null,
-          analyticsPropertyId: _json.containsKey('analyticsPropertyId')
-              ? _json['analyticsPropertyId'] as core.String
+          analyticsPropertyId: json_.containsKey('analyticsPropertyId')
+              ? json_['analyticsPropertyId'] as core.String
               : null,
         );
 
@@ -1865,19 +2173,19 @@ class AdminSdkConfig {
     this.storageBucket,
   });
 
-  AdminSdkConfig.fromJson(core.Map _json)
+  AdminSdkConfig.fromJson(core.Map json_)
       : this(
-          databaseURL: _json.containsKey('databaseURL')
-              ? _json['databaseURL'] as core.String
+          databaseURL: json_.containsKey('databaseURL')
+              ? json_['databaseURL'] as core.String
               : null,
-          locationId: _json.containsKey('locationId')
-              ? _json['locationId'] as core.String
+          locationId: json_.containsKey('locationId')
+              ? json_['locationId'] as core.String
               : null,
-          projectId: _json.containsKey('projectId')
-              ? _json['projectId'] as core.String
+          projectId: json_.containsKey('projectId')
+              ? json_['projectId'] as core.String
               : null,
-          storageBucket: _json.containsKey('storageBucket')
-              ? _json['storageBucket'] as core.String
+          storageBucket: json_.containsKey('storageBucket')
+              ? json_['storageBucket'] as core.String
               : null,
         );
 
@@ -1911,14 +2219,14 @@ class AnalyticsDetails {
     this.streamMappings,
   });
 
-  AnalyticsDetails.fromJson(core.Map _json)
+  AnalyticsDetails.fromJson(core.Map json_)
       : this(
-          analyticsProperty: _json.containsKey('analyticsProperty')
-              ? AnalyticsProperty.fromJson(_json['analyticsProperty']
+          analyticsProperty: json_.containsKey('analyticsProperty')
+              ? AnalyticsProperty.fromJson(json_['analyticsProperty']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          streamMappings: _json.containsKey('streamMappings')
-              ? (_json['streamMappings'] as core.List)
+          streamMappings: json_.containsKey('streamMappings')
+              ? (json_['streamMappings'] as core.List)
                   .map((value) => StreamMapping.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -1960,15 +2268,15 @@ class AnalyticsProperty {
     this.id,
   });
 
-  AnalyticsProperty.fromJson(core.Map _json)
+  AnalyticsProperty.fromJson(core.Map json_)
       : this(
-          analyticsAccountId: _json.containsKey('analyticsAccountId')
-              ? _json['analyticsAccountId'] as core.String
+          analyticsAccountId: json_.containsKey('analyticsAccountId')
+              ? json_['analyticsAccountId'] as core.String
               : null,
-          displayName: _json.containsKey('displayName')
-              ? _json['displayName'] as core.String
+          displayName: json_.containsKey('displayName')
+              ? json_['displayName'] as core.String
               : null,
-          id: _json.containsKey('id') ? _json['id'] as core.String : null,
+          id: json_.containsKey('id') ? json_['id'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
@@ -1981,13 +2289,24 @@ class AnalyticsProperty {
 
 /// Details of a Firebase App for Android.
 class AndroidApp {
-  /// The key_id of the GCP ApiKey associated with this App.
+  /// The globally unique, Google-assigned identifier (UID) for the Firebase API
+  /// key associated with the `AndroidApp`.
   ///
-  /// If set must have no restrictions, or only have restrictions that are valid
-  /// for the associated Firebase App. Cannot be set in create requests, instead
-  /// an existing valid API Key will be chosen, or if no valid API Keys exist,
-  /// one will be provisioned for you. Cannot be set to an empty value in update
-  /// requests.
+  /// Be aware that this value is the UID of the API key, _not_ the
+  /// \[`keyString`\](https://cloud.google.com/api-keys/docs/reference/rest/v2/projects.locations.keys#Key.FIELDS.key_string)
+  /// of the API key. The `keyString` is the value that can be found in the
+  /// App's \[configuration
+  /// artifact\](../../rest/v1beta1/projects.androidApps/getConfig). If
+  /// `api_key_id` is not set in requests to
+  /// \[`androidApps.Create`\](../../rest/v1beta1/projects.androidApps/create),
+  /// then Firebase automatically associates an `api_key_id` with the
+  /// `AndroidApp`. This auto-associated key may be an existing valid key or, if
+  /// no valid key exists, a new one will be provisioned. In patch requests,
+  /// `api_key_id` cannot be set to an empty value, and the new UID must have no
+  /// restrictions or only have restrictions that are valid for the associated
+  /// `AndroidApp`. We recommend using the
+  /// [Google Cloud Console](https://console.cloud.google.com/apis/credentials)
+  /// to manage API keys.
   core.String? apiKeyId;
 
   /// The globally unique, Firebase-assigned identifier for the `AndroidApp`.
@@ -1995,11 +2314,28 @@ class AndroidApp {
   /// This identifier should be treated as an opaque token, as the data format
   /// is not specified.
   ///
-  /// Immutable.
+  /// Output only. Immutable.
   core.String? appId;
 
   /// The user-assigned display name for the `AndroidApp`.
   core.String? displayName;
+
+  /// This checksum is computed by the server based on the value of other
+  /// fields, and it may be sent with update requests to ensure the client has
+  /// an up-to-date value before proceeding.
+  ///
+  /// Learn more about `etag` in Google's \[AIP-154
+  /// standard\](https://google.aip.dev/154#declarative-friendly-resources).
+  /// This etag is strongly validated.
+  core.String? etag;
+
+  /// Timestamp of when the App will be considered expired and cannot be
+  /// undeleted.
+  ///
+  /// This value is only provided if the App is in the `DELETED` state.
+  ///
+  /// Output only.
+  core.String? expireTime;
 
   /// The resource name of the AndroidApp, in the format: projects/
   /// PROJECT_IDENTIFIER/androidApps/APP_ID * PROJECT_IDENTIFIER: the parent
@@ -2024,44 +2360,89 @@ class AndroidApp {
   /// A user-assigned unique identifier of the parent FirebaseProject for the
   /// `AndroidApp`.
   ///
-  /// Immutable.
+  /// Output only. Immutable.
   core.String? projectId;
+
+  /// The SHA1 certificate hashes for the AndroidApp.
+  core.List<core.String>? sha1Hashes;
+
+  /// The SHA256 certificate hashes for the AndroidApp.
+  core.List<core.String>? sha256Hashes;
+
+  /// The lifecycle state of the App.
+  ///
+  /// Output only.
+  /// Possible string values are:
+  /// - "STATE_UNSPECIFIED" : Unspecified state.
+  /// - "ACTIVE" : The App is active.
+  /// - "DELETED" : The App has been soft-deleted. After an App has been in the
+  /// `DELETED` state for more than 30 days, it is considered expired and will
+  /// be permanently deleted. Up until this time, you can restore the App by
+  /// calling `Undelete` (\[Android\](projects.androidApps/undelete) |
+  /// \[iOS\](projects.iosApps/undelete) | \[web\](projects.webApps/undelete)).
+  core.String? state;
 
   AndroidApp({
     this.apiKeyId,
     this.appId,
     this.displayName,
+    this.etag,
+    this.expireTime,
     this.name,
     this.packageName,
     this.projectId,
+    this.sha1Hashes,
+    this.sha256Hashes,
+    this.state,
   });
 
-  AndroidApp.fromJson(core.Map _json)
+  AndroidApp.fromJson(core.Map json_)
       : this(
-          apiKeyId: _json.containsKey('apiKeyId')
-              ? _json['apiKeyId'] as core.String
+          apiKeyId: json_.containsKey('apiKeyId')
+              ? json_['apiKeyId'] as core.String
               : null,
           appId:
-              _json.containsKey('appId') ? _json['appId'] as core.String : null,
-          displayName: _json.containsKey('displayName')
-              ? _json['displayName'] as core.String
+              json_.containsKey('appId') ? json_['appId'] as core.String : null,
+          displayName: json_.containsKey('displayName')
+              ? json_['displayName'] as core.String
               : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
-          packageName: _json.containsKey('packageName')
-              ? _json['packageName'] as core.String
+          etag: json_.containsKey('etag') ? json_['etag'] as core.String : null,
+          expireTime: json_.containsKey('expireTime')
+              ? json_['expireTime'] as core.String
               : null,
-          projectId: _json.containsKey('projectId')
-              ? _json['projectId'] as core.String
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+          packageName: json_.containsKey('packageName')
+              ? json_['packageName'] as core.String
               : null,
+          projectId: json_.containsKey('projectId')
+              ? json_['projectId'] as core.String
+              : null,
+          sha1Hashes: json_.containsKey('sha1Hashes')
+              ? (json_['sha1Hashes'] as core.List)
+                  .map((value) => value as core.String)
+                  .toList()
+              : null,
+          sha256Hashes: json_.containsKey('sha256Hashes')
+              ? (json_['sha256Hashes'] as core.List)
+                  .map((value) => value as core.String)
+                  .toList()
+              : null,
+          state:
+              json_.containsKey('state') ? json_['state'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
         if (apiKeyId != null) 'apiKeyId': apiKeyId!,
         if (appId != null) 'appId': appId!,
         if (displayName != null) 'displayName': displayName!,
+        if (etag != null) 'etag': etag!,
+        if (expireTime != null) 'expireTime': expireTime!,
         if (name != null) 'name': name!,
         if (packageName != null) 'packageName': packageName!,
         if (projectId != null) 'projectId': projectId!,
+        if (sha1Hashes != null) 'sha1Hashes': sha1Hashes!,
+        if (sha256Hashes != null) 'sha256Hashes': sha256Hashes!,
+        if (state != null) 'state': state!,
       };
 }
 
@@ -2072,9 +2453,9 @@ class AndroidAppConfig {
   core.List<core.int> get configFileContentsAsBytes =>
       convert.base64.decode(configFileContents!);
 
-  set configFileContentsAsBytes(core.List<core.int> _bytes) {
+  set configFileContentsAsBytes(core.List<core.int> bytes_) {
     configFileContents =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   /// The filename that the configuration artifact for the `AndroidApp` is
@@ -2088,13 +2469,13 @@ class AndroidAppConfig {
     this.configFilename,
   });
 
-  AndroidAppConfig.fromJson(core.Map _json)
+  AndroidAppConfig.fromJson(core.Map json_)
       : this(
-          configFileContents: _json.containsKey('configFileContents')
-              ? _json['configFileContents'] as core.String
+          configFileContents: json_.containsKey('configFileContents')
+              ? json_['configFileContents'] as core.String
               : null,
-          configFilename: _json.containsKey('configFilename')
-              ? _json['configFilename'] as core.String
+          configFilename: json_.containsKey('configFilename')
+              ? json_['configFilename'] as core.String
               : null,
         );
 
@@ -2116,6 +2497,8 @@ class DefaultResources {
   /// alphanumeric characters to create your default Hosting site name. For
   /// example, if your `projectId` is `myproject123`, your default Hosting site
   /// name might be: `myproject123-a5c16`
+  ///
+  /// Output only.
   core.String? hostingSite;
 
   /// The ID of the Project's default GCP resource location.
@@ -2126,6 +2509,8 @@ class DefaultResources {
   /// finalized yet. To set a Project's default GCP resource location, call
   /// \[`FinalizeDefaultLocation`\](../projects.defaultLocation/finalize) after
   /// you add Firebase resources to the Project.
+  ///
+  /// Output only.
   core.String? locationId;
 
   /// The default Firebase Realtime Database instance name, in the format:
@@ -2138,10 +2523,14 @@ class DefaultResources {
   /// alphanumeric characters to create your default Realtime Database instance
   /// name. For example, if your `projectId` is `myproject123`, your default
   /// database instance name might be: `myproject123-a5c16`
+  ///
+  /// Output only.
   core.String? realtimeDatabaseInstance;
 
   /// The default Cloud Storage for Firebase storage bucket, in the format:
   /// PROJECT_ID.appspot.com
+  ///
+  /// Output only.
   core.String? storageBucket;
 
   DefaultResources({
@@ -2151,20 +2540,20 @@ class DefaultResources {
     this.storageBucket,
   });
 
-  DefaultResources.fromJson(core.Map _json)
+  DefaultResources.fromJson(core.Map json_)
       : this(
-          hostingSite: _json.containsKey('hostingSite')
-              ? _json['hostingSite'] as core.String
+          hostingSite: json_.containsKey('hostingSite')
+              ? json_['hostingSite'] as core.String
               : null,
-          locationId: _json.containsKey('locationId')
-              ? _json['locationId'] as core.String
+          locationId: json_.containsKey('locationId')
+              ? json_['locationId'] as core.String
               : null,
           realtimeDatabaseInstance:
-              _json.containsKey('realtimeDatabaseInstance')
-                  ? _json['realtimeDatabaseInstance'] as core.String
+              json_.containsKey('realtimeDatabaseInstance')
+                  ? json_['realtimeDatabaseInstance'] as core.String
                   : null,
-          storageBucket: _json.containsKey('storageBucket')
-              ? _json['storageBucket'] as core.String
+          storageBucket: json_.containsKey('storageBucket')
+              ? json_['storageBucket'] as core.String
               : null,
         );
 
@@ -2196,10 +2585,10 @@ class FinalizeDefaultLocationRequest {
     this.locationId,
   });
 
-  FinalizeDefaultLocationRequest.fromJson(core.Map _json)
+  FinalizeDefaultLocationRequest.fromJson(core.Map json_)
       : this(
-          locationId: _json.containsKey('locationId')
-              ? _json['locationId'] as core.String
+          locationId: json_.containsKey('locationId')
+              ? json_['locationId'] as core.String
               : null,
         );
 
@@ -2210,6 +2599,25 @@ class FinalizeDefaultLocationRequest {
 
 /// A high-level summary of an App.
 class FirebaseAppInfo {
+  /// The globally unique, Google-assigned identifier (UID) for the Firebase API
+  /// key associated with the App.
+  ///
+  /// Be aware that this value is the UID of the API key, _not_ the
+  /// \[`keyString`\](https://cloud.google.com/api-keys/docs/reference/rest/v2/projects.locations.keys#Key.FIELDS.key_string)
+  /// of the API key. The `keyString` is the value that can be found in the
+  /// App's configuration artifact
+  /// (\[`AndroidApp`\](../../rest/v1beta1/projects.androidApps/getConfig) |
+  /// \[`IosApp`\](../../rest/v1beta1/projects.iosApps/getConfig) |
+  /// \[`WebApp`\](../../rest/v1beta1/projects.webApps/getConfig)). If
+  /// `api_key_id` is not set in requests to create the App
+  /// (\[`AndroidApp`\](../../rest/v1beta1/projects.androidApps/create) |
+  /// \[`IosApp`\](../../rest/v1beta1/projects.iosApps/create) |
+  /// \[`WebApp`\](../../rest/v1beta1/projects.webApps/create)), then Firebase
+  /// automatically associates an `api_key_id` with the App. This
+  /// auto-associated key may be an existing valid key or, if no valid key
+  /// exists, a new one will be provisioned.
+  core.String? apiKeyId;
+
   /// The globally unique, Firebase-assigned identifier for the `WebApp`.
   ///
   /// This identifier should be treated as an opaque token, as the data format
@@ -2220,6 +2628,14 @@ class FirebaseAppInfo {
 
   /// The user-assigned display name of the Firebase App.
   core.String? displayName;
+
+  /// Timestamp of when the App will be considered expired and cannot be
+  /// undeleted.
+  ///
+  /// This value is only provided if the App is in the `DELETED` state.
+  ///
+  /// Output only.
+  core.String? expireTime;
 
   /// The resource name of the Firebase App, in the format: projects/PROJECT_ID
   /// /iosApps/APP_ID or projects/PROJECT_ID/androidApps/APP_ID or projects/
@@ -2248,36 +2664,63 @@ class FirebaseAppInfo {
   /// - "WEB" : The Firebase App is associated with web.
   core.String? platform;
 
+  /// The lifecycle state of the App.
+  ///
+  /// Output only.
+  /// Possible string values are:
+  /// - "STATE_UNSPECIFIED" : Unspecified state.
+  /// - "ACTIVE" : The App is active.
+  /// - "DELETED" : The App has been soft-deleted. After an App has been in the
+  /// `DELETED` state for more than 30 days, it is considered expired and will
+  /// be permanently deleted. Up until this time, you can restore the App by
+  /// calling `Undelete` (\[Android\](projects.androidApps/undelete) |
+  /// \[iOS\](projects.iosApps/undelete) | \[web\](projects.webApps/undelete)).
+  core.String? state;
+
   FirebaseAppInfo({
+    this.apiKeyId,
     this.appId,
     this.displayName,
+    this.expireTime,
     this.name,
     this.namespace,
     this.platform,
+    this.state,
   });
 
-  FirebaseAppInfo.fromJson(core.Map _json)
+  FirebaseAppInfo.fromJson(core.Map json_)
       : this(
+          apiKeyId: json_.containsKey('apiKeyId')
+              ? json_['apiKeyId'] as core.String
+              : null,
           appId:
-              _json.containsKey('appId') ? _json['appId'] as core.String : null,
-          displayName: _json.containsKey('displayName')
-              ? _json['displayName'] as core.String
+              json_.containsKey('appId') ? json_['appId'] as core.String : null,
+          displayName: json_.containsKey('displayName')
+              ? json_['displayName'] as core.String
               : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
-          namespace: _json.containsKey('namespace')
-              ? _json['namespace'] as core.String
+          expireTime: json_.containsKey('expireTime')
+              ? json_['expireTime'] as core.String
               : null,
-          platform: _json.containsKey('platform')
-              ? _json['platform'] as core.String
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+          namespace: json_.containsKey('namespace')
+              ? json_['namespace'] as core.String
               : null,
+          platform: json_.containsKey('platform')
+              ? json_['platform'] as core.String
+              : null,
+          state:
+              json_.containsKey('state') ? json_['state'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
+        if (apiKeyId != null) 'apiKeyId': apiKeyId!,
         if (appId != null) 'appId': appId!,
         if (displayName != null) 'displayName': displayName!,
+        if (expireTime != null) 'expireTime': expireTime!,
         if (name != null) 'name': name!,
         if (namespace != null) 'namespace': namespace!,
         if (platform != null) 'platform': platform!,
+        if (state != null) 'state': state!,
       };
 }
 
@@ -2294,8 +2737,25 @@ class FirebaseAppInfo {
 /// the same underlying GCP identifiers (`projectNumber` and `projectId`). This
 /// allows for easy interop with Google APIs.
 class FirebaseProject {
+  /// A set of user-defined annotations for the FirebaseProject.
+  ///
+  /// Learn more about annotations in Google's \[AIP-128
+  /// standard\](https://google.aip.dev/128#annotations). These annotations are
+  /// intended solely for developers and client-side tools. Firebase services
+  /// will not mutate this annotations set.
+  core.Map<core.String, core.String>? annotations;
+
   /// The user-assigned display name of the Project.
   core.String? displayName;
+
+  /// This checksum is computed by the server based on the value of other
+  /// fields, and it may be sent with update requests to ensure the client has
+  /// an up-to-date value before proceeding.
+  ///
+  /// Learn more about `etag` in Google's \[AIP-154
+  /// standard\](https://google.aip.dev/154#declarative-friendly-resources).
+  /// This etag is strongly validated.
+  core.String? etag;
 
   /// The resource name of the Project, in the format:
   /// projects/PROJECT_IDENTIFIER PROJECT_IDENTIFIER: the Project's
@@ -2314,7 +2774,7 @@ class FirebaseProject {
   /// associated with the Project, but it should generally be treated as a
   /// convenience alias to reference the Project.
   ///
-  /// Immutable.
+  /// Output only. Immutable.
   core.String? projectId;
 
   /// The globally unique, Google-assigned canonical identifier for the Project.
@@ -2322,27 +2782,27 @@ class FirebaseProject {
   /// Use this identifier when configuring integrations and/or making API calls
   /// to Firebase or third-party services.
   ///
-  /// Immutable.
+  /// Output only. Immutable.
   core.String? projectNumber;
 
   /// The default Firebase resources associated with the Project.
+  ///
+  /// Output only.
   DefaultResources? resources;
 
   /// The lifecycle state of the Project.
   ///
-  /// Updates to the state must be performed via
-  /// com.google.cloudresourcemanager.v1.Projects.DeleteProject and
-  /// com.google.cloudresourcemanager.v1.Projects.UndeleteProject
-  ///
   /// Output only.
   /// Possible string values are:
   /// - "STATE_UNSPECIFIED" : Unspecified state.
-  /// - "ACTIVE" : The normal and active state.
-  /// - "DELETED" : The Project has been marked for deletion by the user.
+  /// - "ACTIVE" : The Project is active.
+  /// - "DELETED" : The Project has been soft-deleted.
   core.String? state;
 
   FirebaseProject({
+    this.annotations,
     this.displayName,
+    this.etag,
     this.name,
     this.projectId,
     this.projectNumber,
@@ -2350,28 +2810,40 @@ class FirebaseProject {
     this.state,
   });
 
-  FirebaseProject.fromJson(core.Map _json)
+  FirebaseProject.fromJson(core.Map json_)
       : this(
-          displayName: _json.containsKey('displayName')
-              ? _json['displayName'] as core.String
+          annotations: json_.containsKey('annotations')
+              ? (json_['annotations'] as core.Map<core.String, core.dynamic>)
+                  .map(
+                  (key, value) => core.MapEntry(
+                    key,
+                    value as core.String,
+                  ),
+                )
               : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
-          projectId: _json.containsKey('projectId')
-              ? _json['projectId'] as core.String
+          displayName: json_.containsKey('displayName')
+              ? json_['displayName'] as core.String
               : null,
-          projectNumber: _json.containsKey('projectNumber')
-              ? _json['projectNumber'] as core.String
+          etag: json_.containsKey('etag') ? json_['etag'] as core.String : null,
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+          projectId: json_.containsKey('projectId')
+              ? json_['projectId'] as core.String
               : null,
-          resources: _json.containsKey('resources')
+          projectNumber: json_.containsKey('projectNumber')
+              ? json_['projectNumber'] as core.String
+              : null,
+          resources: json_.containsKey('resources')
               ? DefaultResources.fromJson(
-                  _json['resources'] as core.Map<core.String, core.dynamic>)
+                  json_['resources'] as core.Map<core.String, core.dynamic>)
               : null,
           state:
-              _json.containsKey('state') ? _json['state'] as core.String : null,
+              json_.containsKey('state') ? json_['state'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
+        if (annotations != null) 'annotations': annotations!,
         if (displayName != null) 'displayName': displayName!,
+        if (etag != null) 'etag': etag!,
         if (name != null) 'name': name!,
         if (projectId != null) 'projectId': projectId!,
         if (projectNumber != null) 'projectNumber': projectNumber!,
@@ -2382,13 +2854,24 @@ class FirebaseProject {
 
 /// Details of a Firebase App for iOS.
 class IosApp {
-  /// The key_id of the GCP ApiKey associated with this App.
+  /// The globally unique, Google-assigned identifier (UID) for the Firebase API
+  /// key associated with the `IosApp`.
   ///
-  /// If set must have no restrictions, or only have restrictions that are valid
-  /// for the associated Firebase App. Cannot be set in create requests, instead
-  /// an existing valid API Key will be chosen, or if no valid API Keys exist,
-  /// one will be provisioned for you. Cannot be set to an empty value in update
-  /// requests.
+  /// Be aware that this value is the UID of the API key, _not_ the
+  /// \[`keyString`\](https://cloud.google.com/api-keys/docs/reference/rest/v2/projects.locations.keys#Key.FIELDS.key_string)
+  /// of the API key. The `keyString` is the value that can be found in the
+  /// App's \[configuration
+  /// artifact\](../../rest/v1beta1/projects.iosApps/getConfig). If `api_key_id`
+  /// is not set in requests to
+  /// \[`iosApps.Create`\](../../rest/v1beta1/projects.iosApps/create), then
+  /// Firebase automatically associates an `api_key_id` with the `IosApp`. This
+  /// auto-associated key may be an existing valid key or, if no valid key
+  /// exists, a new one will be provisioned. In patch requests, `api_key_id`
+  /// cannot be set to an empty value, and the new UID must have no restrictions
+  /// or only have restrictions that are valid for the associated `IosApp`. We
+  /// recommend using the
+  /// [Google Cloud Console](https://console.cloud.google.com/apis/credentials)
+  /// to manage API keys.
   core.String? apiKeyId;
 
   /// The globally unique, Firebase-assigned identifier for the `IosApp`.
@@ -2396,7 +2879,7 @@ class IosApp {
   /// This identifier should be treated as an opaque token, as the data format
   /// is not specified.
   ///
-  /// Immutable.
+  /// Output only. Immutable.
   core.String? appId;
 
   /// The automatically generated Apple ID assigned to the iOS app by Apple in
@@ -2411,6 +2894,23 @@ class IosApp {
 
   /// The user-assigned display name for the `IosApp`.
   core.String? displayName;
+
+  /// This checksum is computed by the server based on the value of other
+  /// fields, and it may be sent with update requests to ensure the client has
+  /// an up-to-date value before proceeding.
+  ///
+  /// Learn more about `etag` in Google's \[AIP-154
+  /// standard\](https://google.aip.dev/154#declarative-friendly-resources).
+  /// This etag is strongly validated.
+  core.String? etag;
+
+  /// Timestamp of when the App will be considered expired and cannot be
+  /// undeleted.
+  ///
+  /// This value is only provided if the App is in the `DELETED` state.
+  ///
+  /// Output only.
+  core.String? expireTime;
 
   /// The resource name of the IosApp, in the format:
   /// projects/PROJECT_IDENTIFIER /iosApps/APP_ID * PROJECT_IDENTIFIER: the
@@ -2429,8 +2929,21 @@ class IosApp {
   /// A user-assigned unique identifier of the parent FirebaseProject for the
   /// `IosApp`.
   ///
-  /// Immutable.
+  /// Output only. Immutable.
   core.String? projectId;
+
+  /// The lifecycle state of the App.
+  ///
+  /// Output only.
+  /// Possible string values are:
+  /// - "STATE_UNSPECIFIED" : Unspecified state.
+  /// - "ACTIVE" : The App is active.
+  /// - "DELETED" : The App has been soft-deleted. After an App has been in the
+  /// `DELETED` state for more than 30 days, it is considered expired and will
+  /// be permanently deleted. Up until this time, you can restore the App by
+  /// calling `Undelete` (\[Android\](projects.androidApps/undelete) |
+  /// \[iOS\](projects.iosApps/undelete) | \[web\](projects.webApps/undelete)).
+  core.String? state;
 
   /// The Apple Developer Team ID associated with the App in the App Store.
   core.String? teamId;
@@ -2441,33 +2954,42 @@ class IosApp {
     this.appStoreId,
     this.bundleId,
     this.displayName,
+    this.etag,
+    this.expireTime,
     this.name,
     this.projectId,
+    this.state,
     this.teamId,
   });
 
-  IosApp.fromJson(core.Map _json)
+  IosApp.fromJson(core.Map json_)
       : this(
-          apiKeyId: _json.containsKey('apiKeyId')
-              ? _json['apiKeyId'] as core.String
+          apiKeyId: json_.containsKey('apiKeyId')
+              ? json_['apiKeyId'] as core.String
               : null,
           appId:
-              _json.containsKey('appId') ? _json['appId'] as core.String : null,
-          appStoreId: _json.containsKey('appStoreId')
-              ? _json['appStoreId'] as core.String
+              json_.containsKey('appId') ? json_['appId'] as core.String : null,
+          appStoreId: json_.containsKey('appStoreId')
+              ? json_['appStoreId'] as core.String
               : null,
-          bundleId: _json.containsKey('bundleId')
-              ? _json['bundleId'] as core.String
+          bundleId: json_.containsKey('bundleId')
+              ? json_['bundleId'] as core.String
               : null,
-          displayName: _json.containsKey('displayName')
-              ? _json['displayName'] as core.String
+          displayName: json_.containsKey('displayName')
+              ? json_['displayName'] as core.String
               : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
-          projectId: _json.containsKey('projectId')
-              ? _json['projectId'] as core.String
+          etag: json_.containsKey('etag') ? json_['etag'] as core.String : null,
+          expireTime: json_.containsKey('expireTime')
+              ? json_['expireTime'] as core.String
               : null,
-          teamId: _json.containsKey('teamId')
-              ? _json['teamId'] as core.String
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+          projectId: json_.containsKey('projectId')
+              ? json_['projectId'] as core.String
+              : null,
+          state:
+              json_.containsKey('state') ? json_['state'] as core.String : null,
+          teamId: json_.containsKey('teamId')
+              ? json_['teamId'] as core.String
               : null,
         );
 
@@ -2477,8 +2999,11 @@ class IosApp {
         if (appStoreId != null) 'appStoreId': appStoreId!,
         if (bundleId != null) 'bundleId': bundleId!,
         if (displayName != null) 'displayName': displayName!,
+        if (etag != null) 'etag': etag!,
+        if (expireTime != null) 'expireTime': expireTime!,
         if (name != null) 'name': name!,
         if (projectId != null) 'projectId': projectId!,
+        if (state != null) 'state': state!,
         if (teamId != null) 'teamId': teamId!,
       };
 }
@@ -2490,9 +3015,9 @@ class IosAppConfig {
   core.List<core.int> get configFileContentsAsBytes =>
       convert.base64.decode(configFileContents!);
 
-  set configFileContentsAsBytes(core.List<core.int> _bytes) {
+  set configFileContentsAsBytes(core.List<core.int> bytes_) {
     configFileContents =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   /// The filename that the configuration artifact for the `IosApp` is typically
@@ -2506,13 +3031,13 @@ class IosAppConfig {
     this.configFilename,
   });
 
-  IosAppConfig.fromJson(core.Map _json)
+  IosAppConfig.fromJson(core.Map json_)
       : this(
-          configFileContents: _json.containsKey('configFileContents')
-              ? _json['configFileContents'] as core.String
+          configFileContents: json_.containsKey('configFileContents')
+              ? json_['configFileContents'] as core.String
               : null,
-          configFilename: _json.containsKey('configFilename')
-              ? _json['configFilename'] as core.String
+          configFilename: json_.containsKey('configFilename')
+              ? json_['configFilename'] as core.String
               : null,
         );
 
@@ -2541,16 +3066,16 @@ class ListAndroidAppsResponse {
     this.nextPageToken,
   });
 
-  ListAndroidAppsResponse.fromJson(core.Map _json)
+  ListAndroidAppsResponse.fromJson(core.Map json_)
       : this(
-          apps: _json.containsKey('apps')
-              ? (_json['apps'] as core.List)
+          apps: json_.containsKey('apps')
+              ? (json_['apps'] as core.List)
                   .map((value) => AndroidApp.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          nextPageToken: _json.containsKey('nextPageToken')
-              ? _json['nextPageToken'] as core.String
+          nextPageToken: json_.containsKey('nextPageToken')
+              ? json_['nextPageToken'] as core.String
               : null,
         );
 
@@ -2578,16 +3103,16 @@ class ListAvailableLocationsResponse {
     this.nextPageToken,
   });
 
-  ListAvailableLocationsResponse.fromJson(core.Map _json)
+  ListAvailableLocationsResponse.fromJson(core.Map json_)
       : this(
-          locations: _json.containsKey('locations')
-              ? (_json['locations'] as core.List)
+          locations: json_.containsKey('locations')
+              ? (json_['locations'] as core.List)
                   .map((value) => Location.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          nextPageToken: _json.containsKey('nextPageToken')
-              ? _json['nextPageToken'] as core.String
+          nextPageToken: json_.containsKey('nextPageToken')
+              ? json_['nextPageToken'] as core.String
               : null,
         );
 
@@ -2616,13 +3141,13 @@ class ListAvailableProjectsResponse {
     this.projectInfo,
   });
 
-  ListAvailableProjectsResponse.fromJson(core.Map _json)
+  ListAvailableProjectsResponse.fromJson(core.Map json_)
       : this(
-          nextPageToken: _json.containsKey('nextPageToken')
-              ? _json['nextPageToken'] as core.String
+          nextPageToken: json_.containsKey('nextPageToken')
+              ? json_['nextPageToken'] as core.String
               : null,
-          projectInfo: _json.containsKey('projectInfo')
-              ? (_json['projectInfo'] as core.List)
+          projectInfo: json_.containsKey('projectInfo')
+              ? (json_['projectInfo'] as core.List)
                   .map((value) => ProjectInfo.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -2653,13 +3178,13 @@ class ListFirebaseProjectsResponse {
     this.results,
   });
 
-  ListFirebaseProjectsResponse.fromJson(core.Map _json)
+  ListFirebaseProjectsResponse.fromJson(core.Map json_)
       : this(
-          nextPageToken: _json.containsKey('nextPageToken')
-              ? _json['nextPageToken'] as core.String
+          nextPageToken: json_.containsKey('nextPageToken')
+              ? json_['nextPageToken'] as core.String
               : null,
-          results: _json.containsKey('results')
-              ? (_json['results'] as core.List)
+          results: json_.containsKey('results')
+              ? (json_['results'] as core.List)
                   .map((value) => FirebaseProject.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -2690,16 +3215,16 @@ class ListIosAppsResponse {
     this.nextPageToken,
   });
 
-  ListIosAppsResponse.fromJson(core.Map _json)
+  ListIosAppsResponse.fromJson(core.Map json_)
       : this(
-          apps: _json.containsKey('apps')
-              ? (_json['apps'] as core.List)
+          apps: json_.containsKey('apps')
+              ? (json_['apps'] as core.List)
                   .map((value) => IosApp.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          nextPageToken: _json.containsKey('nextPageToken')
-              ? _json['nextPageToken'] as core.String
+          nextPageToken: json_.containsKey('nextPageToken')
+              ? json_['nextPageToken'] as core.String
               : null,
         );
 
@@ -2717,10 +3242,10 @@ class ListShaCertificatesResponse {
     this.certificates,
   });
 
-  ListShaCertificatesResponse.fromJson(core.Map _json)
+  ListShaCertificatesResponse.fromJson(core.Map json_)
       : this(
-          certificates: _json.containsKey('certificates')
-              ? (_json['certificates'] as core.List)
+          certificates: json_.containsKey('certificates')
+              ? (json_['certificates'] as core.List)
                   .map((value) => ShaCertificate.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -2750,16 +3275,16 @@ class ListWebAppsResponse {
     this.nextPageToken,
   });
 
-  ListWebAppsResponse.fromJson(core.Map _json)
+  ListWebAppsResponse.fromJson(core.Map json_)
       : this(
-          apps: _json.containsKey('apps')
-              ? (_json['apps'] as core.List)
+          apps: json_.containsKey('apps')
+              ? (json_['apps'] as core.List)
                   .map((value) => WebApp.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          nextPageToken: _json.containsKey('nextPageToken')
-              ? _json['nextPageToken'] as core.String
+          nextPageToken: json_.containsKey('nextPageToken')
+              ? json_['nextPageToken'] as core.String
               : null,
         );
 
@@ -2800,17 +3325,17 @@ class Location {
     this.type,
   });
 
-  Location.fromJson(core.Map _json)
+  Location.fromJson(core.Map json_)
       : this(
-          features: _json.containsKey('features')
-              ? (_json['features'] as core.List)
+          features: json_.containsKey('features')
+              ? (json_['features'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
-          locationId: _json.containsKey('locationId')
-              ? _json['locationId'] as core.String
+          locationId: json_.containsKey('locationId')
+              ? json_['locationId'] as core.String
               : null,
-          type: _json.containsKey('type') ? _json['type'] as core.String : null,
+          type: json_.containsKey('type') ? json_['type'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
@@ -2850,7 +3375,7 @@ class Operation {
   /// ending with `operations/{unique_id}`.
   core.String? name;
 
-  /// The normal response of the operation in case of success.
+  /// The normal, successful response of the operation.
   ///
   /// If the original method returns no data on success, such as `Delete`, the
   /// response is `google.protobuf.Empty`. If the original method is standard
@@ -2871,19 +3396,19 @@ class Operation {
     this.response,
   });
 
-  Operation.fromJson(core.Map _json)
+  Operation.fromJson(core.Map json_)
       : this(
-          done: _json.containsKey('done') ? _json['done'] as core.bool : null,
-          error: _json.containsKey('error')
+          done: json_.containsKey('done') ? json_['done'] as core.bool : null,
+          error: json_.containsKey('error')
               ? Status.fromJson(
-                  _json['error'] as core.Map<core.String, core.dynamic>)
+                  json_['error'] as core.Map<core.String, core.dynamic>)
               : null,
-          metadata: _json.containsKey('metadata')
-              ? _json['metadata'] as core.Map<core.String, core.dynamic>
+          metadata: json_.containsKey('metadata')
+              ? json_['metadata'] as core.Map<core.String, core.dynamic>
               : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
-          response: _json.containsKey('response')
-              ? _json['response'] as core.Map<core.String, core.dynamic>
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+          response: json_.containsKey('response')
+              ? json_['response'] as core.Map<core.String, core.dynamic>
               : null,
         );
 
@@ -2924,16 +3449,16 @@ class ProjectInfo {
     this.project,
   });
 
-  ProjectInfo.fromJson(core.Map _json)
+  ProjectInfo.fromJson(core.Map json_)
       : this(
-          displayName: _json.containsKey('displayName')
-              ? _json['displayName'] as core.String
+          displayName: json_.containsKey('displayName')
+              ? json_['displayName'] as core.String
               : null,
-          locationId: _json.containsKey('locationId')
-              ? _json['locationId'] as core.String
+          locationId: json_.containsKey('locationId')
+              ? json_['locationId'] as core.String
               : null,
-          project: _json.containsKey('project')
-              ? _json['project'] as core.String
+          project: json_.containsKey('project')
+              ? json_['project'] as core.String
               : null,
         );
 
@@ -2961,16 +3486,175 @@ class RemoveAnalyticsRequest {
     this.analyticsPropertyId,
   });
 
-  RemoveAnalyticsRequest.fromJson(core.Map _json)
+  RemoveAnalyticsRequest.fromJson(core.Map json_)
       : this(
-          analyticsPropertyId: _json.containsKey('analyticsPropertyId')
-              ? _json['analyticsPropertyId'] as core.String
+          analyticsPropertyId: json_.containsKey('analyticsPropertyId')
+              ? json_['analyticsPropertyId'] as core.String
               : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
         if (analyticsPropertyId != null)
           'analyticsPropertyId': analyticsPropertyId!,
+      };
+}
+
+class RemoveAndroidAppRequest {
+  /// If set to true, and the App is not found, the request will succeed but no
+  /// action will be taken on the server.
+  core.bool? allowMissing;
+
+  /// Checksum provided in the AndroidApp resource.
+  ///
+  /// If provided, this checksum ensures that the client has an up-to-date value
+  /// before proceeding.
+  core.String? etag;
+
+  /// Determines whether to _immediately_ delete the AndroidApp.
+  ///
+  /// If set to true, the App is immediately deleted from the Project and cannot
+  /// be restored to the Project. If not set, defaults to false, which means the
+  /// App will be set to expire in 30 days. Within the 30 days, the App may be
+  /// restored to the Project using UndeleteAndroidApp.
+  core.bool? immediate;
+
+  /// If set to true, the request is only validated.
+  ///
+  /// The App will _not_ be removed.
+  core.bool? validateOnly;
+
+  RemoveAndroidAppRequest({
+    this.allowMissing,
+    this.etag,
+    this.immediate,
+    this.validateOnly,
+  });
+
+  RemoveAndroidAppRequest.fromJson(core.Map json_)
+      : this(
+          allowMissing: json_.containsKey('allowMissing')
+              ? json_['allowMissing'] as core.bool
+              : null,
+          etag: json_.containsKey('etag') ? json_['etag'] as core.String : null,
+          immediate: json_.containsKey('immediate')
+              ? json_['immediate'] as core.bool
+              : null,
+          validateOnly: json_.containsKey('validateOnly')
+              ? json_['validateOnly'] as core.bool
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (allowMissing != null) 'allowMissing': allowMissing!,
+        if (etag != null) 'etag': etag!,
+        if (immediate != null) 'immediate': immediate!,
+        if (validateOnly != null) 'validateOnly': validateOnly!,
+      };
+}
+
+class RemoveIosAppRequest {
+  /// If set to true, and the App is not found, the request will succeed but no
+  /// action will be taken on the server.
+  core.bool? allowMissing;
+
+  /// Checksum provided in the IosApp resource.
+  ///
+  /// If provided, this checksum ensures that the client has an up-to-date value
+  /// before proceeding.
+  core.String? etag;
+
+  /// Determines whether to _immediately_ delete the IosApp.
+  ///
+  /// If set to true, the App is immediately deleted from the Project and cannot
+  /// be restored to the Project. If not set, defaults to false, which means the
+  /// App will be set to expire in 30 days. Within the 30 days, the App may be
+  /// restored to the Project using UndeleteIosApp
+  core.bool? immediate;
+
+  /// If set to true, the request is only validated.
+  ///
+  /// The App will _not_ be removed.
+  core.bool? validateOnly;
+
+  RemoveIosAppRequest({
+    this.allowMissing,
+    this.etag,
+    this.immediate,
+    this.validateOnly,
+  });
+
+  RemoveIosAppRequest.fromJson(core.Map json_)
+      : this(
+          allowMissing: json_.containsKey('allowMissing')
+              ? json_['allowMissing'] as core.bool
+              : null,
+          etag: json_.containsKey('etag') ? json_['etag'] as core.String : null,
+          immediate: json_.containsKey('immediate')
+              ? json_['immediate'] as core.bool
+              : null,
+          validateOnly: json_.containsKey('validateOnly')
+              ? json_['validateOnly'] as core.bool
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (allowMissing != null) 'allowMissing': allowMissing!,
+        if (etag != null) 'etag': etag!,
+        if (immediate != null) 'immediate': immediate!,
+        if (validateOnly != null) 'validateOnly': validateOnly!,
+      };
+}
+
+class RemoveWebAppRequest {
+  /// If set to true, and the App is not found, the request will succeed but no
+  /// action will be taken on the server.
+  core.bool? allowMissing;
+
+  /// Checksum provided in the WebApp resource.
+  ///
+  /// If provided, this checksum ensures that the client has an up-to-date value
+  /// before proceeding.
+  core.String? etag;
+
+  /// Determines whether to _immediately_ delete the WebApp.
+  ///
+  /// If set to true, the App is immediately deleted from the Project and cannot
+  /// be restored to the Project. If not set, defaults to false, which means the
+  /// App will be set to expire in 30 days. Within the 30 days, the App may be
+  /// restored to the Project using UndeleteWebApp
+  core.bool? immediate;
+
+  /// If set to true, the request is only validated.
+  ///
+  /// The App will _not_ be removed.
+  core.bool? validateOnly;
+
+  RemoveWebAppRequest({
+    this.allowMissing,
+    this.etag,
+    this.immediate,
+    this.validateOnly,
+  });
+
+  RemoveWebAppRequest.fromJson(core.Map json_)
+      : this(
+          allowMissing: json_.containsKey('allowMissing')
+              ? json_['allowMissing'] as core.bool
+              : null,
+          etag: json_.containsKey('etag') ? json_['etag'] as core.String : null,
+          immediate: json_.containsKey('immediate')
+              ? json_['immediate'] as core.bool
+              : null,
+          validateOnly: json_.containsKey('validateOnly')
+              ? json_['validateOnly'] as core.bool
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (allowMissing != null) 'allowMissing': allowMissing!,
+        if (etag != null) 'etag': etag!,
+        if (immediate != null) 'immediate': immediate!,
+        if (validateOnly != null) 'validateOnly': validateOnly!,
       };
 }
 
@@ -2991,16 +3675,16 @@ class SearchFirebaseAppsResponse {
     this.nextPageToken,
   });
 
-  SearchFirebaseAppsResponse.fromJson(core.Map _json)
+  SearchFirebaseAppsResponse.fromJson(core.Map json_)
       : this(
-          apps: _json.containsKey('apps')
-              ? (_json['apps'] as core.List)
+          apps: json_.containsKey('apps')
+              ? (json_['apps'] as core.List)
                   .map((value) => FirebaseAppInfo.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          nextPageToken: _json.containsKey('nextPageToken')
-              ? _json['nextPageToken'] as core.String
+          nextPageToken: json_.containsKey('nextPageToken')
+              ? json_['nextPageToken'] as core.String
               : null,
         );
 
@@ -3045,14 +3729,14 @@ class ShaCertificate {
     this.shaHash,
   });
 
-  ShaCertificate.fromJson(core.Map _json)
+  ShaCertificate.fromJson(core.Map json_)
       : this(
-          certType: _json.containsKey('certType')
-              ? _json['certType'] as core.String
+          certType: json_.containsKey('certType')
+              ? json_['certType'] as core.String
               : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
-          shaHash: _json.containsKey('shaHash')
-              ? _json['shaHash'] as core.String
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+          shaHash: json_.containsKey('shaHash')
+              ? json_['shaHash'] as core.String
               : null,
         );
 
@@ -3104,14 +3788,14 @@ class StreamMapping {
     this.streamId,
   });
 
-  StreamMapping.fromJson(core.Map _json)
+  StreamMapping.fromJson(core.Map json_)
       : this(
-          app: _json.containsKey('app') ? _json['app'] as core.String : null,
-          measurementId: _json.containsKey('measurementId')
-              ? _json['measurementId'] as core.String
+          app: json_.containsKey('app') ? json_['app'] as core.String : null,
+          measurementId: json_.containsKey('measurementId')
+              ? json_['measurementId'] as core.String
               : null,
-          streamId: _json.containsKey('streamId')
-              ? _json['streamId'] as core.String
+          streamId: json_.containsKey('streamId')
+              ? json_['streamId'] as core.String
               : null,
         );
 
@@ -3122,15 +3806,119 @@ class StreamMapping {
       };
 }
 
+class UndeleteAndroidAppRequest {
+  /// Checksum provided in the AndroidApp resource.
+  ///
+  /// If provided, this checksum ensures that the client has an up-to-date value
+  /// before proceeding.
+  core.String? etag;
+
+  /// If set to true, the request is only validated.
+  ///
+  /// The App will _not_ be undeleted.
+  core.bool? validateOnly;
+
+  UndeleteAndroidAppRequest({
+    this.etag,
+    this.validateOnly,
+  });
+
+  UndeleteAndroidAppRequest.fromJson(core.Map json_)
+      : this(
+          etag: json_.containsKey('etag') ? json_['etag'] as core.String : null,
+          validateOnly: json_.containsKey('validateOnly')
+              ? json_['validateOnly'] as core.bool
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (etag != null) 'etag': etag!,
+        if (validateOnly != null) 'validateOnly': validateOnly!,
+      };
+}
+
+class UndeleteIosAppRequest {
+  /// Checksum provided in the IosApp resource.
+  ///
+  /// If provided, this checksum ensures that the client has an up-to-date value
+  /// before proceeding.
+  core.String? etag;
+
+  /// If set to true, the request is only validated.
+  ///
+  /// The App will _not_ be undeleted.
+  core.bool? validateOnly;
+
+  UndeleteIosAppRequest({
+    this.etag,
+    this.validateOnly,
+  });
+
+  UndeleteIosAppRequest.fromJson(core.Map json_)
+      : this(
+          etag: json_.containsKey('etag') ? json_['etag'] as core.String : null,
+          validateOnly: json_.containsKey('validateOnly')
+              ? json_['validateOnly'] as core.bool
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (etag != null) 'etag': etag!,
+        if (validateOnly != null) 'validateOnly': validateOnly!,
+      };
+}
+
+class UndeleteWebAppRequest {
+  /// Checksum provided in the WebApp resource.
+  ///
+  /// If provided, this checksum ensures that the client has an up-to-date value
+  /// before proceeding.
+  core.String? etag;
+
+  /// If set to true, the request is only validated.
+  ///
+  /// The App will _not_ be undeleted.
+  core.bool? validateOnly;
+
+  UndeleteWebAppRequest({
+    this.etag,
+    this.validateOnly,
+  });
+
+  UndeleteWebAppRequest.fromJson(core.Map json_)
+      : this(
+          etag: json_.containsKey('etag') ? json_['etag'] as core.String : null,
+          validateOnly: json_.containsKey('validateOnly')
+              ? json_['validateOnly'] as core.bool
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (etag != null) 'etag': etag!,
+        if (validateOnly != null) 'validateOnly': validateOnly!,
+      };
+}
+
 /// Details of a Firebase App for the web.
 class WebApp {
-  /// The key_id of the GCP ApiKey associated with this App.
+  /// The globally unique, Google-assigned identifier (UID) for the Firebase API
+  /// key associated with the `WebApp`.
   ///
-  /// If set must have no restrictions, or only have restrictions that are valid
-  /// for the associated Firebase App. Cannot be set in create requests, instead
-  /// an existing valid API Key will be chosen, or if no valid API Keys exist,
-  /// one will be provisioned for you. Cannot be set to an empty value in update
-  /// requests.
+  /// Be aware that this value is the UID of the API key, _not_ the
+  /// \[`keyString`\](https://cloud.google.com/api-keys/docs/reference/rest/v2/projects.locations.keys#Key.FIELDS.key_string)
+  /// of the API key. The `keyString` is the value that can be found in the
+  /// App's \[configuration
+  /// artifact\](../../rest/v1beta1/projects.webApps/getConfig). If `api_key_id`
+  /// is not set in requests to
+  /// \[`webApps.Create`\](../../rest/v1beta1/projects.webApps/create), then
+  /// Firebase automatically associates an `api_key_id` with the `WebApp`. This
+  /// auto-associated key may be an existing valid key or, if no valid key
+  /// exists, a new one will be provisioned. In patch requests, `api_key_id`
+  /// cannot be set to an empty value, and the new UID must have no restrictions
+  /// or only have restrictions that are valid for the associated `WebApp`. We
+  /// recommend using the
+  /// [Google Cloud Console](https://console.cloud.google.com/apis/credentials)
+  /// to manage API keys.
   core.String? apiKeyId;
 
   /// The globally unique, Firebase-assigned identifier for the `WebApp`.
@@ -3138,7 +3926,7 @@ class WebApp {
   /// This identifier should be treated as an opaque token, as the data format
   /// is not specified.
   ///
-  /// Immutable.
+  /// Output only. Immutable.
   core.String? appId;
 
   /// The URLs where the `WebApp` is hosted.
@@ -3146,6 +3934,23 @@ class WebApp {
 
   /// The user-assigned display name for the `WebApp`.
   core.String? displayName;
+
+  /// This checksum is computed by the server based on the value of other
+  /// fields, and it may be sent with update requests to ensure the client has
+  /// an up-to-date value before proceeding.
+  ///
+  /// Learn more about `etag` in Google's \[AIP-154
+  /// standard\](https://google.aip.dev/154#declarative-friendly-resources).
+  /// This etag is strongly validated.
+  core.String? etag;
+
+  /// Timestamp of when the App will be considered expired and cannot be
+  /// undeleted.
+  ///
+  /// This value is only provided if the App is in the `DELETED` state.
+  ///
+  /// Output only.
+  core.String? expireTime;
 
   /// The resource name of the WebApp, in the format:
   /// projects/PROJECT_IDENTIFIER /webApps/APP_ID * PROJECT_IDENTIFIER: the
@@ -3164,8 +3969,21 @@ class WebApp {
   /// A user-assigned unique identifier of the parent FirebaseProject for the
   /// `WebApp`.
   ///
-  /// Immutable.
+  /// Output only. Immutable.
   core.String? projectId;
+
+  /// The lifecycle state of the App.
+  ///
+  /// Output only.
+  /// Possible string values are:
+  /// - "STATE_UNSPECIFIED" : Unspecified state.
+  /// - "ACTIVE" : The App is active.
+  /// - "DELETED" : The App has been soft-deleted. After an App has been in the
+  /// `DELETED` state for more than 30 days, it is considered expired and will
+  /// be permanently deleted. Up until this time, you can restore the App by
+  /// calling `Undelete` (\[Android\](projects.androidApps/undelete) |
+  /// \[iOS\](projects.iosApps/undelete) | \[web\](projects.webApps/undelete)).
+  core.String? state;
 
   /// A unique, Firebase-assigned identifier for the `WebApp`.
   ///
@@ -3175,6 +3993,9 @@ class WebApp {
   /// associated Apps.
   ///
   /// Output only. Immutable.
+  @core.Deprecated(
+    'Not supported. Member documentation may have more information.',
+  )
   core.String? webId;
 
   WebApp({
@@ -3182,32 +4003,41 @@ class WebApp {
     this.appId,
     this.appUrls,
     this.displayName,
+    this.etag,
+    this.expireTime,
     this.name,
     this.projectId,
+    this.state,
     this.webId,
   });
 
-  WebApp.fromJson(core.Map _json)
+  WebApp.fromJson(core.Map json_)
       : this(
-          apiKeyId: _json.containsKey('apiKeyId')
-              ? _json['apiKeyId'] as core.String
+          apiKeyId: json_.containsKey('apiKeyId')
+              ? json_['apiKeyId'] as core.String
               : null,
           appId:
-              _json.containsKey('appId') ? _json['appId'] as core.String : null,
-          appUrls: _json.containsKey('appUrls')
-              ? (_json['appUrls'] as core.List)
+              json_.containsKey('appId') ? json_['appId'] as core.String : null,
+          appUrls: json_.containsKey('appUrls')
+              ? (json_['appUrls'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
-          displayName: _json.containsKey('displayName')
-              ? _json['displayName'] as core.String
+          displayName: json_.containsKey('displayName')
+              ? json_['displayName'] as core.String
               : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
-          projectId: _json.containsKey('projectId')
-              ? _json['projectId'] as core.String
+          etag: json_.containsKey('etag') ? json_['etag'] as core.String : null,
+          expireTime: json_.containsKey('expireTime')
+              ? json_['expireTime'] as core.String
               : null,
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+          projectId: json_.containsKey('projectId')
+              ? json_['projectId'] as core.String
+              : null,
+          state:
+              json_.containsKey('state') ? json_['state'] as core.String : null,
           webId:
-              _json.containsKey('webId') ? _json['webId'] as core.String : null,
+              json_.containsKey('webId') ? json_['webId'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
@@ -3215,15 +4045,24 @@ class WebApp {
         if (appId != null) 'appId': appId!,
         if (appUrls != null) 'appUrls': appUrls!,
         if (displayName != null) 'displayName': displayName!,
+        if (etag != null) 'etag': etag!,
+        if (expireTime != null) 'expireTime': expireTime!,
         if (name != null) 'name': name!,
         if (projectId != null) 'projectId': projectId!,
+        if (state != null) 'state': state!,
         if (webId != null) 'webId': webId!,
       };
 }
 
 /// Configuration metadata of a single Firebase App for the web.
 class WebAppConfig {
-  /// The API key associated with the `WebApp`.
+  /// The
+  /// \[`keyString`\](https://cloud.google.com/api-keys/docs/reference/rest/v2/projects.locations.keys#Key.FIELDS.key_string)
+  /// of the API key associated with the `WebApp`.
+  ///
+  /// Note that this value is _not_ the
+  /// \[`apiKeyId`\](../projects.webApps#WebApp.FIELDS.api_key_id) (the UID) of
+  /// the API key associated with the `WebApp`.
   core.String? apiKey;
 
   /// The globally unique, Firebase-assigned identifier for the `WebApp`.
@@ -3288,33 +4127,33 @@ class WebAppConfig {
     this.storageBucket,
   });
 
-  WebAppConfig.fromJson(core.Map _json)
+  WebAppConfig.fromJson(core.Map json_)
       : this(
-          apiKey: _json.containsKey('apiKey')
-              ? _json['apiKey'] as core.String
+          apiKey: json_.containsKey('apiKey')
+              ? json_['apiKey'] as core.String
               : null,
           appId:
-              _json.containsKey('appId') ? _json['appId'] as core.String : null,
-          authDomain: _json.containsKey('authDomain')
-              ? _json['authDomain'] as core.String
+              json_.containsKey('appId') ? json_['appId'] as core.String : null,
+          authDomain: json_.containsKey('authDomain')
+              ? json_['authDomain'] as core.String
               : null,
-          databaseURL: _json.containsKey('databaseURL')
-              ? _json['databaseURL'] as core.String
+          databaseURL: json_.containsKey('databaseURL')
+              ? json_['databaseURL'] as core.String
               : null,
-          locationId: _json.containsKey('locationId')
-              ? _json['locationId'] as core.String
+          locationId: json_.containsKey('locationId')
+              ? json_['locationId'] as core.String
               : null,
-          measurementId: _json.containsKey('measurementId')
-              ? _json['measurementId'] as core.String
+          measurementId: json_.containsKey('measurementId')
+              ? json_['measurementId'] as core.String
               : null,
-          messagingSenderId: _json.containsKey('messagingSenderId')
-              ? _json['messagingSenderId'] as core.String
+          messagingSenderId: json_.containsKey('messagingSenderId')
+              ? json_['messagingSenderId'] as core.String
               : null,
-          projectId: _json.containsKey('projectId')
-              ? _json['projectId'] as core.String
+          projectId: json_.containsKey('projectId')
+              ? json_['projectId'] as core.String
               : null,
-          storageBucket: _json.containsKey('storageBucket')
-              ? _json['storageBucket'] as core.String
+          storageBucket: json_.containsKey('storageBucket')
+              ? json_['storageBucket'] as core.String
               : null,
         );
 

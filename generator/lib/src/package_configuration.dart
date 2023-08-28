@@ -2,9 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-library googleapis_generator.package_configuration;
-
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:discoveryapis_generator/discoveryapis_generator.dart';
@@ -22,6 +21,7 @@ class Package {
   final String license;
   final String changelog;
   final String? example;
+  final String? monoPkg;
 
   Package(
     this.name,
@@ -31,6 +31,7 @@ class Package {
     this.license,
     this.changelog,
     this.example,
+    this.monoPkg,
   );
 }
 
@@ -38,11 +39,11 @@ class Package {
 /// a Discovery Service.
 class DiscoveryPackagesConfiguration {
   String configFile;
-  Map? yaml;
+  late final Map yaml;
   late Map<String, Package> packages;
 
-  late Set<String> excessApis;
-  late List<String?> missingApis;
+  late final Set<String> excessApis;
+  late final List<String> missingApis;
   final existingApiRevisions = <String, String>{};
   Map<String?, String>? newRevisions;
   Map<String?, String>? oldRevisions;
@@ -80,36 +81,45 @@ class DiscoveryPackagesConfiguration {
   /// The file names for the content of readme and license files are resolved
   /// relative to the configuration file.
   DiscoveryPackagesConfiguration(this.configFile) {
-    yaml = loadYaml(File(configFile).readAsStringSync()) as Map?;
-  }
-
-  List<String> get allPackageApis {
-    packages =
-        _packagesFromYaml(yaml!['packages'] as YamlList, configFile, null);
-    final output = <String>[];
-    for (final package in packages.values) {
-      output.addAll(package.apis);
-    }
-    return output;
+    yaml = loadYaml(File(configFile).readAsStringSync()) as Map;
   }
 
   /// Downloads discovery documents from the configuration.
   ///
   /// [discoveryDocsDir] is the directory where all the downloaded discovery
   /// documents are stored.
-  Future<void> download(
-    String discoveryDocsDir,
-    List<String> apisToFetch,
-  ) async {
+  Future<void> download(String discoveryDocsDir) async {
     // Delete all downloaded discovery documents.
     final dir = Directory(discoveryDocsDir);
     if (dir.existsSync()) {
+      print('*** Cataloging and deleting existing discovery JSON files');
+      for (var file in dir.listSync(recursive: true).whereType<File>()) {
+        final json =
+            jsonDecode(file.readAsStringSync()) as Map<String, dynamic>;
+        final id = json['id'] as String;
+        final revision = json['revision'] as String;
+        assert(!existingApiRevisions.containsKey(id));
+        existingApiRevisions[id] = revision;
+      }
+
+      print('Existing API count: ${existingApiRevisions.length}');
+
       dir.deleteSync(recursive: true);
+    }
+
+    Map<String, String>? additionalEntries;
+    if (yaml.containsKey('additional_apis')) {
+      final source = yaml['additional_apis'] as Map?;
+      if (source != null) {
+        additionalEntries = source
+            .map((key, value) => MapEntry(key as String, value as String));
+      }
     }
 
     // Get all rest discovery documents & initialize this object.
     final allApis = await fetchDiscoveryDocuments(
-      apisToFetch: apisToFetch,
+      existingRevisions: existingApiRevisions,
+      additionalEntries: additionalEntries,
     );
     _initialize(allApis);
 
@@ -159,17 +169,15 @@ class DiscoveryPackagesConfiguration {
 
     // Load discovery documents from disc & initialize this object.
     final allApis = <RestDescription>[];
-    for (var package in yaml!['packages'] as List) {
+    for (var package in yaml['packages'] as List) {
       (package as Map).forEach((name, _) {
         allApis.addAll(loadDiscoveryDocuments('$discoveryDocsDir/$name'));
       });
     }
-
     _initialize(allApis);
 
     // Generate packages.
     packages.forEach((name, package) {
-      print('Generating package $name');
       final results = generateAllLibraries(
         '$discoveryDocsDir/$name',
         '$generatedApisDir/$name',
@@ -188,6 +196,10 @@ class DiscoveryPackagesConfiguration {
           .writeAsStringSync(package.license);
       File('$generatedApisDir/$name/CHANGELOG.md')
           .writeAsStringSync(package.changelog);
+      if (package.monoPkg != null) {
+        File('$generatedApisDir/$name/mono_pkg.yaml')
+            .writeAsStringSync(package.monoPkg!);
+      }
       if (package.example != null) {
         Directory('$generatedApisDir/$name/example').createSync();
         File('$generatedApisDir/$name/example/main.dart')
@@ -198,19 +210,19 @@ class DiscoveryPackagesConfiguration {
 
   /// Initializes the missingApis/excessApis/packages properties from a list
   /// of [RestDescription]s.
-  void _initialize(List<RestDescription?> allApis) {
+  void _initialize(List<RestDescription> allApis) {
     packages =
-        _packagesFromYaml(yaml!['packages'] as YamlList, configFile, allApis);
+        _packagesFromYaml(yaml['packages'] as YamlList, configFile, allApis);
     final knownApis = _calculateKnownApis(
       packages,
-      _listFromYaml(yaml!['skipped_apis'] as YamlList?),
+      _listFromYaml(yaml['skipped_apis'] as YamlList?),
     );
     missingApis = _calculateMissingApis(knownApis, allApis);
     excessApis = _calculateExcessApis(knownApis, allApis);
 
     if (existingApiRevisions.isNotEmpty) {
       for (var api in allApis) {
-        final existingRevision = existingApiRevisions[api!.id!];
+        final existingRevision = existingApiRevisions[api.id!];
         if (existingRevision != null) {
           final compare = api.revision!.compareTo(existingRevision);
           if (compare == 0) {
@@ -234,23 +246,20 @@ class DiscoveryPackagesConfiguration {
   static String _generateReadme(
     String? readmeFile,
     String packageName,
-    String packageVersion,
-    List<RestDescription?> items,
-  ) {
+    List<RestDescription?> items, {
+    String? packageVersion,
+  }) {
     final sb = StringBuffer();
     if (readmeFile != null) {
       sb.write(File(readmeFile).readAsStringSync());
     }
     sb.writeln('''
 
-## Available Firebase APIs
+## Available Google APIs
 
 The following is a list of APIs that are currently available inside this
 package.
 ''');
-
-    final basePubUri =
-        'https://pub.dev/documentation/$packageName/$packageVersion/';
 
     for (var item in items) {
       sb.write('#### ');
@@ -273,10 +282,14 @@ package.
       if (item.documentationLink != null) {
         sb.writeln('- [Documentation](${item.documentationLink})');
       }
-      final pubUri = '$basePubUri$libraryName/$libraryName-library.html';
-      sb
-        ..writeln('- [API details]($pubUri)')
-        ..writeln();
+
+      if (packageVersion != null) {
+        final basePubUri =
+            'https://pub.dev/documentation/$packageName/$packageVersion/';
+        final pubUri = '$basePubUri$libraryName/$libraryName-library.html';
+        sb.writeln('- [API details]($pubUri)');
+      }
+      sb.writeln();
     }
     return sb.toString();
   }
@@ -284,7 +297,7 @@ package.
   static Map<String, Package> _packagesFromYaml(
     YamlList configPackages,
     String configFile,
-    List<RestDescription?>? allApis,
+    List<RestDescription?> allApis,
   ) {
     final packages = <String, Package>{};
     for (var package in configPackages) {
@@ -305,10 +318,10 @@ package.
     String name,
     YamlMap values,
     String configFile,
-    List<RestDescription?>? allApis,
+    List<RestDescription?> allApis,
   ) {
     final apis = _listFromYaml(values['apis'] as List?).cast<String>();
-    final version = values['version'] as String? ?? '0.1.0-dev';
+    final version = values['version'] as String?;
     final author = values['author'] as String?;
     final repository = values['repository'] as String?;
 
@@ -320,7 +333,7 @@ package.
 
     final configUri = Uri.file(configFile);
 
-    allApis?.sort((RestDescription? a, RestDescription? b) {
+    allApis.sort((RestDescription? a, RestDescription? b) {
       final result = a!.name!.compareTo(b!.name!);
       if (result != 0) return result;
       return a.version!.compareTo(b.version!);
@@ -344,21 +357,29 @@ package.
       example = File(exampleFile).readAsStringSync();
     }
 
+    String? monoPkg;
+    if (values['mono_pkg'] != null) {
+      final monoPkgFile = configUri.resolve(values['mono_pkg'] as String).path;
+      monoPkg = File(monoPkgFile).readAsStringSync();
+    }
+
     // Generate package description.
     final apiDescriptions = <RestDescription?>[];
-    const description =
-        'Auto-generated client libraries for accessing Firebase '
+    const description = 'Auto-generated client libraries for accessing Google '
         'APIs described through the API discovery service.';
-    if (allApis != null) {
-      for (var apiDescription in allApis) {
-        if (apis.contains(apiDescription!.id)) {
-          apiDescriptions.add(apiDescription);
-        }
+    for (var apiDescription in allApis) {
+      if (apis.contains(apiDescription!.id)) {
+        apiDescriptions.add(apiDescription);
       }
     }
 
     // Generate the README.md file content.
-    final readme = _generateReadme(readmeFile, name, version, apiDescriptions);
+    final readme = _generateReadme(
+      readmeFile,
+      name,
+      apiDescriptions,
+      packageVersion: version,
+    );
 
     // Read the LICENSE
     final license = File(licenseFile).readAsStringSync();
@@ -383,6 +404,7 @@ package.
       license,
       changelog,
       example,
+      monoPkg,
     );
   }
 
@@ -399,20 +421,20 @@ package.
 
   /// The missing APIs are the APIs returned from the Discovery Service
   /// but not mentioned in the configuration.
-  static List<String?> _calculateMissingApis(
+  static List<String> _calculateMissingApis(
     Iterable<String> knownApis,
-    List<RestDescription?> allApis,
+    List<RestDescription> allApis,
   ) =>
       allApis
-          .where((item) => !knownApis.contains(item!.id))
-          .map((item) => item!.id)
+          .where((item) => !knownApis.contains(item.id))
+          .map((item) => item.id!)
           .toList();
 
   /// The excess APIs are the APIs mentioned in the configuration but not
   /// returned from the Discovery Service.
   static Set<String> _calculateExcessApis(
     Iterable<String> knownApis,
-    List<RestDescription?> allApis,
+    List<RestDescription> allApis,
   ) =>
-      Set<String>.from(knownApis)..removeAll(allApis.map((e) => e!.id));
+      Set<String>.from(knownApis)..removeAll(allApis.map((e) => e.id));
 }

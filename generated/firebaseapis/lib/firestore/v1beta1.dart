@@ -2,14 +2,13 @@
 
 // ignore_for_file: camel_case_types
 // ignore_for_file: comment_references
-// ignore_for_file: file_names
-// ignore_for_file: library_names
+// ignore_for_file: deprecated_member_use_from_same_package
 // ignore_for_file: lines_longer_than_80_chars
 // ignore_for_file: non_constant_identifier_names
-// ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: prefer_interpolation_to_compose_strings
 // ignore_for_file: unnecessary_brace_in_string_interps
 // ignore_for_file: unnecessary_lambdas
+// ignore_for_file: unnecessary_library_directive
 // ignore_for_file: unnecessary_string_interpolations
 
 /// Cloud Firestore API - v1beta1
@@ -25,7 +24,7 @@
 ///   - [ProjectsDatabasesResource]
 ///     - [ProjectsDatabasesDocumentsResource]
 ///     - [ProjectsDatabasesIndexesResource]
-library firestore.v1beta1;
+library firestore_v1beta1;
 
 import 'dart:async' as async;
 import 'dart:convert' as convert;
@@ -34,7 +33,6 @@ import 'dart:core' as core;
 import 'package:_discoveryapis_commons/_discoveryapis_commons.dart' as commons;
 import 'package:http/http.dart' as http;
 
-// ignore: deprecated_member_use_from_same_package
 import '../shared.dart';
 import '../src/user_agent.dart';
 
@@ -115,21 +113,21 @@ class ProjectsDatabasesResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name') + ':exportDocuments';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name') + ':exportDocuments';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return GoogleLongrunningOperation.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Imports documents into Google Cloud Firestore.
@@ -163,21 +161,21 @@ class ProjectsDatabasesResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name') + ':importDocuments';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name') + ':importDocuments';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return GoogleLongrunningOperation.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -215,22 +213,22 @@ class ProjectsDatabasesDocumentsResource {
     core.String database, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url =
+    final url_ =
         'v1beta1/' + core.Uri.encodeFull('$database') + '/documents:batchGet';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return BatchGetDocumentsResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Applies a batch of write operations.
@@ -264,22 +262,22 @@ class ProjectsDatabasesDocumentsResource {
     core.String database, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url =
+    final url_ =
         'v1beta1/' + core.Uri.encodeFull('$database') + '/documents:batchWrite';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return BatchWriteResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Starts a new transaction.
@@ -307,23 +305,23 @@ class ProjectsDatabasesDocumentsResource {
     core.String database, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' +
+    final url_ = 'v1beta1/' +
         core.Uri.encodeFull('$database') +
         '/documents:beginTransaction';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return BeginTransactionResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Commits a transaction, while optionally updating documents.
@@ -351,22 +349,22 @@ class ProjectsDatabasesDocumentsResource {
     core.String database, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url =
+    final url_ =
         'v1beta1/' + core.Uri.encodeFull('$database') + '/documents:commit';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return CommitResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Creates a new document.
@@ -408,25 +406,25 @@ class ProjectsDatabasesDocumentsResource {
     core.List<core.String>? mask_fieldPaths,
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (documentId != null) 'documentId': [documentId],
       if (mask_fieldPaths != null) 'mask.fieldPaths': mask_fieldPaths,
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' +
+    final url_ = 'v1beta1/' +
         core.Uri.encodeFull('$parent') +
         '/' +
         commons.escapeVariable('$collectionId');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Document.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Document.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Deletes a document.
@@ -462,7 +460,7 @@ class ProjectsDatabasesDocumentsResource {
     core.String? currentDocument_updateTime,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (currentDocument_exists != null)
         'currentDocument.exists': ['${currentDocument_exists}'],
       if (currentDocument_updateTime != null)
@@ -470,14 +468,14 @@ class ProjectsDatabasesDocumentsResource {
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'DELETE',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
-    return Empty.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Empty.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Gets a single document.
@@ -493,8 +491,10 @@ class ProjectsDatabasesDocumentsResource {
   /// [mask_fieldPaths] - The list of field paths in the mask. See
   /// Document.fields for a field path syntax reference.
   ///
-  /// [readTime] - Reads the version of the document at the given time. This may
-  /// not be older than 270 seconds.
+  /// [readTime] - Reads the version of the document at the given time. This
+  /// must be a microsecond precision timestamp within the past one hour, or if
+  /// Point-in-Time Recovery is enabled, can additionally be a whole minute
+  /// timestamp within the past 7 days.
   ///
   /// [transaction] - Reads the document in a transaction.
   ///
@@ -515,21 +515,21 @@ class ProjectsDatabasesDocumentsResource {
     core.String? transaction,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (mask_fieldPaths != null) 'mask.fieldPaths': mask_fieldPaths,
       if (readTime != null) 'readTime': [readTime],
       if (transaction != null) 'transaction': [transaction],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
-    return Document.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Document.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Lists documents.
@@ -544,30 +544,39 @@ class ProjectsDatabasesDocumentsResource {
   /// Value must have pattern
   /// `^projects/\[^/\]+/databases/\[^/\]+/documents/\[^/\]+/.*$`.
   ///
-  /// [collectionId] - Required. The collection ID, relative to `parent`, to
-  /// list. For example: `chatrooms` or `messages`.
+  /// [collectionId] - Optional. The collection ID, relative to `parent`, to
+  /// list. For example: `chatrooms` or `messages`. This is optional, and when
+  /// not provided, Firestore will list documents from all collections under the
+  /// provided `parent`.
   ///
   /// [mask_fieldPaths] - The list of field paths in the mask. See
   /// Document.fields for a field path syntax reference.
   ///
-  /// [orderBy] - The order to sort results by. For example: `priority desc,
-  /// name`.
+  /// [orderBy] - Optional. The optional ordering of the documents to return.
+  /// For example: `priority desc, __name__ desc`. This mirrors the `ORDER BY`
+  /// used in Firestore queries but in a string representation. When absent,
+  /// documents are ordered based on `__name__ ASC`.
   ///
-  /// [pageSize] - The maximum number of documents to return.
+  /// [pageSize] - Optional. The maximum number of documents to return in a
+  /// single response. Firestore may return fewer than this value.
   ///
-  /// [pageToken] - The `next_page_token` value returned from a previous List
-  /// request, if any.
+  /// [pageToken] - Optional. A page token, received from a previous
+  /// `ListDocuments` response. Provide this to retrieve the subsequent page.
+  /// When paginating, all other parameters (with the exception of `page_size`)
+  /// must match the values set in the request that generated the page token.
   ///
-  /// [readTime] - Reads documents as they were at the given time. This may not
-  /// be older than 270 seconds.
+  /// [readTime] - Perform the read at the provided time. This must be a
+  /// microsecond precision timestamp within the past one hour, or if
+  /// Point-in-Time Recovery is enabled, can additionally be a whole minute
+  /// timestamp within the past 7 days.
   ///
-  /// [showMissing] - If the list should show missing documents. A missing
-  /// document is a document that does not exist but has sub-documents. These
-  /// documents will be returned with a key but will not have fields,
-  /// Document.create_time, or Document.update_time set. Requests with
-  /// `show_missing` may not specify `where` or `order_by`.
+  /// [showMissing] - If the list should show missing documents. A document is
+  /// missing if it does not exist, but there are sub-documents nested
+  /// underneath it. When true, such missing documents will be returned with a
+  /// key but will not have fields, `create_time`, or `update_time` set.
+  /// Requests with `show_missing` may not specify `where` or `order_by`.
   ///
-  /// [transaction] - Reads documents in a transaction.
+  /// [transaction] - Perform the read as part of an already active transaction.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -591,7 +600,7 @@ class ProjectsDatabasesDocumentsResource {
     core.String? transaction,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (mask_fieldPaths != null) 'mask.fieldPaths': mask_fieldPaths,
       if (orderBy != null) 'orderBy': [orderBy],
       if (pageSize != null) 'pageSize': ['${pageSize}'],
@@ -602,18 +611,18 @@ class ProjectsDatabasesDocumentsResource {
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' +
+    final url_ = 'v1beta1/' +
         core.Uri.encodeFull('$parent') +
         '/' +
         commons.escapeVariable('$collectionId');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return ListDocumentsResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Lists all the collection IDs underneath a document.
@@ -644,22 +653,22 @@ class ProjectsDatabasesDocumentsResource {
     core.String parent, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url =
+    final url_ =
         'v1beta1/' + core.Uri.encodeFull('$parent') + ':listCollectionIds';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return ListCollectionIdsResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Lists documents.
@@ -673,30 +682,39 @@ class ProjectsDatabasesDocumentsResource {
   /// `projects/my-project/databases/my-database/documents/chatrooms/my-chatroom`
   /// Value must have pattern `^projects/\[^/\]+/databases/\[^/\]+/documents$`.
   ///
-  /// [collectionId] - Required. The collection ID, relative to `parent`, to
-  /// list. For example: `chatrooms` or `messages`.
+  /// [collectionId] - Optional. The collection ID, relative to `parent`, to
+  /// list. For example: `chatrooms` or `messages`. This is optional, and when
+  /// not provided, Firestore will list documents from all collections under the
+  /// provided `parent`.
   ///
   /// [mask_fieldPaths] - The list of field paths in the mask. See
   /// Document.fields for a field path syntax reference.
   ///
-  /// [orderBy] - The order to sort results by. For example: `priority desc,
-  /// name`.
+  /// [orderBy] - Optional. The optional ordering of the documents to return.
+  /// For example: `priority desc, __name__ desc`. This mirrors the `ORDER BY`
+  /// used in Firestore queries but in a string representation. When absent,
+  /// documents are ordered based on `__name__ ASC`.
   ///
-  /// [pageSize] - The maximum number of documents to return.
+  /// [pageSize] - Optional. The maximum number of documents to return in a
+  /// single response. Firestore may return fewer than this value.
   ///
-  /// [pageToken] - The `next_page_token` value returned from a previous List
-  /// request, if any.
+  /// [pageToken] - Optional. A page token, received from a previous
+  /// `ListDocuments` response. Provide this to retrieve the subsequent page.
+  /// When paginating, all other parameters (with the exception of `page_size`)
+  /// must match the values set in the request that generated the page token.
   ///
-  /// [readTime] - Reads documents as they were at the given time. This may not
-  /// be older than 270 seconds.
+  /// [readTime] - Perform the read at the provided time. This must be a
+  /// microsecond precision timestamp within the past one hour, or if
+  /// Point-in-Time Recovery is enabled, can additionally be a whole minute
+  /// timestamp within the past 7 days.
   ///
-  /// [showMissing] - If the list should show missing documents. A missing
-  /// document is a document that does not exist but has sub-documents. These
-  /// documents will be returned with a key but will not have fields,
-  /// Document.create_time, or Document.update_time set. Requests with
-  /// `show_missing` may not specify `where` or `order_by`.
+  /// [showMissing] - If the list should show missing documents. A document is
+  /// missing if it does not exist, but there are sub-documents nested
+  /// underneath it. When true, such missing documents will be returned with a
+  /// key but will not have fields, `create_time`, or `update_time` set.
+  /// Requests with `show_missing` may not specify `where` or `order_by`.
   ///
-  /// [transaction] - Reads documents in a transaction.
+  /// [transaction] - Perform the read as part of an already active transaction.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -720,7 +738,7 @@ class ProjectsDatabasesDocumentsResource {
     core.String? transaction,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (mask_fieldPaths != null) 'mask.fieldPaths': mask_fieldPaths,
       if (orderBy != null) 'orderBy': [orderBy],
       if (pageSize != null) 'pageSize': ['${pageSize}'],
@@ -731,21 +749,23 @@ class ProjectsDatabasesDocumentsResource {
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' +
+    final url_ = 'v1beta1/' +
         core.Uri.encodeFull('$parent') +
         '/' +
         commons.escapeVariable('$collectionId');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return ListDocumentsResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Listens to changes.
+  ///
+  /// This method is only available via gRPC or WebChannel (not REST).
   ///
   /// [request] - The metadata request object.
   ///
@@ -770,22 +790,22 @@ class ProjectsDatabasesDocumentsResource {
     core.String database, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url =
+    final url_ =
         'v1beta1/' + core.Uri.encodeFull('$database') + '/documents:listen';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return ListenResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Partitions a query by returning partition cursors that can be used to run
@@ -820,22 +840,22 @@ class ProjectsDatabasesDocumentsResource {
     core.String parent, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url =
+    final url_ =
         'v1beta1/' + core.Uri.encodeFull('$parent') + ':partitionQuery';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return PartitionQueryResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Updates or inserts a document.
@@ -881,8 +901,8 @@ class ProjectsDatabasesDocumentsResource {
     core.List<core.String>? updateMask_fieldPaths,
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (currentDocument_exists != null)
         'currentDocument.exists': ['${currentDocument_exists}'],
       if (currentDocument_updateTime != null)
@@ -893,15 +913,15 @@ class ProjectsDatabasesDocumentsResource {
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'PATCH',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Document.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Document.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Rolls back a transaction.
@@ -929,21 +949,21 @@ class ProjectsDatabasesDocumentsResource {
     core.String database, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url =
+    final url_ =
         'v1beta1/' + core.Uri.encodeFull('$database') + '/documents:rollback';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Empty.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Empty.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Runs an aggregation query.
@@ -981,22 +1001,22 @@ class ProjectsDatabasesDocumentsResource {
     core.String parent, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url =
+    final url_ =
         'v1beta1/' + core.Uri.encodeFull('$parent') + ':runAggregationQuery';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return RunAggregationQueryResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Runs a query.
@@ -1028,24 +1048,26 @@ class ProjectsDatabasesDocumentsResource {
     core.String parent, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + ':runQuery';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + ':runQuery';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return RunQueryResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Streams batches of document updates and deletes, in order.
+  ///
+  /// This method is only available via gRPC or WebChannel (not REST).
   ///
   /// [request] - The metadata request object.
   ///
@@ -1071,22 +1093,22 @@ class ProjectsDatabasesDocumentsResource {
     core.String database, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url =
+    final url_ =
         'v1beta1/' + core.Uri.encodeFull('$database') + '/documents:write';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return WriteResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -1130,21 +1152,21 @@ class ProjectsDatabasesIndexesResource {
     core.String parent, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/indexes';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/indexes';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return GoogleLongrunningOperation.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Deletes an index.
@@ -1170,18 +1192,18 @@ class ProjectsDatabasesIndexesResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'DELETE',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
-    return Empty.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Empty.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Gets an index.
@@ -1207,19 +1229,19 @@ class ProjectsDatabasesIndexesResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return GoogleFirestoreAdminV1beta1Index.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Lists the indexes that match the specified filters.
@@ -1253,56 +1275,79 @@ class ProjectsDatabasesIndexesResource {
     core.String? pageToken,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (filter != null) 'filter': [filter],
       if (pageSize != null) 'pageSize': ['${pageSize}'],
       if (pageToken != null) 'pageToken': [pageToken],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/indexes';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/indexes';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return GoogleFirestoreAdminV1beta1ListIndexesResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
-/// Defines a aggregation that produces a single result.
+/// Defines an aggregation that produces a single result.
 class Aggregation {
-  /// The name of the field to store the result of the aggregation into.
+  /// Optional name of the field to store the result of the aggregation into.
   ///
-  /// Requires: * Must be present. * Must be unique across all aggregation
-  /// aliases. * Conform to existing document field name limitations.
+  /// If not provided, Firestore will pick a default name following the format
+  /// `field_`. For example: ``` AGGREGATE COUNT_UP_TO(1) AS count_up_to_1,
+  /// COUNT_UP_TO(2), COUNT_UP_TO(3) AS count_up_to_3, COUNT(*) OVER ( ... );
+  /// ``` becomes: ``` AGGREGATE COUNT_UP_TO(1) AS count_up_to_1, COUNT_UP_TO(2)
+  /// AS field_1, COUNT_UP_TO(3) AS count_up_to_3, COUNT(*) AS field_2 OVER (
+  /// ... ); ``` Requires: * Must be unique across all aggregation aliases. *
+  /// Conform to document field name limitations.
   ///
-  /// Required.
+  /// Optional.
   core.String? alias;
+
+  /// Average aggregator.
+  Avg? avg;
 
   /// Count aggregator.
   Count? count;
 
+  /// Sum aggregator.
+  Sum? sum;
+
   Aggregation({
     this.alias,
+    this.avg,
     this.count,
+    this.sum,
   });
 
-  Aggregation.fromJson(core.Map _json)
+  Aggregation.fromJson(core.Map json_)
       : this(
           alias:
-              _json.containsKey('alias') ? _json['alias'] as core.String : null,
-          count: _json.containsKey('count')
+              json_.containsKey('alias') ? json_['alias'] as core.String : null,
+          avg: json_.containsKey('avg')
+              ? Avg.fromJson(
+                  json_['avg'] as core.Map<core.String, core.dynamic>)
+              : null,
+          count: json_.containsKey('count')
               ? Count.fromJson(
-                  _json['count'] as core.Map<core.String, core.dynamic>)
+                  json_['count'] as core.Map<core.String, core.dynamic>)
+              : null,
+          sum: json_.containsKey('sum')
+              ? Sum.fromJson(
+                  json_['sum'] as core.Map<core.String, core.dynamic>)
               : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
         if (alias != null) 'alias': alias!,
+        if (avg != null) 'avg': avg!,
         if (count != null) 'count': count!,
+        if (sum != null) 'sum': sum!,
       };
 }
 
@@ -1322,15 +1367,16 @@ class AggregationResult {
     this.aggregateFields,
   });
 
-  AggregationResult.fromJson(core.Map _json)
+  AggregationResult.fromJson(core.Map json_)
       : this(
-          aggregateFields: _json.containsKey('aggregateFields')
-              ? (_json['aggregateFields']
+          aggregateFields: json_.containsKey('aggregateFields')
+              ? (json_['aggregateFields']
                       as core.Map<core.String, core.dynamic>)
                   .map(
-                  (key, item) => core.MapEntry(
+                  (key, value) => core.MapEntry(
                     key,
-                    Value.fromJson(item as core.Map<core.String, core.dynamic>),
+                    Value.fromJson(
+                        value as core.Map<core.String, core.dynamic>),
                   ),
                 )
               : null,
@@ -1350,10 +1396,10 @@ class ArrayValue {
     this.values,
   });
 
-  ArrayValue.fromJson(core.Map _json)
+  ArrayValue.fromJson(core.Map json_)
       : this(
-          values: _json.containsKey('values')
-              ? (_json['values'] as core.List)
+          values: json_.containsKey('values')
+              ? (json_['values'] as core.List)
                   .map((value) => Value.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -1362,6 +1408,33 @@ class ArrayValue {
 
   core.Map<core.String, core.dynamic> toJson() => {
         if (values != null) 'values': values!,
+      };
+}
+
+/// Average of the values of the requested field.
+///
+/// * Only numeric values will be aggregated. All non-numeric values including
+/// `NULL` are skipped. * If the aggregated values contain `NaN`, returns `NaN`.
+/// Infinity math follows IEEE-754 standards. * If the aggregated value set is
+/// empty, returns `NULL`. * Always returns the result as a double.
+class Avg {
+  /// The field to aggregate on.
+  FieldReference? field;
+
+  Avg({
+    this.field,
+  });
+
+  Avg.fromJson(core.Map json_)
+      : this(
+          field: json_.containsKey('field')
+              ? FieldReference.fromJson(
+                  json_['field'] as core.Map<core.String, core.dynamic>)
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (field != null) 'field': field!,
       };
 }
 
@@ -1389,7 +1462,9 @@ class BatchGetDocumentsRequest {
 
   /// Reads documents as they were at the given time.
   ///
-  /// This may not be older than 270 seconds.
+  /// This must be a microsecond precision timestamp within the past one hour,
+  /// or if Point-in-Time Recovery is enabled, can additionally be a whole
+  /// minute timestamp within the past 7 days.
   core.String? readTime;
 
   /// Reads documents in a transaction.
@@ -1397,9 +1472,9 @@ class BatchGetDocumentsRequest {
   core.List<core.int> get transactionAsBytes =>
       convert.base64.decode(transaction!);
 
-  set transactionAsBytes(core.List<core.int> _bytes) {
+  set transactionAsBytes(core.List<core.int> bytes_) {
     transaction =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   BatchGetDocumentsRequest({
@@ -1410,26 +1485,26 @@ class BatchGetDocumentsRequest {
     this.transaction,
   });
 
-  BatchGetDocumentsRequest.fromJson(core.Map _json)
+  BatchGetDocumentsRequest.fromJson(core.Map json_)
       : this(
-          documents: _json.containsKey('documents')
-              ? (_json['documents'] as core.List)
+          documents: json_.containsKey('documents')
+              ? (json_['documents'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
-          mask: _json.containsKey('mask')
+          mask: json_.containsKey('mask')
               ? DocumentMask.fromJson(
-                  _json['mask'] as core.Map<core.String, core.dynamic>)
+                  json_['mask'] as core.Map<core.String, core.dynamic>)
               : null,
-          newTransaction: _json.containsKey('newTransaction')
-              ? TransactionOptions.fromJson(_json['newTransaction']
+          newTransaction: json_.containsKey('newTransaction')
+              ? TransactionOptions.fromJson(json_['newTransaction']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          readTime: _json.containsKey('readTime')
-              ? _json['readTime'] as core.String
+          readTime: json_.containsKey('readTime')
+              ? json_['readTime'] as core.String
               : null,
-          transaction: _json.containsKey('transaction')
-              ? _json['transaction'] as core.String
+          transaction: json_.containsKey('transaction')
+              ? json_['transaction'] as core.String
               : null,
         );
 
@@ -1468,9 +1543,9 @@ class BatchGetDocumentsResponse {
   core.List<core.int> get transactionAsBytes =>
       convert.base64.decode(transaction!);
 
-  set transactionAsBytes(core.List<core.int> _bytes) {
+  set transactionAsBytes(core.List<core.int> bytes_) {
     transaction =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   BatchGetDocumentsResponse({
@@ -1480,20 +1555,20 @@ class BatchGetDocumentsResponse {
     this.transaction,
   });
 
-  BatchGetDocumentsResponse.fromJson(core.Map _json)
+  BatchGetDocumentsResponse.fromJson(core.Map json_)
       : this(
-          found: _json.containsKey('found')
+          found: json_.containsKey('found')
               ? Document.fromJson(
-                  _json['found'] as core.Map<core.String, core.dynamic>)
+                  json_['found'] as core.Map<core.String, core.dynamic>)
               : null,
-          missing: _json.containsKey('missing')
-              ? _json['missing'] as core.String
+          missing: json_.containsKey('missing')
+              ? json_['missing'] as core.String
               : null,
-          readTime: _json.containsKey('readTime')
-              ? _json['readTime'] as core.String
+          readTime: json_.containsKey('readTime')
+              ? json_['readTime'] as core.String
               : null,
-          transaction: _json.containsKey('transaction')
-              ? _json['transaction'] as core.String
+          transaction: json_.containsKey('transaction')
+              ? json_['transaction'] as core.String
               : null,
         );
 
@@ -1522,18 +1597,18 @@ class BatchWriteRequest {
     this.writes,
   });
 
-  BatchWriteRequest.fromJson(core.Map _json)
+  BatchWriteRequest.fromJson(core.Map json_)
       : this(
-          labels: _json.containsKey('labels')
-              ? (_json['labels'] as core.Map<core.String, core.dynamic>).map(
-                  (key, item) => core.MapEntry(
+          labels: json_.containsKey('labels')
+              ? (json_['labels'] as core.Map<core.String, core.dynamic>).map(
+                  (key, value) => core.MapEntry(
                     key,
-                    item as core.String,
+                    value as core.String,
                   ),
                 )
               : null,
-          writes: _json.containsKey('writes')
-              ? (_json['writes'] as core.List)
+          writes: json_.containsKey('writes')
+              ? (json_['writes'] as core.List)
                   .map((value) => Write.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -1563,16 +1638,16 @@ class BatchWriteResponse {
     this.writeResults,
   });
 
-  BatchWriteResponse.fromJson(core.Map _json)
+  BatchWriteResponse.fromJson(core.Map json_)
       : this(
-          status: _json.containsKey('status')
-              ? (_json['status'] as core.List)
+          status: json_.containsKey('status')
+              ? (json_['status'] as core.List)
                   .map((value) => Status.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          writeResults: _json.containsKey('writeResults')
-              ? (_json['writeResults'] as core.List)
+          writeResults: json_.containsKey('writeResults')
+              ? (json_['writeResults'] as core.List)
                   .map((value) => WriteResult.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -1596,11 +1671,11 @@ class BeginTransactionRequest {
     this.options,
   });
 
-  BeginTransactionRequest.fromJson(core.Map _json)
+  BeginTransactionRequest.fromJson(core.Map json_)
       : this(
-          options: _json.containsKey('options')
+          options: json_.containsKey('options')
               ? TransactionOptions.fromJson(
-                  _json['options'] as core.Map<core.String, core.dynamic>)
+                  json_['options'] as core.Map<core.String, core.dynamic>)
               : null,
         );
 
@@ -1612,6 +1687,96 @@ class BeginTransactionRequest {
 /// The response for Firestore.BeginTransaction.
 typedef BeginTransactionResponse = $BeginTransactionResponse;
 
+/// A sequence of bits, encoded in a byte array.
+///
+/// Each byte in the `bitmap` byte array stores 8 bits of the sequence. The only
+/// exception is the last byte, which may store 8 _or fewer_ bits. The `padding`
+/// defines the number of bits of the last byte to be ignored as "padding". The
+/// values of these "padding" bits are unspecified and must be ignored. To
+/// retrieve the first bit, bit 0, calculate: `(bitmap[0] & 0x01) != 0`. To
+/// retrieve the second bit, bit 1, calculate: `(bitmap[0] & 0x02) != 0`. To
+/// retrieve the third bit, bit 2, calculate: `(bitmap[0] & 0x04) != 0`. To
+/// retrieve the fourth bit, bit 3, calculate: `(bitmap[0] & 0x08) != 0`. To
+/// retrieve bit n, calculate: `(bitmap[n / 8] & (0x01 << (n % 8))) != 0`. The
+/// "size" of a `BitSequence` (the number of bits it contains) is calculated by
+/// this formula: `(bitmap.length * 8) - padding`.
+class BitSequence {
+  /// The bytes that encode the bit sequence.
+  ///
+  /// May have a length of zero.
+  core.String? bitmap;
+  core.List<core.int> get bitmapAsBytes => convert.base64.decode(bitmap!);
+
+  set bitmapAsBytes(core.List<core.int> bytes_) {
+    bitmap =
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
+  }
+
+  /// The number of bits of the last byte in `bitmap` to ignore as "padding".
+  ///
+  /// If the length of `bitmap` is zero, then this value must be `0`. Otherwise,
+  /// this value must be between 0 and 7, inclusive.
+  core.int? padding;
+
+  BitSequence({
+    this.bitmap,
+    this.padding,
+  });
+
+  BitSequence.fromJson(core.Map json_)
+      : this(
+          bitmap: json_.containsKey('bitmap')
+              ? json_['bitmap'] as core.String
+              : null,
+          padding: json_.containsKey('padding')
+              ? json_['padding'] as core.int
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (bitmap != null) 'bitmap': bitmap!,
+        if (padding != null) 'padding': padding!,
+      };
+}
+
+/// A bloom filter (https://en.wikipedia.org/wiki/Bloom_filter).
+///
+/// The bloom filter hashes the entries with MD5 and treats the resulting
+/// 128-bit hash as 2 distinct 64-bit hash values, interpreted as unsigned
+/// integers using 2's complement encoding. These two hash values, named `h1`
+/// and `h2`, are then used to compute the `hash_count` hash values using the
+/// formula, starting at `i=0`: h(i) = h1 + (i * h2) These resulting values are
+/// then taken modulo the number of bits in the bloom filter to get the bits of
+/// the bloom filter to test for the given entry.
+class BloomFilter {
+  /// The bloom filter data.
+  BitSequence? bits;
+
+  /// The number of hashes used by the algorithm.
+  core.int? hashCount;
+
+  BloomFilter({
+    this.bits,
+    this.hashCount,
+  });
+
+  BloomFilter.fromJson(core.Map json_)
+      : this(
+          bits: json_.containsKey('bits')
+              ? BitSequence.fromJson(
+                  json_['bits'] as core.Map<core.String, core.dynamic>)
+              : null,
+          hashCount: json_.containsKey('hashCount')
+              ? json_['hashCount'] as core.int
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (bits != null) 'bits': bits!,
+        if (hashCount != null) 'hashCount': hashCount!,
+      };
+}
+
 /// A selection of a collection, such as `messages as m1`.
 typedef CollectionSelector = $CollectionSelector;
 
@@ -1622,9 +1787,9 @@ class CommitRequest {
   core.List<core.int> get transactionAsBytes =>
       convert.base64.decode(transaction!);
 
-  set transactionAsBytes(core.List<core.int> _bytes) {
+  set transactionAsBytes(core.List<core.int> bytes_) {
     transaction =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   /// The writes to apply.
@@ -1637,13 +1802,13 @@ class CommitRequest {
     this.writes,
   });
 
-  CommitRequest.fromJson(core.Map _json)
+  CommitRequest.fromJson(core.Map json_)
       : this(
-          transaction: _json.containsKey('transaction')
-              ? _json['transaction'] as core.String
+          transaction: json_.containsKey('transaction')
+              ? json_['transaction'] as core.String
               : null,
-          writes: _json.containsKey('writes')
-              ? (_json['writes'] as core.List)
+          writes: json_.containsKey('writes')
+              ? (json_['writes'] as core.List)
                   .map((value) => Write.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -1674,13 +1839,13 @@ class CommitResponse {
     this.writeResults,
   });
 
-  CommitResponse.fromJson(core.Map _json)
+  CommitResponse.fromJson(core.Map json_)
       : this(
-          commitTime: _json.containsKey('commitTime')
-              ? _json['commitTime'] as core.String
+          commitTime: json_.containsKey('commitTime')
+              ? json_['commitTime'] as core.String
               : null,
-          writeResults: _json.containsKey('writeResults')
-              ? (_json['writeResults'] as core.List)
+          writeResults: json_.containsKey('writeResults')
+              ? (json_['writeResults'] as core.List)
                   .map((value) => WriteResult.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -1704,6 +1869,8 @@ class CompositeFilter {
   /// Possible string values are:
   /// - "OPERATOR_UNSPECIFIED" : Unspecified. This value must not be used.
   /// - "AND" : Documents are required to satisfy all of the combined filters.
+  /// - "OR" : Documents are required to satisfy at least one of the combined
+  /// filters.
   core.String? op;
 
   CompositeFilter({
@@ -1711,15 +1878,15 @@ class CompositeFilter {
     this.op,
   });
 
-  CompositeFilter.fromJson(core.Map _json)
+  CompositeFilter.fromJson(core.Map json_)
       : this(
-          filters: _json.containsKey('filters')
-              ? (_json['filters'] as core.List)
+          filters: json_.containsKey('filters')
+              ? (json_['filters'] as core.List)
                   .map((value) => Filter.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          op: _json.containsKey('op') ? _json['op'] as core.String : null,
+          op: json_.containsKey('op') ? json_['op'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
@@ -1751,12 +1918,12 @@ class Cursor {
     this.values,
   });
 
-  Cursor.fromJson(core.Map _json)
+  Cursor.fromJson(core.Map json_)
       : this(
           before:
-              _json.containsKey('before') ? _json['before'] as core.bool : null,
-          values: _json.containsKey('values')
-              ? (_json['values'] as core.List)
+              json_.containsKey('before') ? json_['before'] as core.bool : null,
+          values: json_.containsKey('values')
+              ? (json_['values'] as core.List)
                   .map((value) => Value.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -1821,22 +1988,23 @@ class Document {
     this.updateTime,
   });
 
-  Document.fromJson(core.Map _json)
+  Document.fromJson(core.Map json_)
       : this(
-          createTime: _json.containsKey('createTime')
-              ? _json['createTime'] as core.String
+          createTime: json_.containsKey('createTime')
+              ? json_['createTime'] as core.String
               : null,
-          fields: _json.containsKey('fields')
-              ? (_json['fields'] as core.Map<core.String, core.dynamic>).map(
-                  (key, item) => core.MapEntry(
+          fields: json_.containsKey('fields')
+              ? (json_['fields'] as core.Map<core.String, core.dynamic>).map(
+                  (key, value) => core.MapEntry(
                     key,
-                    Value.fromJson(item as core.Map<core.String, core.dynamic>),
+                    Value.fromJson(
+                        value as core.Map<core.String, core.dynamic>),
                   ),
                 )
               : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
-          updateTime: _json.containsKey('updateTime')
-              ? _json['updateTime'] as core.String
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+          updateTime: json_.containsKey('updateTime')
+              ? json_['updateTime'] as core.String
               : null,
         );
 
@@ -1872,19 +2040,19 @@ class DocumentChange {
     this.targetIds,
   });
 
-  DocumentChange.fromJson(core.Map _json)
+  DocumentChange.fromJson(core.Map json_)
       : this(
-          document: _json.containsKey('document')
+          document: json_.containsKey('document')
               ? Document.fromJson(
-                  _json['document'] as core.Map<core.String, core.dynamic>)
+                  json_['document'] as core.Map<core.String, core.dynamic>)
               : null,
-          removedTargetIds: _json.containsKey('removedTargetIds')
-              ? (_json['removedTargetIds'] as core.List)
+          removedTargetIds: json_.containsKey('removedTargetIds')
+              ? (json_['removedTargetIds'] as core.List)
                   .map((value) => value as core.int)
                   .toList()
               : null,
-          targetIds: _json.containsKey('targetIds')
-              ? (_json['targetIds'] as core.List)
+          targetIds: json_.containsKey('targetIds')
+              ? (json_['targetIds'] as core.List)
                   .map((value) => value as core.int)
                   .toList()
               : null,
@@ -1920,16 +2088,16 @@ class DocumentDelete {
     this.removedTargetIds,
   });
 
-  DocumentDelete.fromJson(core.Map _json)
+  DocumentDelete.fromJson(core.Map json_)
       : this(
-          document: _json.containsKey('document')
-              ? _json['document'] as core.String
+          document: json_.containsKey('document')
+              ? json_['document'] as core.String
               : null,
-          readTime: _json.containsKey('readTime')
-              ? _json['readTime'] as core.String
+          readTime: json_.containsKey('readTime')
+              ? json_['readTime'] as core.String
               : null,
-          removedTargetIds: _json.containsKey('removedTargetIds')
-              ? (_json['removedTargetIds'] as core.List)
+          removedTargetIds: json_.containsKey('removedTargetIds')
+              ? (json_['removedTargetIds'] as core.List)
                   .map((value) => value as core.int)
                   .toList()
               : null,
@@ -1974,16 +2142,16 @@ class DocumentRemove {
     this.removedTargetIds,
   });
 
-  DocumentRemove.fromJson(core.Map _json)
+  DocumentRemove.fromJson(core.Map json_)
       : this(
-          document: _json.containsKey('document')
-              ? _json['document'] as core.String
+          document: json_.containsKey('document')
+              ? json_['document'] as core.String
               : null,
-          readTime: _json.containsKey('readTime')
-              ? _json['readTime'] as core.String
+          readTime: json_.containsKey('readTime')
+              ? json_['readTime'] as core.String
               : null,
-          removedTargetIds: _json.containsKey('removedTargetIds')
-              ? (_json['removedTargetIds'] as core.List)
+          removedTargetIds: json_.containsKey('removedTargetIds')
+              ? (json_['removedTargetIds'] as core.List)
                   .map((value) => value as core.int)
                   .toList()
               : null,
@@ -2012,13 +2180,13 @@ class DocumentTransform {
     this.fieldTransforms,
   });
 
-  DocumentTransform.fromJson(core.Map _json)
+  DocumentTransform.fromJson(core.Map json_)
       : this(
-          document: _json.containsKey('document')
-              ? _json['document'] as core.String
+          document: json_.containsKey('document')
+              ? json_['document'] as core.String
               : null,
-          fieldTransforms: _json.containsKey('fieldTransforms')
-              ? (_json['fieldTransforms'] as core.List)
+          fieldTransforms: json_.containsKey('fieldTransforms')
+              ? (json_['fieldTransforms'] as core.List)
                   .map((value) => FieldTransform.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -2045,10 +2213,10 @@ class DocumentsTarget {
     this.documents,
   });
 
-  DocumentsTarget.fromJson(core.Map _json)
+  DocumentsTarget.fromJson(core.Map json_)
       : this(
-          documents: _json.containsKey('documents')
-              ? (_json['documents'] as core.List)
+          documents: json_.containsKey('documents')
+              ? (json_['documents'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
@@ -2073,27 +2241,51 @@ class ExistenceFilter {
   ///
   /// If different from the count of documents in the client that match, the
   /// client must manually determine which documents no longer match the target.
+  /// The client can use the `unchanged_names` bloom filter to assist with this
+  /// determination by testing ALL the document names against the filter; if the
+  /// document name is NOT in the filter, it means the document no longer
+  /// matches the target.
   core.int? count;
 
   /// The target ID to which this filter applies.
   core.int? targetId;
 
+  /// A bloom filter that, despite its name, contains the UTF-8 byte encodings
+  /// of the resource names of ALL the documents that match target_id, in the
+  /// form
+  /// `projects/{project_id}/databases/{database_id}/documents/{document_path}`.
+  ///
+  /// This bloom filter may be omitted at the server's discretion, such as if it
+  /// is deemed that the client will not make use of it or if it is too
+  /// computationally expensive to calculate or transmit. Clients must
+  /// gracefully handle this field being absent by falling back to the logic
+  /// used before this field existed; that is, re-add the target without a
+  /// resume token to figure out which documents in the client's cache are out
+  /// of sync.
+  BloomFilter? unchangedNames;
+
   ExistenceFilter({
     this.count,
     this.targetId,
+    this.unchangedNames,
   });
 
-  ExistenceFilter.fromJson(core.Map _json)
+  ExistenceFilter.fromJson(core.Map json_)
       : this(
-          count: _json.containsKey('count') ? _json['count'] as core.int : null,
-          targetId: _json.containsKey('targetId')
-              ? _json['targetId'] as core.int
+          count: json_.containsKey('count') ? json_['count'] as core.int : null,
+          targetId: json_.containsKey('targetId')
+              ? json_['targetId'] as core.int
+              : null,
+          unchangedNames: json_.containsKey('unchangedNames')
+              ? BloomFilter.fromJson(json_['unchangedNames']
+                  as core.Map<core.String, core.dynamic>)
               : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
         if (count != null) 'count': count!,
         if (targetId != null) 'targetId': targetId!,
+        if (unchangedNames != null) 'unchangedNames': unchangedNames!,
       };
 }
 
@@ -2120,16 +2312,18 @@ class FieldFilter {
   /// - "ARRAY_CONTAINS" : The given `field` is an array that contains the given
   /// `value`.
   /// - "IN" : The given `field` is equal to at least one value in the given
-  /// array. Requires: * That `value` is a non-empty `ArrayValue` with at most
-  /// 10 values. * No other `IN` or `ARRAY_CONTAINS_ANY` or `NOT_IN`.
+  /// array. Requires: * That `value` is a non-empty `ArrayValue`, subject to
+  /// disjunction limits. * No `NOT_IN` filters in the same query.
   /// - "ARRAY_CONTAINS_ANY" : The given `field` is an array that contains any
   /// of the values in the given array. Requires: * That `value` is a non-empty
-  /// `ArrayValue` with at most 10 values. * No other `IN` or
-  /// `ARRAY_CONTAINS_ANY` or `NOT_IN`.
+  /// `ArrayValue`, subject to disjunction limits. * No other
+  /// `ARRAY_CONTAINS_ANY` filters within the same disjunction. * No `NOT_IN`
+  /// filters in the same query.
   /// - "NOT_IN" : The value of the `field` is not in the given array. Requires:
   /// * That `value` is a non-empty `ArrayValue` with at most 10 values. * No
-  /// other `IN`, `ARRAY_CONTAINS_ANY`, `NOT_IN`, `NOT_EQUAL`, `IS_NOT_NULL`, or
-  /// `IS_NOT_NAN`. * That `field` comes first in the `order_by`.
+  /// other `OR`, `IN`, `ARRAY_CONTAINS_ANY`, `NOT_IN`, `NOT_EQUAL`,
+  /// `IS_NOT_NULL`, or `IS_NOT_NAN`. * That `field` comes first in the
+  /// `order_by`.
   core.String? op;
 
   /// The value to compare to.
@@ -2141,16 +2335,16 @@ class FieldFilter {
     this.value,
   });
 
-  FieldFilter.fromJson(core.Map _json)
+  FieldFilter.fromJson(core.Map json_)
       : this(
-          field: _json.containsKey('field')
+          field: json_.containsKey('field')
               ? FieldReference.fromJson(
-                  _json['field'] as core.Map<core.String, core.dynamic>)
+                  json_['field'] as core.Map<core.String, core.dynamic>)
               : null,
-          op: _json.containsKey('op') ? _json['op'] as core.String : null,
-          value: _json.containsKey('value')
+          op: json_.containsKey('op') ? json_['op'] as core.String : null,
+          value: json_.containsKey('value')
               ? Value.fromJson(
-                  _json['value'] as core.Map<core.String, core.dynamic>)
+                  json_['value'] as core.Map<core.String, core.dynamic>)
               : null,
         );
 
@@ -2161,7 +2355,7 @@ class FieldFilter {
       };
 }
 
-/// A reference to a field, such as `max(messages.time) as max_time`.
+/// A reference to a field in a document, ex: `stats.operations`.
 typedef FieldReference = $FieldReference;
 
 /// A transformation of a field of the document.
@@ -2248,33 +2442,33 @@ class FieldTransform {
     this.setToServerValue,
   });
 
-  FieldTransform.fromJson(core.Map _json)
+  FieldTransform.fromJson(core.Map json_)
       : this(
-          appendMissingElements: _json.containsKey('appendMissingElements')
-              ? ArrayValue.fromJson(_json['appendMissingElements']
+          appendMissingElements: json_.containsKey('appendMissingElements')
+              ? ArrayValue.fromJson(json_['appendMissingElements']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          fieldPath: _json.containsKey('fieldPath')
-              ? _json['fieldPath'] as core.String
+          fieldPath: json_.containsKey('fieldPath')
+              ? json_['fieldPath'] as core.String
               : null,
-          increment: _json.containsKey('increment')
+          increment: json_.containsKey('increment')
               ? Value.fromJson(
-                  _json['increment'] as core.Map<core.String, core.dynamic>)
+                  json_['increment'] as core.Map<core.String, core.dynamic>)
               : null,
-          maximum: _json.containsKey('maximum')
+          maximum: json_.containsKey('maximum')
               ? Value.fromJson(
-                  _json['maximum'] as core.Map<core.String, core.dynamic>)
+                  json_['maximum'] as core.Map<core.String, core.dynamic>)
               : null,
-          minimum: _json.containsKey('minimum')
+          minimum: json_.containsKey('minimum')
               ? Value.fromJson(
-                  _json['minimum'] as core.Map<core.String, core.dynamic>)
+                  json_['minimum'] as core.Map<core.String, core.dynamic>)
               : null,
-          removeAllFromArray: _json.containsKey('removeAllFromArray')
-              ? ArrayValue.fromJson(_json['removeAllFromArray']
+          removeAllFromArray: json_.containsKey('removeAllFromArray')
+              ? ArrayValue.fromJson(json_['removeAllFromArray']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          setToServerValue: _json.containsKey('setToServerValue')
-              ? _json['setToServerValue'] as core.String
+          setToServerValue: json_.containsKey('setToServerValue')
+              ? json_['setToServerValue'] as core.String
               : null,
         );
 
@@ -2308,19 +2502,19 @@ class Filter {
     this.unaryFilter,
   });
 
-  Filter.fromJson(core.Map _json)
+  Filter.fromJson(core.Map json_)
       : this(
-          compositeFilter: _json.containsKey('compositeFilter')
-              ? CompositeFilter.fromJson(_json['compositeFilter']
+          compositeFilter: json_.containsKey('compositeFilter')
+              ? CompositeFilter.fromJson(json_['compositeFilter']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          fieldFilter: _json.containsKey('fieldFilter')
+          fieldFilter: json_.containsKey('fieldFilter')
               ? FieldFilter.fromJson(
-                  _json['fieldFilter'] as core.Map<core.String, core.dynamic>)
+                  json_['fieldFilter'] as core.Map<core.String, core.dynamic>)
               : null,
-          unaryFilter: _json.containsKey('unaryFilter')
+          unaryFilter: json_.containsKey('unaryFilter')
               ? UnaryFilter.fromJson(
-                  _json['unaryFilter'] as core.Map<core.String, core.dynamic>)
+                  json_['unaryFilter'] as core.Map<core.String, core.dynamic>)
               : null,
         );
 
@@ -2354,15 +2548,15 @@ class GoogleFirestoreAdminV1beta1ImportDocumentsRequest {
     this.inputUriPrefix,
   });
 
-  GoogleFirestoreAdminV1beta1ImportDocumentsRequest.fromJson(core.Map _json)
+  GoogleFirestoreAdminV1beta1ImportDocumentsRequest.fromJson(core.Map json_)
       : this(
-          collectionIds: _json.containsKey('collectionIds')
-              ? (_json['collectionIds'] as core.List)
+          collectionIds: json_.containsKey('collectionIds')
+              ? (json_['collectionIds'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
-          inputUriPrefix: _json.containsKey('inputUriPrefix')
-              ? _json['inputUriPrefix'] as core.String
+          inputUriPrefix: json_.containsKey('inputUriPrefix')
+              ? json_['inputUriPrefix'] as core.String
               : null,
         );
 
@@ -2411,21 +2605,21 @@ class GoogleFirestoreAdminV1beta1Index {
     this.state,
   });
 
-  GoogleFirestoreAdminV1beta1Index.fromJson(core.Map _json)
+  GoogleFirestoreAdminV1beta1Index.fromJson(core.Map json_)
       : this(
-          collectionId: _json.containsKey('collectionId')
-              ? _json['collectionId'] as core.String
+          collectionId: json_.containsKey('collectionId')
+              ? json_['collectionId'] as core.String
               : null,
-          fields: _json.containsKey('fields')
-              ? (_json['fields'] as core.List)
+          fields: json_.containsKey('fields')
+              ? (json_['fields'] as core.List)
                   .map((value) =>
                       GoogleFirestoreAdminV1beta1IndexField.fromJson(
                           value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
           state:
-              _json.containsKey('state') ? _json['state'] as core.String : null,
+              json_.containsKey('state') ? json_['state'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
@@ -2462,12 +2656,12 @@ class GoogleFirestoreAdminV1beta1IndexField {
     this.mode,
   });
 
-  GoogleFirestoreAdminV1beta1IndexField.fromJson(core.Map _json)
+  GoogleFirestoreAdminV1beta1IndexField.fromJson(core.Map json_)
       : this(
-          fieldPath: _json.containsKey('fieldPath')
-              ? _json['fieldPath'] as core.String
+          fieldPath: json_.containsKey('fieldPath')
+              ? json_['fieldPath'] as core.String
               : null,
-          mode: _json.containsKey('mode') ? _json['mode'] as core.String : null,
+          mode: json_.containsKey('mode') ? json_['mode'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
@@ -2489,16 +2683,16 @@ class GoogleFirestoreAdminV1beta1ListIndexesResponse {
     this.nextPageToken,
   });
 
-  GoogleFirestoreAdminV1beta1ListIndexesResponse.fromJson(core.Map _json)
+  GoogleFirestoreAdminV1beta1ListIndexesResponse.fromJson(core.Map json_)
       : this(
-          indexes: _json.containsKey('indexes')
-              ? (_json['indexes'] as core.List)
+          indexes: json_.containsKey('indexes')
+              ? (json_['indexes'] as core.List)
                   .map((value) => GoogleFirestoreAdminV1beta1Index.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          nextPageToken: _json.containsKey('nextPageToken')
-              ? _json['nextPageToken'] as core.String
+          nextPageToken: json_.containsKey('nextPageToken')
+              ? json_['nextPageToken'] as core.String
               : null,
         );
 
@@ -2538,7 +2732,7 @@ class GoogleLongrunningOperation {
   /// ending with `operations/{unique_id}`.
   core.String? name;
 
-  /// The normal response of the operation in case of success.
+  /// The normal, successful response of the operation.
   ///
   /// If the original method returns no data on success, such as `Delete`, the
   /// response is `google.protobuf.Empty`. If the original method is standard
@@ -2559,19 +2753,19 @@ class GoogleLongrunningOperation {
     this.response,
   });
 
-  GoogleLongrunningOperation.fromJson(core.Map _json)
+  GoogleLongrunningOperation.fromJson(core.Map json_)
       : this(
-          done: _json.containsKey('done') ? _json['done'] as core.bool : null,
-          error: _json.containsKey('error')
+          done: json_.containsKey('done') ? json_['done'] as core.bool : null,
+          error: json_.containsKey('error')
               ? Status.fromJson(
-                  _json['error'] as core.Map<core.String, core.dynamic>)
+                  json_['error'] as core.Map<core.String, core.dynamic>)
               : null,
-          metadata: _json.containsKey('metadata')
-              ? _json['metadata'] as core.Map<core.String, core.dynamic>
+          metadata: json_.containsKey('metadata')
+              ? json_['metadata'] as core.Map<core.String, core.dynamic>
               : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
-          response: _json.containsKey('response')
-              ? _json['response'] as core.Map<core.String, core.dynamic>
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+          response: json_.containsKey('response')
+              ? json_['response'] as core.Map<core.String, core.dynamic>
               : null,
         );
 
@@ -2592,45 +2786,7 @@ class GoogleLongrunningOperation {
 typedef LatLng = $LatLng;
 
 /// The request for Firestore.ListCollectionIds.
-class ListCollectionIdsRequest {
-  /// The maximum number of results to return.
-  core.int? pageSize;
-
-  /// A page token.
-  ///
-  /// Must be a value from ListCollectionIdsResponse.
-  core.String? pageToken;
-
-  /// Reads documents as they were at the given time.
-  ///
-  /// This may not be older than 270 seconds.
-  core.String? readTime;
-
-  ListCollectionIdsRequest({
-    this.pageSize,
-    this.pageToken,
-    this.readTime,
-  });
-
-  ListCollectionIdsRequest.fromJson(core.Map _json)
-      : this(
-          pageSize: _json.containsKey('pageSize')
-              ? _json['pageSize'] as core.int
-              : null,
-          pageToken: _json.containsKey('pageToken')
-              ? _json['pageToken'] as core.String
-              : null,
-          readTime: _json.containsKey('readTime')
-              ? _json['readTime'] as core.String
-              : null,
-        );
-
-  core.Map<core.String, core.dynamic> toJson() => {
-        if (pageSize != null) 'pageSize': pageSize!,
-        if (pageToken != null) 'pageToken': pageToken!,
-        if (readTime != null) 'readTime': readTime!,
-      };
-}
+typedef ListCollectionIdsRequest = $ListCollectionIdsRequest;
 
 /// The response from Firestore.ListCollectionIds.
 typedef ListCollectionIdsResponse = $ListCollectionIdsResponse;
@@ -2640,7 +2796,9 @@ class ListDocumentsResponse {
   /// The Documents found.
   core.List<Document>? documents;
 
-  /// The next page token.
+  /// A token to retrieve the next page of documents.
+  ///
+  /// If this field is omitted, there are no subsequent pages.
   core.String? nextPageToken;
 
   ListDocumentsResponse({
@@ -2648,16 +2806,16 @@ class ListDocumentsResponse {
     this.nextPageToken,
   });
 
-  ListDocumentsResponse.fromJson(core.Map _json)
+  ListDocumentsResponse.fromJson(core.Map json_)
       : this(
-          documents: _json.containsKey('documents')
-              ? (_json['documents'] as core.List)
+          documents: json_.containsKey('documents')
+              ? (json_['documents'] as core.List)
                   .map((value) => Document.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          nextPageToken: _json.containsKey('nextPageToken')
-              ? _json['nextPageToken'] as core.String
+          nextPageToken: json_.containsKey('nextPageToken')
+              ? json_['nextPageToken'] as core.String
               : null,
         );
 
@@ -2684,22 +2842,22 @@ class ListenRequest {
     this.removeTarget,
   });
 
-  ListenRequest.fromJson(core.Map _json)
+  ListenRequest.fromJson(core.Map json_)
       : this(
-          addTarget: _json.containsKey('addTarget')
+          addTarget: json_.containsKey('addTarget')
               ? Target.fromJson(
-                  _json['addTarget'] as core.Map<core.String, core.dynamic>)
+                  json_['addTarget'] as core.Map<core.String, core.dynamic>)
               : null,
-          labels: _json.containsKey('labels')
-              ? (_json['labels'] as core.Map<core.String, core.dynamic>).map(
-                  (key, item) => core.MapEntry(
+          labels: json_.containsKey('labels')
+              ? (json_['labels'] as core.Map<core.String, core.dynamic>).map(
+                  (key, value) => core.MapEntry(
                     key,
-                    item as core.String,
+                    value as core.String,
                   ),
                 )
               : null,
-          removeTarget: _json.containsKey('removeTarget')
-              ? _json['removeTarget'] as core.int
+          removeTarget: json_.containsKey('removeTarget')
+              ? json_['removeTarget'] as core.int
               : null,
         );
 
@@ -2740,27 +2898,27 @@ class ListenResponse {
     this.targetChange,
   });
 
-  ListenResponse.fromJson(core.Map _json)
+  ListenResponse.fromJson(core.Map json_)
       : this(
-          documentChange: _json.containsKey('documentChange')
-              ? DocumentChange.fromJson(_json['documentChange']
+          documentChange: json_.containsKey('documentChange')
+              ? DocumentChange.fromJson(json_['documentChange']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          documentDelete: _json.containsKey('documentDelete')
-              ? DocumentDelete.fromJson(_json['documentDelete']
+          documentDelete: json_.containsKey('documentDelete')
+              ? DocumentDelete.fromJson(json_['documentDelete']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          documentRemove: _json.containsKey('documentRemove')
-              ? DocumentRemove.fromJson(_json['documentRemove']
+          documentRemove: json_.containsKey('documentRemove')
+              ? DocumentRemove.fromJson(json_['documentRemove']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          filter: _json.containsKey('filter')
+          filter: json_.containsKey('filter')
               ? ExistenceFilter.fromJson(
-                  _json['filter'] as core.Map<core.String, core.dynamic>)
+                  json_['filter'] as core.Map<core.String, core.dynamic>)
               : null,
-          targetChange: _json.containsKey('targetChange')
+          targetChange: json_.containsKey('targetChange')
               ? TargetChange.fromJson(
-                  _json['targetChange'] as core.Map<core.String, core.dynamic>)
+                  json_['targetChange'] as core.Map<core.String, core.dynamic>)
               : null,
         );
 
@@ -2787,13 +2945,14 @@ class MapValue {
     this.fields,
   });
 
-  MapValue.fromJson(core.Map _json)
+  MapValue.fromJson(core.Map json_)
       : this(
-          fields: _json.containsKey('fields')
-              ? (_json['fields'] as core.Map<core.String, core.dynamic>).map(
-                  (key, item) => core.MapEntry(
+          fields: json_.containsKey('fields')
+              ? (json_['fields'] as core.Map<core.String, core.dynamic>).map(
+                  (key, value) => core.MapEntry(
                     key,
-                    Value.fromJson(item as core.Map<core.String, core.dynamic>),
+                    Value.fromJson(
+                        value as core.Map<core.String, core.dynamic>),
                   ),
                 )
               : null,
@@ -2823,14 +2982,14 @@ class Order {
     this.field,
   });
 
-  Order.fromJson(core.Map _json)
+  Order.fromJson(core.Map json_)
       : this(
-          direction: _json.containsKey('direction')
-              ? _json['direction'] as core.String
+          direction: json_.containsKey('direction')
+              ? json_['direction'] as core.String
               : null,
-          field: _json.containsKey('field')
+          field: json_.containsKey('field')
               ? FieldReference.fromJson(
-                  _json['field'] as core.Map<core.String, core.dynamic>)
+                  json_['field'] as core.Map<core.String, core.dynamic>)
               : null,
         );
 
@@ -2874,7 +3033,9 @@ class PartitionQueryRequest {
 
   /// Reads documents as they were at the given time.
   ///
-  /// This may not be older than 270 seconds.
+  /// This must be a microsecond precision timestamp within the past one hour,
+  /// or if Point-in-Time Recovery is enabled, can additionally be a whole
+  /// minute timestamp within the past 7 days.
   core.String? readTime;
 
   /// A structured query.
@@ -2892,22 +3053,22 @@ class PartitionQueryRequest {
     this.structuredQuery,
   });
 
-  PartitionQueryRequest.fromJson(core.Map _json)
+  PartitionQueryRequest.fromJson(core.Map json_)
       : this(
-          pageSize: _json.containsKey('pageSize')
-              ? _json['pageSize'] as core.int
+          pageSize: json_.containsKey('pageSize')
+              ? json_['pageSize'] as core.int
               : null,
-          pageToken: _json.containsKey('pageToken')
-              ? _json['pageToken'] as core.String
+          pageToken: json_.containsKey('pageToken')
+              ? json_['pageToken'] as core.String
               : null,
-          partitionCount: _json.containsKey('partitionCount')
-              ? _json['partitionCount'] as core.String
+          partitionCount: json_.containsKey('partitionCount')
+              ? json_['partitionCount'] as core.String
               : null,
-          readTime: _json.containsKey('readTime')
-              ? _json['readTime'] as core.String
+          readTime: json_.containsKey('readTime')
+              ? json_['readTime'] as core.String
               : null,
-          structuredQuery: _json.containsKey('structuredQuery')
-              ? StructuredQuery.fromJson(_json['structuredQuery']
+          structuredQuery: json_.containsKey('structuredQuery')
+              ? StructuredQuery.fromJson(json_['structuredQuery']
                   as core.Map<core.String, core.dynamic>)
               : null,
         );
@@ -2948,13 +3109,13 @@ class PartitionQueryResponse {
     this.partitions,
   });
 
-  PartitionQueryResponse.fromJson(core.Map _json)
+  PartitionQueryResponse.fromJson(core.Map json_)
       : this(
-          nextPageToken: _json.containsKey('nextPageToken')
-              ? _json['nextPageToken'] as core.String
+          nextPageToken: json_.containsKey('nextPageToken')
+              ? json_['nextPageToken'] as core.String
               : null,
-          partitions: _json.containsKey('partitions')
-              ? (_json['partitions'] as core.List)
+          partitions: json_.containsKey('partitions')
+              ? (json_['partitions'] as core.List)
                   .map((value) => Cursor.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -2982,10 +3143,10 @@ class Projection {
     this.fields,
   });
 
-  Projection.fromJson(core.Map _json)
+  Projection.fromJson(core.Map json_)
       : this(
-          fields: _json.containsKey('fields')
-              ? (_json['fields'] as core.List)
+          fields: json_.containsKey('fields')
+              ? (json_['fields'] as core.List)
                   .map((value) => FieldReference.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -3016,13 +3177,13 @@ class QueryTarget {
     this.structuredQuery,
   });
 
-  QueryTarget.fromJson(core.Map _json)
+  QueryTarget.fromJson(core.Map json_)
       : this(
-          parent: _json.containsKey('parent')
-              ? _json['parent'] as core.String
+          parent: json_.containsKey('parent')
+              ? json_['parent'] as core.String
               : null,
-          structuredQuery: _json.containsKey('structuredQuery')
-              ? StructuredQuery.fromJson(_json['structuredQuery']
+          structuredQuery: json_.containsKey('structuredQuery')
+              ? StructuredQuery.fromJson(json_['structuredQuery']
                   as core.Map<core.String, core.dynamic>)
               : null,
         );
@@ -3037,6 +3198,9 @@ class QueryTarget {
 typedef ReadOnly = $ReadOnly;
 
 /// Options for a transaction that can be used to read and write documents.
+///
+/// Firestore does not allow 3rd party auth requests to create read-write.
+/// transactions.
 typedef ReadWrite = $ReadWrite;
 
 /// The request for Firestore.Rollback.
@@ -3052,7 +3216,9 @@ class RunAggregationQueryRequest {
 
   /// Executes the query at the given timestamp.
   ///
-  /// Requires: * Cannot be more than 270 seconds in the past.
+  /// This must be a microsecond precision timestamp within the past one hour,
+  /// or if Point-in-Time Recovery is enabled, can additionally be a whole
+  /// minute timestamp within the past 7 days.
   core.String? readTime;
 
   /// An aggregation query.
@@ -3065,9 +3231,9 @@ class RunAggregationQueryRequest {
   core.List<core.int> get transactionAsBytes =>
       convert.base64.decode(transaction!);
 
-  set transactionAsBytes(core.List<core.int> _bytes) {
+  set transactionAsBytes(core.List<core.int> bytes_) {
     transaction =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   RunAggregationQueryRequest({
@@ -3077,23 +3243,23 @@ class RunAggregationQueryRequest {
     this.transaction,
   });
 
-  RunAggregationQueryRequest.fromJson(core.Map _json)
+  RunAggregationQueryRequest.fromJson(core.Map json_)
       : this(
-          newTransaction: _json.containsKey('newTransaction')
-              ? TransactionOptions.fromJson(_json['newTransaction']
+          newTransaction: json_.containsKey('newTransaction')
+              ? TransactionOptions.fromJson(json_['newTransaction']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          readTime: _json.containsKey('readTime')
-              ? _json['readTime'] as core.String
+          readTime: json_.containsKey('readTime')
+              ? json_['readTime'] as core.String
               : null,
           structuredAggregationQuery:
-              _json.containsKey('structuredAggregationQuery')
+              json_.containsKey('structuredAggregationQuery')
                   ? StructuredAggregationQuery.fromJson(
-                      _json['structuredAggregationQuery']
+                      json_['structuredAggregationQuery']
                           as core.Map<core.String, core.dynamic>)
                   : null,
-          transaction: _json.containsKey('transaction')
-              ? _json['transaction'] as core.String
+          transaction: json_.containsKey('transaction')
+              ? json_['transaction'] as core.String
               : null,
         );
 
@@ -3108,13 +3274,18 @@ class RunAggregationQueryRequest {
 
 /// The response for Firestore.RunAggregationQuery.
 class RunAggregationQueryResponse {
-  /// The time at which the aggregate value is valid for.
+  /// The time at which the aggregate result was computed.
+  ///
+  /// This is always monotonically increasing; in this case, the previous
+  /// AggregationResult in the result stream are guaranteed not to have changed
+  /// between their `read_time` and this one. If the query returns no results, a
+  /// response with `read_time` and no `result` will be sent, and this
+  /// represents the time at which the query was run.
   core.String? readTime;
 
   /// A single aggregation result.
   ///
-  /// Not present when reporting partial progress or when the query produced
-  /// zero results.
+  /// Not present when reporting partial progress.
   AggregationResult? result;
 
   /// The transaction that was started as part of this request.
@@ -3125,9 +3296,9 @@ class RunAggregationQueryResponse {
   core.List<core.int> get transactionAsBytes =>
       convert.base64.decode(transaction!);
 
-  set transactionAsBytes(core.List<core.int> _bytes) {
+  set transactionAsBytes(core.List<core.int> bytes_) {
     transaction =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   RunAggregationQueryResponse({
@@ -3136,17 +3307,17 @@ class RunAggregationQueryResponse {
     this.transaction,
   });
 
-  RunAggregationQueryResponse.fromJson(core.Map _json)
+  RunAggregationQueryResponse.fromJson(core.Map json_)
       : this(
-          readTime: _json.containsKey('readTime')
-              ? _json['readTime'] as core.String
+          readTime: json_.containsKey('readTime')
+              ? json_['readTime'] as core.String
               : null,
-          result: _json.containsKey('result')
+          result: json_.containsKey('result')
               ? AggregationResult.fromJson(
-                  _json['result'] as core.Map<core.String, core.dynamic>)
+                  json_['result'] as core.Map<core.String, core.dynamic>)
               : null,
-          transaction: _json.containsKey('transaction')
-              ? _json['transaction'] as core.String
+          transaction: json_.containsKey('transaction')
+              ? json_['transaction'] as core.String
               : null,
         );
 
@@ -3167,7 +3338,9 @@ class RunQueryRequest {
 
   /// Reads documents as they were at the given time.
   ///
-  /// This may not be older than 270 seconds.
+  /// This must be a microsecond precision timestamp within the past one hour,
+  /// or if Point-in-Time Recovery is enabled, can additionally be a whole
+  /// minute timestamp within the past 7 days.
   core.String? readTime;
 
   /// A structured query.
@@ -3180,9 +3353,9 @@ class RunQueryRequest {
   core.List<core.int> get transactionAsBytes =>
       convert.base64.decode(transaction!);
 
-  set transactionAsBytes(core.List<core.int> _bytes) {
+  set transactionAsBytes(core.List<core.int> bytes_) {
     transaction =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   RunQueryRequest({
@@ -3192,21 +3365,21 @@ class RunQueryRequest {
     this.transaction,
   });
 
-  RunQueryRequest.fromJson(core.Map _json)
+  RunQueryRequest.fromJson(core.Map json_)
       : this(
-          newTransaction: _json.containsKey('newTransaction')
-              ? TransactionOptions.fromJson(_json['newTransaction']
+          newTransaction: json_.containsKey('newTransaction')
+              ? TransactionOptions.fromJson(json_['newTransaction']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          readTime: _json.containsKey('readTime')
-              ? _json['readTime'] as core.String
+          readTime: json_.containsKey('readTime')
+              ? json_['readTime'] as core.String
               : null,
-          structuredQuery: _json.containsKey('structuredQuery')
-              ? StructuredQuery.fromJson(_json['structuredQuery']
+          structuredQuery: json_.containsKey('structuredQuery')
+              ? StructuredQuery.fromJson(json_['structuredQuery']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          transaction: _json.containsKey('transaction')
-              ? _json['transaction'] as core.String
+          transaction: json_.containsKey('transaction')
+              ? json_['transaction'] as core.String
               : null,
         );
 
@@ -3222,6 +3395,10 @@ class RunQueryRequest {
 class RunQueryResponse {
   /// A query result, not set when reporting partial progress.
   Document? document;
+
+  /// If present, Firestore has completely finished the request and no more
+  /// documents will be returned.
+  core.bool? done;
 
   /// The time at which the document was read.
   ///
@@ -3245,37 +3422,40 @@ class RunQueryResponse {
   core.List<core.int> get transactionAsBytes =>
       convert.base64.decode(transaction!);
 
-  set transactionAsBytes(core.List<core.int> _bytes) {
+  set transactionAsBytes(core.List<core.int> bytes_) {
     transaction =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   RunQueryResponse({
     this.document,
+    this.done,
     this.readTime,
     this.skippedResults,
     this.transaction,
   });
 
-  RunQueryResponse.fromJson(core.Map _json)
+  RunQueryResponse.fromJson(core.Map json_)
       : this(
-          document: _json.containsKey('document')
+          document: json_.containsKey('document')
               ? Document.fromJson(
-                  _json['document'] as core.Map<core.String, core.dynamic>)
+                  json_['document'] as core.Map<core.String, core.dynamic>)
               : null,
-          readTime: _json.containsKey('readTime')
-              ? _json['readTime'] as core.String
+          done: json_.containsKey('done') ? json_['done'] as core.bool : null,
+          readTime: json_.containsKey('readTime')
+              ? json_['readTime'] as core.String
               : null,
-          skippedResults: _json.containsKey('skippedResults')
-              ? _json['skippedResults'] as core.int
+          skippedResults: json_.containsKey('skippedResults')
+              ? json_['skippedResults'] as core.int
               : null,
-          transaction: _json.containsKey('transaction')
-              ? _json['transaction'] as core.String
+          transaction: json_.containsKey('transaction')
+              ? json_['transaction'] as core.String
               : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
         if (document != null) 'document': document!,
+        if (done != null) 'done': done!,
         if (readTime != null) 'readTime': readTime!,
         if (skippedResults != null) 'skippedResults': skippedResults!,
         if (transaction != null) 'transaction': transaction!,
@@ -3293,7 +3473,10 @@ typedef Status = $Status;
 
 /// Firestore query for running an aggregation over a StructuredQuery.
 class StructuredAggregationQuery {
-  /// Series of aggregations to apply on top of the `structured_query`.
+  /// Series of aggregations to apply over the results of the
+  /// `structured_query`.
+  ///
+  /// Requires: * A minimum of one and maximum of five aggregations per query.
   ///
   /// Optional.
   core.List<Aggregation>? aggregations;
@@ -3306,16 +3489,16 @@ class StructuredAggregationQuery {
     this.structuredQuery,
   });
 
-  StructuredAggregationQuery.fromJson(core.Map _json)
+  StructuredAggregationQuery.fromJson(core.Map json_)
       : this(
-          aggregations: _json.containsKey('aggregations')
-              ? (_json['aggregations'] as core.List)
+          aggregations: json_.containsKey('aggregations')
+              ? (json_['aggregations'] as core.List)
                   .map((value) => Aggregation.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          structuredQuery: _json.containsKey('structuredQuery')
-              ? StructuredQuery.fromJson(_json['structuredQuery']
+          structuredQuery: json_.containsKey('structuredQuery')
+              ? StructuredQuery.fromJson(json_['structuredQuery']
                   as core.Map<core.String, core.dynamic>)
               : null,
         );
@@ -3328,7 +3511,11 @@ class StructuredAggregationQuery {
 
 /// A Firestore query.
 class StructuredQuery {
-  /// A end point for the query results.
+  /// A potential prefix of a position in the result set to end the query at.
+  ///
+  /// This is similar to `START_AT` but with it controlling the end position
+  /// rather than the start position. Requires: * The number of values cannot be
+  /// greater than the number of fields specified in the `ORDER BY` clause.
   Cursor? endAt;
 
   /// The collections to query.
@@ -3336,33 +3523,57 @@ class StructuredQuery {
 
   /// The maximum number of results to return.
   ///
-  /// Applies after all other constraints. Must be \>= 0 if specified.
+  /// Applies after all other constraints. Requires: * The value must be greater
+  /// than or equal to zero if specified.
   core.int? limit;
 
-  /// The number of results to skip.
+  /// The number of documents to skip before returning the first result.
   ///
-  /// Applies before limit, but after all other constraints. Must be \>= 0 if
-  /// specified.
+  /// This applies after the constraints specified by the `WHERE`, `START AT`, &
+  /// `END AT` but before the `LIMIT` clause. Requires: * The value must be
+  /// greater than or equal to zero if specified.
   core.int? offset;
 
   /// The order to apply to the query results.
   ///
-  /// Firestore guarantees a stable ordering through the following rules: * Any
-  /// field required to appear in `order_by`, that is not already specified in
-  /// `order_by`, is appended to the order in field name order by default. * If
-  /// an order on `__name__` is not specified, it is appended by default. Fields
-  /// are appended with the same sort direction as the last order specified, or
-  /// 'ASCENDING' if no order was specified. For example: * `SELECT * FROM Foo
-  /// ORDER BY A` becomes `SELECT * FROM Foo ORDER BY A, __name__` * `SELECT *
-  /// FROM Foo ORDER BY A DESC` becomes `SELECT * FROM Foo ORDER BY A DESC,
-  /// __name__ DESC` * `SELECT * FROM Foo WHERE A > 1` becomes `SELECT * FROM
-  /// Foo WHERE A > 1 ORDER BY A, __name__`
+  /// Firestore allows callers to provide a full ordering, a partial ordering,
+  /// or no ordering at all. In all cases, Firestore guarantees a stable
+  /// ordering through the following rules: * The `order_by` is required to
+  /// reference all fields used with an inequality filter. * All fields that are
+  /// required to be in the `order_by` but are not already present are appended
+  /// in lexicographical ordering of the field name. * If an order on `__name__`
+  /// is not specified, it is appended by default. Fields are appended with the
+  /// same sort direction as the last order specified, or 'ASCENDING' if no
+  /// order was specified. For example: * `ORDER BY a` becomes `ORDER BY a ASC,
+  /// __name__ ASC` * `ORDER BY a DESC` becomes `ORDER BY a DESC, __name__ DESC`
+  /// * `WHERE a > 1` becomes `WHERE a > 1 ORDER BY a ASC, __name__ ASC` *
+  /// `WHERE __name__ > ... AND a > 1` becomes `WHERE __name__ > ... AND a > 1
+  /// ORDER BY a ASC, __name__ ASC`
   core.List<Order>? orderBy;
 
-  /// The projection to return.
+  /// Optional sub-set of the fields to return.
+  ///
+  /// This acts as a DocumentMask over the documents returned from a query. When
+  /// not set, assumes that the caller wants all fields returned.
   Projection? select;
 
-  /// A starting point for the query results.
+  /// A potential prefix of a position in the result set to start the query at.
+  ///
+  /// The ordering of the result set is based on the `ORDER BY` clause of the
+  /// original query. ``` SELECT * FROM k WHERE a = 1 AND b > 2 ORDER BY b ASC,
+  /// __name__ ASC; ``` This query's results are ordered by `(b ASC, __name__
+  /// ASC)`. Cursors can reference either the full ordering or a prefix of the
+  /// location, though it cannot reference more fields than what are in the
+  /// provided `ORDER BY`. Continuing off the example above, attaching the
+  /// following start cursors will have varying impact: - `START BEFORE (2,
+  /// /k/123)`: start the query right before `a = 1 AND b > 2 AND __name__ >
+  /// /k/123`. - `START AFTER (10)`: start the query right after `a = 1 AND b >
+  /// 10`. Unlike `OFFSET` which requires scanning over the first N results to
+  /// skip, a start cursor allows the query to begin at a logical position. This
+  /// position is not required to match an actual result, it will scan forward
+  /// from this position to find the next document. Requires: * The number of
+  /// values cannot be greater than the number of fields specified in the `ORDER
+  /// BY` clause.
   Cursor? startAt;
 
   /// The filter to apply.
@@ -3379,38 +3590,38 @@ class StructuredQuery {
     this.where,
   });
 
-  StructuredQuery.fromJson(core.Map _json)
+  StructuredQuery.fromJson(core.Map json_)
       : this(
-          endAt: _json.containsKey('endAt')
+          endAt: json_.containsKey('endAt')
               ? Cursor.fromJson(
-                  _json['endAt'] as core.Map<core.String, core.dynamic>)
+                  json_['endAt'] as core.Map<core.String, core.dynamic>)
               : null,
-          from: _json.containsKey('from')
-              ? (_json['from'] as core.List)
+          from: json_.containsKey('from')
+              ? (json_['from'] as core.List)
                   .map((value) => CollectionSelector.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          limit: _json.containsKey('limit') ? _json['limit'] as core.int : null,
+          limit: json_.containsKey('limit') ? json_['limit'] as core.int : null,
           offset:
-              _json.containsKey('offset') ? _json['offset'] as core.int : null,
-          orderBy: _json.containsKey('orderBy')
-              ? (_json['orderBy'] as core.List)
+              json_.containsKey('offset') ? json_['offset'] as core.int : null,
+          orderBy: json_.containsKey('orderBy')
+              ? (json_['orderBy'] as core.List)
                   .map((value) => Order.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          select: _json.containsKey('select')
+          select: json_.containsKey('select')
               ? Projection.fromJson(
-                  _json['select'] as core.Map<core.String, core.dynamic>)
+                  json_['select'] as core.Map<core.String, core.dynamic>)
               : null,
-          startAt: _json.containsKey('startAt')
+          startAt: json_.containsKey('startAt')
               ? Cursor.fromJson(
-                  _json['startAt'] as core.Map<core.String, core.dynamic>)
+                  json_['startAt'] as core.Map<core.String, core.dynamic>)
               : null,
-          where: _json.containsKey('where')
+          where: json_.containsKey('where')
               ? Filter.fromJson(
-                  _json['where'] as core.Map<core.String, core.dynamic>)
+                  json_['where'] as core.Map<core.String, core.dynamic>)
               : null,
         );
 
@@ -3426,10 +3637,54 @@ class StructuredQuery {
       };
 }
 
+/// Sum of the values of the requested field.
+///
+/// * Only numeric values will be aggregated. All non-numeric values including
+/// `NULL` are skipped. * If the aggregated values contain `NaN`, returns `NaN`.
+/// Infinity math follows IEEE-754 standards. * If the aggregated value set is
+/// empty, returns 0. * Returns a 64-bit integer if all aggregated numbers are
+/// integers and the sum result does not overflow. Otherwise, the result is
+/// returned as a double. Note that even if all the aggregated values are
+/// integers, the result is returned as a double if it cannot fit within a
+/// 64-bit signed integer. When this occurs, the returned value will lose
+/// precision. * When underflow occurs, floating-point aggregation is
+/// non-deterministic. This means that running the same query repeatedly without
+/// any changes to the underlying values could produce slightly different
+/// results each time. In those cases, values should be stored as integers over
+/// floating-point numbers.
+class Sum {
+  /// The field to aggregate on.
+  FieldReference? field;
+
+  Sum({
+    this.field,
+  });
+
+  Sum.fromJson(core.Map json_)
+      : this(
+          field: json_.containsKey('field')
+              ? FieldReference.fromJson(
+                  json_['field'] as core.Map<core.String, core.dynamic>)
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (field != null) 'field': field!,
+      };
+}
+
 /// A specification of a set of documents to listen to.
 class Target {
   /// A target specified by a set of document names.
   DocumentsTarget? documents;
+
+  /// The number of documents that last matched the query at the resume token or
+  /// read time.
+  ///
+  /// This value is only relevant when a `resume_type` is provided. This value
+  /// being present and greater than zero signals that the client wants
+  /// `ExistenceFilter.unchanged_names` to be included in the response.
+  core.int? expectedCount;
 
   /// If the target should be removed once it is current and consistent.
   core.bool? once;
@@ -3449,9 +3704,9 @@ class Target {
   core.List<core.int> get resumeTokenAsBytes =>
       convert.base64.decode(resumeToken!);
 
-  set resumeTokenAsBytes(core.List<core.int> _bytes) {
+  set resumeTokenAsBytes(core.List<core.int> bytes_) {
     resumeToken =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   /// The target ID that identifies the target on the stream.
@@ -3461,6 +3716,7 @@ class Target {
 
   Target({
     this.documents,
+    this.expectedCount,
     this.once,
     this.query,
     this.readTime,
@@ -3468,30 +3724,34 @@ class Target {
     this.targetId,
   });
 
-  Target.fromJson(core.Map _json)
+  Target.fromJson(core.Map json_)
       : this(
-          documents: _json.containsKey('documents')
+          documents: json_.containsKey('documents')
               ? DocumentsTarget.fromJson(
-                  _json['documents'] as core.Map<core.String, core.dynamic>)
+                  json_['documents'] as core.Map<core.String, core.dynamic>)
               : null,
-          once: _json.containsKey('once') ? _json['once'] as core.bool : null,
-          query: _json.containsKey('query')
+          expectedCount: json_.containsKey('expectedCount')
+              ? json_['expectedCount'] as core.int
+              : null,
+          once: json_.containsKey('once') ? json_['once'] as core.bool : null,
+          query: json_.containsKey('query')
               ? QueryTarget.fromJson(
-                  _json['query'] as core.Map<core.String, core.dynamic>)
+                  json_['query'] as core.Map<core.String, core.dynamic>)
               : null,
-          readTime: _json.containsKey('readTime')
-              ? _json['readTime'] as core.String
+          readTime: json_.containsKey('readTime')
+              ? json_['readTime'] as core.String
               : null,
-          resumeToken: _json.containsKey('resumeToken')
-              ? _json['resumeToken'] as core.String
+          resumeToken: json_.containsKey('resumeToken')
+              ? json_['resumeToken'] as core.String
               : null,
-          targetId: _json.containsKey('targetId')
-              ? _json['targetId'] as core.int
+          targetId: json_.containsKey('targetId')
+              ? json_['targetId'] as core.int
               : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
         if (documents != null) 'documents': documents!,
+        if (expectedCount != null) 'expectedCount': expectedCount!,
         if (once != null) 'once': once!,
         if (query != null) 'query': query!,
         if (readTime != null) 'readTime': readTime!,
@@ -3523,9 +3783,9 @@ class TargetChange {
   core.List<core.int> get resumeTokenAsBytes =>
       convert.base64.decode(resumeToken!);
 
-  set resumeTokenAsBytes(core.List<core.int> _bytes) {
+  set resumeTokenAsBytes(core.List<core.int> bytes_) {
     resumeToken =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   /// The type of change that occurred.
@@ -3559,23 +3819,23 @@ class TargetChange {
     this.targetIds,
   });
 
-  TargetChange.fromJson(core.Map _json)
+  TargetChange.fromJson(core.Map json_)
       : this(
-          cause: _json.containsKey('cause')
+          cause: json_.containsKey('cause')
               ? Status.fromJson(
-                  _json['cause'] as core.Map<core.String, core.dynamic>)
+                  json_['cause'] as core.Map<core.String, core.dynamic>)
               : null,
-          readTime: _json.containsKey('readTime')
-              ? _json['readTime'] as core.String
+          readTime: json_.containsKey('readTime')
+              ? json_['readTime'] as core.String
               : null,
-          resumeToken: _json.containsKey('resumeToken')
-              ? _json['resumeToken'] as core.String
+          resumeToken: json_.containsKey('resumeToken')
+              ? json_['resumeToken'] as core.String
               : null,
-          targetChangeType: _json.containsKey('targetChangeType')
-              ? _json['targetChangeType'] as core.String
+          targetChangeType: json_.containsKey('targetChangeType')
+              ? json_['targetChangeType'] as core.String
               : null,
-          targetIds: _json.containsKey('targetIds')
-              ? (_json['targetIds'] as core.List)
+          targetIds: json_.containsKey('targetIds')
+              ? (json_['targetIds'] as core.List)
                   .map((value) => value as core.int)
                   .toList()
               : null,
@@ -3603,15 +3863,15 @@ class TransactionOptions {
     this.readWrite,
   });
 
-  TransactionOptions.fromJson(core.Map _json)
+  TransactionOptions.fromJson(core.Map json_)
       : this(
-          readOnly: _json.containsKey('readOnly')
+          readOnly: json_.containsKey('readOnly')
               ? ReadOnly.fromJson(
-                  _json['readOnly'] as core.Map<core.String, core.dynamic>)
+                  json_['readOnly'] as core.Map<core.String, core.dynamic>)
               : null,
-          readWrite: _json.containsKey('readWrite')
+          readWrite: json_.containsKey('readWrite')
               ? ReadWrite.fromJson(
-                  _json['readWrite'] as core.Map<core.String, core.dynamic>)
+                  json_['readWrite'] as core.Map<core.String, core.dynamic>)
               : null,
         );
 
@@ -3644,13 +3904,13 @@ class UnaryFilter {
     this.op,
   });
 
-  UnaryFilter.fromJson(core.Map _json)
+  UnaryFilter.fromJson(core.Map json_)
       : this(
-          field: _json.containsKey('field')
+          field: json_.containsKey('field')
               ? FieldReference.fromJson(
-                  _json['field'] as core.Map<core.String, core.dynamic>)
+                  json_['field'] as core.Map<core.String, core.dynamic>)
               : null,
-          op: _json.containsKey('op') ? _json['op'] as core.String : null,
+          op: json_.containsKey('op') ? json_['op'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
@@ -3678,9 +3938,9 @@ class Value {
   core.List<core.int> get bytesValueAsBytes =>
       convert.base64.decode(bytesValue!);
 
-  set bytesValueAsBytes(core.List<core.int> _bytes) {
+  set bytesValueAsBytes(core.List<core.int> bytes_) {
     bytesValue =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   /// A double value.
@@ -3733,41 +3993,41 @@ class Value {
     this.timestampValue,
   });
 
-  Value.fromJson(core.Map _json)
+  Value.fromJson(core.Map json_)
       : this(
-          arrayValue: _json.containsKey('arrayValue')
+          arrayValue: json_.containsKey('arrayValue')
               ? ArrayValue.fromJson(
-                  _json['arrayValue'] as core.Map<core.String, core.dynamic>)
+                  json_['arrayValue'] as core.Map<core.String, core.dynamic>)
               : null,
-          booleanValue: _json.containsKey('booleanValue')
-              ? _json['booleanValue'] as core.bool
+          booleanValue: json_.containsKey('booleanValue')
+              ? json_['booleanValue'] as core.bool
               : null,
-          bytesValue: _json.containsKey('bytesValue')
-              ? _json['bytesValue'] as core.String
+          bytesValue: json_.containsKey('bytesValue')
+              ? json_['bytesValue'] as core.String
               : null,
-          doubleValue: _json.containsKey('doubleValue')
-              ? (_json['doubleValue'] as core.num).toDouble()
+          doubleValue: json_.containsKey('doubleValue')
+              ? (json_['doubleValue'] as core.num).toDouble()
               : null,
-          geoPointValue: _json.containsKey('geoPointValue')
+          geoPointValue: json_.containsKey('geoPointValue')
               ? LatLng.fromJson(
-                  _json['geoPointValue'] as core.Map<core.String, core.dynamic>)
+                  json_['geoPointValue'] as core.Map<core.String, core.dynamic>)
               : null,
-          integerValue: _json.containsKey('integerValue')
-              ? _json['integerValue'] as core.String
+          integerValue: json_.containsKey('integerValue')
+              ? json_['integerValue'] as core.String
               : null,
-          mapValue: _json.containsKey('mapValue')
+          mapValue: json_.containsKey('mapValue')
               ? MapValue.fromJson(
-                  _json['mapValue'] as core.Map<core.String, core.dynamic>)
+                  json_['mapValue'] as core.Map<core.String, core.dynamic>)
               : null,
-          nullValue: _json.containsKey('nullValue') ? 'NULL_VALUE' : null,
-          referenceValue: _json.containsKey('referenceValue')
-              ? _json['referenceValue'] as core.String
+          nullValue: json_.containsKey('nullValue') ? 'NULL_VALUE' : null,
+          referenceValue: json_.containsKey('referenceValue')
+              ? json_['referenceValue'] as core.String
               : null,
-          stringValue: _json.containsKey('stringValue')
-              ? _json['stringValue'] as core.String
+          stringValue: json_.containsKey('stringValue')
+              ? json_['stringValue'] as core.String
               : null,
-          timestampValue: _json.containsKey('timestampValue')
-              ? _json['timestampValue'] as core.String
+          timestampValue: json_.containsKey('timestampValue')
+              ? json_['timestampValue'] as core.String
               : null,
         );
 
@@ -3832,29 +4092,29 @@ class Write {
     this.updateTransforms,
   });
 
-  Write.fromJson(core.Map _json)
+  Write.fromJson(core.Map json_)
       : this(
-          currentDocument: _json.containsKey('currentDocument')
-              ? Precondition.fromJson(_json['currentDocument']
+          currentDocument: json_.containsKey('currentDocument')
+              ? Precondition.fromJson(json_['currentDocument']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          delete: _json.containsKey('delete')
-              ? _json['delete'] as core.String
+          delete: json_.containsKey('delete')
+              ? json_['delete'] as core.String
               : null,
-          transform: _json.containsKey('transform')
+          transform: json_.containsKey('transform')
               ? DocumentTransform.fromJson(
-                  _json['transform'] as core.Map<core.String, core.dynamic>)
+                  json_['transform'] as core.Map<core.String, core.dynamic>)
               : null,
-          update: _json.containsKey('update')
+          update: json_.containsKey('update')
               ? Document.fromJson(
-                  _json['update'] as core.Map<core.String, core.dynamic>)
+                  json_['update'] as core.Map<core.String, core.dynamic>)
               : null,
-          updateMask: _json.containsKey('updateMask')
+          updateMask: json_.containsKey('updateMask')
               ? DocumentMask.fromJson(
-                  _json['updateMask'] as core.Map<core.String, core.dynamic>)
+                  json_['updateMask'] as core.Map<core.String, core.dynamic>)
               : null,
-          updateTransforms: _json.containsKey('updateTransforms')
-              ? (_json['updateTransforms'] as core.List)
+          updateTransforms: json_.containsKey('updateTransforms')
+              ? (json_['updateTransforms'] as core.List)
                   .map((value) => FieldTransform.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -3902,9 +4162,9 @@ class WriteRequest {
   core.List<core.int> get streamTokenAsBytes =>
       convert.base64.decode(streamToken!);
 
-  set streamTokenAsBytes(core.List<core.int> _bytes) {
+  set streamTokenAsBytes(core.List<core.int> bytes_) {
     streamToken =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   /// The writes to apply.
@@ -3921,24 +4181,24 @@ class WriteRequest {
     this.writes,
   });
 
-  WriteRequest.fromJson(core.Map _json)
+  WriteRequest.fromJson(core.Map json_)
       : this(
-          labels: _json.containsKey('labels')
-              ? (_json['labels'] as core.Map<core.String, core.dynamic>).map(
-                  (key, item) => core.MapEntry(
+          labels: json_.containsKey('labels')
+              ? (json_['labels'] as core.Map<core.String, core.dynamic>).map(
+                  (key, value) => core.MapEntry(
                     key,
-                    item as core.String,
+                    value as core.String,
                   ),
                 )
               : null,
-          streamId: _json.containsKey('streamId')
-              ? _json['streamId'] as core.String
+          streamId: json_.containsKey('streamId')
+              ? json_['streamId'] as core.String
               : null,
-          streamToken: _json.containsKey('streamToken')
-              ? _json['streamToken'] as core.String
+          streamToken: json_.containsKey('streamToken')
+              ? json_['streamToken'] as core.String
               : null,
-          writes: _json.containsKey('writes')
-              ? (_json['writes'] as core.List)
+          writes: json_.containsKey('writes')
+              ? (json_['writes'] as core.List)
                   .map((value) => Write.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -3974,9 +4234,9 @@ class WriteResponse {
   core.List<core.int> get streamTokenAsBytes =>
       convert.base64.decode(streamToken!);
 
-  set streamTokenAsBytes(core.List<core.int> _bytes) {
+  set streamTokenAsBytes(core.List<core.int> bytes_) {
     streamToken =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   /// The result of applying the writes.
@@ -3991,19 +4251,19 @@ class WriteResponse {
     this.writeResults,
   });
 
-  WriteResponse.fromJson(core.Map _json)
+  WriteResponse.fromJson(core.Map json_)
       : this(
-          commitTime: _json.containsKey('commitTime')
-              ? _json['commitTime'] as core.String
+          commitTime: json_.containsKey('commitTime')
+              ? json_['commitTime'] as core.String
               : null,
-          streamId: _json.containsKey('streamId')
-              ? _json['streamId'] as core.String
+          streamId: json_.containsKey('streamId')
+              ? json_['streamId'] as core.String
               : null,
-          streamToken: _json.containsKey('streamToken')
-              ? _json['streamToken'] as core.String
+          streamToken: json_.containsKey('streamToken')
+              ? json_['streamToken'] as core.String
               : null,
-          writeResults: _json.containsKey('writeResults')
-              ? (_json['writeResults'] as core.List)
+          writeResults: json_.containsKey('writeResults')
+              ? (json_['writeResults'] as core.List)
                   .map((value) => WriteResult.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -4035,16 +4295,16 @@ class WriteResult {
     this.updateTime,
   });
 
-  WriteResult.fromJson(core.Map _json)
+  WriteResult.fromJson(core.Map json_)
       : this(
-          transformResults: _json.containsKey('transformResults')
-              ? (_json['transformResults'] as core.List)
+          transformResults: json_.containsKey('transformResults')
+              ? (json_['transformResults'] as core.List)
                   .map((value) => Value.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          updateTime: _json.containsKey('updateTime')
-              ? _json['updateTime'] as core.String
+          updateTime: json_.containsKey('updateTime')
+              ? json_['updateTime'] as core.String
               : null,
         );
 

@@ -2,14 +2,13 @@
 
 // ignore_for_file: camel_case_types
 // ignore_for_file: comment_references
-// ignore_for_file: file_names
-// ignore_for_file: library_names
+// ignore_for_file: deprecated_member_use_from_same_package
 // ignore_for_file: lines_longer_than_80_chars
 // ignore_for_file: non_constant_identifier_names
-// ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: prefer_interpolation_to_compose_strings
 // ignore_for_file: unnecessary_brace_in_string_interps
 // ignore_for_file: unnecessary_lambdas
+// ignore_for_file: unnecessary_library_directive
 // ignore_for_file: unnecessary_string_interpolations
 
 /// Firebase App Distribution API - v1
@@ -24,9 +23,11 @@
 /// - [ProjectsResource]
 ///   - [ProjectsAppsResource]
 ///     - [ProjectsAppsReleasesResource]
+///       - [ProjectsAppsReleasesFeedbackReportsResource]
 ///       - [ProjectsAppsReleasesOperationsResource]
+///   - [ProjectsGroupsResource]
 ///   - [ProjectsTestersResource]
-library firebaseappdistribution.v1;
+library firebaseappdistribution_v1;
 
 import 'dart:async' as async;
 import 'dart:convert' as convert;
@@ -35,20 +36,19 @@ import 'dart:core' as core;
 import 'package:_discoveryapis_commons/_discoveryapis_commons.dart' as commons;
 import 'package:http/http.dart' as http;
 
-// ignore: deprecated_member_use_from_same_package
 import '../shared.dart';
 import '../src/user_agent.dart';
 
 export 'package:_discoveryapis_commons/_discoveryapis_commons.dart'
     show
         ApiRequestError,
+        ByteRange,
         DetailedApiRequestError,
-        Media,
-        UploadOptions,
-        ResumableUploadOptions,
         DownloadOptions,
+        Media,
         PartialDownloadOptions,
-        ByteRange;
+        ResumableUploadOptions,
+        UploadOptions;
 
 class FirebaseAppDistributionApi {
   /// See, edit, configure, and delete your Google Cloud data and see the email
@@ -83,8 +83,8 @@ class MediaResource {
   ///
   /// Request parameters:
   ///
-  /// [app] - The name of the app. Format:
-  /// `projects/{project_number}/apps/{app}`
+  /// [app] - The name of the app resource. Format:
+  /// `projects/{project_number}/apps/{app_id}`
   /// Value must have pattern `^projects/\[^/\]+/apps/\[^/\]+$`.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
@@ -105,28 +105,28 @@ class MediaResource {
     core.String? $fields,
     commons.Media? uploadMedia,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    core.String _url;
+    core.String url_;
     if (uploadMedia == null) {
-      _url = 'v1/' + core.Uri.encodeFull('$app') + '/releases:upload';
+      url_ = 'v1/' + core.Uri.encodeFull('$app') + '/releases:upload';
     } else {
-      _url = '/upload/v1/' + core.Uri.encodeFull('$app') + '/releases:upload';
+      url_ = '/upload/v1/' + core.Uri.encodeFull('$app') + '/releases:upload';
     }
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
       uploadMedia: uploadMedia,
       uploadOptions: commons.UploadOptions.defaultOptions,
     );
     return GoogleLongrunningOperation.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -134,6 +134,7 @@ class ProjectsResource {
   final commons.ApiRequester _requester;
 
   ProjectsAppsResource get apps => ProjectsAppsResource(_requester);
+  ProjectsGroupsResource get groups => ProjectsGroupsResource(_requester);
   ProjectsTestersResource get testers => ProjectsTestersResource(_requester);
 
   ProjectsResource(commons.ApiRequester client) : _requester = client;
@@ -151,8 +152,8 @@ class ProjectsAppsResource {
   ///
   /// Request parameters:
   ///
-  /// [name] - Required. The name of the `AabInfo` to retrieve. Format:
-  /// `projects/{project_number}/apps/{app}/aabInfo`
+  /// [name] - Required. The name of the `AabInfo` resource to retrieve. Format:
+  /// `projects/{project_number}/apps/{app_id}/aabInfo`
   /// Value must have pattern `^projects/\[^/\]+/apps/\[^/\]+/aabInfo$`.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
@@ -169,25 +170,27 @@ class ProjectsAppsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return GoogleFirebaseAppdistroV1AabInfo.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
 class ProjectsAppsReleasesResource {
   final commons.ApiRequester _requester;
 
+  ProjectsAppsReleasesFeedbackReportsResource get feedbackReports =>
+      ProjectsAppsReleasesFeedbackReportsResource(_requester);
   ProjectsAppsReleasesOperationsResource get operations =>
       ProjectsAppsReleasesOperationsResource(_requester);
 
@@ -202,8 +205,8 @@ class ProjectsAppsReleasesResource {
   ///
   /// Request parameters:
   ///
-  /// [parent] - Required. The parent Firebase app, which owns the releases.
-  /// Format: `projects/{project_number}/apps/{app}`
+  /// [parent] - Required. The name of the app resource, which is the parent of
+  /// the release resources. Format: `projects/{project_number}/apps/{app_id}`
   /// Value must have pattern `^projects/\[^/\]+/apps/\[^/\]+$`.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
@@ -221,38 +224,38 @@ class ProjectsAppsReleasesResource {
     core.String parent, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url =
+    final url_ =
         'v1/' + core.Uri.encodeFull('$parent') + '/releases:batchDelete';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return GoogleProtobufEmpty.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Distributes a release to testers.
   ///
   /// This call does the following: 1. Creates testers for the specified emails,
-  /// if none exist 2. Adds the testers and groups to the release 3. Sends new
-  /// testers an invitation email 4. Sends existing testers a new release email
-  /// The request will fail with a `INVALID_ARGUMENT` if it contains a group
-  /// that doesn't exist.
+  /// if none exist. 2. Adds the testers and groups to the release. 3. Sends new
+  /// testers an invitation email. 4. Sends existing testers a new release
+  /// email. The request will fail with a `INVALID_ARGUMENT` if it contains a
+  /// group that doesn't exist.
   ///
   /// [request] - The metadata request object.
   ///
   /// Request parameters:
   ///
-  /// [name] - Required. The name of the release. Format:
-  /// `projects/{project_number}/apps/{app}/releases/{release}`
+  /// [name] - Required. The name of the release resource to distribute. Format:
+  /// `projects/{project_number}/apps/{app_id}/releases/{release_id}`
   /// Value must have pattern
   /// `^projects/\[^/\]+/apps/\[^/\]+/releases/\[^/\]+$`.
   ///
@@ -271,49 +274,88 @@ class ProjectsAppsReleasesResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$name') + ':distribute';
+    final url_ = 'v1/' + core.Uri.encodeFull('$name') + ':distribute';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return GoogleFirebaseAppdistroV1DistributeReleaseResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
+  }
+
+  /// Gets a release.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The name of the release resource to retrieve. Format:
+  /// projects/{project_number}/apps/{app_id}/releases/{release_id}
+  /// Value must have pattern
+  /// `^projects/\[^/\]+/apps/\[^/\]+/releases/\[^/\]+$`.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleFirebaseAppdistroV1Release].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleFirebaseAppdistroV1Release> get(
+    core.String name, {
+    core.String? $fields,
+  }) async {
+    final queryParams_ = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final url_ = 'v1/' + core.Uri.encodeFull('$name');
+
+    final response_ = await _requester.request(
+      url_,
+      'GET',
+      queryParams: queryParams_,
+    );
+    return GoogleFirebaseAppdistroV1Release.fromJson(
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Lists releases.
   ///
-  /// By default sorts by `create_time` in descending order.
+  /// By default, sorts by `createTime` in descending order.
   ///
   /// Request parameters:
   ///
-  /// [parent] - Required. The parent Firebase app, which owns the releases.
-  /// Format: `projects/{project_number}/apps/{app}`
+  /// [parent] - Required. The name of the app resource, which is the parent of
+  /// the release resources. Format: `projects/{project_number}/apps/{app_id}`
   /// Value must have pattern `^projects/\[^/\]+/apps/\[^/\]+$`.
   ///
-  /// [filter] - The expression that filters releases listed in the response.
-  /// Supported fields: - `release_notes.text` supports `=` (can contain a
-  /// wildcard `*` character at the beginning or end of the string) -
-  /// `create_time` supports `<`, `<=`, `>` and `>=`, and expects an RFC-3339
-  /// formatted string Examples: - `create_time <= "2021-09-08T00:00:00+04:00"`
-  /// - `release_notes.text="bug fixes" AND create_time >=
-  /// "2021-09-08T00:00:00.0Z"` - `release_notes.text="*v1.0.0-rc*"`
+  /// [filter] - The expression to filter releases listed in the response. To
+  /// learn more about filtering, refer to \[Google's AIP-160
+  /// standard\](http://aip.dev/160). Supported fields: - `releaseNotes.text`
+  /// supports `=` (can contain a wildcard character (`*`) at the beginning or
+  /// end of the string) - `createTime` supports `<`, `<=`, `>` and `>=`, and
+  /// expects an RFC-3339 formatted string Examples: - `createTime <=
+  /// "2021-09-08T00:00:00+04:00"` - `releaseNotes.text="fixes" AND createTime
+  /// >= "2021-09-08T00:00:00.0Z"` - `releaseNotes.text="*v1.0.0-rc*"`
   ///
   /// [orderBy] - The fields used to order releases. Supported fields: -
-  /// `create_time` To specify descending order for a field, append a "desc"
-  /// suffix, for example, `create_time desc`. If this parameter is not set,
-  /// releases will be ordered by `create_time` in descending order.
+  /// `createTime` To specify descending order for a field, append a "desc"
+  /// suffix, for example, `createTime desc`. If this parameter is not set,
+  /// releases are ordered by `createTime` in descending order.
   ///
   /// [pageSize] - The maximum number of releases to return. The service may
-  /// return fewer than this value. If unspecified, at most 25 releases will be
-  /// returned. The maximum value is 100; values above 100 will be coerced to
+  /// return fewer than this value. The valid range is \[1-100\]; If unspecified
+  /// (0), at most 25 releases are returned. Values above 100 are coerced to
   /// 100.
   ///
   /// [pageToken] - A page token, received from a previous `ListReleases` call.
@@ -339,7 +381,7 @@ class ProjectsAppsReleasesResource {
     core.String? pageToken,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (filter != null) 'filter': [filter],
       if (orderBy != null) 'orderBy': [orderBy],
       if (pageSize != null) 'pageSize': ['${pageSize}'],
@@ -347,15 +389,15 @@ class ProjectsAppsReleasesResource {
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$parent') + '/releases';
+    final url_ = 'v1/' + core.Uri.encodeFull('$parent') + '/releases';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return GoogleFirebaseAppdistroV1ListReleasesResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Updates a release.
@@ -364,12 +406,12 @@ class ProjectsAppsReleasesResource {
   ///
   /// Request parameters:
   ///
-  /// [name] - The name of the release. Format:
-  /// `projects/{project_number}/apps/{app}/releases/{release}`
+  /// [name] - The name of the release resource. Format:
+  /// `projects/{project_number}/apps/{app_id}/releases/{release_id}`
   /// Value must have pattern
   /// `^projects/\[^/\]+/apps/\[^/\]+/releases/\[^/\]+$`.
   ///
-  /// [updateMask] - The list of fields to be updated.
+  /// [updateMask] - The list of fields to update.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -387,22 +429,160 @@ class ProjectsAppsReleasesResource {
     core.String? updateMask,
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (updateMask != null) 'updateMask': [updateMask],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'PATCH',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return GoogleFirebaseAppdistroV1Release.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
+  }
+}
+
+class ProjectsAppsReleasesFeedbackReportsResource {
+  final commons.ApiRequester _requester;
+
+  ProjectsAppsReleasesFeedbackReportsResource(commons.ApiRequester client)
+      : _requester = client;
+
+  /// Deletes a feedback report.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The name of the feedback report to delete. Format:
+  /// projects/{project_number}/apps/{app}/releases/{release}/feedbackReports/{feedback_report}
+  /// Value must have pattern
+  /// `^projects/\[^/\]+/apps/\[^/\]+/releases/\[^/\]+/feedbackReports/\[^/\]+$`.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleProtobufEmpty].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleProtobufEmpty> delete(
+    core.String name, {
+    core.String? $fields,
+  }) async {
+    final queryParams_ = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final url_ = 'v1/' + core.Uri.encodeFull('$name');
+
+    final response_ = await _requester.request(
+      url_,
+      'DELETE',
+      queryParams: queryParams_,
+    );
+    return GoogleProtobufEmpty.fromJson(
+        response_ as core.Map<core.String, core.dynamic>);
+  }
+
+  /// Gets a feedback report.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The name of the feedback report to retrieve. Format:
+  /// projects/{project_number}/apps/{app}/releases/{release}/feedbackReports/{feedback_report}
+  /// Value must have pattern
+  /// `^projects/\[^/\]+/apps/\[^/\]+/releases/\[^/\]+/feedbackReports/\[^/\]+$`.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleFirebaseAppdistroV1FeedbackReport].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleFirebaseAppdistroV1FeedbackReport> get(
+    core.String name, {
+    core.String? $fields,
+  }) async {
+    final queryParams_ = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final url_ = 'v1/' + core.Uri.encodeFull('$name');
+
+    final response_ = await _requester.request(
+      url_,
+      'GET',
+      queryParams: queryParams_,
+    );
+    return GoogleFirebaseAppdistroV1FeedbackReport.fromJson(
+        response_ as core.Map<core.String, core.dynamic>);
+  }
+
+  /// Lists feedback reports.
+  ///
+  /// By default, sorts by `createTime` in descending order.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The name of the release resource, which is the parent
+  /// of the feedback report resources. Format:
+  /// `projects/{project_number}/apps/{app}/releases/{release}`
+  /// Value must have pattern
+  /// `^projects/\[^/\]+/apps/\[^/\]+/releases/\[^/\]+$`.
+  ///
+  /// [pageSize] - The maximum number of feedback reports to return. The service
+  /// may return fewer than this value. The valid range is \[1-100\]; If
+  /// unspecified (0), at most 25 feedback reports are returned. Values above
+  /// 100 are coerced to 100.
+  ///
+  /// [pageToken] - A page token, received from a previous `ListFeedbackReports`
+  /// call. Provide this to retrieve the subsequent page. When paginating, all
+  /// other parameters provided to `ListFeedbackReports` must match the call
+  /// that provided the page token.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleFirebaseAppdistroV1ListFeedbackReportsResponse].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleFirebaseAppdistroV1ListFeedbackReportsResponse> list(
+    core.String parent, {
+    core.int? pageSize,
+    core.String? pageToken,
+    core.String? $fields,
+  }) async {
+    final queryParams_ = <core.String, core.List<core.String>>{
+      if (pageSize != null) 'pageSize': ['${pageSize}'],
+      if (pageToken != null) 'pageToken': [pageToken],
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final url_ = 'v1/' + core.Uri.encodeFull('$parent') + '/feedbackReports';
+
+    final response_ = await _requester.request(
+      url_,
+      'GET',
+      queryParams: queryParams_,
+    );
+    return GoogleFirebaseAppdistroV1ListFeedbackReportsResponse.fromJson(
+        response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -446,21 +626,21 @@ class ProjectsAppsReleasesOperationsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$name') + ':cancel';
+    final url_ = 'v1/' + core.Uri.encodeFull('$name') + ':cancel';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return GoogleProtobufEmpty.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Deletes a long-running operation.
@@ -489,19 +669,19 @@ class ProjectsAppsReleasesOperationsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'DELETE',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return GoogleProtobufEmpty.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Gets the latest state of a long-running operation.
@@ -529,31 +709,24 @@ class ProjectsAppsReleasesOperationsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return GoogleLongrunningOperation.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Lists operations that match the specified filter in the request.
   ///
   /// If the server doesn't support this method, it returns `UNIMPLEMENTED`.
-  /// NOTE: the `name` binding allows API services to override the binding to
-  /// use different resource name schemes, such as `users / * /operations`. To
-  /// override the binding, API services can add a binding such as
-  /// `"/v1/{name=users / * }/operations"` to their service configuration. For
-  /// backwards compatibility, the default name includes the operations
-  /// collection id, however overriding users must ensure the name binding is
-  /// the parent resource, without the operations collection id.
   ///
   /// Request parameters:
   ///
@@ -584,22 +757,22 @@ class ProjectsAppsReleasesOperationsResource {
     core.String? pageToken,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (filter != null) 'filter': [filter],
       if (pageSize != null) 'pageSize': ['${pageSize}'],
       if (pageToken != null) 'pageToken': [pageToken],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$name') + '/operations';
+    final url_ = 'v1/' + core.Uri.encodeFull('$name') + '/operations';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return GoogleLongrunningListOperationsResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Waits until the specified long-running operation is done or reaches at
@@ -636,21 +809,339 @@ class ProjectsAppsReleasesOperationsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$name') + ':wait';
+    final url_ = 'v1/' + core.Uri.encodeFull('$name') + ':wait';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return GoogleLongrunningOperation.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
+  }
+}
+
+class ProjectsGroupsResource {
+  final commons.ApiRequester _requester;
+
+  ProjectsGroupsResource(commons.ApiRequester client) : _requester = client;
+
+  /// Batch adds members to a group.
+  ///
+  /// The testers will gain access to all releases that the groups have access
+  /// to.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [group] - Required. The name of the group resource to which testers are
+  /// added. Format: `projects/{project_number}/groups/{group_alias}`
+  /// Value must have pattern `^projects/\[^/\]+/groups/\[^/\]+$`.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleProtobufEmpty].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleProtobufEmpty> batchJoin(
+    GoogleFirebaseAppdistroV1BatchJoinGroupRequest request,
+    core.String group, {
+    core.String? $fields,
+  }) async {
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final url_ = 'v1/' + core.Uri.encodeFull('$group') + ':batchJoin';
+
+    final response_ = await _requester.request(
+      url_,
+      'POST',
+      body: body_,
+      queryParams: queryParams_,
+    );
+    return GoogleProtobufEmpty.fromJson(
+        response_ as core.Map<core.String, core.dynamic>);
+  }
+
+  /// Batch removed members from a group.
+  ///
+  /// The testers will lose access to all releases that the groups have access
+  /// to.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [group] - Required. The name of the group resource from which testers are
+  /// removed. Format: `projects/{project_number}/groups/{group_alias}`
+  /// Value must have pattern `^projects/\[^/\]+/groups/\[^/\]+$`.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleProtobufEmpty].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleProtobufEmpty> batchLeave(
+    GoogleFirebaseAppdistroV1BatchLeaveGroupRequest request,
+    core.String group, {
+    core.String? $fields,
+  }) async {
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final url_ = 'v1/' + core.Uri.encodeFull('$group') + ':batchLeave';
+
+    final response_ = await _requester.request(
+      url_,
+      'POST',
+      body: body_,
+      queryParams: queryParams_,
+    );
+    return GoogleProtobufEmpty.fromJson(
+        response_ as core.Map<core.String, core.dynamic>);
+  }
+
+  /// Create a group.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The name of the project resource, which is the parent
+  /// of the group resource. Format: `projects/{project_number}`
+  /// Value must have pattern `^projects/\[^/\]+$`.
+  ///
+  /// [groupId] - Optional. The "alias" to use for the group, which will become
+  /// the final component of the group's resource name. This value must be
+  /// unique per project. The field is named `groupId` to comply with AIP
+  /// guidance for user-specified IDs. This value should be 4-63 characters, and
+  /// valid characters are `/a-z-/`. If not set, it will be generated based on
+  /// the display name.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleFirebaseAppdistroV1Group].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleFirebaseAppdistroV1Group> create(
+    GoogleFirebaseAppdistroV1Group request,
+    core.String parent, {
+    core.String? groupId,
+    core.String? $fields,
+  }) async {
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
+      if (groupId != null) 'groupId': [groupId],
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final url_ = 'v1/' + core.Uri.encodeFull('$parent') + '/groups';
+
+    final response_ = await _requester.request(
+      url_,
+      'POST',
+      body: body_,
+      queryParams: queryParams_,
+    );
+    return GoogleFirebaseAppdistroV1Group.fromJson(
+        response_ as core.Map<core.String, core.dynamic>);
+  }
+
+  /// Delete a group.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The name of the group resource. Format:
+  /// `projects/{project_number}/groups/{group_alias}`
+  /// Value must have pattern `^projects/\[^/\]+/groups/\[^/\]+$`.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleProtobufEmpty].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleProtobufEmpty> delete(
+    core.String name, {
+    core.String? $fields,
+  }) async {
+    final queryParams_ = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final url_ = 'v1/' + core.Uri.encodeFull('$name');
+
+    final response_ = await _requester.request(
+      url_,
+      'DELETE',
+      queryParams: queryParams_,
+    );
+    return GoogleProtobufEmpty.fromJson(
+        response_ as core.Map<core.String, core.dynamic>);
+  }
+
+  /// Get a group.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The name of the group resource to retrieve. Format:
+  /// `projects/{project_number}/groups/{group_alias}`
+  /// Value must have pattern `^projects/\[^/\]+/groups/\[^/\]+$`.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleFirebaseAppdistroV1Group].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleFirebaseAppdistroV1Group> get(
+    core.String name, {
+    core.String? $fields,
+  }) async {
+    final queryParams_ = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final url_ = 'v1/' + core.Uri.encodeFull('$name');
+
+    final response_ = await _requester.request(
+      url_,
+      'GET',
+      queryParams: queryParams_,
+    );
+    return GoogleFirebaseAppdistroV1Group.fromJson(
+        response_ as core.Map<core.String, core.dynamic>);
+  }
+
+  /// List groups.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The name of the project resource, which is the parent
+  /// of the group resources. Format: `projects/{project_number}`
+  /// Value must have pattern `^projects/\[^/\]+$`.
+  ///
+  /// [pageSize] - Optional. The maximum number of groups to return. The service
+  /// may return fewer than this value. The valid range is \[1-1000\]; If
+  /// unspecified (0), at most 25 groups are returned. Values above 1000 are
+  /// coerced to 1000.
+  ///
+  /// [pageToken] - Optional. A page token, received from a previous
+  /// `ListGroups` call. Provide this to retrieve the subsequent page. When
+  /// paginating, all other parameters provided to `ListGroups` must match the
+  /// call that provided the page token.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleFirebaseAppdistroV1ListGroupsResponse].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleFirebaseAppdistroV1ListGroupsResponse> list(
+    core.String parent, {
+    core.int? pageSize,
+    core.String? pageToken,
+    core.String? $fields,
+  }) async {
+    final queryParams_ = <core.String, core.List<core.String>>{
+      if (pageSize != null) 'pageSize': ['${pageSize}'],
+      if (pageToken != null) 'pageToken': [pageToken],
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final url_ = 'v1/' + core.Uri.encodeFull('$parent') + '/groups';
+
+    final response_ = await _requester.request(
+      url_,
+      'GET',
+      queryParams: queryParams_,
+    );
+    return GoogleFirebaseAppdistroV1ListGroupsResponse.fromJson(
+        response_ as core.Map<core.String, core.dynamic>);
+  }
+
+  /// Update a group.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - The name of the group resource. Format:
+  /// `projects/{project_number}/groups/{group_alias}`
+  /// Value must have pattern `^projects/\[^/\]+/groups/\[^/\]+$`.
+  ///
+  /// [updateMask] - The list of fields to update.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleFirebaseAppdistroV1Group].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleFirebaseAppdistroV1Group> patch(
+    GoogleFirebaseAppdistroV1Group request,
+    core.String name, {
+    core.String? updateMask,
+    core.String? $fields,
+  }) async {
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
+      if (updateMask != null) 'updateMask': [updateMask],
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final url_ = 'v1/' + core.Uri.encodeFull('$name');
+
+    final response_ = await _requester.request(
+      url_,
+      'PATCH',
+      body: body_,
+      queryParams: queryParams_,
+    );
+    return GoogleFirebaseAppdistroV1Group.fromJson(
+        response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -669,7 +1160,7 @@ class ProjectsTestersResource {
   ///
   /// Request parameters:
   ///
-  /// [project] - Required. The name of the project. Format:
+  /// [project] - Required. The name of the project resource. Format:
   /// `projects/{project_number}`
   /// Value must have pattern `^projects/\[^/\]+$`.
   ///
@@ -688,21 +1179,21 @@ class ProjectsTestersResource {
     core.String project, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$project') + '/testers:batchAdd';
+    final url_ = 'v1/' + core.Uri.encodeFull('$project') + '/testers:batchAdd';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return GoogleFirebaseAppdistroV1BatchAddTestersResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Batch removes testers.
@@ -714,7 +1205,7 @@ class ProjectsTestersResource {
   ///
   /// Request parameters:
   ///
-  /// [project] - Required. The name of the project. Format:
+  /// [project] - Required. The name of the project resource. Format:
   /// `projects/{project_number}`
   /// Value must have pattern `^projects/\[^/\]+$`.
   ///
@@ -733,36 +1224,42 @@ class ProjectsTestersResource {
     core.String project, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url =
+    final url_ =
         'v1/' + core.Uri.encodeFull('$project') + '/testers:batchRemove';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return GoogleFirebaseAppdistroV1BatchRemoveTestersResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Lists testers and their resource ids.
   ///
   /// Request parameters:
   ///
-  /// [parent] - Required. The parent Firebase project, which owns this
-  /// collection of testers. Format: `projects/{project_number}`
+  /// [parent] - Required. The name of the project resource, which is the parent
+  /// of the tester resources. Format: `projects/{project_number}`
   /// Value must have pattern `^projects/\[^/\]+$`.
   ///
+  /// [filter] - Optional. The expression to filter testers listed in the
+  /// response. To learn more about filtering, refer to \[Google's AIP-160
+  /// standard\](http://aip.dev/160). Supported fields: - `name` - `displayName`
+  /// - `groups` Example: - `name = "projects/-/testers / * @example.com"` -
+  /// `displayName = "Joe Sixpack"` - `groups = "projects / * /groups/qa-team"`
+  ///
   /// [pageSize] - Optional. The maximum number of testers to return. The
-  /// service may return fewer than this value. If unspecified, at most 10
-  /// testers will be returned. The maximum value is 1000; values above 1000
-  /// will be coerced to 1000.
+  /// service may return fewer than this value. The valid range is \[1-1000\];
+  /// If unspecified (0), at most 10 testers are returned. Values above 1000 are
+  /// coerced to 1000.
   ///
   /// [pageToken] - Optional. A page token, received from a previous
   /// `ListTesters` call. Provide this to retrieve the subsequent page. When
@@ -781,25 +1278,76 @@ class ProjectsTestersResource {
   /// this method will complete with the same error.
   async.Future<GoogleFirebaseAppdistroV1ListTestersResponse> list(
     core.String parent, {
+    core.String? filter,
     core.int? pageSize,
     core.String? pageToken,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
+      if (filter != null) 'filter': [filter],
       if (pageSize != null) 'pageSize': ['${pageSize}'],
       if (pageToken != null) 'pageToken': [pageToken],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$parent') + '/testers';
+    final url_ = 'v1/' + core.Uri.encodeFull('$parent') + '/testers';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return GoogleFirebaseAppdistroV1ListTestersResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
+  }
+
+  /// Update a tester.
+  ///
+  /// If the testers joins a group they gain access to all releases that the
+  /// group has access to.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - The name of the tester resource. Format:
+  /// `projects/{project_number}/testers/{email_address}`
+  /// Value must have pattern `^projects/\[^/\]+/testers/\[^/\]+$`.
+  ///
+  /// [updateMask] - The list of fields to update.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleFirebaseAppdistroV1Tester].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleFirebaseAppdistroV1Tester> patch(
+    GoogleFirebaseAppdistroV1Tester request,
+    core.String name, {
+    core.String? updateMask,
+    core.String? $fields,
+  }) async {
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
+      if (updateMask != null) 'updateMask': [updateMask],
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final url_ = 'v1/' + core.Uri.encodeFull('$name');
+
+    final response_ = await _requester.request(
+      url_,
+      'PATCH',
+      body: body_,
+      queryParams: queryParams_,
+    );
+    return GoogleFirebaseAppdistroV1Tester.fromJson(
+        response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -820,9 +1368,9 @@ class GdataBlobstore2Info {
   core.List<core.int> get downloadReadHandleAsBytes =>
       convert.base64.decode(downloadReadHandle!);
 
-  set downloadReadHandleAsBytes(core.List<core.int> _bytes) {
+  set downloadReadHandleAsBytes(core.List<core.int> bytes_) {
     downloadReadHandle =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   /// The blob read token.
@@ -840,9 +1388,9 @@ class GdataBlobstore2Info {
   core.List<core.int> get uploadMetadataContainerAsBytes =>
       convert.base64.decode(uploadMetadataContainer!);
 
-  set uploadMetadataContainerAsBytes(core.List<core.int> _bytes) {
+  set uploadMetadataContainerAsBytes(core.List<core.int> bytes_) {
     uploadMetadataContainer =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   GdataBlobstore2Info({
@@ -853,22 +1401,22 @@ class GdataBlobstore2Info {
     this.uploadMetadataContainer,
   });
 
-  GdataBlobstore2Info.fromJson(core.Map _json)
+  GdataBlobstore2Info.fromJson(core.Map json_)
       : this(
-          blobGeneration: _json.containsKey('blobGeneration')
-              ? _json['blobGeneration'] as core.String
+          blobGeneration: json_.containsKey('blobGeneration')
+              ? json_['blobGeneration'] as core.String
               : null,
-          blobId: _json.containsKey('blobId')
-              ? _json['blobId'] as core.String
+          blobId: json_.containsKey('blobId')
+              ? json_['blobId'] as core.String
               : null,
-          downloadReadHandle: _json.containsKey('downloadReadHandle')
-              ? _json['downloadReadHandle'] as core.String
+          downloadReadHandle: json_.containsKey('downloadReadHandle')
+              ? json_['downloadReadHandle'] as core.String
               : null,
-          readToken: _json.containsKey('readToken')
-              ? _json['readToken'] as core.String
+          readToken: json_.containsKey('readToken')
+              ? json_['readToken'] as core.String
               : null,
-          uploadMetadataContainer: _json.containsKey('uploadMetadataContainer')
-              ? _json['uploadMetadataContainer'] as core.String
+          uploadMetadataContainer: json_.containsKey('uploadMetadataContainer')
+              ? json_['uploadMetadataContainer'] as core.String
               : null,
         );
 
@@ -893,12 +1441,15 @@ class GdataCompositeMedia {
   ///
   /// Since Blobstore is deprecating v1, use blobstore2_info instead. For now,
   /// any v2 blob will also be represented in this field as v1 BlobRef.
+  @core.Deprecated(
+    'Not supported. Member documentation may have more information.',
+  )
   core.String? blobRef;
   core.List<core.int> get blobRefAsBytes => convert.base64.decode(blobRef!);
 
-  set blobRefAsBytes(core.List<core.int> _bytes) {
+  set blobRefAsBytes(core.List<core.int> bytes_) {
     blobRef =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   /// Blobstore v2 info, set if reference_type is BLOBSTORE_REF and it refers to
@@ -916,9 +1467,9 @@ class GdataCompositeMedia {
   core.List<core.int> get cosmoBinaryReferenceAsBytes =>
       convert.base64.decode(cosmoBinaryReference!);
 
-  set cosmoBinaryReferenceAsBytes(core.List<core.int> _bytes) {
+  set cosmoBinaryReferenceAsBytes(core.List<core.int> bytes_) {
     cosmoBinaryReference =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   /// crc32.c hash for the payload.
@@ -928,9 +1479,9 @@ class GdataCompositeMedia {
   core.String? inline;
   core.List<core.int> get inlineAsBytes => convert.base64.decode(inline!);
 
-  set inlineAsBytes(core.List<core.int> _bytes) {
+  set inlineAsBytes(core.List<core.int> bytes_) {
     inline =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   /// Size of the data, in bytes
@@ -940,9 +1491,9 @@ class GdataCompositeMedia {
   core.String? md5Hash;
   core.List<core.int> get md5HashAsBytes => convert.base64.decode(md5Hash!);
 
-  set md5HashAsBytes(core.List<core.int> _bytes) {
+  set md5HashAsBytes(core.List<core.int> bytes_) {
     md5Hash =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   /// Reference to a TI Blob, set if reference_type is BIGSTORE_REF.
@@ -967,9 +1518,9 @@ class GdataCompositeMedia {
   core.String? sha1Hash;
   core.List<core.int> get sha1HashAsBytes => convert.base64.decode(sha1Hash!);
 
-  set sha1HashAsBytes(core.List<core.int> _bytes) {
+  set sha1HashAsBytes(core.List<core.int> bytes_) {
     sha1Hash =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   GdataCompositeMedia({
@@ -986,40 +1537,40 @@ class GdataCompositeMedia {
     this.sha1Hash,
   });
 
-  GdataCompositeMedia.fromJson(core.Map _json)
+  GdataCompositeMedia.fromJson(core.Map json_)
       : this(
-          blobRef: _json.containsKey('blobRef')
-              ? _json['blobRef'] as core.String
+          blobRef: json_.containsKey('blobRef')
+              ? json_['blobRef'] as core.String
               : null,
-          blobstore2Info: _json.containsKey('blobstore2Info')
-              ? GdataBlobstore2Info.fromJson(_json['blobstore2Info']
+          blobstore2Info: json_.containsKey('blobstore2Info')
+              ? GdataBlobstore2Info.fromJson(json_['blobstore2Info']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          cosmoBinaryReference: _json.containsKey('cosmoBinaryReference')
-              ? _json['cosmoBinaryReference'] as core.String
+          cosmoBinaryReference: json_.containsKey('cosmoBinaryReference')
+              ? json_['cosmoBinaryReference'] as core.String
               : null,
-          crc32cHash: _json.containsKey('crc32cHash')
-              ? _json['crc32cHash'] as core.int
+          crc32cHash: json_.containsKey('crc32cHash')
+              ? json_['crc32cHash'] as core.int
               : null,
-          inline: _json.containsKey('inline')
-              ? _json['inline'] as core.String
+          inline: json_.containsKey('inline')
+              ? json_['inline'] as core.String
               : null,
-          length: _json.containsKey('length')
-              ? _json['length'] as core.String
+          length: json_.containsKey('length')
+              ? json_['length'] as core.String
               : null,
-          md5Hash: _json.containsKey('md5Hash')
-              ? _json['md5Hash'] as core.String
+          md5Hash: json_.containsKey('md5Hash')
+              ? json_['md5Hash'] as core.String
               : null,
-          objectId: _json.containsKey('objectId')
+          objectId: json_.containsKey('objectId')
               ? GdataObjectId.fromJson(
-                  _json['objectId'] as core.Map<core.String, core.dynamic>)
+                  json_['objectId'] as core.Map<core.String, core.dynamic>)
               : null,
-          path: _json.containsKey('path') ? _json['path'] as core.String : null,
-          referenceType: _json.containsKey('referenceType')
-              ? _json['referenceType'] as core.String
+          path: json_.containsKey('path') ? json_['path'] as core.String : null,
+          referenceType: json_.containsKey('referenceType')
+              ? json_['referenceType'] as core.String
               : null,
-          sha1Hash: _json.containsKey('sha1Hash')
-              ? _json['sha1Hash'] as core.String
+          sha1Hash: json_.containsKey('sha1Hash')
+              ? json_['sha1Hash'] as core.String
               : null,
         );
 
@@ -1076,22 +1627,22 @@ class GdataContentTypeInfo {
     this.fromUrlPath,
   });
 
-  GdataContentTypeInfo.fromJson(core.Map _json)
+  GdataContentTypeInfo.fromJson(core.Map json_)
       : this(
-          bestGuess: _json.containsKey('bestGuess')
-              ? _json['bestGuess'] as core.String
+          bestGuess: json_.containsKey('bestGuess')
+              ? json_['bestGuess'] as core.String
               : null,
-          fromBytes: _json.containsKey('fromBytes')
-              ? _json['fromBytes'] as core.String
+          fromBytes: json_.containsKey('fromBytes')
+              ? json_['fromBytes'] as core.String
               : null,
-          fromFileName: _json.containsKey('fromFileName')
-              ? _json['fromFileName'] as core.String
+          fromFileName: json_.containsKey('fromFileName')
+              ? json_['fromFileName'] as core.String
               : null,
-          fromHeader: _json.containsKey('fromHeader')
-              ? _json['fromHeader'] as core.String
+          fromHeader: json_.containsKey('fromHeader')
+              ? json_['fromHeader'] as core.String
               : null,
-          fromUrlPath: _json.containsKey('fromUrlPath')
-              ? _json['fromUrlPath'] as core.String
+          fromUrlPath: json_.containsKey('fromUrlPath')
+              ? json_['fromUrlPath'] as core.String
               : null,
         );
 
@@ -1141,24 +1692,24 @@ class GdataDiffChecksumsResponse {
     this.objectVersion,
   });
 
-  GdataDiffChecksumsResponse.fromJson(core.Map _json)
+  GdataDiffChecksumsResponse.fromJson(core.Map json_)
       : this(
-          checksumsLocation: _json.containsKey('checksumsLocation')
-              ? GdataCompositeMedia.fromJson(_json['checksumsLocation']
+          checksumsLocation: json_.containsKey('checksumsLocation')
+              ? GdataCompositeMedia.fromJson(json_['checksumsLocation']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          chunkSizeBytes: _json.containsKey('chunkSizeBytes')
-              ? _json['chunkSizeBytes'] as core.String
+          chunkSizeBytes: json_.containsKey('chunkSizeBytes')
+              ? json_['chunkSizeBytes'] as core.String
               : null,
-          objectLocation: _json.containsKey('objectLocation')
-              ? GdataCompositeMedia.fromJson(_json['objectLocation']
+          objectLocation: json_.containsKey('objectLocation')
+              ? GdataCompositeMedia.fromJson(json_['objectLocation']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          objectSizeBytes: _json.containsKey('objectSizeBytes')
-              ? _json['objectSizeBytes'] as core.String
+          objectSizeBytes: json_.containsKey('objectSizeBytes')
+              ? json_['objectSizeBytes'] as core.String
               : null,
-          objectVersion: _json.containsKey('objectVersion')
-              ? _json['objectVersion'] as core.String
+          objectVersion: json_.containsKey('objectVersion')
+              ? json_['objectVersion'] as core.String
               : null,
         );
 
@@ -1183,10 +1734,10 @@ class GdataDiffDownloadResponse {
     this.objectLocation,
   });
 
-  GdataDiffDownloadResponse.fromJson(core.Map _json)
+  GdataDiffDownloadResponse.fromJson(core.Map json_)
       : this(
-          objectLocation: _json.containsKey('objectLocation')
-              ? GdataCompositeMedia.fromJson(_json['objectLocation']
+          objectLocation: json_.containsKey('objectLocation')
+              ? GdataCompositeMedia.fromJson(json_['objectLocation']
                   as core.Map<core.String, core.dynamic>)
               : null,
         );
@@ -1226,18 +1777,18 @@ class GdataDiffUploadRequest {
     this.objectVersion,
   });
 
-  GdataDiffUploadRequest.fromJson(core.Map _json)
+  GdataDiffUploadRequest.fromJson(core.Map json_)
       : this(
-          checksumsInfo: _json.containsKey('checksumsInfo')
+          checksumsInfo: json_.containsKey('checksumsInfo')
               ? GdataCompositeMedia.fromJson(
-                  _json['checksumsInfo'] as core.Map<core.String, core.dynamic>)
+                  json_['checksumsInfo'] as core.Map<core.String, core.dynamic>)
               : null,
-          objectInfo: _json.containsKey('objectInfo')
+          objectInfo: json_.containsKey('objectInfo')
               ? GdataCompositeMedia.fromJson(
-                  _json['objectInfo'] as core.Map<core.String, core.dynamic>)
+                  json_['objectInfo'] as core.Map<core.String, core.dynamic>)
               : null,
-          objectVersion: _json.containsKey('objectVersion')
-              ? _json['objectVersion'] as core.String
+          objectVersion: json_.containsKey('objectVersion')
+              ? json_['objectVersion'] as core.String
               : null,
         );
 
@@ -1270,13 +1821,13 @@ class GdataDiffUploadResponse {
     this.originalObject,
   });
 
-  GdataDiffUploadResponse.fromJson(core.Map _json)
+  GdataDiffUploadResponse.fromJson(core.Map json_)
       : this(
-          objectVersion: _json.containsKey('objectVersion')
-              ? _json['objectVersion'] as core.String
+          objectVersion: json_.containsKey('objectVersion')
+              ? json_['objectVersion'] as core.String
               : null,
-          originalObject: _json.containsKey('originalObject')
-              ? GdataCompositeMedia.fromJson(_json['originalObject']
+          originalObject: json_.containsKey('originalObject')
+              ? GdataCompositeMedia.fromJson(json_['originalObject']
                   as core.Map<core.String, core.dynamic>)
               : null,
         );
@@ -1303,13 +1854,13 @@ class GdataDiffVersionResponse {
     this.objectVersion,
   });
 
-  GdataDiffVersionResponse.fromJson(core.Map _json)
+  GdataDiffVersionResponse.fromJson(core.Map json_)
       : this(
-          objectSizeBytes: _json.containsKey('objectSizeBytes')
-              ? _json['objectSizeBytes'] as core.String
+          objectSizeBytes: json_.containsKey('objectSizeBytes')
+              ? json_['objectSizeBytes'] as core.String
               : null,
-          objectVersion: _json.containsKey('objectVersion')
-              ? _json['objectVersion'] as core.String
+          objectVersion: json_.containsKey('objectVersion')
+              ? json_['objectVersion'] as core.String
               : null,
         );
 
@@ -1337,13 +1888,13 @@ class GdataDownloadParameters {
     this.ignoreRange,
   });
 
-  GdataDownloadParameters.fromJson(core.Map _json)
+  GdataDownloadParameters.fromJson(core.Map json_)
       : this(
-          allowGzipCompression: _json.containsKey('allowGzipCompression')
-              ? _json['allowGzipCompression'] as core.bool
+          allowGzipCompression: json_.containsKey('allowGzipCompression')
+              ? json_['allowGzipCompression'] as core.bool
               : null,
-          ignoreRange: _json.containsKey('ignoreRange')
-              ? _json['ignoreRange'] as core.bool
+          ignoreRange: json_.containsKey('ignoreRange')
+              ? json_['ignoreRange'] as core.bool
               : null,
         );
 
@@ -1360,16 +1911,22 @@ class GdataMedia {
   ///
   /// Algorithm used for calculating the hash. As of 2011/01/21, "MD5" is the
   /// only possible value for this field. New values may be added at any time.
+  @core.Deprecated(
+    'Not supported. Member documentation may have more information.',
+  )
   core.String? algorithm;
 
   /// Use object_id instead.
+  @core.Deprecated(
+    'Not supported. Member documentation may have more information.',
+  )
   core.String? bigstoreObjectRef;
   core.List<core.int> get bigstoreObjectRefAsBytes =>
       convert.base64.decode(bigstoreObjectRef!);
 
-  set bigstoreObjectRefAsBytes(core.List<core.int> _bytes) {
+  set bigstoreObjectRefAsBytes(core.List<core.int> bytes_) {
     bigstoreObjectRef =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   /// Blobstore v1 reference, set if reference_type is BLOBSTORE_REF This should
@@ -1377,12 +1934,15 @@ class GdataMedia {
   ///
   /// Since Blobstore is deprecating v1, use blobstore2_info instead. For now,
   /// any v2 blob will also be represented in this field as v1 BlobRef.
+  @core.Deprecated(
+    'Not supported. Member documentation may have more information.',
+  )
   core.String? blobRef;
   core.List<core.int> get blobRefAsBytes => convert.base64.decode(blobRef!);
 
-  set blobRefAsBytes(core.List<core.int> _bytes) {
+  set blobRefAsBytes(core.List<core.int> bytes_) {
     blobRef =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   /// Blobstore v2 info, set if reference_type is BLOBSTORE_REF and it refers to
@@ -1414,9 +1974,9 @@ class GdataMedia {
   core.List<core.int> get cosmoBinaryReferenceAsBytes =>
       convert.base64.decode(cosmoBinaryReference!);
 
-  set cosmoBinaryReferenceAsBytes(core.List<core.int> _bytes) {
+  set cosmoBinaryReferenceAsBytes(core.List<core.int> bytes_) {
     cosmoBinaryReference =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   /// For Scotty Uploads: Scotty-provided hashes for uploads For Scotty
@@ -1456,6 +2016,9 @@ class GdataMedia {
   /// NotificationRequest:
   /// http://cs/#google3/uploader/service/proto/upload_listener.proto&q=class:Hash
   /// Hex encoded hash value of the uploaded media.
+  @core.Deprecated(
+    'Not supported. Member documentation may have more information.',
+  )
   core.String? hash;
 
   /// For Scotty uploads only.
@@ -1470,9 +2033,9 @@ class GdataMedia {
   core.String? inline;
   core.List<core.int> get inlineAsBytes => convert.base64.decode(inline!);
 
-  set inlineAsBytes(core.List<core.int> _bytes) {
+  set inlineAsBytes(core.List<core.int> bytes_) {
     inline =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   /// |is_potential_retry| is set false only when Scotty is certain that it has
@@ -1490,9 +2053,9 @@ class GdataMedia {
   core.String? md5Hash;
   core.List<core.int> get md5HashAsBytes => convert.base64.decode(md5Hash!);
 
-  set md5HashAsBytes(core.List<core.int> _bytes) {
+  set md5HashAsBytes(core.List<core.int> bytes_) {
     md5Hash =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   /// Media id to forward to the operation GetMedia.
@@ -1501,9 +2064,9 @@ class GdataMedia {
   core.String? mediaId;
   core.List<core.int> get mediaIdAsBytes => convert.base64.decode(mediaId!);
 
-  set mediaIdAsBytes(core.List<core.int> _bytes) {
+  set mediaIdAsBytes(core.List<core.int> bytes_) {
     mediaId =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   /// Reference to a TI Blob, set if reference_type is BIGSTORE_REF.
@@ -1547,9 +2110,9 @@ class GdataMedia {
   core.String? sha1Hash;
   core.List<core.int> get sha1HashAsBytes => convert.base64.decode(sha1Hash!);
 
-  set sha1HashAsBytes(core.List<core.int> _bytes) {
+  set sha1HashAsBytes(core.List<core.int> bytes_) {
     sha1Hash =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   /// Scotty-provided SHA256 hash for an upload.
@@ -1557,9 +2120,9 @@ class GdataMedia {
   core.List<core.int> get sha256HashAsBytes =>
       convert.base64.decode(sha256Hash!);
 
-  set sha256HashAsBytes(core.List<core.int> _bytes) {
+  set sha256HashAsBytes(core.List<core.int> bytes_) {
     sha256Hash =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   /// Time at which the media data was last updated, in milliseconds since UNIX
@@ -1602,106 +2165,106 @@ class GdataMedia {
     this.token,
   });
 
-  GdataMedia.fromJson(core.Map _json)
+  GdataMedia.fromJson(core.Map json_)
       : this(
-          algorithm: _json.containsKey('algorithm')
-              ? _json['algorithm'] as core.String
+          algorithm: json_.containsKey('algorithm')
+              ? json_['algorithm'] as core.String
               : null,
-          bigstoreObjectRef: _json.containsKey('bigstoreObjectRef')
-              ? _json['bigstoreObjectRef'] as core.String
+          bigstoreObjectRef: json_.containsKey('bigstoreObjectRef')
+              ? json_['bigstoreObjectRef'] as core.String
               : null,
-          blobRef: _json.containsKey('blobRef')
-              ? _json['blobRef'] as core.String
+          blobRef: json_.containsKey('blobRef')
+              ? json_['blobRef'] as core.String
               : null,
-          blobstore2Info: _json.containsKey('blobstore2Info')
-              ? GdataBlobstore2Info.fromJson(_json['blobstore2Info']
+          blobstore2Info: json_.containsKey('blobstore2Info')
+              ? GdataBlobstore2Info.fromJson(json_['blobstore2Info']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          compositeMedia: _json.containsKey('compositeMedia')
-              ? (_json['compositeMedia'] as core.List)
+          compositeMedia: json_.containsKey('compositeMedia')
+              ? (json_['compositeMedia'] as core.List)
                   .map((value) => GdataCompositeMedia.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          contentType: _json.containsKey('contentType')
-              ? _json['contentType'] as core.String
+          contentType: json_.containsKey('contentType')
+              ? json_['contentType'] as core.String
               : null,
-          contentTypeInfo: _json.containsKey('contentTypeInfo')
-              ? GdataContentTypeInfo.fromJson(_json['contentTypeInfo']
+          contentTypeInfo: json_.containsKey('contentTypeInfo')
+              ? GdataContentTypeInfo.fromJson(json_['contentTypeInfo']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          cosmoBinaryReference: _json.containsKey('cosmoBinaryReference')
-              ? _json['cosmoBinaryReference'] as core.String
+          cosmoBinaryReference: json_.containsKey('cosmoBinaryReference')
+              ? json_['cosmoBinaryReference'] as core.String
               : null,
-          crc32cHash: _json.containsKey('crc32cHash')
-              ? _json['crc32cHash'] as core.int
+          crc32cHash: json_.containsKey('crc32cHash')
+              ? json_['crc32cHash'] as core.int
               : null,
-          diffChecksumsResponse: _json.containsKey('diffChecksumsResponse')
+          diffChecksumsResponse: json_.containsKey('diffChecksumsResponse')
               ? GdataDiffChecksumsResponse.fromJson(
-                  _json['diffChecksumsResponse']
+                  json_['diffChecksumsResponse']
                       as core.Map<core.String, core.dynamic>)
               : null,
-          diffDownloadResponse: _json.containsKey('diffDownloadResponse')
-              ? GdataDiffDownloadResponse.fromJson(_json['diffDownloadResponse']
+          diffDownloadResponse: json_.containsKey('diffDownloadResponse')
+              ? GdataDiffDownloadResponse.fromJson(json_['diffDownloadResponse']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          diffUploadRequest: _json.containsKey('diffUploadRequest')
-              ? GdataDiffUploadRequest.fromJson(_json['diffUploadRequest']
+          diffUploadRequest: json_.containsKey('diffUploadRequest')
+              ? GdataDiffUploadRequest.fromJson(json_['diffUploadRequest']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          diffUploadResponse: _json.containsKey('diffUploadResponse')
-              ? GdataDiffUploadResponse.fromJson(_json['diffUploadResponse']
+          diffUploadResponse: json_.containsKey('diffUploadResponse')
+              ? GdataDiffUploadResponse.fromJson(json_['diffUploadResponse']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          diffVersionResponse: _json.containsKey('diffVersionResponse')
-              ? GdataDiffVersionResponse.fromJson(_json['diffVersionResponse']
+          diffVersionResponse: json_.containsKey('diffVersionResponse')
+              ? GdataDiffVersionResponse.fromJson(json_['diffVersionResponse']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          downloadParameters: _json.containsKey('downloadParameters')
-              ? GdataDownloadParameters.fromJson(_json['downloadParameters']
+          downloadParameters: json_.containsKey('downloadParameters')
+              ? GdataDownloadParameters.fromJson(json_['downloadParameters']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          filename: _json.containsKey('filename')
-              ? _json['filename'] as core.String
+          filename: json_.containsKey('filename')
+              ? json_['filename'] as core.String
               : null,
-          hash: _json.containsKey('hash') ? _json['hash'] as core.String : null,
-          hashVerified: _json.containsKey('hashVerified')
-              ? _json['hashVerified'] as core.bool
+          hash: json_.containsKey('hash') ? json_['hash'] as core.String : null,
+          hashVerified: json_.containsKey('hashVerified')
+              ? json_['hashVerified'] as core.bool
               : null,
-          inline: _json.containsKey('inline')
-              ? _json['inline'] as core.String
+          inline: json_.containsKey('inline')
+              ? json_['inline'] as core.String
               : null,
-          isPotentialRetry: _json.containsKey('isPotentialRetry')
-              ? _json['isPotentialRetry'] as core.bool
+          isPotentialRetry: json_.containsKey('isPotentialRetry')
+              ? json_['isPotentialRetry'] as core.bool
               : null,
-          length: _json.containsKey('length')
-              ? _json['length'] as core.String
+          length: json_.containsKey('length')
+              ? json_['length'] as core.String
               : null,
-          md5Hash: _json.containsKey('md5Hash')
-              ? _json['md5Hash'] as core.String
+          md5Hash: json_.containsKey('md5Hash')
+              ? json_['md5Hash'] as core.String
               : null,
-          mediaId: _json.containsKey('mediaId')
-              ? _json['mediaId'] as core.String
+          mediaId: json_.containsKey('mediaId')
+              ? json_['mediaId'] as core.String
               : null,
-          objectId: _json.containsKey('objectId')
+          objectId: json_.containsKey('objectId')
               ? GdataObjectId.fromJson(
-                  _json['objectId'] as core.Map<core.String, core.dynamic>)
+                  json_['objectId'] as core.Map<core.String, core.dynamic>)
               : null,
-          path: _json.containsKey('path') ? _json['path'] as core.String : null,
-          referenceType: _json.containsKey('referenceType')
-              ? _json['referenceType'] as core.String
+          path: json_.containsKey('path') ? json_['path'] as core.String : null,
+          referenceType: json_.containsKey('referenceType')
+              ? json_['referenceType'] as core.String
               : null,
-          sha1Hash: _json.containsKey('sha1Hash')
-              ? _json['sha1Hash'] as core.String
+          sha1Hash: json_.containsKey('sha1Hash')
+              ? json_['sha1Hash'] as core.String
               : null,
-          sha256Hash: _json.containsKey('sha256Hash')
-              ? _json['sha256Hash'] as core.String
+          sha256Hash: json_.containsKey('sha256Hash')
+              ? json_['sha256Hash'] as core.String
               : null,
-          timestamp: _json.containsKey('timestamp')
-              ? _json['timestamp'] as core.String
+          timestamp: json_.containsKey('timestamp')
+              ? json_['timestamp'] as core.String
               : null,
           token:
-              _json.containsKey('token') ? _json['token'] as core.String : null,
+              json_.containsKey('token') ? json_['token'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
@@ -1768,16 +2331,16 @@ class GdataObjectId {
     this.objectName,
   });
 
-  GdataObjectId.fromJson(core.Map _json)
+  GdataObjectId.fromJson(core.Map json_)
       : this(
-          bucketName: _json.containsKey('bucketName')
-              ? _json['bucketName'] as core.String
+          bucketName: json_.containsKey('bucketName')
+              ? json_['bucketName'] as core.String
               : null,
-          generation: _json.containsKey('generation')
-              ? _json['generation'] as core.String
+          generation: json_.containsKey('generation')
+              ? json_['generation'] as core.String
               : null,
-          objectName: _json.containsKey('objectName')
-              ? _json['objectName'] as core.String
+          objectName: json_.containsKey('objectName')
+              ? json_['objectName'] as core.String
               : null,
         );
 
@@ -1806,7 +2369,7 @@ class GoogleFirebaseAppdistroV1AabInfo {
   /// - "PLAY_IAS_TERMS_NOT_ACCEPTED" : Play IAS terms not accepted
   core.String? integrationState;
 
-  /// The name of the aab info.
+  /// The name of the `AabInfo` resource.
   ///
   /// Format: `projects/{project_number}/apps/{app}/aabInfo`
   core.String? name;
@@ -1822,15 +2385,15 @@ class GoogleFirebaseAppdistroV1AabInfo {
     this.testCertificate,
   });
 
-  GoogleFirebaseAppdistroV1AabInfo.fromJson(core.Map _json)
+  GoogleFirebaseAppdistroV1AabInfo.fromJson(core.Map json_)
       : this(
-          integrationState: _json.containsKey('integrationState')
-              ? _json['integrationState'] as core.String
+          integrationState: json_.containsKey('integrationState')
+              ? json_['integrationState'] as core.String
               : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
-          testCertificate: _json.containsKey('testCertificate')
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+          testCertificate: json_.containsKey('testCertificate')
               ? GoogleFirebaseAppdistroV1TestCertificate.fromJson(
-                  _json['testCertificate']
+                  json_['testCertificate']
                       as core.Map<core.String, core.dynamic>)
               : null,
         );
@@ -1844,7 +2407,7 @@ class GoogleFirebaseAppdistroV1AabInfo {
 
 /// The Request message for batch adding testers
 class GoogleFirebaseAppdistroV1BatchAddTestersRequest {
-  /// The emails to be added as testers.
+  /// The email addresses of the tester resources to create.
   ///
   /// A maximum of 999 and a minimum of 1 tester can be created in a batch.
   ///
@@ -1855,10 +2418,10 @@ class GoogleFirebaseAppdistroV1BatchAddTestersRequest {
     this.emails,
   });
 
-  GoogleFirebaseAppdistroV1BatchAddTestersRequest.fromJson(core.Map _json)
+  GoogleFirebaseAppdistroV1BatchAddTestersRequest.fromJson(core.Map json_)
       : this(
-          emails: _json.containsKey('emails')
-              ? (_json['emails'] as core.List)
+          emails: json_.containsKey('emails')
+              ? (json_['emails'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
@@ -1869,7 +2432,7 @@ class GoogleFirebaseAppdistroV1BatchAddTestersRequest {
       };
 }
 
-/// The Response message for BatchAddTesters
+/// The Response message for `BatchAddTesters`.
 class GoogleFirebaseAppdistroV1BatchAddTestersResponse {
   /// The testers which are created and/or already exist
   core.List<GoogleFirebaseAppdistroV1Tester>? testers;
@@ -1878,10 +2441,10 @@ class GoogleFirebaseAppdistroV1BatchAddTestersResponse {
     this.testers,
   });
 
-  GoogleFirebaseAppdistroV1BatchAddTestersResponse.fromJson(core.Map _json)
+  GoogleFirebaseAppdistroV1BatchAddTestersResponse.fromJson(core.Map json_)
       : this(
-          testers: _json.containsKey('testers')
-              ? (_json['testers'] as core.List)
+          testers: json_.containsKey('testers')
+              ? (json_['testers'] as core.List)
                   .map((value) => GoogleFirebaseAppdistroV1Tester.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -1895,10 +2458,10 @@ class GoogleFirebaseAppdistroV1BatchAddTestersResponse {
 
 /// The request message for `BatchDeleteReleases`.
 class GoogleFirebaseAppdistroV1BatchDeleteReleasesRequest {
-  /// The names of the releases to delete.
+  /// The names of the release resources to delete.
   ///
-  /// A maximum of 100 releases can be deleted per request. Format:
-  /// `projects/{project_number}/apps/{app}/releases/{release}`
+  /// Format: `projects/{project_number}/apps/{app_id}/releases/{release_id}` A
+  /// maximum of 100 releases can be deleted per request.
   ///
   /// Required.
   core.List<core.String>? names;
@@ -1907,10 +2470,10 @@ class GoogleFirebaseAppdistroV1BatchDeleteReleasesRequest {
     this.names,
   });
 
-  GoogleFirebaseAppdistroV1BatchDeleteReleasesRequest.fromJson(core.Map _json)
+  GoogleFirebaseAppdistroV1BatchDeleteReleasesRequest.fromJson(core.Map json_)
       : this(
-          names: _json.containsKey('names')
-              ? (_json['names'] as core.List)
+          names: json_.containsKey('names')
+              ? (json_['names'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
@@ -1921,23 +2484,60 @@ class GoogleFirebaseAppdistroV1BatchDeleteReleasesRequest {
       };
 }
 
-/// The request message for `BatchRemoveTesters`.
-class GoogleFirebaseAppdistroV1BatchRemoveTestersRequest {
-  /// The email addresses of the testers to be removed.
+/// The request message for `BatchJoinGroup`
+class GoogleFirebaseAppdistroV1BatchJoinGroupRequest {
+  /// Indicates whether to create tester resources based on `emails` if they
+  /// don't exist yet.
+  core.bool? createMissingTesters;
+
+  /// The emails of the testers to be added to the group.
   ///
-  /// A maximum of 999 and a minimum of 1 testers can be deleted in a batch.
+  /// A maximum of 999 and a minimum of 1 tester can be created in a batch.
   ///
   /// Required.
   core.List<core.String>? emails;
 
-  GoogleFirebaseAppdistroV1BatchRemoveTestersRequest({
+  GoogleFirebaseAppdistroV1BatchJoinGroupRequest({
+    this.createMissingTesters,
     this.emails,
   });
 
-  GoogleFirebaseAppdistroV1BatchRemoveTestersRequest.fromJson(core.Map _json)
+  GoogleFirebaseAppdistroV1BatchJoinGroupRequest.fromJson(core.Map json_)
       : this(
-          emails: _json.containsKey('emails')
-              ? (_json['emails'] as core.List)
+          createMissingTesters: json_.containsKey('createMissingTesters')
+              ? json_['createMissingTesters'] as core.bool
+              : null,
+          emails: json_.containsKey('emails')
+              ? (json_['emails'] as core.List)
+                  .map((value) => value as core.String)
+                  .toList()
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (createMissingTesters != null)
+          'createMissingTesters': createMissingTesters!,
+        if (emails != null) 'emails': emails!,
+      };
+}
+
+/// Request message for `BatchLeaveGroup`
+class GoogleFirebaseAppdistroV1BatchLeaveGroupRequest {
+  /// The email addresses of the testers to be removed from the group.
+  ///
+  /// A maximum of 999 and a minimum of 1 testers can be removed in a batch.
+  ///
+  /// Required.
+  core.List<core.String>? emails;
+
+  GoogleFirebaseAppdistroV1BatchLeaveGroupRequest({
+    this.emails,
+  });
+
+  GoogleFirebaseAppdistroV1BatchLeaveGroupRequest.fromJson(core.Map json_)
+      : this(
+          emails: json_.containsKey('emails')
+              ? (json_['emails'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
@@ -1948,7 +2548,34 @@ class GoogleFirebaseAppdistroV1BatchRemoveTestersRequest {
       };
 }
 
-/// The response message for 'BatchRemoveTesters'
+/// The request message for `BatchRemoveTesters`.
+class GoogleFirebaseAppdistroV1BatchRemoveTestersRequest {
+  /// The email addresses of the tester resources to removed.
+  ///
+  /// A maximum of 999 and a minimum of 1 testers can be deleted in a batch.
+  ///
+  /// Required.
+  core.List<core.String>? emails;
+
+  GoogleFirebaseAppdistroV1BatchRemoveTestersRequest({
+    this.emails,
+  });
+
+  GoogleFirebaseAppdistroV1BatchRemoveTestersRequest.fromJson(core.Map json_)
+      : this(
+          emails: json_.containsKey('emails')
+              ? (json_['emails'] as core.List)
+                  .map((value) => value as core.String)
+                  .toList()
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (emails != null) 'emails': emails!,
+      };
+}
+
+/// The response message for `BatchRemoveTesters`
 class GoogleFirebaseAppdistroV1BatchRemoveTestersResponse {
   /// List of deleted tester emails
   core.List<core.String>? emails;
@@ -1957,10 +2584,10 @@ class GoogleFirebaseAppdistroV1BatchRemoveTestersResponse {
     this.emails,
   });
 
-  GoogleFirebaseAppdistroV1BatchRemoveTestersResponse.fromJson(core.Map _json)
+  GoogleFirebaseAppdistroV1BatchRemoveTestersResponse.fromJson(core.Map json_)
       : this(
-          emails: _json.containsKey('emails')
-              ? (_json['emails'] as core.List)
+          emails: json_.containsKey('emails')
+              ? (json_['emails'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
@@ -1973,16 +2600,16 @@ class GoogleFirebaseAppdistroV1BatchRemoveTestersResponse {
 
 /// The request message for `DistributeRelease`.
 class GoogleFirebaseAppdistroV1DistributeReleaseRequest {
-  /// A repeated list of group aliases to give access to this release.
+  /// A list of group aliases (IDs) to be given access to this release.
   ///
-  /// A combined maximum of 999 `tester_emails` and `group_aliases` can be
-  /// specified in single request.
+  /// A combined maximum of 999 `testerEmails` and `groupAliases` can be
+  /// specified in a single request.
   core.List<core.String>? groupAliases;
 
-  /// A list of tester email addresses to give access to this release.
+  /// A list of tester email addresses to be given access to this release.
   ///
-  /// A combined maximum of 999 `tester_emails` and `group_aliases` can be
-  /// specified in single request.
+  /// A combined maximum of 999 `testerEmails` and `groupAliases` can be
+  /// specified in a single request.
   core.List<core.String>? testerEmails;
 
   GoogleFirebaseAppdistroV1DistributeReleaseRequest({
@@ -1990,15 +2617,15 @@ class GoogleFirebaseAppdistroV1DistributeReleaseRequest {
     this.testerEmails,
   });
 
-  GoogleFirebaseAppdistroV1DistributeReleaseRequest.fromJson(core.Map _json)
+  GoogleFirebaseAppdistroV1DistributeReleaseRequest.fromJson(core.Map json_)
       : this(
-          groupAliases: _json.containsKey('groupAliases')
-              ? (_json['groupAliases'] as core.List)
+          groupAliases: json_.containsKey('groupAliases')
+              ? (json_['groupAliases'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
-          testerEmails: _json.containsKey('testerEmails')
-              ? (_json['testerEmails'] as core.List)
+          testerEmails: json_.containsKey('testerEmails')
+              ? (json_['testerEmails'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
@@ -2013,9 +2640,216 @@ class GoogleFirebaseAppdistroV1DistributeReleaseRequest {
 /// The response message for `DistributeRelease`.
 typedef GoogleFirebaseAppdistroV1DistributeReleaseResponse = $Empty;
 
+/// A feedback report submitted by a tester for a release.
+class GoogleFirebaseAppdistroV1FeedbackReport {
+  /// The time when the feedback report was created.
+  ///
+  /// Output only.
+  core.String? createTime;
+
+  /// A link to the Firebase console displaying the feedback report.
+  ///
+  /// Output only.
+  core.String? firebaseConsoleUri;
+
+  /// The name of the feedback report resource.
+  ///
+  /// Format:
+  /// `projects/{project_number}/apps/{app}/releases/{release}/feedbackReports/{feedback_report}`
+  core.String? name;
+
+  /// A signed link (which expires in one hour) that lets you directly download
+  /// the screenshot.
+  ///
+  /// Output only.
+  core.String? screenshotUri;
+
+  /// The resource name of the tester who submitted the feedback report.
+  ///
+  /// Output only.
+  core.String? tester;
+
+  /// The text of the feedback report.
+  ///
+  /// Output only.
+  core.String? text;
+
+  GoogleFirebaseAppdistroV1FeedbackReport({
+    this.createTime,
+    this.firebaseConsoleUri,
+    this.name,
+    this.screenshotUri,
+    this.tester,
+    this.text,
+  });
+
+  GoogleFirebaseAppdistroV1FeedbackReport.fromJson(core.Map json_)
+      : this(
+          createTime: json_.containsKey('createTime')
+              ? json_['createTime'] as core.String
+              : null,
+          firebaseConsoleUri: json_.containsKey('firebaseConsoleUri')
+              ? json_['firebaseConsoleUri'] as core.String
+              : null,
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+          screenshotUri: json_.containsKey('screenshotUri')
+              ? json_['screenshotUri'] as core.String
+              : null,
+          tester: json_.containsKey('tester')
+              ? json_['tester'] as core.String
+              : null,
+          text: json_.containsKey('text') ? json_['text'] as core.String : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (createTime != null) 'createTime': createTime!,
+        if (firebaseConsoleUri != null)
+          'firebaseConsoleUri': firebaseConsoleUri!,
+        if (name != null) 'name': name!,
+        if (screenshotUri != null) 'screenshotUri': screenshotUri!,
+        if (tester != null) 'tester': tester!,
+        if (text != null) 'text': text!,
+      };
+}
+
+/// A group which can contain testers.
+///
+/// A group can be invited to test apps in a Firebase project.
+class GoogleFirebaseAppdistroV1Group {
+  /// The display name of the group.
+  ///
+  /// Required.
+  core.String? displayName;
+
+  /// The number of invite links for this group.
+  ///
+  /// Output only.
+  core.int? inviteLinkCount;
+
+  /// The name of the group resource.
+  ///
+  /// Format: `projects/{project_number}/groups/{group_alias}`
+  core.String? name;
+
+  /// The number of releases this group is permitted to access.
+  ///
+  /// Output only.
+  core.int? releaseCount;
+
+  /// The number of testers who are members of this group.
+  ///
+  /// Output only.
+  core.int? testerCount;
+
+  GoogleFirebaseAppdistroV1Group({
+    this.displayName,
+    this.inviteLinkCount,
+    this.name,
+    this.releaseCount,
+    this.testerCount,
+  });
+
+  GoogleFirebaseAppdistroV1Group.fromJson(core.Map json_)
+      : this(
+          displayName: json_.containsKey('displayName')
+              ? json_['displayName'] as core.String
+              : null,
+          inviteLinkCount: json_.containsKey('inviteLinkCount')
+              ? json_['inviteLinkCount'] as core.int
+              : null,
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+          releaseCount: json_.containsKey('releaseCount')
+              ? json_['releaseCount'] as core.int
+              : null,
+          testerCount: json_.containsKey('testerCount')
+              ? json_['testerCount'] as core.int
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (displayName != null) 'displayName': displayName!,
+        if (inviteLinkCount != null) 'inviteLinkCount': inviteLinkCount!,
+        if (name != null) 'name': name!,
+        if (releaseCount != null) 'releaseCount': releaseCount!,
+        if (testerCount != null) 'testerCount': testerCount!,
+      };
+}
+
+/// The response message for `ListFeedbackReports`.
+class GoogleFirebaseAppdistroV1ListFeedbackReportsResponse {
+  /// The feedback reports
+  core.List<GoogleFirebaseAppdistroV1FeedbackReport>? feedbackReports;
+
+  /// A short-lived token, which can be sent as `pageToken` to retrieve the next
+  /// page.
+  ///
+  /// If this field is omitted, there are no subsequent pages.
+  core.String? nextPageToken;
+
+  GoogleFirebaseAppdistroV1ListFeedbackReportsResponse({
+    this.feedbackReports,
+    this.nextPageToken,
+  });
+
+  GoogleFirebaseAppdistroV1ListFeedbackReportsResponse.fromJson(core.Map json_)
+      : this(
+          feedbackReports: json_.containsKey('feedbackReports')
+              ? (json_['feedbackReports'] as core.List)
+                  .map((value) =>
+                      GoogleFirebaseAppdistroV1FeedbackReport.fromJson(
+                          value as core.Map<core.String, core.dynamic>))
+                  .toList()
+              : null,
+          nextPageToken: json_.containsKey('nextPageToken')
+              ? json_['nextPageToken'] as core.String
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (feedbackReports != null) 'feedbackReports': feedbackReports!,
+        if (nextPageToken != null) 'nextPageToken': nextPageToken!,
+      };
+}
+
+/// The response message for `ListGroups`.
+class GoogleFirebaseAppdistroV1ListGroupsResponse {
+  /// The groups listed.
+  core.List<GoogleFirebaseAppdistroV1Group>? groups;
+
+  /// A short-lived token, which can be sent as `pageToken` to retrieve the next
+  /// page.
+  ///
+  /// If this field is omitted, there are no subsequent pages.
+  core.String? nextPageToken;
+
+  GoogleFirebaseAppdistroV1ListGroupsResponse({
+    this.groups,
+    this.nextPageToken,
+  });
+
+  GoogleFirebaseAppdistroV1ListGroupsResponse.fromJson(core.Map json_)
+      : this(
+          groups: json_.containsKey('groups')
+              ? (json_['groups'] as core.List)
+                  .map((value) => GoogleFirebaseAppdistroV1Group.fromJson(
+                      value as core.Map<core.String, core.dynamic>))
+                  .toList()
+              : null,
+          nextPageToken: json_.containsKey('nextPageToken')
+              ? json_['nextPageToken'] as core.String
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (groups != null) 'groups': groups!,
+        if (nextPageToken != null) 'nextPageToken': nextPageToken!,
+      };
+}
+
 /// The response message for `ListReleases`.
 class GoogleFirebaseAppdistroV1ListReleasesResponse {
-  /// A token, which can be sent as `page_token` to retrieve the next page.
+  /// A short-lived token, which can be sent as `pageToken` to retrieve the next
+  /// page.
   ///
   /// If this field is omitted, there are no subsequent pages.
   core.String? nextPageToken;
@@ -2028,13 +2862,13 @@ class GoogleFirebaseAppdistroV1ListReleasesResponse {
     this.releases,
   });
 
-  GoogleFirebaseAppdistroV1ListReleasesResponse.fromJson(core.Map _json)
+  GoogleFirebaseAppdistroV1ListReleasesResponse.fromJson(core.Map json_)
       : this(
-          nextPageToken: _json.containsKey('nextPageToken')
-              ? _json['nextPageToken'] as core.String
+          nextPageToken: json_.containsKey('nextPageToken')
+              ? json_['nextPageToken'] as core.String
               : null,
-          releases: _json.containsKey('releases')
-              ? (_json['releases'] as core.List)
+          releases: json_.containsKey('releases')
+              ? (json_['releases'] as core.List)
                   .map((value) => GoogleFirebaseAppdistroV1Release.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -2049,7 +2883,8 @@ class GoogleFirebaseAppdistroV1ListReleasesResponse {
 
 /// The response message for `ListTesters`.
 class GoogleFirebaseAppdistroV1ListTestersResponse {
-  /// A token, which can be sent as `page_token` to retrieve the next page.
+  /// A short-lived token, which can be sent as `pageToken` to retrieve the next
+  /// page.
   ///
   /// If this field is omitted, there are no subsequent pages.
   core.String? nextPageToken;
@@ -2062,13 +2897,13 @@ class GoogleFirebaseAppdistroV1ListTestersResponse {
     this.testers,
   });
 
-  GoogleFirebaseAppdistroV1ListTestersResponse.fromJson(core.Map _json)
+  GoogleFirebaseAppdistroV1ListTestersResponse.fromJson(core.Map json_)
       : this(
-          nextPageToken: _json.containsKey('nextPageToken')
-              ? _json['nextPageToken'] as core.String
+          nextPageToken: json_.containsKey('nextPageToken')
+              ? json_['nextPageToken'] as core.String
               : null,
-          testers: _json.containsKey('testers')
-              ? (_json['testers'] as core.List)
+          testers: json_.containsKey('testers')
+              ? (json_['testers'] as core.List)
                   .map((value) => GoogleFirebaseAppdistroV1Tester.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -2083,6 +2918,12 @@ class GoogleFirebaseAppdistroV1ListTestersResponse {
 
 /// A release of a Firebase app.
 class GoogleFirebaseAppdistroV1Release {
+  /// A signed link (which expires in one hour) to directly download the app
+  /// binary (IPA/APK/AAB) file.
+  ///
+  /// Output only.
+  core.String? binaryDownloadUri;
+
   /// Build version of the release.
   ///
   /// For an Android release, the build version is the `versionCode`. For an iOS
@@ -2104,46 +2945,74 @@ class GoogleFirebaseAppdistroV1Release {
   /// Output only.
   core.String? displayVersion;
 
-  /// The name of the release.
+  /// A link to the Firebase console displaying a single release.
   ///
-  /// Format: `projects/{project_number}/apps/{app}/releases/{release}`
+  /// Output only.
+  core.String? firebaseConsoleUri;
+
+  /// The name of the release resource.
+  ///
+  /// Format: `projects/{project_number}/apps/{app_id}/releases/{release_id}`
   core.String? name;
 
   /// Notes of the release.
   GoogleFirebaseAppdistroV1ReleaseNotes? releaseNotes;
 
+  /// A link to the release in the tester web clip or Android app that lets
+  /// testers (which were granted access to the app) view release notes and
+  /// install the app onto their devices.
+  ///
+  /// Output only.
+  core.String? testingUri;
+
   GoogleFirebaseAppdistroV1Release({
+    this.binaryDownloadUri,
     this.buildVersion,
     this.createTime,
     this.displayVersion,
+    this.firebaseConsoleUri,
     this.name,
     this.releaseNotes,
+    this.testingUri,
   });
 
-  GoogleFirebaseAppdistroV1Release.fromJson(core.Map _json)
+  GoogleFirebaseAppdistroV1Release.fromJson(core.Map json_)
       : this(
-          buildVersion: _json.containsKey('buildVersion')
-              ? _json['buildVersion'] as core.String
+          binaryDownloadUri: json_.containsKey('binaryDownloadUri')
+              ? json_['binaryDownloadUri'] as core.String
               : null,
-          createTime: _json.containsKey('createTime')
-              ? _json['createTime'] as core.String
+          buildVersion: json_.containsKey('buildVersion')
+              ? json_['buildVersion'] as core.String
               : null,
-          displayVersion: _json.containsKey('displayVersion')
-              ? _json['displayVersion'] as core.String
+          createTime: json_.containsKey('createTime')
+              ? json_['createTime'] as core.String
               : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
-          releaseNotes: _json.containsKey('releaseNotes')
+          displayVersion: json_.containsKey('displayVersion')
+              ? json_['displayVersion'] as core.String
+              : null,
+          firebaseConsoleUri: json_.containsKey('firebaseConsoleUri')
+              ? json_['firebaseConsoleUri'] as core.String
+              : null,
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+          releaseNotes: json_.containsKey('releaseNotes')
               ? GoogleFirebaseAppdistroV1ReleaseNotes.fromJson(
-                  _json['releaseNotes'] as core.Map<core.String, core.dynamic>)
+                  json_['releaseNotes'] as core.Map<core.String, core.dynamic>)
+              : null,
+          testingUri: json_.containsKey('testingUri')
+              ? json_['testingUri'] as core.String
               : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
+        if (binaryDownloadUri != null) 'binaryDownloadUri': binaryDownloadUri!,
         if (buildVersion != null) 'buildVersion': buildVersion!,
         if (createTime != null) 'createTime': createTime!,
         if (displayVersion != null) 'displayVersion': displayVersion!,
+        if (firebaseConsoleUri != null)
+          'firebaseConsoleUri': firebaseConsoleUri!,
         if (name != null) 'name': name!,
         if (releaseNotes != null) 'releaseNotes': releaseNotes!,
+        if (testingUri != null) 'testingUri': testingUri!,
       };
 }
 
@@ -2156,9 +3025,9 @@ class GoogleFirebaseAppdistroV1ReleaseNotes {
     this.text,
   });
 
-  GoogleFirebaseAppdistroV1ReleaseNotes.fromJson(core.Map _json)
+  GoogleFirebaseAppdistroV1ReleaseNotes.fromJson(core.Map json_)
       : this(
-          text: _json.containsKey('text') ? _json['text'] as core.String : null,
+          text: json_.containsKey('text') ? json_['text'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
@@ -2183,16 +3052,16 @@ class GoogleFirebaseAppdistroV1TestCertificate {
     this.hashSha256,
   });
 
-  GoogleFirebaseAppdistroV1TestCertificate.fromJson(core.Map _json)
+  GoogleFirebaseAppdistroV1TestCertificate.fromJson(core.Map json_)
       : this(
-          hashMd5: _json.containsKey('hashMd5')
-              ? _json['hashMd5'] as core.String
+          hashMd5: json_.containsKey('hashMd5')
+              ? json_['hashMd5'] as core.String
               : null,
-          hashSha1: _json.containsKey('hashSha1')
-              ? _json['hashSha1'] as core.String
+          hashSha1: json_.containsKey('hashSha1')
+              ? json_['hashSha1'] as core.String
               : null,
-          hashSha256: _json.containsKey('hashSha256')
-              ? _json['hashSha256'] as core.String
+          hashSha256: json_.containsKey('hashSha256')
+              ? json_['hashSha256'] as core.String
               : null,
         );
 
@@ -2209,26 +3078,50 @@ class GoogleFirebaseAppdistroV1Tester {
   /// the tester invitation.
   core.String? displayName;
 
-  /// The name of the Tester.
+  /// The resource names of the groups this tester belongs to.
+  core.List<core.String>? groups;
+
+  /// The time the tester was last active.
   ///
-  /// Format: `projects/{project_number}/testers/{email}`
+  /// This is the most recent time the tester installed one of the apps. If
+  /// they've never installed one or if the release no longer exists, this is
+  /// the time the tester was added to the project.
+  ///
+  /// Output only.
+  core.String? lastActivityTime;
+
+  /// The name of the tester resource.
+  ///
+  /// Format: `projects/{project_number}/testers/{email_address}`
   core.String? name;
 
   GoogleFirebaseAppdistroV1Tester({
     this.displayName,
+    this.groups,
+    this.lastActivityTime,
     this.name,
   });
 
-  GoogleFirebaseAppdistroV1Tester.fromJson(core.Map _json)
+  GoogleFirebaseAppdistroV1Tester.fromJson(core.Map json_)
       : this(
-          displayName: _json.containsKey('displayName')
-              ? _json['displayName'] as core.String
+          displayName: json_.containsKey('displayName')
+              ? json_['displayName'] as core.String
               : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
+          groups: json_.containsKey('groups')
+              ? (json_['groups'] as core.List)
+                  .map((value) => value as core.String)
+                  .toList()
+              : null,
+          lastActivityTime: json_.containsKey('lastActivityTime')
+              ? json_['lastActivityTime'] as core.String
+              : null,
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
         if (displayName != null) 'displayName': displayName!,
+        if (groups != null) 'groups': groups!,
+        if (lastActivityTime != null) 'lastActivityTime': lastActivityTime!,
         if (name != null) 'name': name!,
       };
 }
@@ -2242,11 +3135,11 @@ class GoogleFirebaseAppdistroV1UploadReleaseRequest {
     this.blob,
   });
 
-  GoogleFirebaseAppdistroV1UploadReleaseRequest.fromJson(core.Map _json)
+  GoogleFirebaseAppdistroV1UploadReleaseRequest.fromJson(core.Map json_)
       : this(
-          blob: _json.containsKey('blob')
+          blob: json_.containsKey('blob')
               ? GdataMedia.fromJson(
-                  _json['blob'] as core.Map<core.String, core.dynamic>)
+                  json_['blob'] as core.Map<core.String, core.dynamic>)
               : null,
         );
 
@@ -2271,13 +3164,13 @@ class GoogleLongrunningListOperationsResponse {
     this.operations,
   });
 
-  GoogleLongrunningListOperationsResponse.fromJson(core.Map _json)
+  GoogleLongrunningListOperationsResponse.fromJson(core.Map json_)
       : this(
-          nextPageToken: _json.containsKey('nextPageToken')
-              ? _json['nextPageToken'] as core.String
+          nextPageToken: json_.containsKey('nextPageToken')
+              ? json_['nextPageToken'] as core.String
               : null,
-          operations: _json.containsKey('operations')
-              ? (_json['operations'] as core.List)
+          operations: json_.containsKey('operations')
+              ? (json_['operations'] as core.List)
                   .map((value) => GoogleLongrunningOperation.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -2320,7 +3213,7 @@ class GoogleLongrunningOperation {
   /// ending with `operations/{unique_id}`.
   core.String? name;
 
-  /// The normal response of the operation in case of success.
+  /// The normal, successful response of the operation.
   ///
   /// If the original method returns no data on success, such as `Delete`, the
   /// response is `google.protobuf.Empty`. If the original method is standard
@@ -2341,19 +3234,19 @@ class GoogleLongrunningOperation {
     this.response,
   });
 
-  GoogleLongrunningOperation.fromJson(core.Map _json)
+  GoogleLongrunningOperation.fromJson(core.Map json_)
       : this(
-          done: _json.containsKey('done') ? _json['done'] as core.bool : null,
-          error: _json.containsKey('error')
+          done: json_.containsKey('done') ? json_['done'] as core.bool : null,
+          error: json_.containsKey('error')
               ? GoogleRpcStatus.fromJson(
-                  _json['error'] as core.Map<core.String, core.dynamic>)
+                  json_['error'] as core.Map<core.String, core.dynamic>)
               : null,
-          metadata: _json.containsKey('metadata')
-              ? _json['metadata'] as core.Map<core.String, core.dynamic>
+          metadata: json_.containsKey('metadata')
+              ? json_['metadata'] as core.Map<core.String, core.dynamic>
               : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
-          response: _json.containsKey('response')
-              ? _json['response'] as core.Map<core.String, core.dynamic>
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+          response: json_.containsKey('response')
+              ? json_['response'] as core.Map<core.String, core.dynamic>
               : null,
         );
 
@@ -2379,10 +3272,10 @@ class GoogleLongrunningWaitOperationRequest {
     this.timeout,
   });
 
-  GoogleLongrunningWaitOperationRequest.fromJson(core.Map _json)
+  GoogleLongrunningWaitOperationRequest.fromJson(core.Map json_)
       : this(
-          timeout: _json.containsKey('timeout')
-              ? _json['timeout'] as core.String
+          timeout: json_.containsKey('timeout')
+              ? json_['timeout'] as core.String
               : null,
         );
 

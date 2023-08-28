@@ -2,14 +2,13 @@
 
 // ignore_for_file: camel_case_types
 // ignore_for_file: comment_references
-// ignore_for_file: file_names
-// ignore_for_file: library_names
+// ignore_for_file: deprecated_member_use_from_same_package
 // ignore_for_file: lines_longer_than_80_chars
 // ignore_for_file: non_constant_identifier_names
-// ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: prefer_interpolation_to_compose_strings
 // ignore_for_file: unnecessary_brace_in_string_interps
 // ignore_for_file: unnecessary_lambdas
+// ignore_for_file: unnecessary_library_directive
 // ignore_for_file: unnecessary_string_interpolations
 
 /// Firebase Cloud Messaging API - v1
@@ -23,7 +22,7 @@
 ///
 /// - [ProjectsResource]
 ///   - [ProjectsMessagesResource]
-library fcm.v1;
+library fcm_v1;
 
 import 'dart:async' as async;
 import 'dart:convert' as convert;
@@ -32,7 +31,6 @@ import 'dart:core' as core;
 import 'package:_discoveryapis_commons/_discoveryapis_commons.dart' as commons;
 import 'package:http/http.dart' as http;
 
-// ignore: deprecated_member_use_from_same_package
 import '../shared.dart';
 import '../src/user_agent.dart';
 
@@ -105,20 +103,20 @@ class ProjectsMessagesResource {
     core.String parent, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$parent') + '/messages:send';
+    final url_ = 'v1/' + core.Uri.encodeFull('$parent') + '/messages:send';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Message.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Message.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -199,37 +197,37 @@ class AndroidConfig {
     this.ttl,
   });
 
-  AndroidConfig.fromJson(core.Map _json)
+  AndroidConfig.fromJson(core.Map json_)
       : this(
-          collapseKey: _json.containsKey('collapseKey')
-              ? _json['collapseKey'] as core.String
+          collapseKey: json_.containsKey('collapseKey')
+              ? json_['collapseKey'] as core.String
               : null,
-          data: _json.containsKey('data')
-              ? (_json['data'] as core.Map<core.String, core.dynamic>).map(
-                  (key, item) => core.MapEntry(
+          data: json_.containsKey('data')
+              ? (json_['data'] as core.Map<core.String, core.dynamic>).map(
+                  (key, value) => core.MapEntry(
                     key,
-                    item as core.String,
+                    value as core.String,
                   ),
                 )
               : null,
-          directBootOk: _json.containsKey('directBootOk')
-              ? _json['directBootOk'] as core.bool
+          directBootOk: json_.containsKey('directBootOk')
+              ? json_['directBootOk'] as core.bool
               : null,
-          fcmOptions: _json.containsKey('fcmOptions')
+          fcmOptions: json_.containsKey('fcmOptions')
               ? AndroidFcmOptions.fromJson(
-                  _json['fcmOptions'] as core.Map<core.String, core.dynamic>)
+                  json_['fcmOptions'] as core.Map<core.String, core.dynamic>)
               : null,
-          notification: _json.containsKey('notification')
+          notification: json_.containsKey('notification')
               ? AndroidNotification.fromJson(
-                  _json['notification'] as core.Map<core.String, core.dynamic>)
+                  json_['notification'] as core.Map<core.String, core.dynamic>)
               : null,
-          priority: _json.containsKey('priority')
-              ? _json['priority'] as core.String
+          priority: json_.containsKey('priority')
+              ? json_['priority'] as core.String
               : null,
-          restrictedPackageName: _json.containsKey('restrictedPackageName')
-              ? _json['restrictedPackageName'] as core.String
+          restrictedPackageName: json_.containsKey('restrictedPackageName')
+              ? json_['restrictedPackageName'] as core.String
               : null,
-          ttl: _json.containsKey('ttl') ? _json['ttl'] as core.String : null,
+          ttl: json_.containsKey('ttl') ? json_['ttl'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
@@ -270,6 +268,9 @@ class AndroidNotification {
 
   /// If set, display notifications delivered to the device will be handled by
   /// the app instead of the proxy.
+  @core.Deprecated(
+    'Not supported. Member documentation may have more information.',
+  )
   core.bool? bypassProxyNotification;
 
   /// The
@@ -396,6 +397,17 @@ class AndroidNotification {
   /// attention or input.
   core.String? notificationPriority;
 
+  /// Setting to control when a notification may be proxied.
+  /// Possible string values are:
+  /// - "PROXY_UNSPECIFIED" : If unspecified, default to
+  /// `Proxy.IF_PRIORITY_LOWERED`.
+  /// - "ALLOW" : Try to proxy this notification.
+  /// - "DENY" : Do not proxy this notification.
+  /// - "IF_PRIORITY_LOWERED" : Only try to proxy this notification if its
+  /// `AndroidMessagePriority` was lowered from `HIGH` to `NORMAL` on the
+  /// device.
+  core.String? proxy;
+
   /// The sound to play when the device receives the notification.
   ///
   /// Supports "default" or the filename of a sound resource bundled in the app.
@@ -483,6 +495,7 @@ class AndroidNotification {
     this.localOnly,
     this.notificationCount,
     this.notificationPriority,
+    this.proxy,
     this.sound,
     this.sticky,
     this.tag,
@@ -494,81 +507,83 @@ class AndroidNotification {
     this.visibility,
   });
 
-  AndroidNotification.fromJson(core.Map _json)
+  AndroidNotification.fromJson(core.Map json_)
       : this(
-          body: _json.containsKey('body') ? _json['body'] as core.String : null,
-          bodyLocArgs: _json.containsKey('bodyLocArgs')
-              ? (_json['bodyLocArgs'] as core.List)
+          body: json_.containsKey('body') ? json_['body'] as core.String : null,
+          bodyLocArgs: json_.containsKey('bodyLocArgs')
+              ? (json_['bodyLocArgs'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
-          bodyLocKey: _json.containsKey('bodyLocKey')
-              ? _json['bodyLocKey'] as core.String
+          bodyLocKey: json_.containsKey('bodyLocKey')
+              ? json_['bodyLocKey'] as core.String
               : null,
-          bypassProxyNotification: _json.containsKey('bypassProxyNotification')
-              ? _json['bypassProxyNotification'] as core.bool
+          bypassProxyNotification: json_.containsKey('bypassProxyNotification')
+              ? json_['bypassProxyNotification'] as core.bool
               : null,
-          channelId: _json.containsKey('channelId')
-              ? _json['channelId'] as core.String
+          channelId: json_.containsKey('channelId')
+              ? json_['channelId'] as core.String
               : null,
-          clickAction: _json.containsKey('clickAction')
-              ? _json['clickAction'] as core.String
+          clickAction: json_.containsKey('clickAction')
+              ? json_['clickAction'] as core.String
               : null,
           color:
-              _json.containsKey('color') ? _json['color'] as core.String : null,
-          defaultLightSettings: _json.containsKey('defaultLightSettings')
-              ? _json['defaultLightSettings'] as core.bool
+              json_.containsKey('color') ? json_['color'] as core.String : null,
+          defaultLightSettings: json_.containsKey('defaultLightSettings')
+              ? json_['defaultLightSettings'] as core.bool
               : null,
-          defaultSound: _json.containsKey('defaultSound')
-              ? _json['defaultSound'] as core.bool
+          defaultSound: json_.containsKey('defaultSound')
+              ? json_['defaultSound'] as core.bool
               : null,
-          defaultVibrateTimings: _json.containsKey('defaultVibrateTimings')
-              ? _json['defaultVibrateTimings'] as core.bool
+          defaultVibrateTimings: json_.containsKey('defaultVibrateTimings')
+              ? json_['defaultVibrateTimings'] as core.bool
               : null,
-          eventTime: _json.containsKey('eventTime')
-              ? _json['eventTime'] as core.String
+          eventTime: json_.containsKey('eventTime')
+              ? json_['eventTime'] as core.String
               : null,
-          icon: _json.containsKey('icon') ? _json['icon'] as core.String : null,
+          icon: json_.containsKey('icon') ? json_['icon'] as core.String : null,
           image:
-              _json.containsKey('image') ? _json['image'] as core.String : null,
-          lightSettings: _json.containsKey('lightSettings')
+              json_.containsKey('image') ? json_['image'] as core.String : null,
+          lightSettings: json_.containsKey('lightSettings')
               ? LightSettings.fromJson(
-                  _json['lightSettings'] as core.Map<core.String, core.dynamic>)
+                  json_['lightSettings'] as core.Map<core.String, core.dynamic>)
               : null,
-          localOnly: _json.containsKey('localOnly')
-              ? _json['localOnly'] as core.bool
+          localOnly: json_.containsKey('localOnly')
+              ? json_['localOnly'] as core.bool
               : null,
-          notificationCount: _json.containsKey('notificationCount')
-              ? _json['notificationCount'] as core.int
+          notificationCount: json_.containsKey('notificationCount')
+              ? json_['notificationCount'] as core.int
               : null,
-          notificationPriority: _json.containsKey('notificationPriority')
-              ? _json['notificationPriority'] as core.String
+          notificationPriority: json_.containsKey('notificationPriority')
+              ? json_['notificationPriority'] as core.String
               : null,
+          proxy:
+              json_.containsKey('proxy') ? json_['proxy'] as core.String : null,
           sound:
-              _json.containsKey('sound') ? _json['sound'] as core.String : null,
+              json_.containsKey('sound') ? json_['sound'] as core.String : null,
           sticky:
-              _json.containsKey('sticky') ? _json['sticky'] as core.bool : null,
-          tag: _json.containsKey('tag') ? _json['tag'] as core.String : null,
-          ticker: _json.containsKey('ticker')
-              ? _json['ticker'] as core.String
+              json_.containsKey('sticky') ? json_['sticky'] as core.bool : null,
+          tag: json_.containsKey('tag') ? json_['tag'] as core.String : null,
+          ticker: json_.containsKey('ticker')
+              ? json_['ticker'] as core.String
               : null,
           title:
-              _json.containsKey('title') ? _json['title'] as core.String : null,
-          titleLocArgs: _json.containsKey('titleLocArgs')
-              ? (_json['titleLocArgs'] as core.List)
+              json_.containsKey('title') ? json_['title'] as core.String : null,
+          titleLocArgs: json_.containsKey('titleLocArgs')
+              ? (json_['titleLocArgs'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
-          titleLocKey: _json.containsKey('titleLocKey')
-              ? _json['titleLocKey'] as core.String
+          titleLocKey: json_.containsKey('titleLocKey')
+              ? json_['titleLocKey'] as core.String
               : null,
-          vibrateTimings: _json.containsKey('vibrateTimings')
-              ? (_json['vibrateTimings'] as core.List)
+          vibrateTimings: json_.containsKey('vibrateTimings')
+              ? (json_['vibrateTimings'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
-          visibility: _json.containsKey('visibility')
-              ? _json['visibility'] as core.String
+          visibility: json_.containsKey('visibility')
+              ? json_['visibility'] as core.String
               : null,
         );
 
@@ -594,6 +609,7 @@ class AndroidNotification {
         if (notificationCount != null) 'notificationCount': notificationCount!,
         if (notificationPriority != null)
           'notificationPriority': notificationPriority!,
+        if (proxy != null) 'proxy': proxy!,
         if (sound != null) 'sound': sound!,
         if (sticky != null) 'sticky': sticky!,
         if (tag != null) 'tag': tag!,
@@ -615,7 +631,9 @@ class ApnsConfig {
   ///
   /// Refer to
   /// [APNs request headers](https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/sending_notification_requests_to_apns)
-  /// for supported headers such as `apns-expiration` and `apns-priority`.
+  /// for supported headers such as `apns-expiration` and `apns-priority`. The
+  /// backend sets a default value for `apns-expiration` of 30 days and a
+  /// default value for `apns-priority` of 10 if not explicitly set.
   core.Map<core.String, core.String>? headers;
 
   /// APNs payload as a JSON object, including both `aps` dictionary and custom
@@ -624,9 +642,7 @@ class ApnsConfig {
   /// See
   /// [Payload Key Reference](https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/generating_a_remote_notification).
   /// If present, it overrides google.firebase.fcm.v1.Notification.title and
-  /// google.firebase.fcm.v1.Notification.body. The backend sets a default value
-  /// for `apns-expiration` of 30 days and a default value for `apns-priority`
-  /// of 10 if not explicitly set.
+  /// google.firebase.fcm.v1.Notification.body.
   ///
   /// The values for Object must be JSON objects. It can consist of `num`,
   /// `String`, `bool` and `null` as well as `Map` and `List` values.
@@ -638,22 +654,22 @@ class ApnsConfig {
     this.payload,
   });
 
-  ApnsConfig.fromJson(core.Map _json)
+  ApnsConfig.fromJson(core.Map json_)
       : this(
-          fcmOptions: _json.containsKey('fcmOptions')
+          fcmOptions: json_.containsKey('fcmOptions')
               ? ApnsFcmOptions.fromJson(
-                  _json['fcmOptions'] as core.Map<core.String, core.dynamic>)
+                  json_['fcmOptions'] as core.Map<core.String, core.dynamic>)
               : null,
-          headers: _json.containsKey('headers')
-              ? (_json['headers'] as core.Map<core.String, core.dynamic>).map(
-                  (key, item) => core.MapEntry(
+          headers: json_.containsKey('headers')
+              ? (json_['headers'] as core.Map<core.String, core.dynamic>).map(
+                  (key, value) => core.MapEntry(
                     key,
-                    item as core.String,
+                    value as core.String,
                   ),
                 )
               : null,
-          payload: _json.containsKey('payload')
-              ? _json['payload'] as core.Map<core.String, core.dynamic>
+          payload: json_.containsKey('payload')
+              ? json_['payload'] as core.Map<core.String, core.dynamic>
               : null,
         );
 
@@ -680,13 +696,13 @@ class ApnsFcmOptions {
     this.image,
   });
 
-  ApnsFcmOptions.fromJson(core.Map _json)
+  ApnsFcmOptions.fromJson(core.Map json_)
       : this(
-          analyticsLabel: _json.containsKey('analyticsLabel')
-              ? _json['analyticsLabel'] as core.String
+          analyticsLabel: json_.containsKey('analyticsLabel')
+              ? json_['analyticsLabel'] as core.String
               : null,
           image:
-              _json.containsKey('image') ? _json['image'] as core.String : null,
+              json_.containsKey('image') ? json_['image'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
@@ -697,32 +713,32 @@ class ApnsFcmOptions {
 
 /// Represents a color in the RGBA color space.
 ///
-/// This representation is designed for simplicity of conversion to/from color
-/// representations in various languages over compactness. For example, the
-/// fields of this representation can be trivially provided to the constructor
-/// of `java.awt.Color` in Java; it can also be trivially provided to UIColor's
-/// `+colorWithRed:green:blue:alpha` method in iOS; and, with just a little
-/// work, it can be easily formatted into a CSS `rgba()` string in JavaScript.
-/// This reference page doesn't carry information about the absolute color space
-/// that should be used to interpret the RGB value (e.g. sRGB, Adobe RGB,
-/// DCI-P3, BT.2020, etc.). By default, applications should assume the sRGB
-/// color space. When color equality needs to be decided, implementations,
-/// unless documented otherwise, treat two colors as equal if all their red,
-/// green, blue, and alpha values each differ by at most 1e-5. Example (Java):
-/// import com.google.type.Color; // ... public static java.awt.Color
-/// fromProto(Color protocolor) { float alpha = protocolor.hasAlpha() ?
-/// protocolor.getAlpha().getValue() : 1.0; return new java.awt.Color(
-/// protocolor.getRed(), protocolor.getGreen(), protocolor.getBlue(), alpha); }
-/// public static Color toProto(java.awt.Color color) { float red = (float)
-/// color.getRed(); float green = (float) color.getGreen(); float blue = (float)
-/// color.getBlue(); float denominator = 255.0; Color.Builder resultBuilder =
-/// Color .newBuilder() .setRed(red / denominator) .setGreen(green /
-/// denominator) .setBlue(blue / denominator); int alpha = color.getAlpha(); if
-/// (alpha != 255) { result.setAlpha( FloatValue .newBuilder()
-/// .setValue(((float) alpha) / denominator) .build()); } return
-/// resultBuilder.build(); } // ... Example (iOS / Obj-C): // ... static
-/// UIColor* fromProto(Color* protocolor) { float red = \[protocolor red\];
-/// float green = \[protocolor green\]; float blue = \[protocolor blue\];
+/// This representation is designed for simplicity of conversion to and from
+/// color representations in various languages over compactness. For example,
+/// the fields of this representation can be trivially provided to the
+/// constructor of `java.awt.Color` in Java; it can also be trivially provided
+/// to UIColor's `+colorWithRed:green:blue:alpha` method in iOS; and, with just
+/// a little work, it can be easily formatted into a CSS `rgba()` string in
+/// JavaScript. This reference page doesn't have information about the absolute
+/// color space that should be used to interpret the RGB value—for example,
+/// sRGB, Adobe RGB, DCI-P3, and BT.2020. By default, applications should assume
+/// the sRGB color space. When color equality needs to be decided,
+/// implementations, unless documented otherwise, treat two colors as equal if
+/// all their red, green, blue, and alpha values each differ by at most `1e-5`.
+/// Example (Java): import com.google.type.Color; // ... public static
+/// java.awt.Color fromProto(Color protocolor) { float alpha =
+/// protocolor.hasAlpha() ? protocolor.getAlpha().getValue() : 1.0; return new
+/// java.awt.Color( protocolor.getRed(), protocolor.getGreen(),
+/// protocolor.getBlue(), alpha); } public static Color toProto(java.awt.Color
+/// color) { float red = (float) color.getRed(); float green = (float)
+/// color.getGreen(); float blue = (float) color.getBlue(); float denominator =
+/// 255.0; Color.Builder resultBuilder = Color .newBuilder() .setRed(red /
+/// denominator) .setGreen(green / denominator) .setBlue(blue / denominator);
+/// int alpha = color.getAlpha(); if (alpha != 255) { result.setAlpha(
+/// FloatValue .newBuilder() .setValue(((float) alpha) / denominator) .build());
+/// } return resultBuilder.build(); } // ... Example (iOS / Obj-C): // ...
+/// static UIColor* fromProto(Color* protocolor) { float red = \[protocolor
+/// red\]; float green = \[protocolor green\]; float blue = \[protocolor blue\];
 /// FloatValue* alpha_wrapper = \[protocolor alpha\]; float alpha = 1.0; if
 /// (alpha_wrapper != nil) { alpha = \[alpha_wrapper value\]; } return \[UIColor
 /// colorWithRed:red green:green blue:blue alpha:alpha\]; } static Color*
@@ -773,19 +789,19 @@ class Color {
     this.red,
   });
 
-  Color.fromJson(core.Map _json)
+  Color.fromJson(core.Map json_)
       : this(
-          alpha: _json.containsKey('alpha')
-              ? (_json['alpha'] as core.num).toDouble()
+          alpha: json_.containsKey('alpha')
+              ? (json_['alpha'] as core.num).toDouble()
               : null,
-          blue: _json.containsKey('blue')
-              ? (_json['blue'] as core.num).toDouble()
+          blue: json_.containsKey('blue')
+              ? (json_['blue'] as core.num).toDouble()
               : null,
-          green: _json.containsKey('green')
-              ? (_json['green'] as core.num).toDouble()
+          green: json_.containsKey('green')
+              ? (json_['green'] as core.num).toDouble()
               : null,
-          red: _json.containsKey('red')
-              ? (_json['red'] as core.num).toDouble()
+          red: json_.containsKey('red')
+              ? (json_['red'] as core.num).toDouble()
               : null,
         );
 
@@ -830,17 +846,17 @@ class LightSettings {
     this.lightOnDuration,
   });
 
-  LightSettings.fromJson(core.Map _json)
+  LightSettings.fromJson(core.Map json_)
       : this(
-          color: _json.containsKey('color')
+          color: json_.containsKey('color')
               ? Color.fromJson(
-                  _json['color'] as core.Map<core.String, core.dynamic>)
+                  json_['color'] as core.Map<core.String, core.dynamic>)
               : null,
-          lightOffDuration: _json.containsKey('lightOffDuration')
-              ? _json['lightOffDuration'] as core.String
+          lightOffDuration: json_.containsKey('lightOffDuration')
+              ? json_['lightOffDuration'] as core.String
               : null,
-          lightOnDuration: _json.containsKey('lightOnDuration')
-              ? _json['lightOnDuration'] as core.String
+          lightOnDuration: json_.containsKey('lightOnDuration')
+              ? json_['lightOnDuration'] as core.String
               : null,
         );
 
@@ -918,43 +934,43 @@ class Message {
     this.webpush,
   });
 
-  Message.fromJson(core.Map _json)
+  Message.fromJson(core.Map json_)
       : this(
-          android: _json.containsKey('android')
+          android: json_.containsKey('android')
               ? AndroidConfig.fromJson(
-                  _json['android'] as core.Map<core.String, core.dynamic>)
+                  json_['android'] as core.Map<core.String, core.dynamic>)
               : null,
-          apns: _json.containsKey('apns')
+          apns: json_.containsKey('apns')
               ? ApnsConfig.fromJson(
-                  _json['apns'] as core.Map<core.String, core.dynamic>)
+                  json_['apns'] as core.Map<core.String, core.dynamic>)
               : null,
-          condition: _json.containsKey('condition')
-              ? _json['condition'] as core.String
+          condition: json_.containsKey('condition')
+              ? json_['condition'] as core.String
               : null,
-          data: _json.containsKey('data')
-              ? (_json['data'] as core.Map<core.String, core.dynamic>).map(
-                  (key, item) => core.MapEntry(
+          data: json_.containsKey('data')
+              ? (json_['data'] as core.Map<core.String, core.dynamic>).map(
+                  (key, value) => core.MapEntry(
                     key,
-                    item as core.String,
+                    value as core.String,
                   ),
                 )
               : null,
-          fcmOptions: _json.containsKey('fcmOptions')
+          fcmOptions: json_.containsKey('fcmOptions')
               ? FcmOptions.fromJson(
-                  _json['fcmOptions'] as core.Map<core.String, core.dynamic>)
+                  json_['fcmOptions'] as core.Map<core.String, core.dynamic>)
               : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
-          notification: _json.containsKey('notification')
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+          notification: json_.containsKey('notification')
               ? Notification.fromJson(
-                  _json['notification'] as core.Map<core.String, core.dynamic>)
+                  json_['notification'] as core.Map<core.String, core.dynamic>)
               : null,
           token:
-              _json.containsKey('token') ? _json['token'] as core.String : null,
+              json_.containsKey('token') ? json_['token'] as core.String : null,
           topic:
-              _json.containsKey('topic') ? _json['topic'] as core.String : null,
-          webpush: _json.containsKey('webpush')
+              json_.containsKey('topic') ? json_['topic'] as core.String : null,
+          webpush: json_.containsKey('webpush')
               ? WebpushConfig.fromJson(
-                  _json['webpush'] as core.Map<core.String, core.dynamic>)
+                  json_['webpush'] as core.Map<core.String, core.dynamic>)
               : null,
         );
 
@@ -996,13 +1012,13 @@ class Notification {
     this.title,
   });
 
-  Notification.fromJson(core.Map _json)
+  Notification.fromJson(core.Map json_)
       : this(
-          body: _json.containsKey('body') ? _json['body'] as core.String : null,
+          body: json_.containsKey('body') ? json_['body'] as core.String : null,
           image:
-              _json.containsKey('image') ? _json['image'] as core.String : null,
+              json_.containsKey('image') ? json_['image'] as core.String : null,
           title:
-              _json.containsKey('title') ? _json['title'] as core.String : null,
+              json_.containsKey('title') ? json_['title'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
@@ -1027,14 +1043,14 @@ class SendMessageRequest {
     this.validateOnly,
   });
 
-  SendMessageRequest.fromJson(core.Map _json)
+  SendMessageRequest.fromJson(core.Map json_)
       : this(
-          message: _json.containsKey('message')
+          message: json_.containsKey('message')
               ? Message.fromJson(
-                  _json['message'] as core.Map<core.String, core.dynamic>)
+                  json_['message'] as core.Map<core.String, core.dynamic>)
               : null,
-          validateOnly: _json.containsKey('validateOnly')
-              ? _json['validateOnly'] as core.bool
+          validateOnly: json_.containsKey('validateOnly')
+              ? json_['validateOnly'] as core.bool
               : null,
         );
 
@@ -1079,30 +1095,30 @@ class WebpushConfig {
     this.notification,
   });
 
-  WebpushConfig.fromJson(core.Map _json)
+  WebpushConfig.fromJson(core.Map json_)
       : this(
-          data: _json.containsKey('data')
-              ? (_json['data'] as core.Map<core.String, core.dynamic>).map(
-                  (key, item) => core.MapEntry(
+          data: json_.containsKey('data')
+              ? (json_['data'] as core.Map<core.String, core.dynamic>).map(
+                  (key, value) => core.MapEntry(
                     key,
-                    item as core.String,
+                    value as core.String,
                   ),
                 )
               : null,
-          fcmOptions: _json.containsKey('fcmOptions')
+          fcmOptions: json_.containsKey('fcmOptions')
               ? WebpushFcmOptions.fromJson(
-                  _json['fcmOptions'] as core.Map<core.String, core.dynamic>)
+                  json_['fcmOptions'] as core.Map<core.String, core.dynamic>)
               : null,
-          headers: _json.containsKey('headers')
-              ? (_json['headers'] as core.Map<core.String, core.dynamic>).map(
-                  (key, item) => core.MapEntry(
+          headers: json_.containsKey('headers')
+              ? (json_['headers'] as core.Map<core.String, core.dynamic>).map(
+                  (key, value) => core.MapEntry(
                     key,
-                    item as core.String,
+                    value as core.String,
                   ),
                 )
               : null,
-          notification: _json.containsKey('notification')
-              ? _json['notification'] as core.Map<core.String, core.dynamic>
+          notification: json_.containsKey('notification')
+              ? json_['notification'] as core.Map<core.String, core.dynamic>
               : null,
         );
 
@@ -1129,12 +1145,12 @@ class WebpushFcmOptions {
     this.link,
   });
 
-  WebpushFcmOptions.fromJson(core.Map _json)
+  WebpushFcmOptions.fromJson(core.Map json_)
       : this(
-          analyticsLabel: _json.containsKey('analyticsLabel')
-              ? _json['analyticsLabel'] as core.String
+          analyticsLabel: json_.containsKey('analyticsLabel')
+              ? json_['analyticsLabel'] as core.String
               : null,
-          link: _json.containsKey('link') ? _json['link'] as core.String : null,
+          link: json_.containsKey('link') ? json_['link'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {

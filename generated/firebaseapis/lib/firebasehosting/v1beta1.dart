@@ -2,14 +2,13 @@
 
 // ignore_for_file: camel_case_types
 // ignore_for_file: comment_references
-// ignore_for_file: file_names
-// ignore_for_file: library_names
+// ignore_for_file: deprecated_member_use_from_same_package
 // ignore_for_file: lines_longer_than_80_chars
 // ignore_for_file: non_constant_identifier_names
-// ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: prefer_interpolation_to_compose_strings
 // ignore_for_file: unnecessary_brace_in_string_interps
 // ignore_for_file: unnecessary_lambdas
+// ignore_for_file: unnecessary_library_directive
 // ignore_for_file: unnecessary_string_interpolations
 
 /// Firebase Hosting API - v1beta1
@@ -39,7 +38,7 @@
 ///   - [SitesReleasesResource]
 ///   - [SitesVersionsResource]
 ///     - [SitesVersionsFilesResource]
-library firebasehosting.v1beta1;
+library firebasehosting_v1beta1;
 
 import 'dart:async' as async;
 import 'dart:convert' as convert;
@@ -48,7 +47,6 @@ import 'dart:core' as core;
 import 'package:_discoveryapis_commons/_discoveryapis_commons.dart' as commons;
 import 'package:http/http.dart' as http;
 
-// ignore: deprecated_member_use_from_same_package
 import '../shared.dart';
 import '../src/user_agent.dart';
 
@@ -129,18 +127,18 @@ class ProjectsOperationsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
-    return Operation.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Operation.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -194,21 +192,21 @@ class ProjectsSitesResource {
     core.String? siteId,
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (siteId != null) 'siteId': [siteId],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/sites';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/sites';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Site.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Site.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Deletes the specified Hosting Site from the specified parent Firebase
@@ -236,18 +234,18 @@ class ProjectsSitesResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'DELETE',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
-    return Empty.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Empty.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Gets the specified Hosting Site.
@@ -276,18 +274,18 @@ class ProjectsSitesResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
-    return Site.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Site.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Gets the Hosting metadata for a specific site.
@@ -312,19 +310,19 @@ class ProjectsSitesResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return SiteConfig.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Lists each Hosting Site associated with the specified parent Firebase
@@ -361,21 +359,21 @@ class ProjectsSitesResource {
     core.String? pageToken,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (pageSize != null) 'pageSize': ['${pageSize}'],
       if (pageToken != null) 'pageToken': [pageToken],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/sites';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/sites';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return ListSitesResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Updates attributes of the specified Hosting Site.
@@ -387,9 +385,9 @@ class ProjectsSitesResource {
   /// [name] - Output only. The fully-qualified resource name of the Hosting
   /// site, in the format: projects/PROJECT_IDENTIFIER/sites/SITE_ID
   /// PROJECT_IDENTIFIER: the Firebase project's
-  /// \[`ProjectNumber`\](https://firebase.google.com/docs/projects/api/reference/rest/v1beta1/projects#FirebaseProject.FIELDS.project_number)
+  /// \[`ProjectNumber`\](https://firebase.google.com/docs/reference/firebase-management/rest/v1beta1/projects#FirebaseProject.FIELDS.project_number)
   /// ***(recommended)*** or its
-  /// \[`ProjectId`\](https://firebase.google.com/docs/projects/api/reference/rest/v1beta1/projects#FirebaseProject.FIELDS.project_id).
+  /// \[`ProjectId`\](https://firebase.google.com/docs/reference/firebase-management/rest/v1beta1/projects#FirebaseProject.FIELDS.project_id).
   /// Learn more about using project identifiers in Google's
   /// [AIP 2510 standard](https://google.aip.dev/cloud/2510).
   /// Value must have pattern `^projects/\[^/\]+/sites/\[^/\]+$`.
@@ -413,21 +411,21 @@ class ProjectsSitesResource {
     core.String? updateMask,
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (updateMask != null) 'updateMask': [updateMask],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'PATCH',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Site.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Site.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Sets the Hosting metadata for a specific site.
@@ -462,22 +460,22 @@ class ProjectsSitesResource {
     core.String? updateMask,
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (updateMask != null) 'updateMask': [updateMask],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'PATCH',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return SiteConfig.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -519,21 +517,21 @@ class ProjectsSitesChannelsResource {
     core.String? channelId,
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (channelId != null) 'channelId': [channelId],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/channels';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/channels';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Channel.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Channel.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Deletes the specified channel of the specified site.
@@ -561,18 +559,18 @@ class ProjectsSitesChannelsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'DELETE',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
-    return Empty.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Empty.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Retrieves information for the specified channel of the specified site.
@@ -598,18 +596,18 @@ class ProjectsSitesChannelsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
-    return Channel.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Channel.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Lists the channels for the specified site.
@@ -646,21 +644,21 @@ class ProjectsSitesChannelsResource {
     core.String? pageToken,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (pageSize != null) 'pageSize': ['${pageSize}'],
       if (pageToken != null) 'pageToken': [pageToken],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/channels';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/channels';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return ListChannelsResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Updates information for the specified channel of the specified site.
@@ -695,21 +693,21 @@ class ProjectsSitesChannelsResource {
     core.String? updateMask,
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (updateMask != null) 'updateMask': [updateMask],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'PATCH',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Channel.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Channel.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -753,21 +751,64 @@ class ProjectsSitesChannelsReleasesResource {
     core.String? versionName,
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (versionName != null) 'versionName': [versionName],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/releases';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/releases';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Release.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Release.fromJson(response_ as core.Map<core.String, core.dynamic>);
+  }
+
+  /// Gets the specified release for a site or channel.
+  ///
+  /// When used to get a release for a site, this can get releases for both the
+  /// default `live` channel and any active preview channels for the specified
+  /// site.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The fully-qualified resource name for the Hosting
+  /// release, in either of the following formats: -
+  /// sites/SITE_ID/channels/CHANNEL_ID/releases/RELEASE_ID -
+  /// sites/SITE_ID/releases/RELEASE_ID
+  /// Value must have pattern
+  /// `^projects/\[^/\]+/sites/\[^/\]+/channels/\[^/\]+/releases/\[^/\]+$`.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [Release].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<Release> get(
+    core.String name, {
+    core.String? $fields,
+  }) async {
+    final queryParams_ = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
+
+    final response_ = await _requester.request(
+      url_,
+      'GET',
+      queryParams: queryParams_,
+    );
+    return Release.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Lists the releases that have been created for the specified site or
@@ -808,21 +849,21 @@ class ProjectsSitesChannelsReleasesResource {
     core.String? pageToken,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (pageSize != null) 'pageSize': ['${pageSize}'],
       if (pageToken != null) 'pageToken': [pageToken],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/releases';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/releases';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return ListReleasesResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -857,20 +898,20 @@ class ProjectsSitesDomainsResource {
     core.String parent, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/domains';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/domains';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Domain.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Domain.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Deletes the existing domain mapping on the specified site.
@@ -895,18 +936,18 @@ class ProjectsSitesDomainsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'DELETE',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
-    return Empty.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Empty.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Gets a domain mapping on the specified site.
@@ -931,18 +972,18 @@ class ProjectsSitesDomainsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
-    return Domain.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Domain.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Lists the domains for the specified site.
@@ -973,21 +1014,21 @@ class ProjectsSitesDomainsResource {
     core.String? pageToken,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (pageSize != null) 'pageSize': ['${pageSize}'],
       if (pageToken != null) 'pageToken': [pageToken],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/domains';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/domains';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return ListDomainsResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Updates the specified domain mapping, creating the mapping as if it does
@@ -1017,20 +1058,20 @@ class ProjectsSitesDomainsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'PUT',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Domain.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Domain.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -1073,21 +1114,64 @@ class ProjectsSitesReleasesResource {
     core.String? versionName,
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (versionName != null) 'versionName': [versionName],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/releases';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/releases';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Release.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Release.fromJson(response_ as core.Map<core.String, core.dynamic>);
+  }
+
+  /// Gets the specified release for a site or channel.
+  ///
+  /// When used to get a release for a site, this can get releases for both the
+  /// default `live` channel and any active preview channels for the specified
+  /// site.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The fully-qualified resource name for the Hosting
+  /// release, in either of the following formats: -
+  /// sites/SITE_ID/channels/CHANNEL_ID/releases/RELEASE_ID -
+  /// sites/SITE_ID/releases/RELEASE_ID
+  /// Value must have pattern
+  /// `^projects/\[^/\]+/sites/\[^/\]+/releases/\[^/\]+$`.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [Release].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<Release> get(
+    core.String name, {
+    core.String? $fields,
+  }) async {
+    final queryParams_ = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
+
+    final response_ = await _requester.request(
+      url_,
+      'GET',
+      queryParams: queryParams_,
+    );
+    return Release.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Lists the releases that have been created for the specified site or
@@ -1127,21 +1211,21 @@ class ProjectsSitesReleasesResource {
     core.String? pageToken,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (pageSize != null) 'pageSize': ['${pageSize}'],
       if (pageToken != null) 'pageToken': [pageToken],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/releases';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/releases';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return ListReleasesResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -1180,21 +1264,21 @@ class ProjectsSitesVersionsResource {
     core.String parent, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url =
+    final url_ =
         'v1beta1/' + core.Uri.encodeFull('$parent') + '/versions:clone';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Operation.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Operation.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Creates a new version for the specified site.
@@ -1230,22 +1314,22 @@ class ProjectsSitesVersionsResource {
     core.String? versionId,
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (sizeBytes != null) 'sizeBytes': [sizeBytes],
       if (versionId != null) 'versionId': [versionId],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/versions';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/versions';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Version.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Version.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Deletes the specified version.
@@ -1271,18 +1355,58 @@ class ProjectsSitesVersionsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'DELETE',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
-    return Empty.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Empty.fromJson(response_ as core.Map<core.String, core.dynamic>);
+  }
+
+  /// Get the specified version that has been created for the specified site.
+  ///
+  /// This can include versions that were created for the default `live` channel
+  /// or for any active preview channels for the specified site.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The fully-qualified resource name for the version, in
+  /// the format: sites/SITE_ID/versions/VERSION_ID
+  /// Value must have pattern
+  /// `^projects/\[^/\]+/sites/\[^/\]+/versions/\[^/\]+$`.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [Version].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<Version> get(
+    core.String name, {
+    core.String? $fields,
+  }) async {
+    final queryParams_ = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
+
+    final response_ = await _requester.request(
+      url_,
+      'GET',
+      queryParams: queryParams_,
+    );
+    return Version.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Lists the versions that have been created for the specified site.
@@ -1327,22 +1451,22 @@ class ProjectsSitesVersionsResource {
     core.String? pageToken,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (filter != null) 'filter': [filter],
       if (pageSize != null) 'pageSize': ['${pageSize}'],
       if (pageToken != null) 'pageToken': [pageToken],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/versions';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/versions';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return ListVersionsResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   ///  Updates the specified metadata for the specified version.
@@ -1385,21 +1509,21 @@ class ProjectsSitesVersionsResource {
     core.String? updateMask,
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (updateMask != null) 'updateMask': [updateMask],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'PATCH',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Version.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Version.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   ///  Adds content files to the specified version.
@@ -1430,21 +1554,21 @@ class ProjectsSitesVersionsResource {
     core.String parent, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + ':populateFiles';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + ':populateFiles';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return PopulateVersionFilesResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -1496,22 +1620,22 @@ class ProjectsSitesVersionsFilesResource {
     core.String? status,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (pageSize != null) 'pageSize': ['${pageSize}'],
       if (pageToken != null) 'pageToken': [pageToken],
       if (status != null) 'status': [status],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/files';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/files';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return ListVersionFilesResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -1547,19 +1671,19 @@ class SitesResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return SiteConfig.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Sets the Hosting metadata for a specific site.
@@ -1594,22 +1718,22 @@ class SitesResource {
     core.String? updateMask,
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (updateMask != null) 'updateMask': [updateMask],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'PATCH',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return SiteConfig.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -1650,21 +1774,21 @@ class SitesChannelsResource {
     core.String? channelId,
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (channelId != null) 'channelId': [channelId],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/channels';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/channels';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Channel.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Channel.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Deletes the specified channel of the specified site.
@@ -1691,18 +1815,18 @@ class SitesChannelsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'DELETE',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
-    return Empty.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Empty.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Retrieves information for the specified channel of the specified site.
@@ -1727,18 +1851,18 @@ class SitesChannelsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
-    return Channel.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Channel.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Lists the channels for the specified site.
@@ -1775,21 +1899,21 @@ class SitesChannelsResource {
     core.String? pageToken,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (pageSize != null) 'pageSize': ['${pageSize}'],
       if (pageToken != null) 'pageToken': [pageToken],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/channels';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/channels';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return ListChannelsResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Updates information for the specified channel of the specified site.
@@ -1823,21 +1947,21 @@ class SitesChannelsResource {
     core.String? updateMask,
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (updateMask != null) 'updateMask': [updateMask],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'PATCH',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Channel.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Channel.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -1880,21 +2004,64 @@ class SitesChannelsReleasesResource {
     core.String? versionName,
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (versionName != null) 'versionName': [versionName],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/releases';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/releases';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Release.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Release.fromJson(response_ as core.Map<core.String, core.dynamic>);
+  }
+
+  /// Gets the specified release for a site or channel.
+  ///
+  /// When used to get a release for a site, this can get releases for both the
+  /// default `live` channel and any active preview channels for the specified
+  /// site.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The fully-qualified resource name for the Hosting
+  /// release, in either of the following formats: -
+  /// sites/SITE_ID/channels/CHANNEL_ID/releases/RELEASE_ID -
+  /// sites/SITE_ID/releases/RELEASE_ID
+  /// Value must have pattern
+  /// `^sites/\[^/\]+/channels/\[^/\]+/releases/\[^/\]+$`.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [Release].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<Release> get(
+    core.String name, {
+    core.String? $fields,
+  }) async {
+    final queryParams_ = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
+
+    final response_ = await _requester.request(
+      url_,
+      'GET',
+      queryParams: queryParams_,
+    );
+    return Release.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Lists the releases that have been created for the specified site or
@@ -1934,21 +2101,21 @@ class SitesChannelsReleasesResource {
     core.String? pageToken,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (pageSize != null) 'pageSize': ['${pageSize}'],
       if (pageToken != null) 'pageToken': [pageToken],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/releases';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/releases';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return ListReleasesResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -1982,20 +2149,20 @@ class SitesDomainsResource {
     core.String parent, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/domains';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/domains';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Domain.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Domain.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Deletes the existing domain mapping on the specified site.
@@ -2019,18 +2186,18 @@ class SitesDomainsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'DELETE',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
-    return Empty.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Empty.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Gets a domain mapping on the specified site.
@@ -2054,18 +2221,18 @@ class SitesDomainsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
-    return Domain.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Domain.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Lists the domains for the specified site.
@@ -2096,21 +2263,21 @@ class SitesDomainsResource {
     core.String? pageToken,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (pageSize != null) 'pageSize': ['${pageSize}'],
       if (pageToken != null) 'pageToken': [pageToken],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/domains';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/domains';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return ListDomainsResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Updates the specified domain mapping, creating the mapping as if it does
@@ -2139,20 +2306,20 @@ class SitesDomainsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'PUT',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Domain.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Domain.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -2194,21 +2361,63 @@ class SitesReleasesResource {
     core.String? versionName,
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (versionName != null) 'versionName': [versionName],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/releases';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/releases';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Release.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Release.fromJson(response_ as core.Map<core.String, core.dynamic>);
+  }
+
+  /// Gets the specified release for a site or channel.
+  ///
+  /// When used to get a release for a site, this can get releases for both the
+  /// default `live` channel and any active preview channels for the specified
+  /// site.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The fully-qualified resource name for the Hosting
+  /// release, in either of the following formats: -
+  /// sites/SITE_ID/channels/CHANNEL_ID/releases/RELEASE_ID -
+  /// sites/SITE_ID/releases/RELEASE_ID
+  /// Value must have pattern `^sites/\[^/\]+/releases/\[^/\]+$`.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [Release].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<Release> get(
+    core.String name, {
+    core.String? $fields,
+  }) async {
+    final queryParams_ = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
+
+    final response_ = await _requester.request(
+      url_,
+      'GET',
+      queryParams: queryParams_,
+    );
+    return Release.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Lists the releases that have been created for the specified site or
@@ -2248,21 +2457,21 @@ class SitesReleasesResource {
     core.String? pageToken,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (pageSize != null) 'pageSize': ['${pageSize}'],
       if (pageToken != null) 'pageToken': [pageToken],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/releases';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/releases';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return ListReleasesResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -2300,21 +2509,21 @@ class SitesVersionsResource {
     core.String parent, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url =
+    final url_ =
         'v1beta1/' + core.Uri.encodeFull('$parent') + '/versions:clone';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Operation.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Operation.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Creates a new version for the specified site.
@@ -2350,22 +2559,22 @@ class SitesVersionsResource {
     core.String? versionId,
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (sizeBytes != null) 'sizeBytes': [sizeBytes],
       if (versionId != null) 'versionId': [versionId],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/versions';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/versions';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Version.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Version.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Deletes the specified version.
@@ -2390,18 +2599,57 @@ class SitesVersionsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'DELETE',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
-    return Empty.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Empty.fromJson(response_ as core.Map<core.String, core.dynamic>);
+  }
+
+  /// Get the specified version that has been created for the specified site.
+  ///
+  /// This can include versions that were created for the default `live` channel
+  /// or for any active preview channels for the specified site.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The fully-qualified resource name for the version, in
+  /// the format: sites/SITE_ID/versions/VERSION_ID
+  /// Value must have pattern `^sites/\[^/\]+/versions/\[^/\]+$`.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [Version].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<Version> get(
+    core.String name, {
+    core.String? $fields,
+  }) async {
+    final queryParams_ = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
+
+    final response_ = await _requester.request(
+      url_,
+      'GET',
+      queryParams: queryParams_,
+    );
+    return Version.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Lists the versions that have been created for the specified site.
@@ -2446,22 +2694,22 @@ class SitesVersionsResource {
     core.String? pageToken,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (filter != null) 'filter': [filter],
       if (pageSize != null) 'pageSize': ['${pageSize}'],
       if (pageToken != null) 'pageToken': [pageToken],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/versions';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/versions';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return ListVersionsResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   ///  Updates the specified metadata for the specified version.
@@ -2503,21 +2751,21 @@ class SitesVersionsResource {
     core.String? updateMask,
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (updateMask != null) 'updateMask': [updateMask],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'PATCH',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Version.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Version.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   ///  Adds content files to the specified version.
@@ -2547,21 +2795,21 @@ class SitesVersionsResource {
     core.String parent, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + ':populateFiles';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + ':populateFiles';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return PopulateVersionFilesResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -2611,22 +2859,22 @@ class SitesVersionsFilesResource {
     core.String? status,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (pageSize != null) 'pageSize': ['${pageSize}'],
       if (pageToken != null) 'pageToken': [pageToken],
       if (status != null) 'status': [status],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/files';
+    final url_ = 'v1beta1/' + core.Uri.encodeFull('$parent') + '/files';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return ListVersionFilesResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -2647,12 +2895,12 @@ class ActingUser {
     this.imageUrl,
   });
 
-  ActingUser.fromJson(core.Map _json)
+  ActingUser.fromJson(core.Map json_)
       : this(
           email:
-              _json.containsKey('email') ? _json['email'] as core.String : null,
-          imageUrl: _json.containsKey('imageUrl')
-              ? _json['imageUrl'] as core.String
+              json_.containsKey('email') ? json_['email'] as core.String : null,
+          imageUrl: json_.containsKey('imageUrl')
+              ? json_['imageUrl'] as core.String
               : null,
         );
 
@@ -2676,13 +2924,13 @@ class CertDnsChallenge {
     this.token,
   });
 
-  CertDnsChallenge.fromJson(core.Map _json)
+  CertDnsChallenge.fromJson(core.Map json_)
       : this(
-          domainName: _json.containsKey('domainName')
-              ? _json['domainName'] as core.String
+          domainName: json_.containsKey('domainName')
+              ? json_['domainName'] as core.String
               : null,
           token:
-              _json.containsKey('token') ? _json['token'] as core.String : null,
+              json_.containsKey('token') ? json_['token'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
@@ -2706,11 +2954,11 @@ class CertHttpChallenge {
     this.token,
   });
 
-  CertHttpChallenge.fromJson(core.Map _json)
+  CertHttpChallenge.fromJson(core.Map json_)
       : this(
-          path: _json.containsKey('path') ? _json['path'] as core.String : null,
+          path: json_.containsKey('path') ? json_['path'] as core.String : null,
           token:
-              _json.containsKey('token') ? _json['token'] as core.String : null,
+              json_.containsKey('token') ? json_['token'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
@@ -2788,35 +3036,35 @@ class Channel {
     this.url,
   });
 
-  Channel.fromJson(core.Map _json)
+  Channel.fromJson(core.Map json_)
       : this(
-          createTime: _json.containsKey('createTime')
-              ? _json['createTime'] as core.String
+          createTime: json_.containsKey('createTime')
+              ? json_['createTime'] as core.String
               : null,
-          expireTime: _json.containsKey('expireTime')
-              ? _json['expireTime'] as core.String
+          expireTime: json_.containsKey('expireTime')
+              ? json_['expireTime'] as core.String
               : null,
-          labels: _json.containsKey('labels')
-              ? (_json['labels'] as core.Map<core.String, core.dynamic>).map(
-                  (key, item) => core.MapEntry(
+          labels: json_.containsKey('labels')
+              ? (json_['labels'] as core.Map<core.String, core.dynamic>).map(
+                  (key, value) => core.MapEntry(
                     key,
-                    item as core.String,
+                    value as core.String,
                   ),
                 )
               : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
-          release: _json.containsKey('release')
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+          release: json_.containsKey('release')
               ? Release.fromJson(
-                  _json['release'] as core.Map<core.String, core.dynamic>)
+                  json_['release'] as core.Map<core.String, core.dynamic>)
               : null,
-          retainedReleaseCount: _json.containsKey('retainedReleaseCount')
-              ? _json['retainedReleaseCount'] as core.int
+          retainedReleaseCount: json_.containsKey('retainedReleaseCount')
+              ? json_['retainedReleaseCount'] as core.int
               : null,
-          ttl: _json.containsKey('ttl') ? _json['ttl'] as core.String : null,
-          updateTime: _json.containsKey('updateTime')
-              ? _json['updateTime'] as core.String
+          ttl: json_.containsKey('ttl') ? json_['ttl'] as core.String : null,
+          updateTime: json_.containsKey('updateTime')
+              ? json_['updateTime'] as core.String
               : null,
-          url: _json.containsKey('url') ? _json['url'] as core.String : null,
+          url: json_.containsKey('url') ? json_['url'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
@@ -2863,21 +3111,21 @@ class CloneVersionRequest {
     this.sourceVersion,
   });
 
-  CloneVersionRequest.fromJson(core.Map _json)
+  CloneVersionRequest.fromJson(core.Map json_)
       : this(
-          exclude: _json.containsKey('exclude')
+          exclude: json_.containsKey('exclude')
               ? PathFilter.fromJson(
-                  _json['exclude'] as core.Map<core.String, core.dynamic>)
+                  json_['exclude'] as core.Map<core.String, core.dynamic>)
               : null,
-          finalize: _json.containsKey('finalize')
-              ? _json['finalize'] as core.bool
+          finalize: json_.containsKey('finalize')
+              ? json_['finalize'] as core.bool
               : null,
-          include: _json.containsKey('include')
+          include: json_.containsKey('include')
               ? PathFilter.fromJson(
-                  _json['include'] as core.Map<core.String, core.dynamic>)
+                  json_['include'] as core.Map<core.String, core.dynamic>)
               : null,
-          sourceVersion: _json.containsKey('sourceVersion')
-              ? _json['sourceVersion'] as core.String
+          sourceVersion: json_.containsKey('sourceVersion')
+              ? json_['sourceVersion'] as core.String
               : null,
         );
 
@@ -2908,24 +3156,34 @@ class CloudRunRewrite {
   /// Required.
   core.String? serviceId;
 
+  /// User-provided TrafficConfig tag to send traffic to.
+  ///
+  /// When omitted, traffic is sent to the service-wide URI
+  ///
+  /// Optional.
+  core.String? tag;
+
   CloudRunRewrite({
     this.region,
     this.serviceId,
+    this.tag,
   });
 
-  CloudRunRewrite.fromJson(core.Map _json)
+  CloudRunRewrite.fromJson(core.Map json_)
       : this(
-          region: _json.containsKey('region')
-              ? _json['region'] as core.String
+          region: json_.containsKey('region')
+              ? json_['region'] as core.String
               : null,
-          serviceId: _json.containsKey('serviceId')
-              ? _json['serviceId'] as core.String
+          serviceId: json_.containsKey('serviceId')
+              ? json_['serviceId'] as core.String
               : null,
+          tag: json_.containsKey('tag') ? json_['tag'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
         if (region != null) 'region': region!,
         if (serviceId != null) 'serviceId': serviceId!,
+        if (tag != null) 'tag': tag!,
       };
 }
 
@@ -2982,25 +3240,25 @@ class Domain {
     this.updateTime,
   });
 
-  Domain.fromJson(core.Map _json)
+  Domain.fromJson(core.Map json_)
       : this(
-          domainName: _json.containsKey('domainName')
-              ? _json['domainName'] as core.String
+          domainName: json_.containsKey('domainName')
+              ? json_['domainName'] as core.String
               : null,
-          domainRedirect: _json.containsKey('domainRedirect')
-              ? DomainRedirect.fromJson(_json['domainRedirect']
+          domainRedirect: json_.containsKey('domainRedirect')
+              ? DomainRedirect.fromJson(json_['domainRedirect']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          provisioning: _json.containsKey('provisioning')
+          provisioning: json_.containsKey('provisioning')
               ? DomainProvisioning.fromJson(
-                  _json['provisioning'] as core.Map<core.String, core.dynamic>)
+                  json_['provisioning'] as core.Map<core.String, core.dynamic>)
               : null,
-          site: _json.containsKey('site') ? _json['site'] as core.String : null,
-          status: _json.containsKey('status')
-              ? _json['status'] as core.String
+          site: json_.containsKey('site') ? json_['site'] as core.String : null,
+          status: json_.containsKey('status')
+              ? json_['status'] as core.String
               : null,
-          updateTime: _json.containsKey('updateTime')
-              ? _json['updateTime'] as core.String
+          updateTime: json_.containsKey('updateTime')
+              ? json_['updateTime'] as core.String
               : null,
         );
 
@@ -3074,38 +3332,38 @@ class DomainProvisioning {
     this.expectedIps,
   });
 
-  DomainProvisioning.fromJson(core.Map _json)
+  DomainProvisioning.fromJson(core.Map json_)
       : this(
           certChallengeDiscoveredTxt:
-              _json.containsKey('certChallengeDiscoveredTxt')
-                  ? (_json['certChallengeDiscoveredTxt'] as core.List)
+              json_.containsKey('certChallengeDiscoveredTxt')
+                  ? (json_['certChallengeDiscoveredTxt'] as core.List)
                       .map((value) => value as core.String)
                       .toList()
                   : null,
-          certChallengeDns: _json.containsKey('certChallengeDns')
-              ? CertDnsChallenge.fromJson(_json['certChallengeDns']
+          certChallengeDns: json_.containsKey('certChallengeDns')
+              ? CertDnsChallenge.fromJson(json_['certChallengeDns']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          certChallengeHttp: _json.containsKey('certChallengeHttp')
-              ? CertHttpChallenge.fromJson(_json['certChallengeHttp']
+          certChallengeHttp: json_.containsKey('certChallengeHttp')
+              ? CertHttpChallenge.fromJson(json_['certChallengeHttp']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          certStatus: _json.containsKey('certStatus')
-              ? _json['certStatus'] as core.String
+          certStatus: json_.containsKey('certStatus')
+              ? json_['certStatus'] as core.String
               : null,
-          discoveredIps: _json.containsKey('discoveredIps')
-              ? (_json['discoveredIps'] as core.List)
+          discoveredIps: json_.containsKey('discoveredIps')
+              ? (json_['discoveredIps'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
-          dnsFetchTime: _json.containsKey('dnsFetchTime')
-              ? _json['dnsFetchTime'] as core.String
+          dnsFetchTime: json_.containsKey('dnsFetchTime')
+              ? json_['dnsFetchTime'] as core.String
               : null,
-          dnsStatus: _json.containsKey('dnsStatus')
-              ? _json['dnsStatus'] as core.String
+          dnsStatus: json_.containsKey('dnsStatus')
+              ? json_['dnsStatus'] as core.String
               : null,
-          expectedIps: _json.containsKey('expectedIps')
-              ? (_json['expectedIps'] as core.List)
+          expectedIps: json_.containsKey('expectedIps')
+              ? (json_['expectedIps'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
@@ -3149,12 +3407,12 @@ class DomainRedirect {
     this.type,
   });
 
-  DomainRedirect.fromJson(core.Map _json)
+  DomainRedirect.fromJson(core.Map json_)
       : this(
-          domainName: _json.containsKey('domainName')
-              ? _json['domainName'] as core.String
+          domainName: json_.containsKey('domainName')
+              ? json_['domainName'] as core.String
               : null,
-          type: _json.containsKey('type') ? _json['type'] as core.String : null,
+          type: json_.containsKey('type') ? json_['type'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
@@ -3195,19 +3453,19 @@ class Header {
     this.regex,
   });
 
-  Header.fromJson(core.Map _json)
+  Header.fromJson(core.Map json_)
       : this(
-          glob: _json.containsKey('glob') ? _json['glob'] as core.String : null,
-          headers: _json.containsKey('headers')
-              ? (_json['headers'] as core.Map<core.String, core.dynamic>).map(
-                  (key, item) => core.MapEntry(
+          glob: json_.containsKey('glob') ? json_['glob'] as core.String : null,
+          headers: json_.containsKey('headers')
+              ? (json_['headers'] as core.Map<core.String, core.dynamic>).map(
+                  (key, value) => core.MapEntry(
                     key,
-                    item as core.String,
+                    value as core.String,
                   ),
                 )
               : null,
           regex:
-              _json.containsKey('regex') ? _json['regex'] as core.String : null,
+              json_.containsKey('regex') ? json_['regex'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
@@ -3229,9 +3487,9 @@ class I18nConfig {
     this.root,
   });
 
-  I18nConfig.fromJson(core.Map _json)
+  I18nConfig.fromJson(core.Map json_)
       : this(
-          root: _json.containsKey('root') ? _json['root'] as core.String : null,
+          root: json_.containsKey('root') ? json_['root'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
@@ -3255,16 +3513,16 @@ class ListChannelsResponse {
     this.nextPageToken,
   });
 
-  ListChannelsResponse.fromJson(core.Map _json)
+  ListChannelsResponse.fromJson(core.Map json_)
       : this(
-          channels: _json.containsKey('channels')
-              ? (_json['channels'] as core.List)
+          channels: json_.containsKey('channels')
+              ? (json_['channels'] as core.List)
                   .map((value) => Channel.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          nextPageToken: _json.containsKey('nextPageToken')
-              ? _json['nextPageToken'] as core.String
+          nextPageToken: json_.containsKey('nextPageToken')
+              ? json_['nextPageToken'] as core.String
               : null,
         );
 
@@ -3287,16 +3545,16 @@ class ListDomainsResponse {
     this.nextPageToken,
   });
 
-  ListDomainsResponse.fromJson(core.Map _json)
+  ListDomainsResponse.fromJson(core.Map json_)
       : this(
-          domains: _json.containsKey('domains')
-              ? (_json['domains'] as core.List)
+          domains: json_.containsKey('domains')
+              ? (json_['domains'] as core.List)
                   .map((value) => Domain.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          nextPageToken: _json.containsKey('nextPageToken')
-              ? _json['nextPageToken'] as core.String
+          nextPageToken: json_.containsKey('nextPageToken')
+              ? json_['nextPageToken'] as core.String
               : null,
         );
 
@@ -3322,13 +3580,13 @@ class ListReleasesResponse {
     this.releases,
   });
 
-  ListReleasesResponse.fromJson(core.Map _json)
+  ListReleasesResponse.fromJson(core.Map json_)
       : this(
-          nextPageToken: _json.containsKey('nextPageToken')
-              ? _json['nextPageToken'] as core.String
+          nextPageToken: json_.containsKey('nextPageToken')
+              ? json_['nextPageToken'] as core.String
               : null,
-          releases: _json.containsKey('releases')
-              ? (_json['releases'] as core.List)
+          releases: json_.containsKey('releases')
+              ? (json_['releases'] as core.List)
                   .map((value) => Release.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -3357,13 +3615,13 @@ class ListSitesResponse {
     this.sites,
   });
 
-  ListSitesResponse.fromJson(core.Map _json)
+  ListSitesResponse.fromJson(core.Map json_)
       : this(
-          nextPageToken: _json.containsKey('nextPageToken')
-              ? _json['nextPageToken'] as core.String
+          nextPageToken: json_.containsKey('nextPageToken')
+              ? json_['nextPageToken'] as core.String
               : null,
-          sites: _json.containsKey('sites')
-              ? (_json['sites'] as core.List)
+          sites: json_.containsKey('sites')
+              ? (json_['sites'] as core.List)
                   .map((value) => Site.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -3392,16 +3650,16 @@ class ListVersionFilesResponse {
     this.nextPageToken,
   });
 
-  ListVersionFilesResponse.fromJson(core.Map _json)
+  ListVersionFilesResponse.fromJson(core.Map json_)
       : this(
-          files: _json.containsKey('files')
-              ? (_json['files'] as core.List)
+          files: json_.containsKey('files')
+              ? (json_['files'] as core.List)
                   .map((value) => VersionFile.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          nextPageToken: _json.containsKey('nextPageToken')
-              ? _json['nextPageToken'] as core.String
+          nextPageToken: json_.containsKey('nextPageToken')
+              ? json_['nextPageToken'] as core.String
               : null,
         );
 
@@ -3427,13 +3685,13 @@ class ListVersionsResponse {
     this.versions,
   });
 
-  ListVersionsResponse.fromJson(core.Map _json)
+  ListVersionsResponse.fromJson(core.Map json_)
       : this(
-          nextPageToken: _json.containsKey('nextPageToken')
-              ? _json['nextPageToken'] as core.String
+          nextPageToken: json_.containsKey('nextPageToken')
+              ? json_['nextPageToken'] as core.String
               : null,
-          versions: _json.containsKey('versions')
-              ? (_json['versions'] as core.List)
+          versions: json_.containsKey('versions')
+              ? (json_['versions'] as core.List)
                   .map((value) => Version.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -3476,7 +3734,7 @@ class Operation {
   /// ending with `operations/{unique_id}`.
   core.String? name;
 
-  /// The normal response of the operation in case of success.
+  /// The normal, successful response of the operation.
   ///
   /// If the original method returns no data on success, such as `Delete`, the
   /// response is `google.protobuf.Empty`. If the original method is standard
@@ -3497,19 +3755,19 @@ class Operation {
     this.response,
   });
 
-  Operation.fromJson(core.Map _json)
+  Operation.fromJson(core.Map json_)
       : this(
-          done: _json.containsKey('done') ? _json['done'] as core.bool : null,
-          error: _json.containsKey('error')
+          done: json_.containsKey('done') ? json_['done'] as core.bool : null,
+          error: json_.containsKey('error')
               ? Status.fromJson(
-                  _json['error'] as core.Map<core.String, core.dynamic>)
+                  json_['error'] as core.Map<core.String, core.dynamic>)
               : null,
-          metadata: _json.containsKey('metadata')
-              ? _json['metadata'] as core.Map<core.String, core.dynamic>
+          metadata: json_.containsKey('metadata')
+              ? json_['metadata'] as core.Map<core.String, core.dynamic>
               : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
-          response: _json.containsKey('response')
-              ? _json['response'] as core.Map<core.String, core.dynamic>
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+          response: json_.containsKey('response')
+              ? json_['response'] as core.Map<core.String, core.dynamic>
               : null,
         );
 
@@ -3531,10 +3789,10 @@ class PathFilter {
     this.regexes,
   });
 
-  PathFilter.fromJson(core.Map _json)
+  PathFilter.fromJson(core.Map json_)
       : this(
-          regexes: _json.containsKey('regexes')
-              ? (_json['regexes'] as core.List)
+          regexes: json_.containsKey('regexes')
+              ? (json_['regexes'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
@@ -3558,13 +3816,13 @@ class PopulateVersionFilesRequest {
     this.files,
   });
 
-  PopulateVersionFilesRequest.fromJson(core.Map _json)
+  PopulateVersionFilesRequest.fromJson(core.Map json_)
       : this(
-          files: _json.containsKey('files')
-              ? (_json['files'] as core.Map<core.String, core.dynamic>).map(
-                  (key, item) => core.MapEntry(
+          files: json_.containsKey('files')
+              ? (json_['files'] as core.Map<core.String, core.dynamic>).map(
+                  (key, value) => core.MapEntry(
                     key,
-                    item as core.String,
+                    value as core.String,
                   ),
                 )
               : null,
@@ -3592,15 +3850,15 @@ class PopulateVersionFilesResponse {
     this.uploadUrl,
   });
 
-  PopulateVersionFilesResponse.fromJson(core.Map _json)
+  PopulateVersionFilesResponse.fromJson(core.Map json_)
       : this(
-          uploadRequiredHashes: _json.containsKey('uploadRequiredHashes')
-              ? (_json['uploadRequiredHashes'] as core.List)
+          uploadRequiredHashes: json_.containsKey('uploadRequiredHashes')
+              ? (json_['uploadRequiredHashes'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
-          uploadUrl: _json.containsKey('uploadUrl')
-              ? _json['uploadUrl'] as core.String
+          uploadUrl: json_.containsKey('uploadUrl')
+              ? json_['uploadUrl'] as core.String
               : null,
         );
 
@@ -3649,16 +3907,16 @@ class Redirect {
     this.statusCode,
   });
 
-  Redirect.fromJson(core.Map _json)
+  Redirect.fromJson(core.Map json_)
       : this(
-          glob: _json.containsKey('glob') ? _json['glob'] as core.String : null,
-          location: _json.containsKey('location')
-              ? _json['location'] as core.String
+          glob: json_.containsKey('glob') ? json_['glob'] as core.String : null,
+          location: json_.containsKey('location')
+              ? json_['location'] as core.String
               : null,
           regex:
-              _json.containsKey('regex') ? _json['regex'] as core.String : null,
-          statusCode: _json.containsKey('statusCode')
-              ? _json['statusCode'] as core.int
+              json_.containsKey('regex') ? json_['regex'] as core.String : null,
+          statusCode: json_.containsKey('statusCode')
+              ? json_['statusCode'] as core.int
               : null,
         );
 
@@ -3726,23 +3984,23 @@ class Release {
     this.version,
   });
 
-  Release.fromJson(core.Map _json)
+  Release.fromJson(core.Map json_)
       : this(
-          message: _json.containsKey('message')
-              ? _json['message'] as core.String
+          message: json_.containsKey('message')
+              ? json_['message'] as core.String
               : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
-          releaseTime: _json.containsKey('releaseTime')
-              ? _json['releaseTime'] as core.String
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+          releaseTime: json_.containsKey('releaseTime')
+              ? json_['releaseTime'] as core.String
               : null,
-          releaseUser: _json.containsKey('releaseUser')
+          releaseUser: json_.containsKey('releaseUser')
               ? ActingUser.fromJson(
-                  _json['releaseUser'] as core.Map<core.String, core.dynamic>)
+                  json_['releaseUser'] as core.Map<core.String, core.dynamic>)
               : null,
-          type: _json.containsKey('type') ? _json['type'] as core.String : null,
-          version: _json.containsKey('version')
+          type: json_.containsKey('type') ? json_['type'] as core.String : null,
+          version: json_.containsKey('version')
               ? Version.fromJson(
-                  _json['version'] as core.Map<core.String, core.dynamic>)
+                  json_['version'] as core.Map<core.String, core.dynamic>)
               : null,
         );
 
@@ -3770,6 +4028,13 @@ class Rewrite {
   /// Must match the exported function name exactly.
   core.String? function;
 
+  /// Specify a Cloud region for rewritten Functions invocations.
+  ///
+  /// If not provided, defaults to us-central1.
+  ///
+  /// Optional.
+  core.String? functionRegion;
+
   /// The user-supplied
   /// [glob](https://firebase.google.com/docs/hosting/full-config#glob_pattern_matching)
   /// to match against the request URL path.
@@ -3788,33 +4053,38 @@ class Rewrite {
   Rewrite({
     this.dynamicLinks,
     this.function,
+    this.functionRegion,
     this.glob,
     this.path,
     this.regex,
     this.run,
   });
 
-  Rewrite.fromJson(core.Map _json)
+  Rewrite.fromJson(core.Map json_)
       : this(
-          dynamicLinks: _json.containsKey('dynamicLinks')
-              ? _json['dynamicLinks'] as core.bool
+          dynamicLinks: json_.containsKey('dynamicLinks')
+              ? json_['dynamicLinks'] as core.bool
               : null,
-          function: _json.containsKey('function')
-              ? _json['function'] as core.String
+          function: json_.containsKey('function')
+              ? json_['function'] as core.String
               : null,
-          glob: _json.containsKey('glob') ? _json['glob'] as core.String : null,
-          path: _json.containsKey('path') ? _json['path'] as core.String : null,
+          functionRegion: json_.containsKey('functionRegion')
+              ? json_['functionRegion'] as core.String
+              : null,
+          glob: json_.containsKey('glob') ? json_['glob'] as core.String : null,
+          path: json_.containsKey('path') ? json_['path'] as core.String : null,
           regex:
-              _json.containsKey('regex') ? _json['regex'] as core.String : null,
-          run: _json.containsKey('run')
+              json_.containsKey('regex') ? json_['regex'] as core.String : null,
+          run: json_.containsKey('run')
               ? CloudRunRewrite.fromJson(
-                  _json['run'] as core.Map<core.String, core.dynamic>)
+                  json_['run'] as core.Map<core.String, core.dynamic>)
               : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
         if (dynamicLinks != null) 'dynamicLinks': dynamicLinks!,
         if (function != null) 'function': function!,
+        if (functionRegion != null) 'functionRegion': functionRegion!,
         if (glob != null) 'glob': glob!,
         if (path != null) 'path': path!,
         if (regex != null) 'regex': regex!,
@@ -3882,38 +4152,38 @@ class ServingConfig {
     this.trailingSlashBehavior,
   });
 
-  ServingConfig.fromJson(core.Map _json)
+  ServingConfig.fromJson(core.Map json_)
       : this(
-          appAssociation: _json.containsKey('appAssociation')
-              ? _json['appAssociation'] as core.String
+          appAssociation: json_.containsKey('appAssociation')
+              ? json_['appAssociation'] as core.String
               : null,
-          cleanUrls: _json.containsKey('cleanUrls')
-              ? _json['cleanUrls'] as core.bool
+          cleanUrls: json_.containsKey('cleanUrls')
+              ? json_['cleanUrls'] as core.bool
               : null,
-          headers: _json.containsKey('headers')
-              ? (_json['headers'] as core.List)
+          headers: json_.containsKey('headers')
+              ? (json_['headers'] as core.List)
                   .map((value) => Header.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          i18n: _json.containsKey('i18n')
+          i18n: json_.containsKey('i18n')
               ? I18nConfig.fromJson(
-                  _json['i18n'] as core.Map<core.String, core.dynamic>)
+                  json_['i18n'] as core.Map<core.String, core.dynamic>)
               : null,
-          redirects: _json.containsKey('redirects')
-              ? (_json['redirects'] as core.List)
+          redirects: json_.containsKey('redirects')
+              ? (json_['redirects'] as core.List)
                   .map((value) => Redirect.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          rewrites: _json.containsKey('rewrites')
-              ? (_json['rewrites'] as core.List)
+          rewrites: json_.containsKey('rewrites')
+              ? (json_['rewrites'] as core.List)
                   .map((value) => Rewrite.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          trailingSlashBehavior: _json.containsKey('trailingSlashBehavior')
-              ? _json['trailingSlashBehavior'] as core.String
+          trailingSlashBehavior: json_.containsKey('trailingSlashBehavior')
+              ? json_['trailingSlashBehavior'] as core.String
               : null,
         );
 
@@ -3932,7 +4202,7 @@ class ServingConfig {
 /// A `Site` represents a Firebase Hosting site.
 class Site {
   /// The
-  /// [ID of a Web App](https://firebase.google.com/docs/projects/api/reference/rest/v1beta1/projects.webApps#WebApp.FIELDS.app_id)
+  /// [ID of a Web App](https://firebase.google.com/docs/reference/firebase-management/rest/v1beta1/projects.webApps#WebApp.FIELDS.app_id)
   /// associated with the Hosting site.
   ///
   /// Optional.
@@ -3951,9 +4221,9 @@ class Site {
   /// The fully-qualified resource name of the Hosting site, in the format:
   /// projects/PROJECT_IDENTIFIER/sites/SITE_ID PROJECT_IDENTIFIER: the Firebase
   /// project's
-  /// \[`ProjectNumber`\](https://firebase.google.com/docs/projects/api/reference/rest/v1beta1/projects#FirebaseProject.FIELDS.project_number)
+  /// \[`ProjectNumber`\](https://firebase.google.com/docs/reference/firebase-management/rest/v1beta1/projects#FirebaseProject.FIELDS.project_number)
   /// ***(recommended)*** or its
-  /// \[`ProjectId`\](https://firebase.google.com/docs/projects/api/reference/rest/v1beta1/projects#FirebaseProject.FIELDS.project_id).
+  /// \[`ProjectId`\](https://firebase.google.com/docs/reference/firebase-management/rest/v1beta1/projects#FirebaseProject.FIELDS.project_id).
   ///
   /// Learn more about using project identifiers in Google's
   /// [AIP 2510 standard](https://google.aip.dev/cloud/2510).
@@ -3983,23 +4253,23 @@ class Site {
     this.type,
   });
 
-  Site.fromJson(core.Map _json)
+  Site.fromJson(core.Map json_)
       : this(
           appId:
-              _json.containsKey('appId') ? _json['appId'] as core.String : null,
-          defaultUrl: _json.containsKey('defaultUrl')
-              ? _json['defaultUrl'] as core.String
+              json_.containsKey('appId') ? json_['appId'] as core.String : null,
+          defaultUrl: json_.containsKey('defaultUrl')
+              ? json_['defaultUrl'] as core.String
               : null,
-          labels: _json.containsKey('labels')
-              ? (_json['labels'] as core.Map<core.String, core.dynamic>).map(
-                  (key, item) => core.MapEntry(
+          labels: json_.containsKey('labels')
+              ? (json_['labels'] as core.Map<core.String, core.dynamic>).map(
+                  (key, value) => core.MapEntry(
                     key,
-                    item as core.String,
+                    value as core.String,
                   ),
                 )
               : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
-          type: _json.containsKey('type') ? _json['type'] as core.String : null,
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+          type: json_.containsKey('type') ? json_['type'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
@@ -4032,13 +4302,13 @@ class SiteConfig {
     this.maxVersions,
   });
 
-  SiteConfig.fromJson(core.Map _json)
+  SiteConfig.fromJson(core.Map json_)
       : this(
-          cloudLoggingEnabled: _json.containsKey('cloudLoggingEnabled')
-              ? _json['cloudLoggingEnabled'] as core.bool
+          cloudLoggingEnabled: json_.containsKey('cloudLoggingEnabled')
+              ? json_['cloudLoggingEnabled'] as core.bool
               : null,
-          maxVersions: _json.containsKey('maxVersions')
-              ? _json['maxVersions'] as core.String
+          maxVersions: json_.containsKey('maxVersions')
+              ? json_['maxVersions'] as core.String
               : null,
         );
 
@@ -4162,50 +4432,50 @@ class Version {
     this.versionBytes,
   });
 
-  Version.fromJson(core.Map _json)
+  Version.fromJson(core.Map json_)
       : this(
-          config: _json.containsKey('config')
+          config: json_.containsKey('config')
               ? ServingConfig.fromJson(
-                  _json['config'] as core.Map<core.String, core.dynamic>)
+                  json_['config'] as core.Map<core.String, core.dynamic>)
               : null,
-          createTime: _json.containsKey('createTime')
-              ? _json['createTime'] as core.String
+          createTime: json_.containsKey('createTime')
+              ? json_['createTime'] as core.String
               : null,
-          createUser: _json.containsKey('createUser')
+          createUser: json_.containsKey('createUser')
               ? ActingUser.fromJson(
-                  _json['createUser'] as core.Map<core.String, core.dynamic>)
+                  json_['createUser'] as core.Map<core.String, core.dynamic>)
               : null,
-          deleteTime: _json.containsKey('deleteTime')
-              ? _json['deleteTime'] as core.String
+          deleteTime: json_.containsKey('deleteTime')
+              ? json_['deleteTime'] as core.String
               : null,
-          deleteUser: _json.containsKey('deleteUser')
+          deleteUser: json_.containsKey('deleteUser')
               ? ActingUser.fromJson(
-                  _json['deleteUser'] as core.Map<core.String, core.dynamic>)
+                  json_['deleteUser'] as core.Map<core.String, core.dynamic>)
               : null,
-          fileCount: _json.containsKey('fileCount')
-              ? _json['fileCount'] as core.String
+          fileCount: json_.containsKey('fileCount')
+              ? json_['fileCount'] as core.String
               : null,
-          finalizeTime: _json.containsKey('finalizeTime')
-              ? _json['finalizeTime'] as core.String
+          finalizeTime: json_.containsKey('finalizeTime')
+              ? json_['finalizeTime'] as core.String
               : null,
-          finalizeUser: _json.containsKey('finalizeUser')
+          finalizeUser: json_.containsKey('finalizeUser')
               ? ActingUser.fromJson(
-                  _json['finalizeUser'] as core.Map<core.String, core.dynamic>)
+                  json_['finalizeUser'] as core.Map<core.String, core.dynamic>)
               : null,
-          labels: _json.containsKey('labels')
-              ? (_json['labels'] as core.Map<core.String, core.dynamic>).map(
-                  (key, item) => core.MapEntry(
+          labels: json_.containsKey('labels')
+              ? (json_['labels'] as core.Map<core.String, core.dynamic>).map(
+                  (key, value) => core.MapEntry(
                     key,
-                    item as core.String,
+                    value as core.String,
                   ),
                 )
               : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
-          status: _json.containsKey('status')
-              ? _json['status'] as core.String
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+          status: json_.containsKey('status')
+              ? json_['status'] as core.String
               : null,
-          versionBytes: _json.containsKey('versionBytes')
-              ? _json['versionBytes'] as core.String
+          versionBytes: json_.containsKey('versionBytes')
+              ? json_['versionBytes'] as core.String
               : null,
         );
 
@@ -4252,12 +4522,12 @@ class VersionFile {
     this.status,
   });
 
-  VersionFile.fromJson(core.Map _json)
+  VersionFile.fromJson(core.Map json_)
       : this(
-          hash: _json.containsKey('hash') ? _json['hash'] as core.String : null,
-          path: _json.containsKey('path') ? _json['path'] as core.String : null,
-          status: _json.containsKey('status')
-              ? _json['status'] as core.String
+          hash: json_.containsKey('hash') ? json_['hash'] as core.String : null,
+          path: json_.containsKey('path') ? json_['path'] as core.String : null,
+          status: json_.containsKey('status')
+              ? json_['status'] as core.String
               : null,
         );
 

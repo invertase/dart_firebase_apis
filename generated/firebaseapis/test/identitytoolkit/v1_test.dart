@@ -1,8 +1,6 @@
 // ignore_for_file: camel_case_types
-// ignore_for_file: cascade_invocations
 // ignore_for_file: comment_references
-// ignore_for_file: file_names
-// ignore_for_file: library_names
+// ignore_for_file: deprecated_member_use_from_same_package
 // ignore_for_file: lines_longer_than_80_chars
 // ignore_for_file: non_constant_identifier_names
 // ignore_for_file: prefer_const_declarations
@@ -12,8 +10,9 @@
 // ignore_for_file: unnecessary_brace_in_string_interps
 // ignore_for_file: unnecessary_cast
 // ignore_for_file: unnecessary_lambdas
-// ignore_for_file: unnecessary_parenthesis
+// ignore_for_file: unnecessary_library_directive
 // ignore_for_file: unnecessary_string_interpolations
+// ignore_for_file: unreachable_from_main
 // ignore_for_file: unused_local_variable
 
 import 'dart:async' as async;
@@ -573,6 +572,30 @@ void checkGoogleCloudIdentitytoolkitV1DownloadAccountResponse(
   buildCounterGoogleCloudIdentitytoolkitV1DownloadAccountResponse--;
 }
 
+core.int buildCounterGoogleCloudIdentitytoolkitV1EmailInfo = 0;
+api.GoogleCloudIdentitytoolkitV1EmailInfo
+    buildGoogleCloudIdentitytoolkitV1EmailInfo() {
+  final o = api.GoogleCloudIdentitytoolkitV1EmailInfo();
+  buildCounterGoogleCloudIdentitytoolkitV1EmailInfo++;
+  if (buildCounterGoogleCloudIdentitytoolkitV1EmailInfo < 3) {
+    o.emailAddress = 'foo';
+  }
+  buildCounterGoogleCloudIdentitytoolkitV1EmailInfo--;
+  return o;
+}
+
+void checkGoogleCloudIdentitytoolkitV1EmailInfo(
+    api.GoogleCloudIdentitytoolkitV1EmailInfo o) {
+  buildCounterGoogleCloudIdentitytoolkitV1EmailInfo++;
+  if (buildCounterGoogleCloudIdentitytoolkitV1EmailInfo < 3) {
+    unittest.expect(
+      o.emailAddress!,
+      unittest.equals('foo'),
+    );
+  }
+  buildCounterGoogleCloudIdentitytoolkitV1EmailInfo--;
+}
+
 core.int buildCounterGoogleCloudIdentitytoolkitV1EmailTemplate = 0;
 api.GoogleCloudIdentitytoolkitV1EmailTemplate
     buildGoogleCloudIdentitytoolkitV1EmailTemplate() {
@@ -873,6 +896,7 @@ api.GoogleCloudIdentitytoolkitV1GetOobCodeRequest
     o.canHandleCodeInApp = true;
     o.captchaResp = 'foo';
     o.challenge = 'foo';
+    o.clientType = 'foo';
     o.continueUrl = 'foo';
     o.dynamicLinkDomain = 'foo';
     o.email = 'foo';
@@ -880,6 +904,7 @@ api.GoogleCloudIdentitytoolkitV1GetOobCodeRequest
     o.iOSBundleId = 'foo';
     o.idToken = 'foo';
     o.newEmail = 'foo';
+    o.recaptchaVersion = 'foo';
     o.requestType = 'foo';
     o.returnOobLink = true;
     o.targetProjectId = 'foo';
@@ -913,6 +938,10 @@ void checkGoogleCloudIdentitytoolkitV1GetOobCodeRequest(
       unittest.equals('foo'),
     );
     unittest.expect(
+      o.clientType!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
       o.continueUrl!,
       unittest.equals('foo'),
     );
@@ -938,6 +967,10 @@ void checkGoogleCloudIdentitytoolkitV1GetOobCodeRequest(
     );
     unittest.expect(
       o.newEmail!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.recaptchaVersion!,
       unittest.equals('foo'),
     );
     unittest.expect(
@@ -1093,6 +1126,7 @@ api.GoogleCloudIdentitytoolkitV1GetRecaptchaParamResponse
   buildCounterGoogleCloudIdentitytoolkitV1GetRecaptchaParamResponse++;
   if (buildCounterGoogleCloudIdentitytoolkitV1GetRecaptchaParamResponse < 3) {
     o.kind = 'foo';
+    o.producerProjectNumber = 'foo';
     o.recaptchaSiteKey = 'foo';
     o.recaptchaStoken = 'foo';
   }
@@ -1106,6 +1140,10 @@ void checkGoogleCloudIdentitytoolkitV1GetRecaptchaParamResponse(
   if (buildCounterGoogleCloudIdentitytoolkitV1GetRecaptchaParamResponse < 3) {
     unittest.expect(
       o.kind!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.producerProjectNumber!,
       unittest.equals('foo'),
     );
     unittest.expect(
@@ -1311,9 +1349,11 @@ api.GoogleCloudIdentitytoolkitV1MfaEnrollment
   buildCounterGoogleCloudIdentitytoolkitV1MfaEnrollment++;
   if (buildCounterGoogleCloudIdentitytoolkitV1MfaEnrollment < 3) {
     o.displayName = 'foo';
+    o.emailInfo = buildGoogleCloudIdentitytoolkitV1EmailInfo();
     o.enrolledAt = 'foo';
     o.mfaEnrollmentId = 'foo';
     o.phoneInfo = 'foo';
+    o.totpInfo = buildGoogleCloudIdentitytoolkitV1TotpInfo();
     o.unobfuscatedPhoneInfo = 'foo';
   }
   buildCounterGoogleCloudIdentitytoolkitV1MfaEnrollment--;
@@ -1328,6 +1368,7 @@ void checkGoogleCloudIdentitytoolkitV1MfaEnrollment(
       o.displayName!,
       unittest.equals('foo'),
     );
+    checkGoogleCloudIdentitytoolkitV1EmailInfo(o.emailInfo!);
     unittest.expect(
       o.enrolledAt!,
       unittest.equals('foo'),
@@ -1340,6 +1381,7 @@ void checkGoogleCloudIdentitytoolkitV1MfaEnrollment(
       o.phoneInfo!,
       unittest.equals('foo'),
     );
+    checkGoogleCloudIdentitytoolkitV1TotpInfo(o.totpInfo!);
     unittest.expect(
       o.unobfuscatedPhoneInfo!,
       unittest.equals('foo'),
@@ -1711,6 +1753,7 @@ api.GoogleCloudIdentitytoolkitV1SendVerificationCodeRequest
     o.iosReceipt = 'foo';
     o.iosSecret = 'foo';
     o.phoneNumber = 'foo';
+    o.playIntegrityToken = 'foo';
     o.recaptchaToken = 'foo';
     o.safetyNetToken = 'foo';
     o.tenantId = 'foo';
@@ -1734,6 +1777,10 @@ void checkGoogleCloudIdentitytoolkitV1SendVerificationCodeRequest(
     );
     unittest.expect(
       o.phoneNumber!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.playIntegrityToken!,
       unittest.equals('foo'),
     );
     unittest.expect(
@@ -2250,11 +2297,13 @@ api.GoogleCloudIdentitytoolkitV1SignInWithGameCenterRequest
   buildCounterGoogleCloudIdentitytoolkitV1SignInWithGameCenterRequest++;
   if (buildCounterGoogleCloudIdentitytoolkitV1SignInWithGameCenterRequest < 3) {
     o.displayName = 'foo';
+    o.gamePlayerId = 'foo';
     o.idToken = 'foo';
     o.playerId = 'foo';
     o.publicKeyUrl = 'foo';
     o.salt = 'foo';
     o.signature = 'foo';
+    o.teamPlayerId = 'foo';
     o.tenantId = 'foo';
     o.timestamp = 'foo';
   }
@@ -2268,6 +2317,10 @@ void checkGoogleCloudIdentitytoolkitV1SignInWithGameCenterRequest(
   if (buildCounterGoogleCloudIdentitytoolkitV1SignInWithGameCenterRequest < 3) {
     unittest.expect(
       o.displayName!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.gamePlayerId!,
       unittest.equals('foo'),
     );
     unittest.expect(
@@ -2288,6 +2341,10 @@ void checkGoogleCloudIdentitytoolkitV1SignInWithGameCenterRequest(
     );
     unittest.expect(
       o.signature!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.teamPlayerId!,
       unittest.equals('foo'),
     );
     unittest.expect(
@@ -2312,11 +2369,13 @@ api.GoogleCloudIdentitytoolkitV1SignInWithGameCenterResponse
       3) {
     o.displayName = 'foo';
     o.expiresIn = 'foo';
+    o.gamePlayerId = 'foo';
     o.idToken = 'foo';
     o.isNewUser = true;
     o.localId = 'foo';
     o.playerId = 'foo';
     o.refreshToken = 'foo';
+    o.teamPlayerId = 'foo';
   }
   buildCounterGoogleCloudIdentitytoolkitV1SignInWithGameCenterResponse--;
   return o;
@@ -2336,6 +2395,10 @@ void checkGoogleCloudIdentitytoolkitV1SignInWithGameCenterResponse(
       unittest.equals('foo'),
     );
     unittest.expect(
+      o.gamePlayerId!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
       o.idToken!,
       unittest.equals('foo'),
     );
@@ -2350,6 +2413,10 @@ void checkGoogleCloudIdentitytoolkitV1SignInWithGameCenterResponse(
     );
     unittest.expect(
       o.refreshToken!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.teamPlayerId!,
       unittest.equals('foo'),
     );
   }
@@ -2653,12 +2720,14 @@ api.GoogleCloudIdentitytoolkitV1SignInWithPasswordRequest
   if (buildCounterGoogleCloudIdentitytoolkitV1SignInWithPasswordRequest < 3) {
     o.captchaChallenge = 'foo';
     o.captchaResponse = 'foo';
+    o.clientType = 'foo';
     o.delegatedProjectNumber = 'foo';
     o.email = 'foo';
     o.idToken = 'foo';
     o.instanceId = 'foo';
     o.password = 'foo';
     o.pendingIdToken = 'foo';
+    o.recaptchaVersion = 'foo';
     o.returnSecureToken = true;
     o.tenantId = 'foo';
   }
@@ -2676,6 +2745,10 @@ void checkGoogleCloudIdentitytoolkitV1SignInWithPasswordRequest(
     );
     unittest.expect(
       o.captchaResponse!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.clientType!,
       unittest.equals('foo'),
     );
     unittest.expect(
@@ -2702,6 +2775,10 @@ void checkGoogleCloudIdentitytoolkitV1SignInWithPasswordRequest(
       o.pendingIdToken!,
       unittest.equals('foo'),
     );
+    unittest.expect(
+      o.recaptchaVersion!,
+      unittest.equals('foo'),
+    );
     unittest.expect(o.returnSecureToken!, unittest.isTrue);
     unittest.expect(
       o.tenantId!,
@@ -2721,6 +2798,19 @@ void checkUnnamed26(
   unittest.expect(o, unittest.hasLength(2));
   checkGoogleCloudIdentitytoolkitV1MfaEnrollment(o[0]);
   checkGoogleCloudIdentitytoolkitV1MfaEnrollment(o[1]);
+}
+
+core.List<api.GoogleCloudIdentitytoolkitV1UserNotification> buildUnnamed27() =>
+    [
+      buildGoogleCloudIdentitytoolkitV1UserNotification(),
+      buildGoogleCloudIdentitytoolkitV1UserNotification(),
+    ];
+
+void checkUnnamed27(
+    core.List<api.GoogleCloudIdentitytoolkitV1UserNotification> o) {
+  unittest.expect(o, unittest.hasLength(2));
+  checkGoogleCloudIdentitytoolkitV1UserNotification(o[0]);
+  checkGoogleCloudIdentitytoolkitV1UserNotification(o[1]);
 }
 
 core.int buildCounterGoogleCloudIdentitytoolkitV1SignInWithPasswordResponse = 0;
@@ -2743,6 +2833,7 @@ api.GoogleCloudIdentitytoolkitV1SignInWithPasswordResponse
     o.profilePicture = 'foo';
     o.refreshToken = 'foo';
     o.registered = true;
+    o.userNotifications = buildUnnamed27();
   }
   buildCounterGoogleCloudIdentitytoolkitV1SignInWithPasswordResponse--;
   return o;
@@ -2802,6 +2893,7 @@ void checkGoogleCloudIdentitytoolkitV1SignInWithPasswordResponse(
       unittest.equals('foo'),
     );
     unittest.expect(o.registered!, unittest.isTrue);
+    checkUnnamed27(o.userNotifications!);
   }
   buildCounterGoogleCloudIdentitytoolkitV1SignInWithPasswordResponse--;
 }
@@ -2937,12 +3029,12 @@ void checkGoogleCloudIdentitytoolkitV1SignInWithPhoneNumberResponse(
   buildCounterGoogleCloudIdentitytoolkitV1SignInWithPhoneNumberResponse--;
 }
 
-core.List<api.GoogleCloudIdentitytoolkitV1MfaFactor> buildUnnamed27() => [
+core.List<api.GoogleCloudIdentitytoolkitV1MfaFactor> buildUnnamed28() => [
       buildGoogleCloudIdentitytoolkitV1MfaFactor(),
       buildGoogleCloudIdentitytoolkitV1MfaFactor(),
     ];
 
-void checkUnnamed27(core.List<api.GoogleCloudIdentitytoolkitV1MfaFactor> o) {
+void checkUnnamed28(core.List<api.GoogleCloudIdentitytoolkitV1MfaFactor> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkGoogleCloudIdentitytoolkitV1MfaFactor(o[0]);
   checkGoogleCloudIdentitytoolkitV1MfaFactor(o[1]);
@@ -2956,6 +3048,7 @@ api.GoogleCloudIdentitytoolkitV1SignUpRequest
   if (buildCounterGoogleCloudIdentitytoolkitV1SignUpRequest < 3) {
     o.captchaChallenge = 'foo';
     o.captchaResponse = 'foo';
+    o.clientType = 'foo';
     o.disabled = true;
     o.displayName = 'foo';
     o.email = 'foo';
@@ -2963,10 +3056,11 @@ api.GoogleCloudIdentitytoolkitV1SignUpRequest
     o.idToken = 'foo';
     o.instanceId = 'foo';
     o.localId = 'foo';
-    o.mfaInfo = buildUnnamed27();
+    o.mfaInfo = buildUnnamed28();
     o.password = 'foo';
     o.phoneNumber = 'foo';
     o.photoUrl = 'foo';
+    o.recaptchaVersion = 'foo';
     o.targetProjectId = 'foo';
     o.tenantId = 'foo';
   }
@@ -2984,6 +3078,10 @@ void checkGoogleCloudIdentitytoolkitV1SignUpRequest(
     );
     unittest.expect(
       o.captchaResponse!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.clientType!,
       unittest.equals('foo'),
     );
     unittest.expect(o.disabled!, unittest.isTrue);
@@ -3008,7 +3106,7 @@ void checkGoogleCloudIdentitytoolkitV1SignUpRequest(
       o.localId!,
       unittest.equals('foo'),
     );
-    checkUnnamed27(o.mfaInfo!);
+    checkUnnamed28(o.mfaInfo!);
     unittest.expect(
       o.password!,
       unittest.equals('foo'),
@@ -3019,6 +3117,10 @@ void checkGoogleCloudIdentitytoolkitV1SignUpRequest(
     );
     unittest.expect(
       o.photoUrl!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.recaptchaVersion!,
       unittest.equals('foo'),
     );
     unittest.expect(
@@ -3121,12 +3223,29 @@ void checkGoogleCloudIdentitytoolkitV1SqlExpression(
   buildCounterGoogleCloudIdentitytoolkitV1SqlExpression--;
 }
 
-core.List<api.GoogleCloudIdentitytoolkitV1UserInfo> buildUnnamed28() => [
+core.int buildCounterGoogleCloudIdentitytoolkitV1TotpInfo = 0;
+api.GoogleCloudIdentitytoolkitV1TotpInfo
+    buildGoogleCloudIdentitytoolkitV1TotpInfo() {
+  final o = api.GoogleCloudIdentitytoolkitV1TotpInfo();
+  buildCounterGoogleCloudIdentitytoolkitV1TotpInfo++;
+  if (buildCounterGoogleCloudIdentitytoolkitV1TotpInfo < 3) {}
+  buildCounterGoogleCloudIdentitytoolkitV1TotpInfo--;
+  return o;
+}
+
+void checkGoogleCloudIdentitytoolkitV1TotpInfo(
+    api.GoogleCloudIdentitytoolkitV1TotpInfo o) {
+  buildCounterGoogleCloudIdentitytoolkitV1TotpInfo++;
+  if (buildCounterGoogleCloudIdentitytoolkitV1TotpInfo < 3) {}
+  buildCounterGoogleCloudIdentitytoolkitV1TotpInfo--;
+}
+
+core.List<api.GoogleCloudIdentitytoolkitV1UserInfo> buildUnnamed29() => [
       buildGoogleCloudIdentitytoolkitV1UserInfo(),
       buildGoogleCloudIdentitytoolkitV1UserInfo(),
     ];
 
-void checkUnnamed28(core.List<api.GoogleCloudIdentitytoolkitV1UserInfo> o) {
+void checkUnnamed29(core.List<api.GoogleCloudIdentitytoolkitV1UserInfo> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkGoogleCloudIdentitytoolkitV1UserInfo(o[0]);
   checkGoogleCloudIdentitytoolkitV1UserInfo(o[1]);
@@ -3153,7 +3272,7 @@ api.GoogleCloudIdentitytoolkitV1UploadAccountRequest
     o.sanityCheck = true;
     o.signerKey = 'foo';
     o.tenantId = 'foo';
-    o.users = buildUnnamed28();
+    o.users = buildUnnamed29();
   }
   buildCounterGoogleCloudIdentitytoolkitV1UploadAccountRequest--;
   return o;
@@ -3214,17 +3333,17 @@ void checkGoogleCloudIdentitytoolkitV1UploadAccountRequest(
       o.tenantId!,
       unittest.equals('foo'),
     );
-    checkUnnamed28(o.users!);
+    checkUnnamed29(o.users!);
   }
   buildCounterGoogleCloudIdentitytoolkitV1UploadAccountRequest--;
 }
 
-core.List<api.GoogleCloudIdentitytoolkitV1ErrorInfo> buildUnnamed29() => [
+core.List<api.GoogleCloudIdentitytoolkitV1ErrorInfo> buildUnnamed30() => [
       buildGoogleCloudIdentitytoolkitV1ErrorInfo(),
       buildGoogleCloudIdentitytoolkitV1ErrorInfo(),
     ];
 
-void checkUnnamed29(core.List<api.GoogleCloudIdentitytoolkitV1ErrorInfo> o) {
+void checkUnnamed30(core.List<api.GoogleCloudIdentitytoolkitV1ErrorInfo> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkGoogleCloudIdentitytoolkitV1ErrorInfo(o[0]);
   checkGoogleCloudIdentitytoolkitV1ErrorInfo(o[1]);
@@ -3236,7 +3355,7 @@ api.GoogleCloudIdentitytoolkitV1UploadAccountResponse
   final o = api.GoogleCloudIdentitytoolkitV1UploadAccountResponse();
   buildCounterGoogleCloudIdentitytoolkitV1UploadAccountResponse++;
   if (buildCounterGoogleCloudIdentitytoolkitV1UploadAccountResponse < 3) {
-    o.error = buildUnnamed29();
+    o.error = buildUnnamed30();
     o.kind = 'foo';
   }
   buildCounterGoogleCloudIdentitytoolkitV1UploadAccountResponse--;
@@ -3247,7 +3366,7 @@ void checkGoogleCloudIdentitytoolkitV1UploadAccountResponse(
     api.GoogleCloudIdentitytoolkitV1UploadAccountResponse o) {
   buildCounterGoogleCloudIdentitytoolkitV1UploadAccountResponse++;
   if (buildCounterGoogleCloudIdentitytoolkitV1UploadAccountResponse < 3) {
-    checkUnnamed29(o.error!);
+    checkUnnamed30(o.error!);
     unittest.expect(
       o.kind!,
       unittest.equals('foo'),
@@ -3256,25 +3375,25 @@ void checkGoogleCloudIdentitytoolkitV1UploadAccountResponse(
   buildCounterGoogleCloudIdentitytoolkitV1UploadAccountResponse--;
 }
 
-core.List<api.GoogleCloudIdentitytoolkitV1MfaEnrollment> buildUnnamed30() => [
+core.List<api.GoogleCloudIdentitytoolkitV1MfaEnrollment> buildUnnamed31() => [
       buildGoogleCloudIdentitytoolkitV1MfaEnrollment(),
       buildGoogleCloudIdentitytoolkitV1MfaEnrollment(),
     ];
 
-void checkUnnamed30(
+void checkUnnamed31(
     core.List<api.GoogleCloudIdentitytoolkitV1MfaEnrollment> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkGoogleCloudIdentitytoolkitV1MfaEnrollment(o[0]);
   checkGoogleCloudIdentitytoolkitV1MfaEnrollment(o[1]);
 }
 
-core.List<api.GoogleCloudIdentitytoolkitV1ProviderUserInfo> buildUnnamed31() =>
+core.List<api.GoogleCloudIdentitytoolkitV1ProviderUserInfo> buildUnnamed32() =>
     [
       buildGoogleCloudIdentitytoolkitV1ProviderUserInfo(),
       buildGoogleCloudIdentitytoolkitV1ProviderUserInfo(),
     ];
 
-void checkUnnamed31(
+void checkUnnamed32(
     core.List<api.GoogleCloudIdentitytoolkitV1ProviderUserInfo> o) {
   unittest.expect(o, unittest.hasLength(2));
   checkGoogleCloudIdentitytoolkitV1ProviderUserInfo(o[0]);
@@ -3301,12 +3420,12 @@ api.GoogleCloudIdentitytoolkitV1UserInfo
     o.lastLoginAt = 'foo';
     o.lastRefreshAt = 'foo';
     o.localId = 'foo';
-    o.mfaInfo = buildUnnamed30();
+    o.mfaInfo = buildUnnamed31();
     o.passwordHash = 'foo';
     o.passwordUpdatedAt = 42.0;
     o.phoneNumber = 'foo';
     o.photoUrl = 'foo';
-    o.providerUserInfo = buildUnnamed31();
+    o.providerUserInfo = buildUnnamed32();
     o.rawPassword = 'foo';
     o.salt = 'foo';
     o.screenName = 'foo';
@@ -3367,7 +3486,7 @@ void checkGoogleCloudIdentitytoolkitV1UserInfo(
       o.localId!,
       unittest.equals('foo'),
     );
-    checkUnnamed30(o.mfaInfo!);
+    checkUnnamed31(o.mfaInfo!);
     unittest.expect(
       o.passwordHash!,
       unittest.equals('foo'),
@@ -3384,7 +3503,7 @@ void checkGoogleCloudIdentitytoolkitV1UserInfo(
       o.photoUrl!,
       unittest.equals('foo'),
     );
-    checkUnnamed31(o.providerUserInfo!);
+    checkUnnamed32(o.providerUserInfo!);
     unittest.expect(
       o.rawPassword!,
       unittest.equals('foo'),
@@ -3415,6 +3534,35 @@ void checkGoogleCloudIdentitytoolkitV1UserInfo(
     );
   }
   buildCounterGoogleCloudIdentitytoolkitV1UserInfo--;
+}
+
+core.int buildCounterGoogleCloudIdentitytoolkitV1UserNotification = 0;
+api.GoogleCloudIdentitytoolkitV1UserNotification
+    buildGoogleCloudIdentitytoolkitV1UserNotification() {
+  final o = api.GoogleCloudIdentitytoolkitV1UserNotification();
+  buildCounterGoogleCloudIdentitytoolkitV1UserNotification++;
+  if (buildCounterGoogleCloudIdentitytoolkitV1UserNotification < 3) {
+    o.notificationCode = 'foo';
+    o.notificationMessage = 'foo';
+  }
+  buildCounterGoogleCloudIdentitytoolkitV1UserNotification--;
+  return o;
+}
+
+void checkGoogleCloudIdentitytoolkitV1UserNotification(
+    api.GoogleCloudIdentitytoolkitV1UserNotification o) {
+  buildCounterGoogleCloudIdentitytoolkitV1UserNotification++;
+  if (buildCounterGoogleCloudIdentitytoolkitV1UserNotification < 3) {
+    unittest.expect(
+      o.notificationCode!,
+      unittest.equals('foo'),
+    );
+    unittest.expect(
+      o.notificationMessage!,
+      unittest.equals('foo'),
+    );
+  }
+  buildCounterGoogleCloudIdentitytoolkitV1UserNotification--;
 }
 
 core.int buildCounterGoogleCloudIdentitytoolkitV1VerifyIosClientRequest = 0;
@@ -3606,6 +3754,16 @@ void main() {
           api.GoogleCloudIdentitytoolkitV1DownloadAccountResponse.fromJson(
               oJson as core.Map<core.String, core.dynamic>);
       checkGoogleCloudIdentitytoolkitV1DownloadAccountResponse(od);
+    });
+  });
+
+  unittest.group('obj-schema-GoogleCloudIdentitytoolkitV1EmailInfo', () {
+    unittest.test('to-json--from-json', () async {
+      final o = buildGoogleCloudIdentitytoolkitV1EmailInfo();
+      final oJson = convert.jsonDecode(convert.jsonEncode(o));
+      final od = api.GoogleCloudIdentitytoolkitV1EmailInfo.fromJson(
+          oJson as core.Map<core.String, core.dynamic>);
+      checkGoogleCloudIdentitytoolkitV1EmailInfo(od);
     });
   });
 
@@ -4077,6 +4235,16 @@ void main() {
     });
   });
 
+  unittest.group('obj-schema-GoogleCloudIdentitytoolkitV1TotpInfo', () {
+    unittest.test('to-json--from-json', () async {
+      final o = buildGoogleCloudIdentitytoolkitV1TotpInfo();
+      final oJson = convert.jsonDecode(convert.jsonEncode(o));
+      final od = api.GoogleCloudIdentitytoolkitV1TotpInfo.fromJson(
+          oJson as core.Map<core.String, core.dynamic>);
+      checkGoogleCloudIdentitytoolkitV1TotpInfo(od);
+    });
+  });
+
   unittest.group('obj-schema-GoogleCloudIdentitytoolkitV1UploadAccountRequest',
       () {
     unittest.test('to-json--from-json', () async {
@@ -4106,6 +4274,16 @@ void main() {
       final od = api.GoogleCloudIdentitytoolkitV1UserInfo.fromJson(
           oJson as core.Map<core.String, core.dynamic>);
       checkGoogleCloudIdentitytoolkitV1UserInfo(od);
+    });
+  });
+
+  unittest.group('obj-schema-GoogleCloudIdentitytoolkitV1UserNotification', () {
+    unittest.test('to-json--from-json', () async {
+      final o = buildGoogleCloudIdentitytoolkitV1UserNotification();
+      final oJson = convert.jsonDecode(convert.jsonEncode(o));
+      final od = api.GoogleCloudIdentitytoolkitV1UserNotification.fromJson(
+          oJson as core.Map<core.String, core.dynamic>);
+      checkGoogleCloudIdentitytoolkitV1UserNotification(od);
     });
   });
 
@@ -4146,7 +4324,7 @@ void main() {
                 json as core.Map<core.String, core.dynamic>);
         checkGoogleCloudIdentitytoolkitV1CreateAuthUriRequest(obj);
 
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -4161,7 +4339,7 @@ void main() {
         );
         pathOffset += 25;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -4206,7 +4384,7 @@ void main() {
                 json as core.Map<core.String, core.dynamic>);
         checkGoogleCloudIdentitytoolkitV1DeleteAccountRequest(obj);
 
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -4221,7 +4399,7 @@ void main() {
         );
         pathOffset += 18;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -4265,7 +4443,7 @@ void main() {
                 json as core.Map<core.String, core.dynamic>);
         checkGoogleCloudIdentitytoolkitV1IssueSamlResponseRequest(obj);
 
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -4280,7 +4458,7 @@ void main() {
         );
         pathOffset += 29;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -4325,7 +4503,7 @@ void main() {
                 json as core.Map<core.String, core.dynamic>);
         checkGoogleCloudIdentitytoolkitV1GetAccountInfoRequest(obj);
 
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -4340,7 +4518,7 @@ void main() {
         );
         pathOffset += 18;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -4384,7 +4562,7 @@ void main() {
                 json as core.Map<core.String, core.dynamic>);
         checkGoogleCloudIdentitytoolkitV1ResetPasswordRequest(obj);
 
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -4399,7 +4577,7 @@ void main() {
         );
         pathOffset += 25;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -4442,7 +4620,7 @@ void main() {
             json as core.Map<core.String, core.dynamic>);
         checkGoogleCloudIdentitytoolkitV1GetOobCodeRequest(obj);
 
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -4457,7 +4635,7 @@ void main() {
         );
         pathOffset += 23;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -4500,7 +4678,7 @@ void main() {
             .fromJson(json as core.Map<core.String, core.dynamic>);
         checkGoogleCloudIdentitytoolkitV1SendVerificationCodeRequest(obj);
 
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -4515,7 +4693,7 @@ void main() {
         );
         pathOffset += 32;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -4559,7 +4737,7 @@ void main() {
             .fromJson(json as core.Map<core.String, core.dynamic>);
         checkGoogleCloudIdentitytoolkitV1SignInWithCustomTokenRequest(obj);
 
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -4574,7 +4752,7 @@ void main() {
         );
         pathOffset += 33;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -4619,7 +4797,7 @@ void main() {
                 json as core.Map<core.String, core.dynamic>);
         checkGoogleCloudIdentitytoolkitV1SignInWithEmailLinkRequest(obj);
 
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -4634,7 +4812,7 @@ void main() {
         );
         pathOffset += 31;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -4678,7 +4856,7 @@ void main() {
             .fromJson(json as core.Map<core.String, core.dynamic>);
         checkGoogleCloudIdentitytoolkitV1SignInWithGameCenterRequest(obj);
 
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -4693,7 +4871,7 @@ void main() {
         );
         pathOffset += 32;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -4738,7 +4916,7 @@ void main() {
                 json as core.Map<core.String, core.dynamic>);
         checkGoogleCloudIdentitytoolkitV1SignInWithIdpRequest(obj);
 
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -4753,7 +4931,7 @@ void main() {
         );
         pathOffset += 25;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -4798,7 +4976,7 @@ void main() {
                 json as core.Map<core.String, core.dynamic>);
         checkGoogleCloudIdentitytoolkitV1SignInWithPasswordRequest(obj);
 
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -4813,7 +4991,7 @@ void main() {
         );
         pathOffset += 30;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -4857,7 +5035,7 @@ void main() {
             .fromJson(json as core.Map<core.String, core.dynamic>);
         checkGoogleCloudIdentitytoolkitV1SignInWithPhoneNumberRequest(obj);
 
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -4872,7 +5050,7 @@ void main() {
         );
         pathOffset += 33;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -4915,7 +5093,7 @@ void main() {
             json as core.Map<core.String, core.dynamic>);
         checkGoogleCloudIdentitytoolkitV1SignUpRequest(obj);
 
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -4930,7 +5108,7 @@ void main() {
         );
         pathOffset += 18;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -4974,7 +5152,7 @@ void main() {
                 json as core.Map<core.String, core.dynamic>);
         checkGoogleCloudIdentitytoolkitV1SetAccountInfoRequest(obj);
 
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -4989,7 +5167,7 @@ void main() {
         );
         pathOffset += 18;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -5033,7 +5211,7 @@ void main() {
                 json as core.Map<core.String, core.dynamic>);
         checkGoogleCloudIdentitytoolkitV1VerifyIosClientRequest(obj);
 
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -5048,7 +5226,7 @@ void main() {
         );
         pathOffset += 27;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -5094,7 +5272,7 @@ void main() {
             json as core.Map<core.String, core.dynamic>);
         checkGoogleCloudIdentitytoolkitV1SignUpRequest(obj);
 
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -5110,7 +5288,7 @@ void main() {
         pathOffset += 12;
         // NOTE: We cannot test reserved expansions due to the inability to reverse the operation;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -5156,7 +5334,7 @@ void main() {
                 json as core.Map<core.String, core.dynamic>);
         checkGoogleCloudIdentitytoolkitV1CreateSessionCookieRequest(obj);
 
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -5172,7 +5350,7 @@ void main() {
         pathOffset += 12;
         // NOTE: We cannot test reserved expansions due to the inability to reverse the operation;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -5219,7 +5397,7 @@ void main() {
                 json as core.Map<core.String, core.dynamic>);
         checkGoogleCloudIdentitytoolkitV1QueryUserInfoRequest(obj);
 
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -5235,7 +5413,7 @@ void main() {
         pathOffset += 12;
         // NOTE: We cannot test reserved expansions due to the inability to reverse the operation;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -5283,7 +5461,7 @@ void main() {
                 json as core.Map<core.String, core.dynamic>);
         checkGoogleCloudIdentitytoolkitV1UploadAccountRequest(obj);
 
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -5299,7 +5477,7 @@ void main() {
         pathOffset += 12;
         // NOTE: We cannot test reserved expansions due to the inability to reverse the operation;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -5345,7 +5523,7 @@ void main() {
                 json as core.Map<core.String, core.dynamic>);
         checkGoogleCloudIdentitytoolkitV1BatchDeleteAccountsRequest(obj);
 
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -5361,7 +5539,7 @@ void main() {
         pathOffset += 12;
         // NOTE: We cannot test reserved expansions due to the inability to reverse the operation;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -5404,7 +5582,7 @@ void main() {
       final arg_tenantId = 'foo';
       final arg_$fields = 'foo';
       mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -5420,7 +5598,7 @@ void main() {
         pathOffset += 12;
         // NOTE: We cannot test reserved expansions due to the inability to reverse the operation;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -5486,7 +5664,7 @@ void main() {
                 json as core.Map<core.String, core.dynamic>);
         checkGoogleCloudIdentitytoolkitV1DeleteAccountRequest(obj);
 
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -5502,7 +5680,7 @@ void main() {
         pathOffset += 12;
         // NOTE: We cannot test reserved expansions due to the inability to reverse the operation;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -5548,7 +5726,7 @@ void main() {
                 json as core.Map<core.String, core.dynamic>);
         checkGoogleCloudIdentitytoolkitV1GetAccountInfoRequest(obj);
 
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -5564,7 +5742,7 @@ void main() {
         pathOffset += 12;
         // NOTE: We cannot test reserved expansions due to the inability to reverse the operation;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -5610,7 +5788,7 @@ void main() {
                 json as core.Map<core.String, core.dynamic>);
         checkGoogleCloudIdentitytoolkitV1QueryUserInfoRequest(obj);
 
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -5626,7 +5804,7 @@ void main() {
         pathOffset += 12;
         // NOTE: We cannot test reserved expansions due to the inability to reverse the operation;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -5670,7 +5848,7 @@ void main() {
             json as core.Map<core.String, core.dynamic>);
         checkGoogleCloudIdentitytoolkitV1GetOobCodeRequest(obj);
 
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -5686,7 +5864,7 @@ void main() {
         pathOffset += 12;
         // NOTE: We cannot test reserved expansions due to the inability to reverse the operation;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -5732,7 +5910,7 @@ void main() {
                 json as core.Map<core.String, core.dynamic>);
         checkGoogleCloudIdentitytoolkitV1SetAccountInfoRequest(obj);
 
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -5748,7 +5926,7 @@ void main() {
         pathOffset += 12;
         // NOTE: We cannot test reserved expansions due to the inability to reverse the operation;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -5795,7 +5973,7 @@ void main() {
             json as core.Map<core.String, core.dynamic>);
         checkGoogleCloudIdentitytoolkitV1SignUpRequest(obj);
 
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -5811,7 +5989,7 @@ void main() {
         pathOffset += 12;
         // NOTE: We cannot test reserved expansions due to the inability to reverse the operation;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -5859,7 +6037,7 @@ void main() {
                 json as core.Map<core.String, core.dynamic>);
         checkGoogleCloudIdentitytoolkitV1CreateSessionCookieRequest(obj);
 
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -5875,7 +6053,7 @@ void main() {
         pathOffset += 12;
         // NOTE: We cannot test reserved expansions due to the inability to reverse the operation;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -5925,7 +6103,7 @@ void main() {
                 json as core.Map<core.String, core.dynamic>);
         checkGoogleCloudIdentitytoolkitV1UploadAccountRequest(obj);
 
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -5941,7 +6119,7 @@ void main() {
         pathOffset += 12;
         // NOTE: We cannot test reserved expansions due to the inability to reverse the operation;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -5989,7 +6167,7 @@ void main() {
                 json as core.Map<core.String, core.dynamic>);
         checkGoogleCloudIdentitytoolkitV1BatchDeleteAccountsRequest(obj);
 
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -6005,7 +6183,7 @@ void main() {
         pathOffset += 12;
         // NOTE: We cannot test reserved expansions due to the inability to reverse the operation;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -6049,7 +6227,7 @@ void main() {
       final arg_nextPageToken = 'foo';
       final arg_$fields = 'foo';
       mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -6065,7 +6243,7 @@ void main() {
         pathOffset += 12;
         // NOTE: We cannot test reserved expansions due to the inability to reverse the operation;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -6127,7 +6305,7 @@ void main() {
                 json as core.Map<core.String, core.dynamic>);
         checkGoogleCloudIdentitytoolkitV1DeleteAccountRequest(obj);
 
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -6143,7 +6321,7 @@ void main() {
         pathOffset += 12;
         // NOTE: We cannot test reserved expansions due to the inability to reverse the operation;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -6191,7 +6369,7 @@ void main() {
                 json as core.Map<core.String, core.dynamic>);
         checkGoogleCloudIdentitytoolkitV1GetAccountInfoRequest(obj);
 
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -6207,7 +6385,7 @@ void main() {
         pathOffset += 12;
         // NOTE: We cannot test reserved expansions due to the inability to reverse the operation;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -6255,7 +6433,7 @@ void main() {
                 json as core.Map<core.String, core.dynamic>);
         checkGoogleCloudIdentitytoolkitV1QueryUserInfoRequest(obj);
 
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -6271,7 +6449,7 @@ void main() {
         pathOffset += 12;
         // NOTE: We cannot test reserved expansions due to the inability to reverse the operation;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -6317,7 +6495,7 @@ void main() {
             json as core.Map<core.String, core.dynamic>);
         checkGoogleCloudIdentitytoolkitV1GetOobCodeRequest(obj);
 
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -6333,7 +6511,7 @@ void main() {
         pathOffset += 12;
         // NOTE: We cannot test reserved expansions due to the inability to reverse the operation;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -6381,7 +6559,7 @@ void main() {
                 json as core.Map<core.String, core.dynamic>);
         checkGoogleCloudIdentitytoolkitV1SetAccountInfoRequest(obj);
 
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -6397,7 +6575,7 @@ void main() {
         pathOffset += 12;
         // NOTE: We cannot test reserved expansions due to the inability to reverse the operation;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -6446,7 +6624,7 @@ void main() {
       final arg_sha1Cert = 'foo';
       final arg_$fields = 'foo';
       mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -6461,7 +6639,7 @@ void main() {
         );
         pathOffset += 11;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -6539,7 +6717,7 @@ void main() {
       final res = api.IdentityToolkitApi(mock).v1;
       final arg_$fields = 'foo';
       mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -6554,7 +6732,7 @@ void main() {
         );
         pathOffset += 13;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -6592,7 +6770,7 @@ void main() {
       final res = api.IdentityToolkitApi(mock).v1;
       final arg_$fields = 'foo';
       mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -6607,7 +6785,7 @@ void main() {
         );
         pathOffset += 18;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>
@@ -6644,7 +6822,7 @@ void main() {
       final res = api.IdentityToolkitApi(mock).v1;
       final arg_$fields = 'foo';
       mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
-        final path = (req.url).path;
+        final path = req.url.path;
         var pathOffset = 0;
         core.int index;
         core.String subPart;
@@ -6659,7 +6837,7 @@ void main() {
         );
         pathOffset += 26;
 
-        final query = (req.url).query;
+        final query = req.url.query;
         var queryOffset = 0;
         final queryMap = <core.String, core.List<core.String>>{};
         void addQueryParam(core.String n, core.String v) =>

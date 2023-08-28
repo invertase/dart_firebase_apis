@@ -2,8 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-library googleapis_generator;
-
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -15,6 +13,14 @@ import 'package:pool/pool.dart';
 
 import 'src/package_configuration.dart';
 import 'src/utils.dart';
+
+Future<List<RestDescription>> downloadDiscoveryDocuments(
+  String outputDir,
+) async {
+  final apis = await fetchDiscoveryDocuments();
+  writeDiscoveryDocuments(outputDir, apis);
+  return apis;
+}
 
 void writeDiscoveryDocuments(
   String outputDir,
@@ -31,26 +37,21 @@ void writeDiscoveryDocuments(
     final name = '$outputDir/${description.name}__${description.version}.json';
     final file = File(name);
     const encoder = JsonEncoder.withIndent('    ');
-    file.writeAsStringSync(encoder.convert(description.toJson()));
+    file.writeAsStringSync('${encoder.convert(description.toJsonSorted())}\n');
     print('Wrote: $name');
   }
 }
 
 Future<List<RestDescription>> fetchDiscoveryDocuments({
-  required List<String> apisToFetch,
+  Map<String, String>? existingRevisions,
+  Map<String, String>? additionalEntries,
 }) async {
   final client = IOClient();
 
-  Future<RestDescription?> download(String api) async {
-    final parts = api.split(':');
-    var discoveryUrl =
-        'https://${parts[0]}.googleapis.com/\$discovery/rest?version=${parts[1]}';
-    if (Platform.environment['API_KEY'] != null) {
-      discoveryUrl += '&key=${Platform.environment['API_KEY']}';
-    }
+  Future<RestDescription?> download(DirectoryListItems item) async {
     try {
       final result = await client.get(
-        Uri.parse(discoveryUrl),
+        Uri.parse(item.discoveryRestUrl!),
         headers: requestHeaders,
       );
 
@@ -72,8 +73,8 @@ Future<List<RestDescription>> fetchDiscoveryDocuments({
       print(
         ansi.red.wrap(
           '''
-$discoveryUrl
-Failed to retrieve document for "$api" -> Ignoring!
+${item.discoveryRestUrl}
+Failed to retrieve document for "${item.name}:${item.version}" -> Ignoring!
 $e
 $stack
 ''',
@@ -84,16 +85,61 @@ $stack
   }
 
   try {
+    final directoryList = await DiscoveryApi(client).apis.list();
+    final list = directoryList.items!;
+
+    if (additionalEntries != null) {
+      for (var entry in additionalEntries.entries) {
+        list.add(DirectoryListItems(
+          id: entry.key,
+          discoveryRestUrl: entry.value,
+        ));
+      }
+    }
+
     final pool = Pool(10);
     try {
       var count = 0;
       return await pool
-          .forEach(apisToFetch, (String api) async {
+          .forEach(list, (DirectoryListItems item) async {
             print(ansi.darkGray.wrap(
-              'Requesting ${++count} of ${apisToFetch.length} - $api',
+              'Requesting ${++count} of ${list.length} - ${item.id}',
             ));
 
-            return await download(api);
+            RestDescription? description;
+            for (var i = 1; i <= 10; i++) {
+              description = await download(item);
+              if (i > 1) {
+                print('  ${item.id} try #$i');
+              }
+
+              final existingRevision = existingRevisions![description?.id!];
+              if (existingRevision != null &&
+                  existingRevision != description!.revision) {
+                final compare =
+                    existingRevision.compareTo(description.revision!);
+
+                if (compare.isNegative) {
+                  print(
+                    '  New! ${description.id} '
+                    'from $existingRevision to ${description.revision}',
+                  );
+                } else {
+                  final tryAgainLag = i > 5 ? 5 : i;
+                  print(
+                    '  Old revision for ${description.id} '
+                    'from $existingRevision to ${description.revision}.\n'
+                    '    Trying again in $tryAgainLag second(s) – '
+                    '${item.discoveryRestUrl}',
+                  );
+                  await Future.delayed(Duration(seconds: tryAgainLag));
+                  continue;
+                }
+              }
+
+              return description;
+            }
+            return description;
           })
           .where((rd) => rd != null)
           .cast<RestDescription>()
@@ -123,7 +169,6 @@ Future downloadFromConfiguration(String configFile) async {
   final configFileUri = Uri.file(configFile);
   await configuration.download(
     discoveryPathFromConfigFileUri(configFileUri),
-    configuration.allPackageApis,
   );
 
   // Print warnings for APIs not mentioned.

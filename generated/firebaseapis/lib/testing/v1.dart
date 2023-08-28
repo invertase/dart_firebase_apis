@@ -2,14 +2,13 @@
 
 // ignore_for_file: camel_case_types
 // ignore_for_file: comment_references
-// ignore_for_file: file_names
-// ignore_for_file: library_names
+// ignore_for_file: deprecated_member_use_from_same_package
 // ignore_for_file: lines_longer_than_80_chars
 // ignore_for_file: non_constant_identifier_names
-// ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: prefer_interpolation_to_compose_strings
 // ignore_for_file: unnecessary_brace_in_string_interps
 // ignore_for_file: unnecessary_lambdas
+// ignore_for_file: unnecessary_library_directive
 // ignore_for_file: unnecessary_string_interpolations
 
 /// Cloud Testing API - v1
@@ -25,7 +24,7 @@
 /// - [ProjectsResource]
 ///   - [ProjectsTestMatricesResource]
 /// - [TestEnvironmentCatalogResource]
-library testing.v1;
+library testing_v1;
 
 import 'dart:async' as async;
 import 'dart:convert' as convert;
@@ -34,7 +33,6 @@ import 'dart:core' as core;
 import 'package:_discoveryapis_commons/_discoveryapis_commons.dart' as commons;
 import 'package:http/http.dart' as http;
 
-// ignore: deprecated_member_use_from_same_package
 import '../shared.dart';
 import '../src/user_agent.dart';
 
@@ -95,21 +93,21 @@ class ApplicationDetailServiceResource {
     FileReference request, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    const _url = 'v1/applicationDetailService/getApkDetails';
+    const url_ = 'v1/applicationDetailService/getApkDetails';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return GetApkDetailsResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -157,32 +155,35 @@ class ProjectsTestMatricesResource {
     core.String testMatrixId, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/projects/' +
+    final url_ = 'v1/projects/' +
         commons.escapeVariable('$projectId') +
         '/testMatrices/' +
         commons.escapeVariable('$testMatrixId') +
         ':cancel';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return CancelTestMatrixResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Creates and runs a matrix of tests according to the given specifications.
   ///
   /// Unsupported environments will be returned in the state UNSUPPORTED. A test
-  /// matrix is limited to use at most 2000 devices in parallel. May return any
-  /// of the following canonical error codes: - PERMISSION_DENIED - if the user
-  /// is not authorized to write to project - INVALID_ARGUMENT - if the request
-  /// is malformed or if the matrix tries to use too many simultaneous devices.
+  /// matrix is limited to use at most 2000 devices in parallel. The returned
+  /// matrix will not yet contain the executions that will be created for this
+  /// matrix. Execution creation happens later on and will require a call to
+  /// GetTestMatrix. May return any of the following canonical error codes: -
+  /// PERMISSION_DENIED - if the user is not authorized to write to project -
+  /// INVALID_ARGUMENT - if the request is malformed or if the matrix tries to
+  /// use too many simultaneous devices.
   ///
   /// [request] - The metadata request object.
   ///
@@ -210,27 +211,31 @@ class ProjectsTestMatricesResource {
     core.String? requestId,
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (requestId != null) 'requestId': [requestId],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url =
+    final url_ =
         'v1/projects/' + commons.escapeVariable('$projectId') + '/testMatrices';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return TestMatrix.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
-  /// Checks the status of a test matrix.
+  /// Checks the status of a test matrix and the executions once they are
+  /// created.
   ///
+  /// The test matrix will contain the list of test executions to run if and
+  /// only if the resultStorage.toolResultsExecution fields have been populated.
+  /// Note: Flaky test executions may be added to the matrix at a later stage.
   /// May return any of the following canonical error codes: - PERMISSION_DENIED
   /// - if the user is not authorized to read project - INVALID_ARGUMENT - if
   /// the request is malformed - NOT_FOUND - if the Test Matrix does not exist
@@ -256,22 +261,22 @@ class ProjectsTestMatricesResource {
     core.String testMatrixId, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/projects/' +
+    final url_ = 'v1/projects/' +
         commons.escapeVariable('$projectId') +
         '/testMatrices/' +
         commons.escapeVariable('$testMatrixId');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return TestMatrix.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -320,21 +325,21 @@ class TestEnvironmentCatalogResource {
     core.String? projectId,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (projectId != null) 'projectId': [projectId],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/testEnvironmentCatalog/' +
+    final url_ = 'v1/testEnvironmentCatalog/' +
         commons.escapeVariable('$environmentType');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return TestEnvironmentCatalog.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -347,11 +352,11 @@ class Account {
     this.googleAuto,
   });
 
-  Account.fromJson(core.Map _json)
+  Account.fromJson(core.Map json_)
       : this(
-          googleAuto: _json.containsKey('googleAuto')
+          googleAuto: json_.containsKey('googleAuto')
               ? GoogleAuto.fromJson(
-                  _json['googleAuto'] as core.Map<core.String, core.dynamic>)
+                  json_['googleAuto'] as core.Map<core.String, core.dynamic>)
               : null,
         );
 
@@ -397,19 +402,19 @@ class AndroidDevice {
     this.orientation,
   });
 
-  AndroidDevice.fromJson(core.Map _json)
+  AndroidDevice.fromJson(core.Map json_)
       : this(
-          androidModelId: _json.containsKey('androidModelId')
-              ? _json['androidModelId'] as core.String
+          androidModelId: json_.containsKey('androidModelId')
+              ? json_['androidModelId'] as core.String
               : null,
-          androidVersionId: _json.containsKey('androidVersionId')
-              ? _json['androidVersionId'] as core.String
+          androidVersionId: json_.containsKey('androidVersionId')
+              ? json_['androidVersionId'] as core.String
               : null,
-          locale: _json.containsKey('locale')
-              ? _json['locale'] as core.String
+          locale: json_.containsKey('locale')
+              ? json_['locale'] as core.String
               : null,
-          orientation: _json.containsKey('orientation')
-              ? _json['orientation'] as core.String
+          orientation: json_.containsKey('orientation')
+              ? json_['orientation'] as core.String
               : null,
         );
 
@@ -438,21 +443,21 @@ class AndroidDeviceCatalog {
     this.versions,
   });
 
-  AndroidDeviceCatalog.fromJson(core.Map _json)
+  AndroidDeviceCatalog.fromJson(core.Map json_)
       : this(
-          models: _json.containsKey('models')
-              ? (_json['models'] as core.List)
+          models: json_.containsKey('models')
+              ? (json_['models'] as core.List)
                   .map((value) => AndroidModel.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          runtimeConfiguration: _json.containsKey('runtimeConfiguration')
+          runtimeConfiguration: json_.containsKey('runtimeConfiguration')
               ? AndroidRuntimeConfiguration.fromJson(
-                  _json['runtimeConfiguration']
+                  json_['runtimeConfiguration']
                       as core.Map<core.String, core.dynamic>)
               : null,
-          versions: _json.containsKey('versions')
-              ? (_json['versions'] as core.List)
+          versions: json_.containsKey('versions')
+              ? (json_['versions'] as core.List)
                   .map((value) => AndroidVersion.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -478,10 +483,10 @@ class AndroidDeviceList {
     this.androidDevices,
   });
 
-  AndroidDeviceList.fromJson(core.Map _json)
+  AndroidDeviceList.fromJson(core.Map json_)
       : this(
-          androidDevices: _json.containsKey('androidDevices')
-              ? (_json['androidDevices'] as core.List)
+          androidDevices: json_.containsKey('androidDevices')
+              ? (json_['androidDevices'] as core.List)
                   .map((value) => AndroidDevice.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -568,38 +573,38 @@ class AndroidInstrumentationTest {
     this.testTargets,
   });
 
-  AndroidInstrumentationTest.fromJson(core.Map _json)
+  AndroidInstrumentationTest.fromJson(core.Map json_)
       : this(
-          appApk: _json.containsKey('appApk')
+          appApk: json_.containsKey('appApk')
               ? FileReference.fromJson(
-                  _json['appApk'] as core.Map<core.String, core.dynamic>)
+                  json_['appApk'] as core.Map<core.String, core.dynamic>)
               : null,
-          appBundle: _json.containsKey('appBundle')
+          appBundle: json_.containsKey('appBundle')
               ? AppBundle.fromJson(
-                  _json['appBundle'] as core.Map<core.String, core.dynamic>)
+                  json_['appBundle'] as core.Map<core.String, core.dynamic>)
               : null,
-          appPackageId: _json.containsKey('appPackageId')
-              ? _json['appPackageId'] as core.String
+          appPackageId: json_.containsKey('appPackageId')
+              ? json_['appPackageId'] as core.String
               : null,
-          orchestratorOption: _json.containsKey('orchestratorOption')
-              ? _json['orchestratorOption'] as core.String
+          orchestratorOption: json_.containsKey('orchestratorOption')
+              ? json_['orchestratorOption'] as core.String
               : null,
-          shardingOption: _json.containsKey('shardingOption')
-              ? ShardingOption.fromJson(_json['shardingOption']
+          shardingOption: json_.containsKey('shardingOption')
+              ? ShardingOption.fromJson(json_['shardingOption']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          testApk: _json.containsKey('testApk')
+          testApk: json_.containsKey('testApk')
               ? FileReference.fromJson(
-                  _json['testApk'] as core.Map<core.String, core.dynamic>)
+                  json_['testApk'] as core.Map<core.String, core.dynamic>)
               : null,
-          testPackageId: _json.containsKey('testPackageId')
-              ? _json['testPackageId'] as core.String
+          testPackageId: json_.containsKey('testPackageId')
+              ? json_['testPackageId'] as core.String
               : null,
-          testRunnerClass: _json.containsKey('testRunnerClass')
-              ? _json['testRunnerClass'] as core.String
+          testRunnerClass: json_.containsKey('testRunnerClass')
+              ? json_['testRunnerClass'] as core.String
               : null,
-          testTargets: _json.containsKey('testTargets')
-              ? (_json['testTargets'] as core.List)
+          testTargets: json_.containsKey('testTargets')
+              ? (json_['testTargets'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
@@ -661,25 +666,25 @@ class AndroidMatrix {
     this.orientations,
   });
 
-  AndroidMatrix.fromJson(core.Map _json)
+  AndroidMatrix.fromJson(core.Map json_)
       : this(
-          androidModelIds: _json.containsKey('androidModelIds')
-              ? (_json['androidModelIds'] as core.List)
+          androidModelIds: json_.containsKey('androidModelIds')
+              ? (json_['androidModelIds'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
-          androidVersionIds: _json.containsKey('androidVersionIds')
-              ? (_json['androidVersionIds'] as core.List)
+          androidVersionIds: json_.containsKey('androidVersionIds')
+              ? (json_['androidVersionIds'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
-          locales: _json.containsKey('locales')
-              ? (_json['locales'] as core.List)
+          locales: json_.containsKey('locales')
+              ? (json_['locales'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
-          orientations: _json.containsKey('orientations')
-              ? (_json['orientations'] as core.List)
+          orientations: json_.containsKey('orientations')
+              ? (json_['orientations'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
@@ -743,6 +748,9 @@ class AndroidModel {
   /// Examples: "Nexus 5", "Galaxy S5".
   core.String? name;
 
+  /// Version-specific information of an Android model.
+  core.List<PerAndroidVersionInfo>? perVersionInfo;
+
   /// Screen density in DPI.
   ///
   /// This corresponds to ro.sf.lcd_density
@@ -783,6 +791,7 @@ class AndroidModel {
     this.lowFpsVideoRecording,
     this.manufacturer,
     this.name,
+    this.perVersionInfo,
     this.screenDensity,
     this.screenX,
     this.screenY,
@@ -792,51 +801,57 @@ class AndroidModel {
     this.thumbnailUrl,
   });
 
-  AndroidModel.fromJson(core.Map _json)
+  AndroidModel.fromJson(core.Map json_)
       : this(
           brand:
-              _json.containsKey('brand') ? _json['brand'] as core.String : null,
-          codename: _json.containsKey('codename')
-              ? _json['codename'] as core.String
+              json_.containsKey('brand') ? json_['brand'] as core.String : null,
+          codename: json_.containsKey('codename')
+              ? json_['codename'] as core.String
               : null,
-          form: _json.containsKey('form') ? _json['form'] as core.String : null,
-          formFactor: _json.containsKey('formFactor')
-              ? _json['formFactor'] as core.String
+          form: json_.containsKey('form') ? json_['form'] as core.String : null,
+          formFactor: json_.containsKey('formFactor')
+              ? json_['formFactor'] as core.String
               : null,
-          id: _json.containsKey('id') ? _json['id'] as core.String : null,
-          lowFpsVideoRecording: _json.containsKey('lowFpsVideoRecording')
-              ? _json['lowFpsVideoRecording'] as core.bool
+          id: json_.containsKey('id') ? json_['id'] as core.String : null,
+          lowFpsVideoRecording: json_.containsKey('lowFpsVideoRecording')
+              ? json_['lowFpsVideoRecording'] as core.bool
               : null,
-          manufacturer: _json.containsKey('manufacturer')
-              ? _json['manufacturer'] as core.String
+          manufacturer: json_.containsKey('manufacturer')
+              ? json_['manufacturer'] as core.String
               : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
-          screenDensity: _json.containsKey('screenDensity')
-              ? _json['screenDensity'] as core.int
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+          perVersionInfo: json_.containsKey('perVersionInfo')
+              ? (json_['perVersionInfo'] as core.List)
+                  .map((value) => PerAndroidVersionInfo.fromJson(
+                      value as core.Map<core.String, core.dynamic>))
+                  .toList()
               : null,
-          screenX: _json.containsKey('screenX')
-              ? _json['screenX'] as core.int
+          screenDensity: json_.containsKey('screenDensity')
+              ? json_['screenDensity'] as core.int
               : null,
-          screenY: _json.containsKey('screenY')
-              ? _json['screenY'] as core.int
+          screenX: json_.containsKey('screenX')
+              ? json_['screenX'] as core.int
               : null,
-          supportedAbis: _json.containsKey('supportedAbis')
-              ? (_json['supportedAbis'] as core.List)
+          screenY: json_.containsKey('screenY')
+              ? json_['screenY'] as core.int
+              : null,
+          supportedAbis: json_.containsKey('supportedAbis')
+              ? (json_['supportedAbis'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
-          supportedVersionIds: _json.containsKey('supportedVersionIds')
-              ? (_json['supportedVersionIds'] as core.List)
+          supportedVersionIds: json_.containsKey('supportedVersionIds')
+              ? (json_['supportedVersionIds'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
-          tags: _json.containsKey('tags')
-              ? (_json['tags'] as core.List)
+          tags: json_.containsKey('tags')
+              ? (json_['tags'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
-          thumbnailUrl: _json.containsKey('thumbnailUrl')
-              ? _json['thumbnailUrl'] as core.String
+          thumbnailUrl: json_.containsKey('thumbnailUrl')
+              ? json_['thumbnailUrl'] as core.String
               : null,
         );
 
@@ -850,6 +865,7 @@ class AndroidModel {
           'lowFpsVideoRecording': lowFpsVideoRecording!,
         if (manufacturer != null) 'manufacturer': manufacturer!,
         if (name != null) 'name': name!,
+        if (perVersionInfo != null) 'perVersionInfo': perVersionInfo!,
         if (screenDensity != null) 'screenDensity': screenDensity!,
         if (screenX != null) 'screenX': screenX!,
         if (screenY != null) 'screenY': screenY!,
@@ -882,11 +898,17 @@ class AndroidRoboTest {
   ///
   /// Needs to be at least 2 to make Robo explore the app beyond the first
   /// activity. Default is 50.
+  @core.Deprecated(
+    'Not supported. Member documentation may have more information.',
+  )
   core.int? maxDepth;
 
   /// The max number of steps Robo can execute.
   ///
   /// Default is no limit.
+  @core.Deprecated(
+    'Not supported. Member documentation may have more information.',
+  )
   core.int? maxSteps;
 
   /// A set of directives Robo should apply during the crawl.
@@ -931,43 +953,43 @@ class AndroidRoboTest {
     this.startingIntents,
   });
 
-  AndroidRoboTest.fromJson(core.Map _json)
+  AndroidRoboTest.fromJson(core.Map json_)
       : this(
-          appApk: _json.containsKey('appApk')
+          appApk: json_.containsKey('appApk')
               ? FileReference.fromJson(
-                  _json['appApk'] as core.Map<core.String, core.dynamic>)
+                  json_['appApk'] as core.Map<core.String, core.dynamic>)
               : null,
-          appBundle: _json.containsKey('appBundle')
+          appBundle: json_.containsKey('appBundle')
               ? AppBundle.fromJson(
-                  _json['appBundle'] as core.Map<core.String, core.dynamic>)
+                  json_['appBundle'] as core.Map<core.String, core.dynamic>)
               : null,
-          appInitialActivity: _json.containsKey('appInitialActivity')
-              ? _json['appInitialActivity'] as core.String
+          appInitialActivity: json_.containsKey('appInitialActivity')
+              ? json_['appInitialActivity'] as core.String
               : null,
-          appPackageId: _json.containsKey('appPackageId')
-              ? _json['appPackageId'] as core.String
+          appPackageId: json_.containsKey('appPackageId')
+              ? json_['appPackageId'] as core.String
               : null,
-          maxDepth: _json.containsKey('maxDepth')
-              ? _json['maxDepth'] as core.int
+          maxDepth: json_.containsKey('maxDepth')
+              ? json_['maxDepth'] as core.int
               : null,
-          maxSteps: _json.containsKey('maxSteps')
-              ? _json['maxSteps'] as core.int
+          maxSteps: json_.containsKey('maxSteps')
+              ? json_['maxSteps'] as core.int
               : null,
-          roboDirectives: _json.containsKey('roboDirectives')
-              ? (_json['roboDirectives'] as core.List)
+          roboDirectives: json_.containsKey('roboDirectives')
+              ? (json_['roboDirectives'] as core.List)
                   .map((value) => RoboDirective.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          roboMode: _json.containsKey('roboMode')
-              ? _json['roboMode'] as core.String
+          roboMode: json_.containsKey('roboMode')
+              ? json_['roboMode'] as core.String
               : null,
-          roboScript: _json.containsKey('roboScript')
+          roboScript: json_.containsKey('roboScript')
               ? FileReference.fromJson(
-                  _json['roboScript'] as core.Map<core.String, core.dynamic>)
+                  json_['roboScript'] as core.Map<core.String, core.dynamic>)
               : null,
-          startingIntents: _json.containsKey('startingIntents')
-              ? (_json['startingIntents'] as core.List)
+          startingIntents: json_.containsKey('startingIntents')
+              ? (json_['startingIntents'] as core.List)
                   .map((value) => RoboStartingIntent.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -1002,16 +1024,16 @@ class AndroidRuntimeConfiguration {
     this.orientations,
   });
 
-  AndroidRuntimeConfiguration.fromJson(core.Map _json)
+  AndroidRuntimeConfiguration.fromJson(core.Map json_)
       : this(
-          locales: _json.containsKey('locales')
-              ? (_json['locales'] as core.List)
+          locales: json_.containsKey('locales')
+              ? (json_['locales'] as core.List)
                   .map((value) => Locale.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          orientations: _json.containsKey('orientations')
-              ? (_json['orientations'] as core.List)
+          orientations: json_.containsKey('orientations')
+              ? (json_['orientations'] as core.List)
                   .map((value) => Orientation.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -1062,26 +1084,26 @@ class AndroidTestLoop {
     this.scenarios,
   });
 
-  AndroidTestLoop.fromJson(core.Map _json)
+  AndroidTestLoop.fromJson(core.Map json_)
       : this(
-          appApk: _json.containsKey('appApk')
+          appApk: json_.containsKey('appApk')
               ? FileReference.fromJson(
-                  _json['appApk'] as core.Map<core.String, core.dynamic>)
+                  json_['appApk'] as core.Map<core.String, core.dynamic>)
               : null,
-          appBundle: _json.containsKey('appBundle')
+          appBundle: json_.containsKey('appBundle')
               ? AppBundle.fromJson(
-                  _json['appBundle'] as core.Map<core.String, core.dynamic>)
+                  json_['appBundle'] as core.Map<core.String, core.dynamic>)
               : null,
-          appPackageId: _json.containsKey('appPackageId')
-              ? _json['appPackageId'] as core.String
+          appPackageId: json_.containsKey('appPackageId')
+              ? json_['appPackageId'] as core.String
               : null,
-          scenarioLabels: _json.containsKey('scenarioLabels')
-              ? (_json['scenarioLabels'] as core.List)
+          scenarioLabels: json_.containsKey('scenarioLabels')
+              ? (json_['scenarioLabels'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
-          scenarios: _json.containsKey('scenarios')
-              ? (_json['scenarios'] as core.List)
+          scenarios: json_.containsKey('scenarios')
+              ? (json_['scenarios'] as core.List)
                   .map((value) => value as core.int)
                   .toList()
               : null,
@@ -1139,30 +1161,30 @@ class AndroidVersion {
     this.versionString,
   });
 
-  AndroidVersion.fromJson(core.Map _json)
+  AndroidVersion.fromJson(core.Map json_)
       : this(
-          apiLevel: _json.containsKey('apiLevel')
-              ? _json['apiLevel'] as core.int
+          apiLevel: json_.containsKey('apiLevel')
+              ? json_['apiLevel'] as core.int
               : null,
-          codeName: _json.containsKey('codeName')
-              ? _json['codeName'] as core.String
+          codeName: json_.containsKey('codeName')
+              ? json_['codeName'] as core.String
               : null,
-          distribution: _json.containsKey('distribution')
+          distribution: json_.containsKey('distribution')
               ? Distribution.fromJson(
-                  _json['distribution'] as core.Map<core.String, core.dynamic>)
+                  json_['distribution'] as core.Map<core.String, core.dynamic>)
               : null,
-          id: _json.containsKey('id') ? _json['id'] as core.String : null,
-          releaseDate: _json.containsKey('releaseDate')
+          id: json_.containsKey('id') ? json_['id'] as core.String : null,
+          releaseDate: json_.containsKey('releaseDate')
               ? Date.fromJson(
-                  _json['releaseDate'] as core.Map<core.String, core.dynamic>)
+                  json_['releaseDate'] as core.Map<core.String, core.dynamic>)
               : null,
-          tags: _json.containsKey('tags')
-              ? (_json['tags'] as core.List)
+          tags: json_.containsKey('tags')
+              ? (json_['tags'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
-          versionString: _json.containsKey('versionString')
-              ? _json['versionString'] as core.String
+          versionString: json_.containsKey('versionString')
+              ? json_['versionString'] as core.String
               : null,
         );
 
@@ -1192,14 +1214,14 @@ class Apk {
     this.packageName,
   });
 
-  Apk.fromJson(core.Map _json)
+  Apk.fromJson(core.Map json_)
       : this(
-          location: _json.containsKey('location')
+          location: json_.containsKey('location')
               ? FileReference.fromJson(
-                  _json['location'] as core.Map<core.String, core.dynamic>)
+                  json_['location'] as core.Map<core.String, core.dynamic>)
               : null,
-          packageName: _json.containsKey('packageName')
-              ? _json['packageName'] as core.String
+          packageName: json_.containsKey('packageName')
+              ? json_['packageName'] as core.String
               : null,
         );
 
@@ -1218,11 +1240,11 @@ class ApkDetail {
     this.apkManifest,
   });
 
-  ApkDetail.fromJson(core.Map _json)
+  ApkDetail.fromJson(core.Map json_)
       : this(
-          apkManifest: _json.containsKey('apkManifest')
+          apkManifest: json_.containsKey('apkManifest')
               ? ApkManifest.fromJson(
-                  _json['apkManifest'] as core.Map<core.String, core.dynamic>)
+                  json_['apkManifest'] as core.Map<core.String, core.dynamic>)
               : null,
         );
 
@@ -1242,55 +1264,99 @@ class ApkManifest {
   /// Maximum API level on which the application is designed to run.
   core.int? maxSdkVersion;
 
+  /// Meta-data tags defined in the manifest.
+  core.List<Metadata>? metadata;
+
   /// Minimum API level required for the application to run.
   core.int? minSdkVersion;
 
   /// Full Java-style package name for this application, e.g. "com.example.foo".
   core.String? packageName;
 
+  /// Services contained in the tag.
+  core.List<Service>? services;
+
   /// Specifies the API Level on which the application is designed to run.
   core.int? targetSdkVersion;
 
+  /// Feature usage tags defined in the manifest.
+  core.List<UsesFeature>? usesFeature;
+
   /// Permissions declared to be used by the application
   core.List<core.String>? usesPermission;
+
+  /// Version number used internally by the app.
+  core.String? versionCode;
+
+  /// Version number shown to users.
+  core.String? versionName;
 
   ApkManifest({
     this.applicationLabel,
     this.intentFilters,
     this.maxSdkVersion,
+    this.metadata,
     this.minSdkVersion,
     this.packageName,
+    this.services,
     this.targetSdkVersion,
+    this.usesFeature,
     this.usesPermission,
+    this.versionCode,
+    this.versionName,
   });
 
-  ApkManifest.fromJson(core.Map _json)
+  ApkManifest.fromJson(core.Map json_)
       : this(
-          applicationLabel: _json.containsKey('applicationLabel')
-              ? _json['applicationLabel'] as core.String
+          applicationLabel: json_.containsKey('applicationLabel')
+              ? json_['applicationLabel'] as core.String
               : null,
-          intentFilters: _json.containsKey('intentFilters')
-              ? (_json['intentFilters'] as core.List)
+          intentFilters: json_.containsKey('intentFilters')
+              ? (json_['intentFilters'] as core.List)
                   .map((value) => IntentFilter.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          maxSdkVersion: _json.containsKey('maxSdkVersion')
-              ? _json['maxSdkVersion'] as core.int
+          maxSdkVersion: json_.containsKey('maxSdkVersion')
+              ? json_['maxSdkVersion'] as core.int
               : null,
-          minSdkVersion: _json.containsKey('minSdkVersion')
-              ? _json['minSdkVersion'] as core.int
+          metadata: json_.containsKey('metadata')
+              ? (json_['metadata'] as core.List)
+                  .map((value) => Metadata.fromJson(
+                      value as core.Map<core.String, core.dynamic>))
+                  .toList()
               : null,
-          packageName: _json.containsKey('packageName')
-              ? _json['packageName'] as core.String
+          minSdkVersion: json_.containsKey('minSdkVersion')
+              ? json_['minSdkVersion'] as core.int
               : null,
-          targetSdkVersion: _json.containsKey('targetSdkVersion')
-              ? _json['targetSdkVersion'] as core.int
+          packageName: json_.containsKey('packageName')
+              ? json_['packageName'] as core.String
               : null,
-          usesPermission: _json.containsKey('usesPermission')
-              ? (_json['usesPermission'] as core.List)
+          services: json_.containsKey('services')
+              ? (json_['services'] as core.List)
+                  .map((value) => Service.fromJson(
+                      value as core.Map<core.String, core.dynamic>))
+                  .toList()
+              : null,
+          targetSdkVersion: json_.containsKey('targetSdkVersion')
+              ? json_['targetSdkVersion'] as core.int
+              : null,
+          usesFeature: json_.containsKey('usesFeature')
+              ? (json_['usesFeature'] as core.List)
+                  .map((value) => UsesFeature.fromJson(
+                      value as core.Map<core.String, core.dynamic>))
+                  .toList()
+              : null,
+          usesPermission: json_.containsKey('usesPermission')
+              ? (json_['usesPermission'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
+              : null,
+          versionCode: json_.containsKey('versionCode')
+              ? json_['versionCode'] as core.String
+              : null,
+          versionName: json_.containsKey('versionName')
+              ? json_['versionName'] as core.String
               : null,
         );
 
@@ -1298,10 +1364,15 @@ class ApkManifest {
         if (applicationLabel != null) 'applicationLabel': applicationLabel!,
         if (intentFilters != null) 'intentFilters': intentFilters!,
         if (maxSdkVersion != null) 'maxSdkVersion': maxSdkVersion!,
+        if (metadata != null) 'metadata': metadata!,
         if (minSdkVersion != null) 'minSdkVersion': minSdkVersion!,
         if (packageName != null) 'packageName': packageName!,
+        if (services != null) 'services': services!,
         if (targetSdkVersion != null) 'targetSdkVersion': targetSdkVersion!,
+        if (usesFeature != null) 'usesFeature': usesFeature!,
         if (usesPermission != null) 'usesPermission': usesPermission!,
+        if (versionCode != null) 'versionCode': versionCode!,
+        if (versionName != null) 'versionName': versionName!,
       };
 }
 
@@ -1318,10 +1389,10 @@ class AppBundle {
     this.bundleLocation,
   });
 
-  AppBundle.fromJson(core.Map _json)
+  AppBundle.fromJson(core.Map json_)
       : this(
-          bundleLocation: _json.containsKey('bundleLocation')
-              ? FileReference.fromJson(_json['bundleLocation']
+          bundleLocation: json_.containsKey('bundleLocation')
+              ? FileReference.fromJson(json_['bundleLocation']
                   as core.Map<core.String, core.dynamic>)
               : null,
         );
@@ -1370,10 +1441,10 @@ class CancelTestMatrixResponse {
     this.testState,
   });
 
-  CancelTestMatrixResponse.fromJson(core.Map _json)
+  CancelTestMatrixResponse.fromJson(core.Map json_)
       : this(
-          testState: _json.containsKey('testState')
-              ? _json['testState'] as core.String
+          testState: json_.containsKey('testState')
+              ? json_['testState'] as core.String
               : null,
         );
 
@@ -1397,15 +1468,15 @@ class ClientInfo {
     this.name,
   });
 
-  ClientInfo.fromJson(core.Map _json)
+  ClientInfo.fromJson(core.Map json_)
       : this(
-          clientInfoDetails: _json.containsKey('clientInfoDetails')
-              ? (_json['clientInfoDetails'] as core.List)
+          clientInfoDetails: json_.containsKey('clientInfoDetails')
+              ? (json_['clientInfoDetails'] as core.List)
                   .map((value) => ClientInfoDetail.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
@@ -1434,11 +1505,11 @@ class ClientInfoDetail {
     this.value,
   });
 
-  ClientInfoDetail.fromJson(core.Map _json)
+  ClientInfoDetail.fromJson(core.Map json_)
       : this(
-          key: _json.containsKey('key') ? _json['key'] as core.String : null,
+          key: json_.containsKey('key') ? json_['key'] as core.String : null,
           value:
-              _json.containsKey('value') ? _json['value'] as core.String : null,
+              json_.containsKey('value') ? json_['value'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
@@ -1472,15 +1543,15 @@ class DeviceFile {
     this.regularFile,
   });
 
-  DeviceFile.fromJson(core.Map _json)
+  DeviceFile.fromJson(core.Map json_)
       : this(
-          obbFile: _json.containsKey('obbFile')
+          obbFile: json_.containsKey('obbFile')
               ? ObbFile.fromJson(
-                  _json['obbFile'] as core.Map<core.String, core.dynamic>)
+                  json_['obbFile'] as core.Map<core.String, core.dynamic>)
               : null,
-          regularFile: _json.containsKey('regularFile')
+          regularFile: json_.containsKey('regularFile')
               ? RegularFile.fromJson(
-                  _json['regularFile'] as core.Map<core.String, core.dynamic>)
+                  json_['regularFile'] as core.Map<core.String, core.dynamic>)
               : null,
         );
 
@@ -1514,15 +1585,15 @@ class DeviceIpBlock {
     this.form,
   });
 
-  DeviceIpBlock.fromJson(core.Map _json)
+  DeviceIpBlock.fromJson(core.Map json_)
       : this(
-          addedDate: _json.containsKey('addedDate')
+          addedDate: json_.containsKey('addedDate')
               ? Date.fromJson(
-                  _json['addedDate'] as core.Map<core.String, core.dynamic>)
+                  json_['addedDate'] as core.Map<core.String, core.dynamic>)
               : null,
           block:
-              _json.containsKey('block') ? _json['block'] as core.String : null,
-          form: _json.containsKey('form') ? _json['form'] as core.String : null,
+              json_.containsKey('block') ? json_['block'] as core.String : null,
+          form: json_.containsKey('form') ? json_['form'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
@@ -1541,10 +1612,10 @@ class DeviceIpBlockCatalog {
     this.ipBlocks,
   });
 
-  DeviceIpBlockCatalog.fromJson(core.Map _json)
+  DeviceIpBlockCatalog.fromJson(core.Map json_)
       : this(
-          ipBlocks: _json.containsKey('ipBlocks')
-              ? (_json['ipBlocks'] as core.List)
+          ipBlocks: json_.containsKey('ipBlocks')
+              ? (json_['ipBlocks'] as core.List)
                   .map((value) => DeviceIpBlock.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -1574,13 +1645,13 @@ class Distribution {
     this.measurementTime,
   });
 
-  Distribution.fromJson(core.Map _json)
+  Distribution.fromJson(core.Map json_)
       : this(
-          marketShare: _json.containsKey('marketShare')
-              ? (_json['marketShare'] as core.num).toDouble()
+          marketShare: json_.containsKey('marketShare')
+              ? (json_['marketShare'] as core.num).toDouble()
               : null,
-          measurementTime: _json.containsKey('measurementTime')
-              ? _json['measurementTime'] as core.String
+          measurementTime: json_.containsKey('measurementTime')
+              ? json_['measurementTime'] as core.String
               : null,
         );
 
@@ -1603,15 +1674,15 @@ class Environment {
     this.iosDevice,
   });
 
-  Environment.fromJson(core.Map _json)
+  Environment.fromJson(core.Map json_)
       : this(
-          androidDevice: _json.containsKey('androidDevice')
+          androidDevice: json_.containsKey('androidDevice')
               ? AndroidDevice.fromJson(
-                  _json['androidDevice'] as core.Map<core.String, core.dynamic>)
+                  json_['androidDevice'] as core.Map<core.String, core.dynamic>)
               : null,
-          iosDevice: _json.containsKey('iosDevice')
+          iosDevice: json_.containsKey('iosDevice')
               ? IosDevice.fromJson(
-                  _json['iosDevice'] as core.Map<core.String, core.dynamic>)
+                  json_['iosDevice'] as core.Map<core.String, core.dynamic>)
               : null,
         );
 
@@ -1639,19 +1710,19 @@ class EnvironmentMatrix {
     this.iosDeviceList,
   });
 
-  EnvironmentMatrix.fromJson(core.Map _json)
+  EnvironmentMatrix.fromJson(core.Map json_)
       : this(
-          androidDeviceList: _json.containsKey('androidDeviceList')
-              ? AndroidDeviceList.fromJson(_json['androidDeviceList']
+          androidDeviceList: json_.containsKey('androidDeviceList')
+              ? AndroidDeviceList.fromJson(json_['androidDeviceList']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          androidMatrix: _json.containsKey('androidMatrix')
+          androidMatrix: json_.containsKey('androidMatrix')
               ? AndroidMatrix.fromJson(
-                  _json['androidMatrix'] as core.Map<core.String, core.dynamic>)
+                  json_['androidMatrix'] as core.Map<core.String, core.dynamic>)
               : null,
-          iosDeviceList: _json.containsKey('iosDeviceList')
+          iosDeviceList: json_.containsKey('iosDeviceList')
               ? IosDeviceList.fromJson(
-                  _json['iosDeviceList'] as core.Map<core.String, core.dynamic>)
+                  json_['iosDeviceList'] as core.Map<core.String, core.dynamic>)
               : null,
         );
 
@@ -1675,11 +1746,11 @@ class EnvironmentVariable {
     this.value,
   });
 
-  EnvironmentVariable.fromJson(core.Map _json)
+  EnvironmentVariable.fromJson(core.Map json_)
       : this(
-          key: _json.containsKey('key') ? _json['key'] as core.String : null,
+          key: json_.containsKey('key') ? json_['key'] as core.String : null,
           value:
-              _json.containsKey('value') ? _json['value'] as core.String : null,
+              json_.containsKey('value') ? json_['value'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
@@ -1700,10 +1771,10 @@ class FileReference {
     this.gcsPath,
   });
 
-  FileReference.fromJson(core.Map _json)
+  FileReference.fromJson(core.Map json_)
       : this(
-          gcsPath: _json.containsKey('gcsPath')
-              ? _json['gcsPath'] as core.String
+          gcsPath: json_.containsKey('gcsPath')
+              ? json_['gcsPath'] as core.String
               : null,
         );
 
@@ -1721,11 +1792,11 @@ class GetApkDetailsResponse {
     this.apkDetail,
   });
 
-  GetApkDetailsResponse.fromJson(core.Map _json)
+  GetApkDetailsResponse.fromJson(core.Map json_)
       : this(
-          apkDetail: _json.containsKey('apkDetail')
+          apkDetail: json_.containsKey('apkDetail')
               ? ApkDetail.fromJson(
-                  _json['apkDetail'] as core.Map<core.String, core.dynamic>)
+                  json_['apkDetail'] as core.Map<core.String, core.dynamic>)
               : null,
         );
 
@@ -1758,10 +1829,10 @@ class GoogleCloudStorage {
     this.gcsPath,
   });
 
-  GoogleCloudStorage.fromJson(core.Map _json)
+  GoogleCloudStorage.fromJson(core.Map json_)
       : this(
-          gcsPath: _json.containsKey('gcsPath')
-              ? _json['gcsPath'] as core.String
+          gcsPath: json_.containsKey('gcsPath')
+              ? json_['gcsPath'] as core.String
               : null,
         );
 
@@ -1789,20 +1860,20 @@ class IntentFilter {
     this.mimeType,
   });
 
-  IntentFilter.fromJson(core.Map _json)
+  IntentFilter.fromJson(core.Map json_)
       : this(
-          actionNames: _json.containsKey('actionNames')
-              ? (_json['actionNames'] as core.List)
+          actionNames: json_.containsKey('actionNames')
+              ? (json_['actionNames'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
-          categoryNames: _json.containsKey('categoryNames')
-              ? (_json['categoryNames'] as core.List)
+          categoryNames: json_.containsKey('categoryNames')
+              ? (json_['categoryNames'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
-          mimeType: _json.containsKey('mimeType')
-              ? _json['mimeType'] as core.String
+          mimeType: json_.containsKey('mimeType')
+              ? json_['mimeType'] as core.String
               : null,
         );
 
@@ -1850,19 +1921,19 @@ class IosDevice {
     this.orientation,
   });
 
-  IosDevice.fromJson(core.Map _json)
+  IosDevice.fromJson(core.Map json_)
       : this(
-          iosModelId: _json.containsKey('iosModelId')
-              ? _json['iosModelId'] as core.String
+          iosModelId: json_.containsKey('iosModelId')
+              ? json_['iosModelId'] as core.String
               : null,
-          iosVersionId: _json.containsKey('iosVersionId')
-              ? _json['iosVersionId'] as core.String
+          iosVersionId: json_.containsKey('iosVersionId')
+              ? json_['iosVersionId'] as core.String
               : null,
-          locale: _json.containsKey('locale')
-              ? _json['locale'] as core.String
+          locale: json_.containsKey('locale')
+              ? json_['locale'] as core.String
               : null,
-          orientation: _json.containsKey('orientation')
-              ? _json['orientation'] as core.String
+          orientation: json_.containsKey('orientation')
+              ? json_['orientation'] as core.String
               : null,
         );
 
@@ -1895,26 +1966,26 @@ class IosDeviceCatalog {
     this.xcodeVersions,
   });
 
-  IosDeviceCatalog.fromJson(core.Map _json)
+  IosDeviceCatalog.fromJson(core.Map json_)
       : this(
-          models: _json.containsKey('models')
-              ? (_json['models'] as core.List)
+          models: json_.containsKey('models')
+              ? (json_['models'] as core.List)
                   .map((value) => IosModel.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          runtimeConfiguration: _json.containsKey('runtimeConfiguration')
-              ? IosRuntimeConfiguration.fromJson(_json['runtimeConfiguration']
+          runtimeConfiguration: json_.containsKey('runtimeConfiguration')
+              ? IosRuntimeConfiguration.fromJson(json_['runtimeConfiguration']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          versions: _json.containsKey('versions')
-              ? (_json['versions'] as core.List)
+          versions: json_.containsKey('versions')
+              ? (json_['versions'] as core.List)
                   .map((value) => IosVersion.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          xcodeVersions: _json.containsKey('xcodeVersions')
-              ? (_json['xcodeVersions'] as core.List)
+          xcodeVersions: json_.containsKey('xcodeVersions')
+              ? (json_['xcodeVersions'] as core.List)
                   .map((value) => XcodeVersion.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -1950,17 +2021,17 @@ class IosDeviceFile {
     this.devicePath,
   });
 
-  IosDeviceFile.fromJson(core.Map _json)
+  IosDeviceFile.fromJson(core.Map json_)
       : this(
-          bundleId: _json.containsKey('bundleId')
-              ? _json['bundleId'] as core.String
+          bundleId: json_.containsKey('bundleId')
+              ? json_['bundleId'] as core.String
               : null,
-          content: _json.containsKey('content')
+          content: json_.containsKey('content')
               ? FileReference.fromJson(
-                  _json['content'] as core.Map<core.String, core.dynamic>)
+                  json_['content'] as core.Map<core.String, core.dynamic>)
               : null,
-          devicePath: _json.containsKey('devicePath')
-              ? _json['devicePath'] as core.String
+          devicePath: json_.containsKey('devicePath')
+              ? json_['devicePath'] as core.String
               : null,
         );
 
@@ -1982,10 +2053,10 @@ class IosDeviceList {
     this.iosDevices,
   });
 
-  IosDeviceList.fromJson(core.Map _json)
+  IosDeviceList.fromJson(core.Map json_)
       : this(
-          iosDevices: _json.containsKey('iosDevices')
-              ? (_json['iosDevices'] as core.List)
+          iosDevices: json_.containsKey('iosDevices')
+              ? (json_['iosDevices'] as core.List)
                   .map((value) => IosDevice.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -2024,6 +2095,9 @@ class IosModel {
   /// Examples: "iPhone 4s", "iPad Mini 2".
   core.String? name;
 
+  /// Version-specific information of an iOS model.
+  core.List<PerIosVersionInfo>? perVersionInfo;
+
   /// Screen density in DPI.
   core.int? screenDensity;
 
@@ -2046,6 +2120,7 @@ class IosModel {
     this.formFactor,
     this.id,
     this.name,
+    this.perVersionInfo,
     this.screenDensity,
     this.screenX,
     this.screenY,
@@ -2053,34 +2128,40 @@ class IosModel {
     this.tags,
   });
 
-  IosModel.fromJson(core.Map _json)
+  IosModel.fromJson(core.Map json_)
       : this(
-          deviceCapabilities: _json.containsKey('deviceCapabilities')
-              ? (_json['deviceCapabilities'] as core.List)
+          deviceCapabilities: json_.containsKey('deviceCapabilities')
+              ? (json_['deviceCapabilities'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
-          formFactor: _json.containsKey('formFactor')
-              ? _json['formFactor'] as core.String
+          formFactor: json_.containsKey('formFactor')
+              ? json_['formFactor'] as core.String
               : null,
-          id: _json.containsKey('id') ? _json['id'] as core.String : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
-          screenDensity: _json.containsKey('screenDensity')
-              ? _json['screenDensity'] as core.int
+          id: json_.containsKey('id') ? json_['id'] as core.String : null,
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+          perVersionInfo: json_.containsKey('perVersionInfo')
+              ? (json_['perVersionInfo'] as core.List)
+                  .map((value) => PerIosVersionInfo.fromJson(
+                      value as core.Map<core.String, core.dynamic>))
+                  .toList()
               : null,
-          screenX: _json.containsKey('screenX')
-              ? _json['screenX'] as core.int
+          screenDensity: json_.containsKey('screenDensity')
+              ? json_['screenDensity'] as core.int
               : null,
-          screenY: _json.containsKey('screenY')
-              ? _json['screenY'] as core.int
+          screenX: json_.containsKey('screenX')
+              ? json_['screenX'] as core.int
               : null,
-          supportedVersionIds: _json.containsKey('supportedVersionIds')
-              ? (_json['supportedVersionIds'] as core.List)
+          screenY: json_.containsKey('screenY')
+              ? json_['screenY'] as core.int
+              : null,
+          supportedVersionIds: json_.containsKey('supportedVersionIds')
+              ? (json_['supportedVersionIds'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
-          tags: _json.containsKey('tags')
-              ? (_json['tags'] as core.List)
+          tags: json_.containsKey('tags')
+              ? (json_['tags'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
@@ -2092,12 +2173,60 @@ class IosModel {
         if (formFactor != null) 'formFactor': formFactor!,
         if (id != null) 'id': id!,
         if (name != null) 'name': name!,
+        if (perVersionInfo != null) 'perVersionInfo': perVersionInfo!,
         if (screenDensity != null) 'screenDensity': screenDensity!,
         if (screenX != null) 'screenX': screenX!,
         if (screenY != null) 'screenY': screenY!,
         if (supportedVersionIds != null)
           'supportedVersionIds': supportedVersionIds!,
         if (tags != null) 'tags': tags!,
+      };
+}
+
+/// A test that explores an iOS application on an iOS device.
+class IosRoboTest {
+  /// The bundle ID for the app-under-test.
+  ///
+  /// This is determined by examining the application's "Info.plist" file.
+  core.String? appBundleId;
+
+  /// The ipa stored at this file should be used to run the test.
+  ///
+  /// Required.
+  FileReference? appIpa;
+
+  /// An optional Roboscript to customize the crawl.
+  ///
+  /// See
+  /// https://firebase.google.com/docs/test-lab/android/robo-scripts-reference
+  /// for more information about Roboscripts.
+  FileReference? roboScript;
+
+  IosRoboTest({
+    this.appBundleId,
+    this.appIpa,
+    this.roboScript,
+  });
+
+  IosRoboTest.fromJson(core.Map json_)
+      : this(
+          appBundleId: json_.containsKey('appBundleId')
+              ? json_['appBundleId'] as core.String
+              : null,
+          appIpa: json_.containsKey('appIpa')
+              ? FileReference.fromJson(
+                  json_['appIpa'] as core.Map<core.String, core.dynamic>)
+              : null,
+          roboScript: json_.containsKey('roboScript')
+              ? FileReference.fromJson(
+                  json_['roboScript'] as core.Map<core.String, core.dynamic>)
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (appBundleId != null) 'appBundleId': appBundleId!,
+        if (appIpa != null) 'appIpa': appIpa!,
+        if (roboScript != null) 'roboScript': roboScript!,
       };
 }
 
@@ -2114,16 +2243,16 @@ class IosRuntimeConfiguration {
     this.orientations,
   });
 
-  IosRuntimeConfiguration.fromJson(core.Map _json)
+  IosRuntimeConfiguration.fromJson(core.Map json_)
       : this(
-          locales: _json.containsKey('locales')
-              ? (_json['locales'] as core.List)
+          locales: json_.containsKey('locales')
+              ? (json_['locales'] as core.List)
                   .map((value) => Locale.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          orientations: _json.containsKey('orientations')
-              ? (_json['orientations'] as core.List)
+          orientations: json_.containsKey('orientations')
+              ? (json_['orientations'] as core.List)
                   .map((value) => Orientation.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -2163,17 +2292,17 @@ class IosTestLoop {
     this.scenarios,
   });
 
-  IosTestLoop.fromJson(core.Map _json)
+  IosTestLoop.fromJson(core.Map json_)
       : this(
-          appBundleId: _json.containsKey('appBundleId')
-              ? _json['appBundleId'] as core.String
+          appBundleId: json_.containsKey('appBundleId')
+              ? json_['appBundleId'] as core.String
               : null,
-          appIpa: _json.containsKey('appIpa')
+          appIpa: json_.containsKey('appIpa')
               ? FileReference.fromJson(
-                  _json['appIpa'] as core.Map<core.String, core.dynamic>)
+                  json_['appIpa'] as core.Map<core.String, core.dynamic>)
               : null,
-          scenarios: _json.containsKey('scenarios')
-              ? (_json['scenarios'] as core.List)
+          scenarios: json_.containsKey('scenarios')
+              ? (json_['scenarios'] as core.List)
                   .map((value) => value as core.int)
                   .toList()
               : null,
@@ -2216,25 +2345,25 @@ class IosTestSetup {
     this.pushFiles,
   });
 
-  IosTestSetup.fromJson(core.Map _json)
+  IosTestSetup.fromJson(core.Map json_)
       : this(
-          additionalIpas: _json.containsKey('additionalIpas')
-              ? (_json['additionalIpas'] as core.List)
+          additionalIpas: json_.containsKey('additionalIpas')
+              ? (json_['additionalIpas'] as core.List)
                   .map((value) => FileReference.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          networkProfile: _json.containsKey('networkProfile')
-              ? _json['networkProfile'] as core.String
+          networkProfile: json_.containsKey('networkProfile')
+              ? json_['networkProfile'] as core.String
               : null,
-          pullDirectories: _json.containsKey('pullDirectories')
-              ? (_json['pullDirectories'] as core.List)
+          pullDirectories: json_.containsKey('pullDirectories')
+              ? (json_['pullDirectories'] as core.List)
                   .map((value) => IosDeviceFile.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          pushFiles: _json.containsKey('pushFiles')
-              ? (_json['pushFiles'] as core.List)
+          pushFiles: json_.containsKey('pushFiles')
+              ? (json_['pushFiles'] as core.List)
                   .map((value) => IosDeviceFile.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -2282,23 +2411,23 @@ class IosVersion {
     this.tags,
   });
 
-  IosVersion.fromJson(core.Map _json)
+  IosVersion.fromJson(core.Map json_)
       : this(
-          id: _json.containsKey('id') ? _json['id'] as core.String : null,
-          majorVersion: _json.containsKey('majorVersion')
-              ? _json['majorVersion'] as core.int
+          id: json_.containsKey('id') ? json_['id'] as core.String : null,
+          majorVersion: json_.containsKey('majorVersion')
+              ? json_['majorVersion'] as core.int
               : null,
-          minorVersion: _json.containsKey('minorVersion')
-              ? _json['minorVersion'] as core.int
+          minorVersion: json_.containsKey('minorVersion')
+              ? json_['minorVersion'] as core.int
               : null,
           supportedXcodeVersionIds:
-              _json.containsKey('supportedXcodeVersionIds')
-                  ? (_json['supportedXcodeVersionIds'] as core.List)
+              json_.containsKey('supportedXcodeVersionIds')
+                  ? (json_['supportedXcodeVersionIds'] as core.List)
                       .map((value) => value as core.String)
                       .toList()
                   : null,
-          tags: _json.containsKey('tags')
-              ? (_json['tags'] as core.List)
+          tags: json_.containsKey('tags')
+              ? (json_['tags'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
@@ -2365,24 +2494,24 @@ class IosXcTest {
     this.xctestrun,
   });
 
-  IosXcTest.fromJson(core.Map _json)
+  IosXcTest.fromJson(core.Map json_)
       : this(
-          appBundleId: _json.containsKey('appBundleId')
-              ? _json['appBundleId'] as core.String
+          appBundleId: json_.containsKey('appBundleId')
+              ? json_['appBundleId'] as core.String
               : null,
-          testSpecialEntitlements: _json.containsKey('testSpecialEntitlements')
-              ? _json['testSpecialEntitlements'] as core.bool
+          testSpecialEntitlements: json_.containsKey('testSpecialEntitlements')
+              ? json_['testSpecialEntitlements'] as core.bool
               : null,
-          testsZip: _json.containsKey('testsZip')
+          testsZip: json_.containsKey('testsZip')
               ? FileReference.fromJson(
-                  _json['testsZip'] as core.Map<core.String, core.dynamic>)
+                  json_['testsZip'] as core.Map<core.String, core.dynamic>)
               : null,
-          xcodeVersion: _json.containsKey('xcodeVersion')
-              ? _json['xcodeVersion'] as core.String
+          xcodeVersion: json_.containsKey('xcodeVersion')
+              ? json_['xcodeVersion'] as core.String
               : null,
-          xctestrun: _json.containsKey('xctestrun')
+          xctestrun: json_.containsKey('xctestrun')
               ? FileReference.fromJson(
-                  _json['xctestrun'] as core.Map<core.String, core.dynamic>)
+                  json_['xctestrun'] as core.Map<core.String, core.dynamic>)
               : null,
         );
 
@@ -2428,15 +2557,15 @@ class Locale {
     this.tags,
   });
 
-  Locale.fromJson(core.Map _json)
+  Locale.fromJson(core.Map json_)
       : this(
-          id: _json.containsKey('id') ? _json['id'] as core.String : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
-          region: _json.containsKey('region')
-              ? _json['region'] as core.String
+          id: json_.containsKey('id') ? json_['id'] as core.String : null,
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+          region: json_.containsKey('region')
+              ? json_['region'] as core.String
               : null,
-          tags: _json.containsKey('tags')
-              ? (_json['tags'] as core.List)
+          tags: json_.containsKey('tags')
+              ? (json_['tags'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
@@ -2456,11 +2585,14 @@ class Locale {
 /// With manual sharding enabled, specifying test targets via
 /// environment_variables or in InstrumentationTest is invalid.
 class ManualSharding {
-  /// Group of packages, classes, and/or test methods to be run for each shard.
+  /// Group of packages, classes, and/or test methods to be run for each
+  /// manually-created shard.
   ///
-  /// When any physical devices are selected, the number of
-  /// test_targets_for_shard must be \>= 1 and \<= 50. When no physical devices
-  /// are selected, the number must be \>= 1 and \<= 500.
+  /// You must specify at least one shard if this field is present. When you
+  /// select one or more physical devices, the number of repeated
+  /// test_targets_for_shard must be \<= 50. When you select one or more ARM
+  /// virtual devices, it must be \<= 100. When you select only x86 virtual
+  /// devices, it must be \<= 500.
   ///
   /// Required.
   core.List<TestTargetsForShard>? testTargetsForShard;
@@ -2469,10 +2601,10 @@ class ManualSharding {
     this.testTargetsForShard,
   });
 
-  ManualSharding.fromJson(core.Map _json)
+  ManualSharding.fromJson(core.Map json_)
       : this(
-          testTargetsForShard: _json.containsKey('testTargetsForShard')
-              ? (_json['testTargetsForShard'] as core.List)
+          testTargetsForShard: json_.containsKey('testTargetsForShard')
+              ? (json_['testTargetsForShard'] as core.List)
                   .map((value) => TestTargetsForShard.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -2482,6 +2614,34 @@ class ManualSharding {
   core.Map<core.String, core.dynamic> toJson() => {
         if (testTargetsForShard != null)
           'testTargetsForShard': testTargetsForShard!,
+      };
+}
+
+/// A tag within a manifest.
+///
+/// https://developer.android.com/guide/topics/manifest/meta-data-element.html
+class Metadata {
+  /// The android:name value
+  core.String? name;
+
+  /// The android:value value
+  core.String? value;
+
+  Metadata({
+    this.name,
+    this.value,
+  });
+
+  Metadata.fromJson(core.Map json_)
+      : this(
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+          value:
+              json_.containsKey('value') ? json_['value'] as core.String : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (name != null) 'name': name!,
+        if (value != null) 'value': value!,
       };
 }
 
@@ -2501,16 +2661,16 @@ class NetworkConfiguration {
     this.upRule,
   });
 
-  NetworkConfiguration.fromJson(core.Map _json)
+  NetworkConfiguration.fromJson(core.Map json_)
       : this(
-          downRule: _json.containsKey('downRule')
+          downRule: json_.containsKey('downRule')
               ? TrafficRule.fromJson(
-                  _json['downRule'] as core.Map<core.String, core.dynamic>)
+                  json_['downRule'] as core.Map<core.String, core.dynamic>)
               : null,
-          id: _json.containsKey('id') ? _json['id'] as core.String : null,
-          upRule: _json.containsKey('upRule')
+          id: json_.containsKey('id') ? json_['id'] as core.String : null,
+          upRule: json_.containsKey('upRule')
               ? TrafficRule.fromJson(
-                  _json['upRule'] as core.Map<core.String, core.dynamic>)
+                  json_['upRule'] as core.Map<core.String, core.dynamic>)
               : null,
         );
 
@@ -2528,10 +2688,10 @@ class NetworkConfigurationCatalog {
     this.configurations,
   });
 
-  NetworkConfigurationCatalog.fromJson(core.Map _json)
+  NetworkConfigurationCatalog.fromJson(core.Map json_)
       : this(
-          configurations: _json.containsKey('configurations')
-              ? (_json['configurations'] as core.List)
+          configurations: json_.containsKey('configurations')
+              ? (json_['configurations'] as core.List)
                   .map((value) => NetworkConfiguration.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -2542,6 +2702,9 @@ class NetworkConfigurationCatalog {
         if (configurations != null) 'configurations': configurations!,
       };
 }
+
+/// Skips the starting activity
+typedef NoActivityIntent = $Empty;
 
 /// An opaque binary blob file to install on the device before the test starts.
 class ObbFile {
@@ -2562,14 +2725,14 @@ class ObbFile {
     this.obbFileName,
   });
 
-  ObbFile.fromJson(core.Map _json)
+  ObbFile.fromJson(core.Map json_)
       : this(
-          obb: _json.containsKey('obb')
+          obb: json_.containsKey('obb')
               ? FileReference.fromJson(
-                  _json['obb'] as core.Map<core.String, core.dynamic>)
+                  json_['obb'] as core.Map<core.String, core.dynamic>)
               : null,
-          obbFileName: _json.containsKey('obbFileName')
-              ? _json['obbFileName'] as core.String
+          obbFileName: json_.containsKey('obbFileName')
+              ? json_['obbFileName'] as core.String
               : null,
         );
 
@@ -2602,12 +2765,12 @@ class Orientation {
     this.tags,
   });
 
-  Orientation.fromJson(core.Map _json)
+  Orientation.fromJson(core.Map json_)
       : this(
-          id: _json.containsKey('id') ? _json['id'] as core.String : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
-          tags: _json.containsKey('tags')
-              ? (_json['tags'] as core.List)
+          id: json_.containsKey('id') ? json_['id'] as core.String : null,
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+          tags: json_.containsKey('tags')
+              ? (json_['tags'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
@@ -2617,6 +2780,114 @@ class Orientation {
         if (id != null) 'id': id!,
         if (name != null) 'name': name!,
         if (tags != null) 'tags': tags!,
+      };
+}
+
+/// A version-specific information of an Android model.
+class PerAndroidVersionInfo {
+  /// The number of online devices for an Android version.
+  /// Possible string values are:
+  /// - "DEVICE_CAPACITY_UNSPECIFIED" : The value of device capacity is unknown
+  /// or unset.
+  /// - "DEVICE_CAPACITY_HIGH" : Devices that are high in capacity (The lab has
+  /// a large number of these devices). These devices are generally suggested
+  /// for running a large number of simultaneous tests (e.g. more than 100
+  /// tests). Please note that high capacity devices do not guarantee short wait
+  /// times due to several factors: 1. Traffic (how heavily they are used at any
+  /// given moment) 2. High capacity devices are prioritized for certain usages,
+  /// which may cause user tests to be slower than selecting other similar
+  /// device types.
+  /// - "DEVICE_CAPACITY_MEDIUM" : Devices that are medium in capacity (The lab
+  /// has a decent number of these devices, though not as many as high capacity
+  /// devices). These devices are suitable for fewer test runs (e.g. fewer than
+  /// 100 tests) and only for low shard counts (e.g. less than 10 shards).
+  /// - "DEVICE_CAPACITY_LOW" : Devices that are low in capacity (The lab has a
+  /// small number of these devices). These devices may be used if users need to
+  /// test on this specific device model and version. Please note that due to
+  /// low capacity, the tests may take much longer to finish, especially if a
+  /// large number of tests are invoked at once. These devices are not suitable
+  /// for test sharding.
+  /// - "DEVICE_CAPACITY_NONE" : Devices that are completely missing from the
+  /// lab. These devices are unavailable either temporarily or permanently and
+  /// should not be requested. If the device is also marked as deprecated, this
+  /// state is very likely permanent.
+  core.String? deviceCapacity;
+
+  /// An Android version.
+  core.String? versionId;
+
+  PerAndroidVersionInfo({
+    this.deviceCapacity,
+    this.versionId,
+  });
+
+  PerAndroidVersionInfo.fromJson(core.Map json_)
+      : this(
+          deviceCapacity: json_.containsKey('deviceCapacity')
+              ? json_['deviceCapacity'] as core.String
+              : null,
+          versionId: json_.containsKey('versionId')
+              ? json_['versionId'] as core.String
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (deviceCapacity != null) 'deviceCapacity': deviceCapacity!,
+        if (versionId != null) 'versionId': versionId!,
+      };
+}
+
+/// A version-specific information of an iOS model.
+class PerIosVersionInfo {
+  /// The number of online devices for an iOS version.
+  /// Possible string values are:
+  /// - "DEVICE_CAPACITY_UNSPECIFIED" : The value of device capacity is unknown
+  /// or unset.
+  /// - "DEVICE_CAPACITY_HIGH" : Devices that are high in capacity (The lab has
+  /// a large number of these devices). These devices are generally suggested
+  /// for running a large number of simultaneous tests (e.g. more than 100
+  /// tests). Please note that high capacity devices do not guarantee short wait
+  /// times due to several factors: 1. Traffic (how heavily they are used at any
+  /// given moment) 2. High capacity devices are prioritized for certain usages,
+  /// which may cause user tests to be slower than selecting other similar
+  /// device types.
+  /// - "DEVICE_CAPACITY_MEDIUM" : Devices that are medium in capacity (The lab
+  /// has a decent number of these devices, though not as many as high capacity
+  /// devices). These devices are suitable for fewer test runs (e.g. fewer than
+  /// 100 tests) and only for low shard counts (e.g. less than 10 shards).
+  /// - "DEVICE_CAPACITY_LOW" : Devices that are low in capacity (The lab has a
+  /// small number of these devices). These devices may be used if users need to
+  /// test on this specific device model and version. Please note that due to
+  /// low capacity, the tests may take much longer to finish, especially if a
+  /// large number of tests are invoked at once. These devices are not suitable
+  /// for test sharding.
+  /// - "DEVICE_CAPACITY_NONE" : Devices that are completely missing from the
+  /// lab. These devices are unavailable either temporarily or permanently and
+  /// should not be requested. If the device is also marked as deprecated, this
+  /// state is very likely permanent.
+  core.String? deviceCapacity;
+
+  /// An iOS version.
+  core.String? versionId;
+
+  PerIosVersionInfo({
+    this.deviceCapacity,
+    this.versionId,
+  });
+
+  PerIosVersionInfo.fromJson(core.Map json_)
+      : this(
+          deviceCapacity: json_.containsKey('deviceCapacity')
+              ? json_['deviceCapacity'] as core.String
+              : null,
+          versionId: json_.containsKey('versionId')
+              ? json_['versionId'] as core.String
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (deviceCapacity != null) 'deviceCapacity': deviceCapacity!,
+        if (versionId != null) 'versionId': versionId!,
       };
 }
 
@@ -2634,6 +2905,9 @@ class ProvidedSoftwareCatalog {
   /// A string representing the current version of Android Test Orchestrator
   /// that is used in the environment. The package is available at
   /// https://maven.google.com/web/index.html#com.android.support.test:orchestrator.
+  @core.Deprecated(
+    'Not supported. Member documentation may have more information.',
+  )
   core.String? orchestratorVersion;
 
   ProvidedSoftwareCatalog({
@@ -2641,14 +2915,14 @@ class ProvidedSoftwareCatalog {
     this.orchestratorVersion,
   });
 
-  ProvidedSoftwareCatalog.fromJson(core.Map _json)
+  ProvidedSoftwareCatalog.fromJson(core.Map json_)
       : this(
           androidxOrchestratorVersion:
-              _json.containsKey('androidxOrchestratorVersion')
-                  ? _json['androidxOrchestratorVersion'] as core.String
+              json_.containsKey('androidxOrchestratorVersion')
+                  ? json_['androidxOrchestratorVersion'] as core.String
                   : null,
-          orchestratorVersion: _json.containsKey('orchestratorVersion')
-              ? _json['orchestratorVersion'] as core.String
+          orchestratorVersion: json_.containsKey('orchestratorVersion')
+              ? json_['orchestratorVersion'] as core.String
               : null,
         );
 
@@ -2688,14 +2962,14 @@ class RegularFile {
     this.devicePath,
   });
 
-  RegularFile.fromJson(core.Map _json)
+  RegularFile.fromJson(core.Map json_)
       : this(
-          content: _json.containsKey('content')
+          content: json_.containsKey('content')
               ? FileReference.fromJson(
-                  _json['content'] as core.Map<core.String, core.dynamic>)
+                  json_['content'] as core.Map<core.String, core.dynamic>)
               : null,
-          devicePath: _json.containsKey('devicePath')
-              ? _json['devicePath'] as core.String
+          devicePath: json_.containsKey('devicePath')
+              ? json_['devicePath'] as core.String
               : null,
         );
 
@@ -2733,21 +3007,21 @@ class ResultStorage {
     this.toolResultsHistory,
   });
 
-  ResultStorage.fromJson(core.Map _json)
+  ResultStorage.fromJson(core.Map json_)
       : this(
-          googleCloudStorage: _json.containsKey('googleCloudStorage')
-              ? GoogleCloudStorage.fromJson(_json['googleCloudStorage']
+          googleCloudStorage: json_.containsKey('googleCloudStorage')
+              ? GoogleCloudStorage.fromJson(json_['googleCloudStorage']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          resultsUrl: _json.containsKey('resultsUrl')
-              ? _json['resultsUrl'] as core.String
+          resultsUrl: json_.containsKey('resultsUrl')
+              ? json_['resultsUrl'] as core.String
               : null,
-          toolResultsExecution: _json.containsKey('toolResultsExecution')
-              ? ToolResultsExecution.fromJson(_json['toolResultsExecution']
+          toolResultsExecution: json_.containsKey('toolResultsExecution')
+              ? ToolResultsExecution.fromJson(json_['toolResultsExecution']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          toolResultsHistory: _json.containsKey('toolResultsHistory')
-              ? ToolResultsHistory.fromJson(_json['toolResultsHistory']
+          toolResultsHistory: json_.containsKey('toolResultsHistory')
+              ? ToolResultsHistory.fromJson(json_['toolResultsHistory']
                   as core.Map<core.String, core.dynamic>)
               : null,
         );
@@ -2801,16 +3075,16 @@ class RoboDirective {
     this.resourceName,
   });
 
-  RoboDirective.fromJson(core.Map _json)
+  RoboDirective.fromJson(core.Map json_)
       : this(
-          actionType: _json.containsKey('actionType')
-              ? _json['actionType'] as core.String
+          actionType: json_.containsKey('actionType')
+              ? json_['actionType'] as core.String
               : null,
-          inputText: _json.containsKey('inputText')
-              ? _json['inputText'] as core.String
+          inputText: json_.containsKey('inputText')
+              ? json_['inputText'] as core.String
               : null,
-          resourceName: _json.containsKey('resourceName')
-              ? _json['resourceName'] as core.String
+          resourceName: json_.containsKey('resourceName')
+              ? json_['resourceName'] as core.String
               : null,
         );
 
@@ -2826,6 +3100,9 @@ class RoboStartingIntent {
   /// An intent that starts the main launcher activity.
   LauncherActivityIntent? launcherActivity;
 
+  /// Skips the starting activity
+  NoActivityIntent? noActivity;
+
   /// An intent that starts an activity with specific details.
   StartActivityIntent? startActivity;
 
@@ -2834,29 +3111,67 @@ class RoboStartingIntent {
 
   RoboStartingIntent({
     this.launcherActivity,
+    this.noActivity,
     this.startActivity,
     this.timeout,
   });
 
-  RoboStartingIntent.fromJson(core.Map _json)
+  RoboStartingIntent.fromJson(core.Map json_)
       : this(
-          launcherActivity: _json.containsKey('launcherActivity')
-              ? LauncherActivityIntent.fromJson(_json['launcherActivity']
+          launcherActivity: json_.containsKey('launcherActivity')
+              ? LauncherActivityIntent.fromJson(json_['launcherActivity']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          startActivity: _json.containsKey('startActivity')
-              ? StartActivityIntent.fromJson(
-                  _json['startActivity'] as core.Map<core.String, core.dynamic>)
+          noActivity: json_.containsKey('noActivity')
+              ? NoActivityIntent.fromJson(
+                  json_['noActivity'] as core.Map<core.String, core.dynamic>)
               : null,
-          timeout: _json.containsKey('timeout')
-              ? _json['timeout'] as core.String
+          startActivity: json_.containsKey('startActivity')
+              ? StartActivityIntent.fromJson(
+                  json_['startActivity'] as core.Map<core.String, core.dynamic>)
+              : null,
+          timeout: json_.containsKey('timeout')
+              ? json_['timeout'] as core.String
               : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
         if (launcherActivity != null) 'launcherActivity': launcherActivity!,
+        if (noActivity != null) 'noActivity': noActivity!,
         if (startActivity != null) 'startActivity': startActivity!,
         if (timeout != null) 'timeout': timeout!,
+      };
+}
+
+/// The section of an tag.
+///
+/// https://developer.android.com/guide/topics/manifest/service-element
+class Service {
+  /// Intent filters in the service
+  core.List<IntentFilter>? intentFilter;
+
+  /// The android:name value
+  core.String? name;
+
+  Service({
+    this.intentFilter,
+    this.name,
+  });
+
+  Service.fromJson(core.Map json_)
+      : this(
+          intentFilter: json_.containsKey('intentFilter')
+              ? (json_['intentFilter'] as core.List)
+                  .map((value) => IntentFilter.fromJson(
+                      value as core.Map<core.String, core.dynamic>))
+                  .toList()
+              : null,
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (intentFilter != null) 'intentFilter': intentFilter!,
+        if (name != null) 'name': name!,
       };
 }
 
@@ -2864,6 +3179,12 @@ class RoboStartingIntent {
 ///
 /// Output only.
 class Shard {
+  /// The estimated shard duration based on previous test case timing records,
+  /// if available.
+  ///
+  /// Output only.
+  core.String? estimatedShardDuration;
+
   /// The total number of shards.
   ///
   /// Output only.
@@ -2882,26 +3203,32 @@ class Shard {
   TestTargetsForShard? testTargetsForShard;
 
   Shard({
+    this.estimatedShardDuration,
     this.numShards,
     this.shardIndex,
     this.testTargetsForShard,
   });
 
-  Shard.fromJson(core.Map _json)
+  Shard.fromJson(core.Map json_)
       : this(
-          numShards: _json.containsKey('numShards')
-              ? _json['numShards'] as core.int
+          estimatedShardDuration: json_.containsKey('estimatedShardDuration')
+              ? json_['estimatedShardDuration'] as core.String
               : null,
-          shardIndex: _json.containsKey('shardIndex')
-              ? _json['shardIndex'] as core.int
+          numShards: json_.containsKey('numShards')
+              ? json_['numShards'] as core.int
               : null,
-          testTargetsForShard: _json.containsKey('testTargetsForShard')
-              ? TestTargetsForShard.fromJson(_json['testTargetsForShard']
+          shardIndex: json_.containsKey('shardIndex')
+              ? json_['shardIndex'] as core.int
+              : null,
+          testTargetsForShard: json_.containsKey('testTargetsForShard')
+              ? TestTargetsForShard.fromJson(json_['testTargetsForShard']
                   as core.Map<core.String, core.dynamic>)
               : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
+        if (estimatedShardDuration != null)
+          'estimatedShardDuration': estimatedShardDuration!,
         if (numShards != null) 'numShards': numShards!,
         if (shardIndex != null) 'shardIndex': shardIndex!,
         if (testTargetsForShard != null)
@@ -2915,29 +3242,87 @@ class ShardingOption {
   /// methods.
   ManualSharding? manualSharding;
 
+  /// Shards test based on previous test case timing records.
+  SmartSharding? smartSharding;
+
   /// Uniformly shards test cases given a total number of shards.
   UniformSharding? uniformSharding;
 
   ShardingOption({
     this.manualSharding,
+    this.smartSharding,
     this.uniformSharding,
   });
 
-  ShardingOption.fromJson(core.Map _json)
+  ShardingOption.fromJson(core.Map json_)
       : this(
-          manualSharding: _json.containsKey('manualSharding')
-              ? ManualSharding.fromJson(_json['manualSharding']
+          manualSharding: json_.containsKey('manualSharding')
+              ? ManualSharding.fromJson(json_['manualSharding']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          uniformSharding: _json.containsKey('uniformSharding')
-              ? UniformSharding.fromJson(_json['uniformSharding']
+          smartSharding: json_.containsKey('smartSharding')
+              ? SmartSharding.fromJson(
+                  json_['smartSharding'] as core.Map<core.String, core.dynamic>)
+              : null,
+          uniformSharding: json_.containsKey('uniformSharding')
+              ? UniformSharding.fromJson(json_['uniformSharding']
                   as core.Map<core.String, core.dynamic>)
               : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
         if (manualSharding != null) 'manualSharding': manualSharding!,
+        if (smartSharding != null) 'smartSharding': smartSharding!,
         if (uniformSharding != null) 'uniformSharding': uniformSharding!,
+      };
+}
+
+/// Shards test based on previous test case timing records.
+class SmartSharding {
+  /// The amount of time tests within a shard should take.
+  ///
+  /// Default: 300 seconds (5 minutes). The minimum allowed: 120 seconds (2
+  /// minutes). The shard count is dynamically set based on time, up to the
+  /// maximum shard limit (described below). To guarantee at least one test case
+  /// for each shard, the number of shards will not exceed the number of test
+  /// cases. Shard duration will be exceeded if: - The maximum shard limit is
+  /// reached and there is more calculated test time remaining to allocate into
+  /// shards. - Any individual test is estimated to be longer than the targeted
+  /// shard duration. Shard duration is not guaranteed because smart sharding
+  /// uses test case history and default durations which may not be accurate.
+  /// The rules for finding the test case timing records are: - If the service
+  /// has processed a test case in the last 30 days, the record of the latest
+  /// successful test case will be used. - For new test cases, the average
+  /// duration of other known test cases will be used. - If there are no
+  /// previous test case timing records available, the default test case
+  /// duration is 15 seconds. Because the actual shard duration can exceed the
+  /// targeted shard duration, we recommend that you set the targeted value at
+  /// least 5 minutes less than the maximum allowed test timeout (45 minutes for
+  /// physical devices and 60 minutes for virtual), or that you use the custom
+  /// test timeout value that you set. This approach avoids cancelling the shard
+  /// before all tests can finish. Note that there is a limit for maximum number
+  /// of shards. When you select one or more physical devices, the number of
+  /// shards must be \<= 50. When you select one or more ARM virtual devices, it
+  /// must be \<= 100. When you select only x86 virtual devices, it must be \<=
+  /// 500. To guarantee at least one test case for per shard, the number of
+  /// shards will not exceed the number of test cases. Each shard created counts
+  /// toward daily test quota.
+  core.String? targetedShardDuration;
+
+  SmartSharding({
+    this.targetedShardDuration,
+  });
+
+  SmartSharding.fromJson(core.Map json_)
+      : this(
+          targetedShardDuration: json_.containsKey('targetedShardDuration')
+              ? json_['targetedShardDuration'] as core.String
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (targetedShardDuration != null)
+          'targetedShardDuration': targetedShardDuration!,
       };
 }
 
@@ -2960,17 +3345,17 @@ class StartActivityIntent {
     this.uri,
   });
 
-  StartActivityIntent.fromJson(core.Map _json)
+  StartActivityIntent.fromJson(core.Map json_)
       : this(
-          action: _json.containsKey('action')
-              ? _json['action'] as core.String
+          action: json_.containsKey('action')
+              ? json_['action'] as core.String
               : null,
-          categories: _json.containsKey('categories')
-              ? (_json['categories'] as core.List)
+          categories: json_.containsKey('categories')
+              ? (json_['categories'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
-          uri: _json.containsKey('uri') ? _json['uri'] as core.String : null,
+          uri: json_.containsKey('uri') ? json_['uri'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
@@ -2984,16 +3369,19 @@ class SystraceSetup {
   /// Systrace duration in seconds.
   ///
   /// Should be between 1 and 30 seconds. 0 disables systrace.
+  @core.Deprecated(
+    'Not supported. Member documentation may have more information.',
+  )
   core.int? durationSeconds;
 
   SystraceSetup({
     this.durationSeconds,
   });
 
-  SystraceSetup.fromJson(core.Map _json)
+  SystraceSetup.fromJson(core.Map json_)
       : this(
-          durationSeconds: _json.containsKey('durationSeconds')
-              ? _json['durationSeconds'] as core.int
+          durationSeconds: json_.containsKey('durationSeconds')
+              ? json_['durationSeconds'] as core.int
               : null,
         );
 
@@ -3023,13 +3411,13 @@ class TestDetails {
     this.progressMessages,
   });
 
-  TestDetails.fromJson(core.Map _json)
+  TestDetails.fromJson(core.Map json_)
       : this(
-          errorMessage: _json.containsKey('errorMessage')
-              ? _json['errorMessage'] as core.String
+          errorMessage: json_.containsKey('errorMessage')
+              ? json_['errorMessage'] as core.String
               : null,
-          progressMessages: _json.containsKey('progressMessages')
-              ? (_json['progressMessages'] as core.List)
+          progressMessages: json_.containsKey('progressMessages')
+              ? (json_['progressMessages'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
@@ -3066,28 +3454,28 @@ class TestEnvironmentCatalog {
     this.softwareCatalog,
   });
 
-  TestEnvironmentCatalog.fromJson(core.Map _json)
+  TestEnvironmentCatalog.fromJson(core.Map json_)
       : this(
-          androidDeviceCatalog: _json.containsKey('androidDeviceCatalog')
-              ? AndroidDeviceCatalog.fromJson(_json['androidDeviceCatalog']
+          androidDeviceCatalog: json_.containsKey('androidDeviceCatalog')
+              ? AndroidDeviceCatalog.fromJson(json_['androidDeviceCatalog']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          deviceIpBlockCatalog: _json.containsKey('deviceIpBlockCatalog')
-              ? DeviceIpBlockCatalog.fromJson(_json['deviceIpBlockCatalog']
+          deviceIpBlockCatalog: json_.containsKey('deviceIpBlockCatalog')
+              ? DeviceIpBlockCatalog.fromJson(json_['deviceIpBlockCatalog']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          iosDeviceCatalog: _json.containsKey('iosDeviceCatalog')
-              ? IosDeviceCatalog.fromJson(_json['iosDeviceCatalog']
+          iosDeviceCatalog: json_.containsKey('iosDeviceCatalog')
+              ? IosDeviceCatalog.fromJson(json_['iosDeviceCatalog']
                   as core.Map<core.String, core.dynamic>)
               : null,
           networkConfigurationCatalog:
-              _json.containsKey('networkConfigurationCatalog')
+              json_.containsKey('networkConfigurationCatalog')
                   ? NetworkConfigurationCatalog.fromJson(
-                      _json['networkConfigurationCatalog']
+                      json_['networkConfigurationCatalog']
                           as core.Map<core.String, core.dynamic>)
                   : null,
-          softwareCatalog: _json.containsKey('softwareCatalog')
-              ? ProvidedSoftwareCatalog.fromJson(_json['softwareCatalog']
+          softwareCatalog: json_.containsKey('softwareCatalog')
+              ? ProvidedSoftwareCatalog.fromJson(json_['softwareCatalog']
                   as core.Map<core.String, core.dynamic>)
               : null,
         );
@@ -3196,38 +3584,38 @@ class TestExecution {
     this.toolResultsStep,
   });
 
-  TestExecution.fromJson(core.Map _json)
+  TestExecution.fromJson(core.Map json_)
       : this(
-          environment: _json.containsKey('environment')
+          environment: json_.containsKey('environment')
               ? Environment.fromJson(
-                  _json['environment'] as core.Map<core.String, core.dynamic>)
+                  json_['environment'] as core.Map<core.String, core.dynamic>)
               : null,
-          id: _json.containsKey('id') ? _json['id'] as core.String : null,
-          matrixId: _json.containsKey('matrixId')
-              ? _json['matrixId'] as core.String
+          id: json_.containsKey('id') ? json_['id'] as core.String : null,
+          matrixId: json_.containsKey('matrixId')
+              ? json_['matrixId'] as core.String
               : null,
-          projectId: _json.containsKey('projectId')
-              ? _json['projectId'] as core.String
+          projectId: json_.containsKey('projectId')
+              ? json_['projectId'] as core.String
               : null,
-          shard: _json.containsKey('shard')
+          shard: json_.containsKey('shard')
               ? Shard.fromJson(
-                  _json['shard'] as core.Map<core.String, core.dynamic>)
+                  json_['shard'] as core.Map<core.String, core.dynamic>)
               : null,
           state:
-              _json.containsKey('state') ? _json['state'] as core.String : null,
-          testDetails: _json.containsKey('testDetails')
+              json_.containsKey('state') ? json_['state'] as core.String : null,
+          testDetails: json_.containsKey('testDetails')
               ? TestDetails.fromJson(
-                  _json['testDetails'] as core.Map<core.String, core.dynamic>)
+                  json_['testDetails'] as core.Map<core.String, core.dynamic>)
               : null,
-          testSpecification: _json.containsKey('testSpecification')
-              ? TestSpecification.fromJson(_json['testSpecification']
+          testSpecification: json_.containsKey('testSpecification')
+              ? TestSpecification.fromJson(json_['testSpecification']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          timestamp: _json.containsKey('timestamp')
-              ? _json['timestamp'] as core.String
+          timestamp: json_.containsKey('timestamp')
+              ? json_['timestamp'] as core.String
               : null,
-          toolResultsStep: _json.containsKey('toolResultsStep')
-              ? ToolResultsStep.fromJson(_json['toolResultsStep']
+          toolResultsStep: json_.containsKey('toolResultsStep')
+              ? ToolResultsStep.fromJson(json_['toolResultsStep']
                   as core.Map<core.String, core.dynamic>)
               : null,
         );
@@ -3302,8 +3690,8 @@ class TestMatrix {
   /// AndroidJUnitRunner version 1.1 or higher. Orchestrator can be disabled by
   /// using DO_NOT_USE_ORCHESTRATOR OrchestratorOption.
   /// - "NO_TEST_RUNNER_CLASS" : The test APK does not contain the test runner
-  /// class specified by user or in the manifest file. This can be caused by
-  /// either of the following reasons: - the user provided a runner class name
+  /// class specified by the user or in the manifest file. This can be caused by
+  /// one of the following reasons: - the user provided a runner class name
   /// that's incorrect, or - the test runner isn't built into the test APK
   /// (might be in the app APK instead).
   /// - "NO_LAUNCHER_ACTIVITY" : A main launcher activity could not be found.
@@ -3353,6 +3741,14 @@ class TestMatrix {
   /// access the APK file.
   /// - "INVALID_APK_PREVIEW_SDK" : APK is built for a preview SDK which is
   /// unsupported
+  /// - "MATRIX_TOO_LARGE" : The matrix expanded to contain too many executions.
+  /// - "TEST_QUOTA_EXCEEDED" : Not enough test quota to run the executions in
+  /// this matrix.
+  /// - "SERVICE_NOT_ACTIVATED" : A required cloud service api is not activated.
+  /// See:
+  /// https://firebase.google.com/docs/test-lab/android/continuous#requirements
+  /// - "UNKNOWN_PERMISSION_ERROR" : There was an unknown permission issue
+  /// running this test.
   core.String? invalidMatrixDetails;
 
   /// The overall outcome of the test.
@@ -3365,7 +3761,7 @@ class TestMatrix {
   /// - "SUCCESS" : The test matrix run was successful, for instance: - All the
   /// test cases passed. - Robo did not detect a crash of the application under
   /// test.
-  /// - "FAILURE" : A run failed, for instance: - One or more test case failed.
+  /// - "FAILURE" : A run failed, for instance: - One or more test cases failed.
   /// - A test timed out. - The application under test crashed.
   /// - "INCONCLUSIVE" : Something unexpected happened. The run should still be
   /// considered unsuccessful but this is likely a transient problem and
@@ -3450,52 +3846,52 @@ class TestMatrix {
     this.timestamp,
   });
 
-  TestMatrix.fromJson(core.Map _json)
+  TestMatrix.fromJson(core.Map json_)
       : this(
-          clientInfo: _json.containsKey('clientInfo')
+          clientInfo: json_.containsKey('clientInfo')
               ? ClientInfo.fromJson(
-                  _json['clientInfo'] as core.Map<core.String, core.dynamic>)
+                  json_['clientInfo'] as core.Map<core.String, core.dynamic>)
               : null,
-          environmentMatrix: _json.containsKey('environmentMatrix')
-              ? EnvironmentMatrix.fromJson(_json['environmentMatrix']
+          environmentMatrix: json_.containsKey('environmentMatrix')
+              ? EnvironmentMatrix.fromJson(json_['environmentMatrix']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          failFast: _json.containsKey('failFast')
-              ? _json['failFast'] as core.bool
+          failFast: json_.containsKey('failFast')
+              ? json_['failFast'] as core.bool
               : null,
-          flakyTestAttempts: _json.containsKey('flakyTestAttempts')
-              ? _json['flakyTestAttempts'] as core.int
+          flakyTestAttempts: json_.containsKey('flakyTestAttempts')
+              ? json_['flakyTestAttempts'] as core.int
               : null,
-          invalidMatrixDetails: _json.containsKey('invalidMatrixDetails')
-              ? _json['invalidMatrixDetails'] as core.String
+          invalidMatrixDetails: json_.containsKey('invalidMatrixDetails')
+              ? json_['invalidMatrixDetails'] as core.String
               : null,
-          outcomeSummary: _json.containsKey('outcomeSummary')
-              ? _json['outcomeSummary'] as core.String
+          outcomeSummary: json_.containsKey('outcomeSummary')
+              ? json_['outcomeSummary'] as core.String
               : null,
-          projectId: _json.containsKey('projectId')
-              ? _json['projectId'] as core.String
+          projectId: json_.containsKey('projectId')
+              ? json_['projectId'] as core.String
               : null,
-          resultStorage: _json.containsKey('resultStorage')
+          resultStorage: json_.containsKey('resultStorage')
               ? ResultStorage.fromJson(
-                  _json['resultStorage'] as core.Map<core.String, core.dynamic>)
+                  json_['resultStorage'] as core.Map<core.String, core.dynamic>)
               : null,
           state:
-              _json.containsKey('state') ? _json['state'] as core.String : null,
-          testExecutions: _json.containsKey('testExecutions')
-              ? (_json['testExecutions'] as core.List)
+              json_.containsKey('state') ? json_['state'] as core.String : null,
+          testExecutions: json_.containsKey('testExecutions')
+              ? (json_['testExecutions'] as core.List)
                   .map((value) => TestExecution.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          testMatrixId: _json.containsKey('testMatrixId')
-              ? _json['testMatrixId'] as core.String
+          testMatrixId: json_.containsKey('testMatrixId')
+              ? json_['testMatrixId'] as core.String
               : null,
-          testSpecification: _json.containsKey('testSpecification')
-              ? TestSpecification.fromJson(_json['testSpecification']
+          testSpecification: json_.containsKey('testSpecification')
+              ? TestSpecification.fromJson(json_['testSpecification']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          timestamp: _json.containsKey('timestamp')
-              ? _json['timestamp'] as core.String
+          timestamp: json_.containsKey('timestamp')
+              ? json_['timestamp'] as core.String
               : null,
         );
 
@@ -3524,7 +3920,7 @@ class TestSetup {
 
   /// APKs to install in addition to those being directly tested.
   ///
-  /// Currently capped at 100.
+  /// These will be installed after the app under test. Currently capped at 100.
   core.List<Apk>? additionalApks;
 
   /// List of directories on the device to upload to GCS at the end of the test;
@@ -3554,13 +3950,14 @@ class TestSetup {
   /// TestEnvironmentDiscoveryService.GetTestEnvironmentCatalog.
   core.String? networkProfile;
 
-  /// Deprecated: Systrace uses Python 2 which has been sunset 2020-01-01.
+  /// Systrace configuration for the run.
   ///
-  /// Support of Systrace may stop at any time, at which point no Systrace file
-  /// will be provided in the results. Systrace configuration for the run. If
-  /// set a systrace will be taken, starting on test start and lasting for the
-  /// configured duration. The systrace file thus obtained is put in the results
-  /// bucket together with the other artifacts from the run.
+  /// Deprecated: Systrace used Python 2 which was sunsetted on 2020-01-01.
+  /// Systrace is no longer supported in the Cloud Testing API, and no Systrace
+  /// file will be provided in the results.
+  @core.Deprecated(
+    'Not supported. Member documentation may have more information.',
+  )
   SystraceSetup? systrace;
 
   TestSetup({
@@ -3574,45 +3971,45 @@ class TestSetup {
     this.systrace,
   });
 
-  TestSetup.fromJson(core.Map _json)
+  TestSetup.fromJson(core.Map json_)
       : this(
-          account: _json.containsKey('account')
+          account: json_.containsKey('account')
               ? Account.fromJson(
-                  _json['account'] as core.Map<core.String, core.dynamic>)
+                  json_['account'] as core.Map<core.String, core.dynamic>)
               : null,
-          additionalApks: _json.containsKey('additionalApks')
-              ? (_json['additionalApks'] as core.List)
+          additionalApks: json_.containsKey('additionalApks')
+              ? (json_['additionalApks'] as core.List)
                   .map((value) => Apk.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          directoriesToPull: _json.containsKey('directoriesToPull')
-              ? (_json['directoriesToPull'] as core.List)
+          directoriesToPull: json_.containsKey('directoriesToPull')
+              ? (json_['directoriesToPull'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
           dontAutograntPermissions:
-              _json.containsKey('dontAutograntPermissions')
-                  ? _json['dontAutograntPermissions'] as core.bool
+              json_.containsKey('dontAutograntPermissions')
+                  ? json_['dontAutograntPermissions'] as core.bool
                   : null,
-          environmentVariables: _json.containsKey('environmentVariables')
-              ? (_json['environmentVariables'] as core.List)
+          environmentVariables: json_.containsKey('environmentVariables')
+              ? (json_['environmentVariables'] as core.List)
                   .map((value) => EnvironmentVariable.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          filesToPush: _json.containsKey('filesToPush')
-              ? (_json['filesToPush'] as core.List)
+          filesToPush: json_.containsKey('filesToPush')
+              ? (json_['filesToPush'] as core.List)
                   .map((value) => DeviceFile.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          networkProfile: _json.containsKey('networkProfile')
-              ? _json['networkProfile'] as core.String
+          networkProfile: json_.containsKey('networkProfile')
+              ? json_['networkProfile'] as core.String
               : null,
-          systrace: _json.containsKey('systrace')
+          systrace: json_.containsKey('systrace')
               ? SystraceSetup.fromJson(
-                  _json['systrace'] as core.Map<core.String, core.dynamic>)
+                  json_['systrace'] as core.Map<core.String, core.dynamic>)
               : null,
         );
 
@@ -3651,6 +4048,9 @@ class TestSpecification {
   /// May reduce test latency.
   core.bool? disableVideoRecording;
 
+  /// An iOS Robo test.
+  IosRoboTest? iosRoboTest;
+
   /// An iOS application with a test loop.
   IosTestLoop? iosTestLoop;
 
@@ -3676,6 +4076,7 @@ class TestSpecification {
     this.androidTestLoop,
     this.disablePerformanceMetrics,
     this.disableVideoRecording,
+    this.iosRoboTest,
     this.iosTestLoop,
     this.iosTestSetup,
     this.iosXcTest,
@@ -3683,47 +4084,51 @@ class TestSpecification {
     this.testTimeout,
   });
 
-  TestSpecification.fromJson(core.Map _json)
+  TestSpecification.fromJson(core.Map json_)
       : this(
           androidInstrumentationTest:
-              _json.containsKey('androidInstrumentationTest')
+              json_.containsKey('androidInstrumentationTest')
                   ? AndroidInstrumentationTest.fromJson(
-                      _json['androidInstrumentationTest']
+                      json_['androidInstrumentationTest']
                           as core.Map<core.String, core.dynamic>)
                   : null,
-          androidRoboTest: _json.containsKey('androidRoboTest')
-              ? AndroidRoboTest.fromJson(_json['androidRoboTest']
+          androidRoboTest: json_.containsKey('androidRoboTest')
+              ? AndroidRoboTest.fromJson(json_['androidRoboTest']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          androidTestLoop: _json.containsKey('androidTestLoop')
-              ? AndroidTestLoop.fromJson(_json['androidTestLoop']
+          androidTestLoop: json_.containsKey('androidTestLoop')
+              ? AndroidTestLoop.fromJson(json_['androidTestLoop']
                   as core.Map<core.String, core.dynamic>)
               : null,
           disablePerformanceMetrics:
-              _json.containsKey('disablePerformanceMetrics')
-                  ? _json['disablePerformanceMetrics'] as core.bool
+              json_.containsKey('disablePerformanceMetrics')
+                  ? json_['disablePerformanceMetrics'] as core.bool
                   : null,
-          disableVideoRecording: _json.containsKey('disableVideoRecording')
-              ? _json['disableVideoRecording'] as core.bool
+          disableVideoRecording: json_.containsKey('disableVideoRecording')
+              ? json_['disableVideoRecording'] as core.bool
               : null,
-          iosTestLoop: _json.containsKey('iosTestLoop')
+          iosRoboTest: json_.containsKey('iosRoboTest')
+              ? IosRoboTest.fromJson(
+                  json_['iosRoboTest'] as core.Map<core.String, core.dynamic>)
+              : null,
+          iosTestLoop: json_.containsKey('iosTestLoop')
               ? IosTestLoop.fromJson(
-                  _json['iosTestLoop'] as core.Map<core.String, core.dynamic>)
+                  json_['iosTestLoop'] as core.Map<core.String, core.dynamic>)
               : null,
-          iosTestSetup: _json.containsKey('iosTestSetup')
+          iosTestSetup: json_.containsKey('iosTestSetup')
               ? IosTestSetup.fromJson(
-                  _json['iosTestSetup'] as core.Map<core.String, core.dynamic>)
+                  json_['iosTestSetup'] as core.Map<core.String, core.dynamic>)
               : null,
-          iosXcTest: _json.containsKey('iosXcTest')
+          iosXcTest: json_.containsKey('iosXcTest')
               ? IosXcTest.fromJson(
-                  _json['iosXcTest'] as core.Map<core.String, core.dynamic>)
+                  json_['iosXcTest'] as core.Map<core.String, core.dynamic>)
               : null,
-          testSetup: _json.containsKey('testSetup')
+          testSetup: json_.containsKey('testSetup')
               ? TestSetup.fromJson(
-                  _json['testSetup'] as core.Map<core.String, core.dynamic>)
+                  json_['testSetup'] as core.Map<core.String, core.dynamic>)
               : null,
-          testTimeout: _json.containsKey('testTimeout')
-              ? _json['testTimeout'] as core.String
+          testTimeout: json_.containsKey('testTimeout')
+              ? json_['testTimeout'] as core.String
               : null,
         );
 
@@ -3736,6 +4141,7 @@ class TestSpecification {
           'disablePerformanceMetrics': disablePerformanceMetrics!,
         if (disableVideoRecording != null)
           'disableVideoRecording': disableVideoRecording!,
+        if (iosRoboTest != null) 'iosRoboTest': iosRoboTest!,
         if (iosTestLoop != null) 'iosTestLoop': iosTestLoop!,
         if (iosTestSetup != null) 'iosTestSetup': iosTestSetup!,
         if (iosXcTest != null) 'iosXcTest': iosXcTest!,
@@ -3757,10 +4163,10 @@ class TestTargetsForShard {
     this.testTargets,
   });
 
-  TestTargetsForShard.fromJson(core.Map _json)
+  TestTargetsForShard.fromJson(core.Map json_)
       : this(
-          testTargets: _json.containsKey('testTargets')
-              ? (_json['testTargets'] as core.List)
+          testTargets: json_.containsKey('testTargets')
+              ? (json_['testTargets'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
@@ -3796,16 +4202,16 @@ class ToolResultsExecution {
     this.projectId,
   });
 
-  ToolResultsExecution.fromJson(core.Map _json)
+  ToolResultsExecution.fromJson(core.Map json_)
       : this(
-          executionId: _json.containsKey('executionId')
-              ? _json['executionId'] as core.String
+          executionId: json_.containsKey('executionId')
+              ? json_['executionId'] as core.String
               : null,
-          historyId: _json.containsKey('historyId')
-              ? _json['historyId'] as core.String
+          historyId: json_.containsKey('historyId')
+              ? json_['historyId'] as core.String
               : null,
-          projectId: _json.containsKey('projectId')
-              ? _json['projectId'] as core.String
+          projectId: json_.containsKey('projectId')
+              ? json_['projectId'] as core.String
               : null,
         );
 
@@ -3833,13 +4239,13 @@ class ToolResultsHistory {
     this.projectId,
   });
 
-  ToolResultsHistory.fromJson(core.Map _json)
+  ToolResultsHistory.fromJson(core.Map json_)
       : this(
-          historyId: _json.containsKey('historyId')
-              ? _json['historyId'] as core.String
+          historyId: json_.containsKey('historyId')
+              ? json_['historyId'] as core.String
               : null,
-          projectId: _json.containsKey('projectId')
-              ? _json['projectId'] as core.String
+          projectId: json_.containsKey('projectId')
+              ? json_['projectId'] as core.String
               : null,
         );
 
@@ -3880,19 +4286,19 @@ class ToolResultsStep {
     this.stepId,
   });
 
-  ToolResultsStep.fromJson(core.Map _json)
+  ToolResultsStep.fromJson(core.Map json_)
       : this(
-          executionId: _json.containsKey('executionId')
-              ? _json['executionId'] as core.String
+          executionId: json_.containsKey('executionId')
+              ? json_['executionId'] as core.String
               : null,
-          historyId: _json.containsKey('historyId')
-              ? _json['historyId'] as core.String
+          historyId: json_.containsKey('historyId')
+              ? json_['historyId'] as core.String
               : null,
-          projectId: _json.containsKey('projectId')
-              ? _json['projectId'] as core.String
+          projectId: json_.containsKey('projectId')
+              ? json_['projectId'] as core.String
               : null,
-          stepId: _json.containsKey('stepId')
-              ? _json['stepId'] as core.String
+          stepId: json_.containsKey('stepId')
+              ? json_['stepId'] as core.String
               : null,
         );
 
@@ -3929,21 +4335,21 @@ class TrafficRule {
     this.packetLossRatio,
   });
 
-  TrafficRule.fromJson(core.Map _json)
+  TrafficRule.fromJson(core.Map json_)
       : this(
-          bandwidth: _json.containsKey('bandwidth')
-              ? (_json['bandwidth'] as core.num).toDouble()
+          bandwidth: json_.containsKey('bandwidth')
+              ? (json_['bandwidth'] as core.num).toDouble()
               : null,
-          burst: _json.containsKey('burst')
-              ? (_json['burst'] as core.num).toDouble()
+          burst: json_.containsKey('burst')
+              ? (json_['burst'] as core.num).toDouble()
               : null,
           delay:
-              _json.containsKey('delay') ? _json['delay'] as core.String : null,
-          packetDuplicationRatio: _json.containsKey('packetDuplicationRatio')
-              ? (_json['packetDuplicationRatio'] as core.num).toDouble()
+              json_.containsKey('delay') ? json_['delay'] as core.String : null,
+          packetDuplicationRatio: json_.containsKey('packetDuplicationRatio')
+              ? (json_['packetDuplicationRatio'] as core.num).toDouble()
               : null,
-          packetLossRatio: _json.containsKey('packetLossRatio')
-              ? (_json['packetLossRatio'] as core.num).toDouble()
+          packetLossRatio: json_.containsKey('packetLossRatio')
+              ? (json_['packetLossRatio'] as core.num).toDouble()
               : null,
         );
 
@@ -3959,17 +4365,20 @@ class TrafficRule {
 
 /// Uniformly shards test cases given a total number of shards.
 ///
-/// For Instrumentation test, it will be translated to "-e numShard" "-e
-/// shardIndex" AndroidJUnitRunner arguments. Based on the sharding mechanism
-/// AndroidJUnitRunner uses, there is no guarantee that test cases will be
-/// distributed uniformly across all shards. With uniform sharding enabled,
-/// specifying these sharding arguments via environment_variables is invalid.
+/// For instrumentation tests, it will be translated to "-e numShard" and "-e
+/// shardIndex" AndroidJUnitRunner arguments. With uniform sharding enabled,
+/// specifying either of these sharding arguments via `environment_variables` is
+/// invalid. Based on the sharding mechanism AndroidJUnitRunner uses, there is
+/// no guarantee that test cases will be distributed uniformly across all
+/// shards.
 class UniformSharding {
-  /// Total number of shards.
+  /// The total number of shards to create.
   ///
-  /// When any physical devices are selected, the number must be \>= 1 and \<=
-  /// 50. When no physical devices are selected, the number must be \>= 1 and
-  /// \<= 500.
+  /// This must always be a positive number that is no greater than the total
+  /// number of test cases. When you select one or more physical devices, the
+  /// number of shards must be \<= 50. When you select one or more ARM virtual
+  /// devices, it must be \<= 100. When you select only x86 virtual devices, it
+  /// must be \<= 500.
   ///
   /// Required.
   core.int? numShards;
@@ -3978,15 +4387,44 @@ class UniformSharding {
     this.numShards,
   });
 
-  UniformSharding.fromJson(core.Map _json)
+  UniformSharding.fromJson(core.Map json_)
       : this(
-          numShards: _json.containsKey('numShards')
-              ? _json['numShards'] as core.int
+          numShards: json_.containsKey('numShards')
+              ? json_['numShards'] as core.int
               : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
         if (numShards != null) 'numShards': numShards!,
+      };
+}
+
+/// A tag within a manifest.
+///
+/// https://developer.android.com/guide/topics/manifest/uses-feature-element.html
+class UsesFeature {
+  /// The android:required value
+  core.bool? isRequired;
+
+  /// The android:name value
+  core.String? name;
+
+  UsesFeature({
+    this.isRequired,
+    this.name,
+  });
+
+  UsesFeature.fromJson(core.Map json_)
+      : this(
+          isRequired: json_.containsKey('isRequired')
+              ? json_['isRequired'] as core.bool
+              : null,
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (isRequired != null) 'isRequired': isRequired!,
+        if (name != null) 'name': name!,
       };
 }
 
@@ -4007,15 +4445,15 @@ class XcodeVersion {
     this.version,
   });
 
-  XcodeVersion.fromJson(core.Map _json)
+  XcodeVersion.fromJson(core.Map json_)
       : this(
-          tags: _json.containsKey('tags')
-              ? (_json['tags'] as core.List)
+          tags: json_.containsKey('tags')
+              ? (json_['tags'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
-          version: _json.containsKey('version')
-              ? _json['version'] as core.String
+          version: json_.containsKey('version')
+              ? json_['version'] as core.String
               : null,
         );
 

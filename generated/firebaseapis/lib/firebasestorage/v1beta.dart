@@ -2,14 +2,13 @@
 
 // ignore_for_file: camel_case_types
 // ignore_for_file: comment_references
-// ignore_for_file: file_names
-// ignore_for_file: library_names
+// ignore_for_file: deprecated_member_use_from_same_package
 // ignore_for_file: lines_longer_than_80_chars
 // ignore_for_file: non_constant_identifier_names
-// ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: prefer_interpolation_to_compose_strings
 // ignore_for_file: unnecessary_brace_in_string_interps
 // ignore_for_file: unnecessary_lambdas
+// ignore_for_file: unnecessary_library_directive
 // ignore_for_file: unnecessary_string_interpolations
 
 /// Cloud Storage for Firebase API - v1beta
@@ -23,7 +22,7 @@
 ///
 /// - [ProjectsResource]
 ///   - [ProjectsBucketsResource]
-library firebasestorage.v1beta;
+library firebasestorage_v1beta;
 
 import 'dart:async' as async;
 import 'dart:convert' as convert;
@@ -32,7 +31,6 @@ import 'dart:core' as core;
 import 'package:_discoveryapis_commons/_discoveryapis_commons.dart' as commons;
 import 'package:http/http.dart' as http;
 
-// ignore: deprecated_member_use_from_same_package
 import '../shared.dart';
 import '../src/user_agent.dart';
 
@@ -82,7 +80,7 @@ class ProjectsBucketsResource {
   ///
   /// [bucket] - Required. Resource name of the bucket, mirrors the ID of the
   /// underlying Google Cloud Storage bucket,
-  /// `projects/{project_number}/buckets/{bucket_id}`.
+  /// `projects/{project_id_or_number}/buckets/{bucket_id}`.
   /// Value must have pattern `^projects/\[^/\]+/buckets/\[^/\]+$`.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
@@ -100,20 +98,20 @@ class ProjectsBucketsResource {
     core.String bucket, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta/' + core.Uri.encodeFull('$bucket') + ':addFirebase';
+    final url_ = 'v1beta/' + core.Uri.encodeFull('$bucket') + ':addFirebase';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Bucket.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Bucket.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Gets a single linked storage bucket.
@@ -122,7 +120,7 @@ class ProjectsBucketsResource {
   ///
   /// [name] - Required. Resource name of the bucket, mirrors the ID of the
   /// underlying Google Cloud Storage bucket,
-  /// `projects/{project_number}/buckets/{bucket_id}`.
+  /// `projects/{project_id_or_number}/buckets/{bucket_id}`.
   /// Value must have pattern `^projects/\[^/\]+/buckets/\[^/\]+$`.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
@@ -139,18 +137,18 @@ class ProjectsBucketsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1beta/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
-    return Bucket.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Bucket.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Lists the linked storage buckets for a project.
@@ -158,7 +156,7 @@ class ProjectsBucketsResource {
   /// Request parameters:
   ///
   /// [parent] - Required. Resource name of the parent Firebase project,
-  /// `projects/{project_number}`.
+  /// `projects/{project_id_or_number}`.
   /// Value must have pattern `^projects/\[^/\]+$`.
   ///
   /// [pageSize] - The maximum number of buckets to return. If not set, the
@@ -185,21 +183,21 @@ class ProjectsBucketsResource {
     core.String? pageToken,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (pageSize != null) 'pageSize': ['${pageSize}'],
       if (pageToken != null) 'pageToken': [pageToken],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta/' + core.Uri.encodeFull('$parent') + '/buckets';
+    final url_ = 'v1beta/' + core.Uri.encodeFull('$parent') + '/buckets';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return ListBucketsResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Unlinks a linked Google Cloud Storage bucket from a Firebase project.
@@ -210,7 +208,7 @@ class ProjectsBucketsResource {
   ///
   /// [bucket] - Required. Resource name of the bucket, mirrors the ID of the
   /// underlying Google Cloud Storage bucket,
-  /// `projects/{project_number}/buckets/{bucket_id}`.
+  /// `projects/{project_id_or_number}/buckets/{bucket_id}`.
   /// Value must have pattern `^projects/\[^/\]+/buckets/\[^/\]+$`.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
@@ -228,20 +226,20 @@ class ProjectsBucketsResource {
     core.String bucket, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1beta/' + core.Uri.encodeFull('$bucket') + ':removeFirebase';
+    final url_ = 'v1beta/' + core.Uri.encodeFull('$bucket') + ':removeFirebase';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Empty.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Empty.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -251,41 +249,22 @@ typedef AddFirebaseRequest = $Empty;
 
 /// A storage bucket and its relation to a parent Firebase project.
 class Bucket {
-  /// Location of the storage bucket.
+  /// Resource name of the bucket.
   ///
   /// Output only.
-  core.String? location;
-
-  /// Resource name of the bucket.
   core.String? name;
 
-  /// Represents whether a bucket is being moved to a new location, in which
-  /// case reconciling is set to true.
-  ///
-  /// Output only.
-  core.bool? reconciling;
-
   Bucket({
-    this.location,
     this.name,
-    this.reconciling,
   });
 
-  Bucket.fromJson(core.Map _json)
+  Bucket.fromJson(core.Map json_)
       : this(
-          location: _json.containsKey('location')
-              ? _json['location'] as core.String
-              : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
-          reconciling: _json.containsKey('reconciling')
-              ? _json['reconciling'] as core.bool
-              : null,
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
-        if (location != null) 'location': location!,
         if (name != null) 'name': name!,
-        if (reconciling != null) 'reconciling': reconciling!,
       };
 }
 
@@ -312,16 +291,16 @@ class ListBucketsResponse {
     this.nextPageToken,
   });
 
-  ListBucketsResponse.fromJson(core.Map _json)
+  ListBucketsResponse.fromJson(core.Map json_)
       : this(
-          buckets: _json.containsKey('buckets')
-              ? (_json['buckets'] as core.List)
+          buckets: json_.containsKey('buckets')
+              ? (json_['buckets'] as core.List)
                   .map((value) => Bucket.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          nextPageToken: _json.containsKey('nextPageToken')
-              ? _json['nextPageToken'] as core.String
+          nextPageToken: json_.containsKey('nextPageToken')
+              ? json_['nextPageToken'] as core.String
               : null,
         );
 

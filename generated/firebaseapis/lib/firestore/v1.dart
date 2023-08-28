@@ -2,14 +2,13 @@
 
 // ignore_for_file: camel_case_types
 // ignore_for_file: comment_references
-// ignore_for_file: file_names
-// ignore_for_file: library_names
+// ignore_for_file: deprecated_member_use_from_same_package
 // ignore_for_file: lines_longer_than_80_chars
 // ignore_for_file: non_constant_identifier_names
-// ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: prefer_interpolation_to_compose_strings
 // ignore_for_file: unnecessary_brace_in_string_interps
 // ignore_for_file: unnecessary_lambdas
+// ignore_for_file: unnecessary_library_directive
 // ignore_for_file: unnecessary_string_interpolations
 
 /// Cloud Firestore API - v1
@@ -23,13 +22,15 @@
 ///
 /// - [ProjectsResource]
 ///   - [ProjectsDatabasesResource]
+///     - [ProjectsDatabasesBackupSchedulesResource]
 ///     - [ProjectsDatabasesCollectionGroupsResource]
 ///       - [ProjectsDatabasesCollectionGroupsFieldsResource]
 ///       - [ProjectsDatabasesCollectionGroupsIndexesResource]
 ///     - [ProjectsDatabasesDocumentsResource]
 ///     - [ProjectsDatabasesOperationsResource]
 ///   - [ProjectsLocationsResource]
-library firestore.v1;
+///     - [ProjectsLocationsBackupsResource]
+library firestore_v1;
 
 import 'dart:async' as async;
 import 'dart:convert' as convert;
@@ -38,7 +39,6 @@ import 'dart:core' as core;
 import 'package:_discoveryapis_commons/_discoveryapis_commons.dart' as commons;
 import 'package:http/http.dart' as http;
 
-// ignore: deprecated_member_use_from_same_package
 import '../shared.dart';
 import '../src/user_agent.dart';
 
@@ -81,6 +81,8 @@ class ProjectsResource {
 class ProjectsDatabasesResource {
   final commons.ApiRequester _requester;
 
+  ProjectsDatabasesBackupSchedulesResource get backupSchedules =>
+      ProjectsDatabasesBackupSchedulesResource(_requester);
   ProjectsDatabasesCollectionGroupsResource get collectionGroups =>
       ProjectsDatabasesCollectionGroupsResource(_requester);
   ProjectsDatabasesDocumentsResource get documents =>
@@ -89,6 +91,99 @@ class ProjectsDatabasesResource {
       ProjectsDatabasesOperationsResource(_requester);
 
   ProjectsDatabasesResource(commons.ApiRequester client) : _requester = client;
+
+  /// Create a database.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. A parent name of the form `projects/{project_id}`
+  /// Value must have pattern `^projects/\[^/\]+$`.
+  ///
+  /// [databaseId] - Required. The ID to use for the database, which will become
+  /// the final component of the database's resource name. This value should be
+  /// 4-63 characters. Valid characters are /a-z-/ with first character a letter
+  /// and the last a letter or a number. Must not be UUID-like
+  /// /\[0-9a-f\]{8}(-\[0-9a-f\]{4}){3}-\[0-9a-f\]{12}/. "(default)" database id
+  /// is also valid.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleLongrunningOperation].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleLongrunningOperation> create(
+    GoogleFirestoreAdminV1Database request,
+    core.String parent, {
+    core.String? databaseId,
+    core.String? $fields,
+  }) async {
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
+      if (databaseId != null) 'databaseId': [databaseId],
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final url_ = 'v1/' + core.Uri.encodeFull('$parent') + '/databases';
+
+    final response_ = await _requester.request(
+      url_,
+      'POST',
+      body: body_,
+      queryParams: queryParams_,
+    );
+    return GoogleLongrunningOperation.fromJson(
+        response_ as core.Map<core.String, core.dynamic>);
+  }
+
+  /// Deletes a database.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. A name of the form
+  /// `projects/{project_id}/databases/{database_id}`
+  /// Value must have pattern `^projects/\[^/\]+/databases/\[^/\]+$`.
+  ///
+  /// [etag] - The current etag of the Database. If an etag is provided and does
+  /// not match the current etag of the database, deletion will be blocked and a
+  /// FAILED_PRECONDITION error will be returned.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleLongrunningOperation].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleLongrunningOperation> delete(
+    core.String name, {
+    core.String? etag,
+    core.String? $fields,
+  }) async {
+    final queryParams_ = <core.String, core.List<core.String>>{
+      if (etag != null) 'etag': [etag],
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final url_ = 'v1/' + core.Uri.encodeFull('$name');
+
+    final response_ = await _requester.request(
+      url_,
+      'DELETE',
+      queryParams: queryParams_,
+    );
+    return GoogleLongrunningOperation.fromJson(
+        response_ as core.Map<core.String, core.dynamic>);
+  }
 
   /// Exports a copy of all or a subset of documents from Google Cloud Firestore
   /// to another storage system, such as Google Cloud Storage.
@@ -125,21 +220,21 @@ class ProjectsDatabasesResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$name') + ':exportDocuments';
+    final url_ = 'v1/' + core.Uri.encodeFull('$name') + ':exportDocuments';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return GoogleLongrunningOperation.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Gets information about a database.
@@ -164,19 +259,19 @@ class ProjectsDatabasesResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return GoogleFirestoreAdminV1Database.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Imports documents into Google Cloud Firestore.
@@ -210,21 +305,21 @@ class ProjectsDatabasesResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$name') + ':importDocuments';
+    final url_ = 'v1/' + core.Uri.encodeFull('$name') + ':importDocuments';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return GoogleLongrunningOperation.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// List all the databases in the project.
@@ -248,19 +343,19 @@ class ProjectsDatabasesResource {
     core.String parent, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$parent') + '/databases';
+    final url_ = 'v1/' + core.Uri.encodeFull('$parent') + '/databases';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return GoogleFirestoreAdminV1ListDatabasesResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Updates a database.
@@ -291,22 +386,290 @@ class ProjectsDatabasesResource {
     core.String? updateMask,
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (updateMask != null) 'updateMask': [updateMask],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'PATCH',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return GoogleLongrunningOperation.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
+  }
+
+  /// Create a new database by restore from an existing backup.
+  ///
+  /// The new database must be in the same cloud region or multi-region location
+  /// as the existing backup. This behaves similar to
+  /// FirestoreAdmin.CreateDatabase except instead of creating a new empty
+  /// database, a new database is created with the database type, index
+  /// configuration, and documents from an existing backup. The long-running
+  /// operation can be used to track the progress of the restore, with the
+  /// Operation's metadata field type being the RestoreDatabaseMetadata. The
+  /// response type is the Database if the restore was successful. The new
+  /// database is not readable or writeable until the LRO has completed.
+  /// Cancelling the returned operation will stop the restore and delete the
+  /// in-progress database, if the restore is still active.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The project to restore the database in. Format is
+  /// `projects/{project_id}`.
+  /// Value must have pattern `^projects/\[^/\]+$`.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleLongrunningOperation].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleLongrunningOperation> restore(
+    GoogleFirestoreAdminV1RestoreDatabaseRequest request,
+    core.String parent, {
+    core.String? $fields,
+  }) async {
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final url_ = 'v1/' + core.Uri.encodeFull('$parent') + '/databases:restore';
+
+    final response_ = await _requester.request(
+      url_,
+      'POST',
+      body: body_,
+      queryParams: queryParams_,
+    );
+    return GoogleLongrunningOperation.fromJson(
+        response_ as core.Map<core.String, core.dynamic>);
+  }
+}
+
+class ProjectsDatabasesBackupSchedulesResource {
+  final commons.ApiRequester _requester;
+
+  ProjectsDatabasesBackupSchedulesResource(commons.ApiRequester client)
+      : _requester = client;
+
+  /// Creates a backup schedule on a database.
+  ///
+  /// At most two backup schedules can be configured on a database, one daily
+  /// backup schedule with retention up to 7 days and one weekly backup schedule
+  /// with retention up to 14 weeks.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The parent database. Format
+  /// `projects/{project}/databases/{database}`
+  /// Value must have pattern `^projects/\[^/\]+/databases/\[^/\]+$`.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleFirestoreAdminV1BackupSchedule].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleFirestoreAdminV1BackupSchedule> create(
+    GoogleFirestoreAdminV1BackupSchedule request,
+    core.String parent, {
+    core.String? $fields,
+  }) async {
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final url_ = 'v1/' + core.Uri.encodeFull('$parent') + '/backupSchedules';
+
+    final response_ = await _requester.request(
+      url_,
+      'POST',
+      body: body_,
+      queryParams: queryParams_,
+    );
+    return GoogleFirestoreAdminV1BackupSchedule.fromJson(
+        response_ as core.Map<core.String, core.dynamic>);
+  }
+
+  /// Deletes a backup schedule.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The name of backup schedule. Format
+  /// `projects/{project}/databases/{database}/backupSchedules/{backup_schedule}`
+  /// Value must have pattern
+  /// `^projects/\[^/\]+/databases/\[^/\]+/backupSchedules/\[^/\]+$`.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [Empty].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<Empty> delete(
+    core.String name, {
+    core.String? $fields,
+  }) async {
+    final queryParams_ = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final url_ = 'v1/' + core.Uri.encodeFull('$name');
+
+    final response_ = await _requester.request(
+      url_,
+      'DELETE',
+      queryParams: queryParams_,
+    );
+    return Empty.fromJson(response_ as core.Map<core.String, core.dynamic>);
+  }
+
+  /// Gets information about a backup schedule.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. The name of the backup schedule. Format
+  /// `projects/{project}/databases/{database}/backupSchedules/{backup_schedule}`
+  /// Value must have pattern
+  /// `^projects/\[^/\]+/databases/\[^/\]+/backupSchedules/\[^/\]+$`.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleFirestoreAdminV1BackupSchedule].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleFirestoreAdminV1BackupSchedule> get(
+    core.String name, {
+    core.String? $fields,
+  }) async {
+    final queryParams_ = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final url_ = 'v1/' + core.Uri.encodeFull('$name');
+
+    final response_ = await _requester.request(
+      url_,
+      'GET',
+      queryParams: queryParams_,
+    );
+    return GoogleFirestoreAdminV1BackupSchedule.fromJson(
+        response_ as core.Map<core.String, core.dynamic>);
+  }
+
+  /// List backup schedules.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The parent database. Format is
+  /// `projects/{project}/databases/{database}`.
+  /// Value must have pattern `^projects/\[^/\]+/databases/\[^/\]+$`.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleFirestoreAdminV1ListBackupSchedulesResponse].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleFirestoreAdminV1ListBackupSchedulesResponse> list(
+    core.String parent, {
+    core.String? $fields,
+  }) async {
+    final queryParams_ = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final url_ = 'v1/' + core.Uri.encodeFull('$parent') + '/backupSchedules';
+
+    final response_ = await _requester.request(
+      url_,
+      'GET',
+      queryParams: queryParams_,
+    );
+    return GoogleFirestoreAdminV1ListBackupSchedulesResponse.fromJson(
+        response_ as core.Map<core.String, core.dynamic>);
+  }
+
+  /// Updates a backup schedule.
+  ///
+  /// [request] - The metadata request object.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Output only. The unique backup schedule identifier across all
+  /// locations and databases for the given project. This will be auto-assigned.
+  /// Format is
+  /// `projects/{project}/databases/{database}/backupSchedules/{backup_schedule}`
+  /// Value must have pattern
+  /// `^projects/\[^/\]+/databases/\[^/\]+/backupSchedules/\[^/\]+$`.
+  ///
+  /// [updateMask] - The list of fields to be updated.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleFirestoreAdminV1BackupSchedule].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleFirestoreAdminV1BackupSchedule> patch(
+    GoogleFirestoreAdminV1BackupSchedule request,
+    core.String name, {
+    core.String? updateMask,
+    core.String? $fields,
+  }) async {
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
+      if (updateMask != null) 'updateMask': [updateMask],
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final url_ = 'v1/' + core.Uri.encodeFull('$name');
+
+    final response_ = await _requester.request(
+      url_,
+      'PATCH',
+      body: body_,
+      queryParams: queryParams_,
+    );
+    return GoogleFirestoreAdminV1BackupSchedule.fromJson(
+        response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -351,19 +714,19 @@ class ProjectsDatabasesCollectionGroupsFieldsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return GoogleFirestoreAdminV1Field.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Lists the field configuration and metadata for this database.
@@ -371,7 +734,7 @@ class ProjectsDatabasesCollectionGroupsFieldsResource {
   /// Currently, FirestoreAdmin.ListFields only supports listing fields that
   /// have been explicitly overridden. To issue this query, call
   /// FirestoreAdmin.ListFields with the filter set to
-  /// `indexConfig.usesAncestorConfig:false` .
+  /// \`indexConfig.usesAncestorConfig:false or \`ttlConfig:*\`.
   ///
   /// Request parameters:
   ///
@@ -408,22 +771,22 @@ class ProjectsDatabasesCollectionGroupsFieldsResource {
     core.String? pageToken,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (filter != null) 'filter': [filter],
       if (pageSize != null) 'pageSize': ['${pageSize}'],
       if (pageToken != null) 'pageToken': [pageToken],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$parent') + '/fields';
+    final url_ = 'v1/' + core.Uri.encodeFull('$parent') + '/fields';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return GoogleFirestoreAdminV1ListFieldsResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Updates a field configuration.
@@ -483,22 +846,22 @@ class ProjectsDatabasesCollectionGroupsFieldsResource {
     core.String? updateMask,
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (updateMask != null) 'updateMask': [updateMask],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'PATCH',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return GoogleLongrunningOperation.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -538,21 +901,21 @@ class ProjectsDatabasesCollectionGroupsIndexesResource {
     core.String parent, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$parent') + '/indexes';
+    final url_ = 'v1/' + core.Uri.encodeFull('$parent') + '/indexes';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return GoogleLongrunningOperation.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Deletes a composite index.
@@ -578,18 +941,18 @@ class ProjectsDatabasesCollectionGroupsIndexesResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'DELETE',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
-    return Empty.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Empty.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Gets a composite index.
@@ -615,19 +978,19 @@ class ProjectsDatabasesCollectionGroupsIndexesResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return GoogleFirestoreAdminV1Index.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Lists composite indexes.
@@ -664,22 +1027,22 @@ class ProjectsDatabasesCollectionGroupsIndexesResource {
     core.String? pageToken,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (filter != null) 'filter': [filter],
       if (pageSize != null) 'pageSize': ['${pageSize}'],
       if (pageToken != null) 'pageToken': [pageToken],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$parent') + '/indexes';
+    final url_ = 'v1/' + core.Uri.encodeFull('$parent') + '/indexes';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return GoogleFirestoreAdminV1ListIndexesResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -717,22 +1080,24 @@ class ProjectsDatabasesDocumentsResource {
     core.String database, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url =
+    final url_ =
         'v1/' + core.Uri.encodeFull('$database') + '/documents:batchGet';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return BatchGetDocumentsResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+    return (response_ as core.List)
+        .map((value) => BatchGetDocumentsResponseElement.fromJson(
+            value as core.Map<core.String, core.dynamic>))
+        .toList();
   }
 
   /// Applies a batch of write operations.
@@ -766,22 +1131,22 @@ class ProjectsDatabasesDocumentsResource {
     core.String database, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url =
+    final url_ =
         'v1/' + core.Uri.encodeFull('$database') + '/documents:batchWrite';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return BatchWriteResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Starts a new transaction.
@@ -809,23 +1174,23 @@ class ProjectsDatabasesDocumentsResource {
     core.String database, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' +
+    final url_ = 'v1/' +
         core.Uri.encodeFull('$database') +
         '/documents:beginTransaction';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return BeginTransactionResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Commits a transaction, while optionally updating documents.
@@ -853,21 +1218,21 @@ class ProjectsDatabasesDocumentsResource {
     core.String database, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$database') + '/documents:commit';
+    final url_ = 'v1/' + core.Uri.encodeFull('$database') + '/documents:commit';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return CommitResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Creates a new document.
@@ -909,25 +1274,25 @@ class ProjectsDatabasesDocumentsResource {
     core.List<core.String>? mask_fieldPaths,
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (documentId != null) 'documentId': [documentId],
       if (mask_fieldPaths != null) 'mask.fieldPaths': mask_fieldPaths,
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' +
+    final url_ = 'v1/' +
         core.Uri.encodeFull('$parent') +
         '/' +
         commons.escapeVariable('$collectionId');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Document.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Document.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Deletes a document.
@@ -963,7 +1328,7 @@ class ProjectsDatabasesDocumentsResource {
     core.String? currentDocument_updateTime,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (currentDocument_exists != null)
         'currentDocument.exists': ['${currentDocument_exists}'],
       if (currentDocument_updateTime != null)
@@ -971,14 +1336,14 @@ class ProjectsDatabasesDocumentsResource {
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'DELETE',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
-    return Empty.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Empty.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Gets a single document.
@@ -994,8 +1359,10 @@ class ProjectsDatabasesDocumentsResource {
   /// [mask_fieldPaths] - The list of field paths in the mask. See
   /// Document.fields for a field path syntax reference.
   ///
-  /// [readTime] - Reads the version of the document at the given time. This may
-  /// not be older than 270 seconds.
+  /// [readTime] - Reads the version of the document at the given time. This
+  /// must be a microsecond precision timestamp within the past one hour, or if
+  /// Point-in-Time Recovery is enabled, can additionally be a whole minute
+  /// timestamp within the past 7 days.
   ///
   /// [transaction] - Reads the document in a transaction.
   ///
@@ -1016,21 +1383,21 @@ class ProjectsDatabasesDocumentsResource {
     core.String? transaction,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (mask_fieldPaths != null) 'mask.fieldPaths': mask_fieldPaths,
       if (readTime != null) 'readTime': [readTime],
       if (transaction != null) 'transaction': [transaction],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
-    return Document.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Document.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Lists documents.
@@ -1045,30 +1412,39 @@ class ProjectsDatabasesDocumentsResource {
   /// Value must have pattern
   /// `^projects/\[^/\]+/databases/\[^/\]+/documents/\[^/\]+/.*$`.
   ///
-  /// [collectionId] - Required. The collection ID, relative to `parent`, to
-  /// list. For example: `chatrooms` or `messages`.
+  /// [collectionId] - Optional. The collection ID, relative to `parent`, to
+  /// list. For example: `chatrooms` or `messages`. This is optional, and when
+  /// not provided, Firestore will list documents from all collections under the
+  /// provided `parent`.
   ///
   /// [mask_fieldPaths] - The list of field paths in the mask. See
   /// Document.fields for a field path syntax reference.
   ///
-  /// [orderBy] - The order to sort results by. For example: `priority desc,
-  /// name`.
+  /// [orderBy] - Optional. The optional ordering of the documents to return.
+  /// For example: `priority desc, __name__ desc`. This mirrors the `ORDER BY`
+  /// used in Firestore queries but in a string representation. When absent,
+  /// documents are ordered based on `__name__ ASC`.
   ///
-  /// [pageSize] - The maximum number of documents to return.
+  /// [pageSize] - Optional. The maximum number of documents to return in a
+  /// single response. Firestore may return fewer than this value.
   ///
-  /// [pageToken] - The `next_page_token` value returned from a previous List
-  /// request, if any.
+  /// [pageToken] - Optional. A page token, received from a previous
+  /// `ListDocuments` response. Provide this to retrieve the subsequent page.
+  /// When paginating, all other parameters (with the exception of `page_size`)
+  /// must match the values set in the request that generated the page token.
   ///
-  /// [readTime] - Reads documents as they were at the given time. This may not
-  /// be older than 270 seconds.
+  /// [readTime] - Perform the read at the provided time. This must be a
+  /// microsecond precision timestamp within the past one hour, or if
+  /// Point-in-Time Recovery is enabled, can additionally be a whole minute
+  /// timestamp within the past 7 days.
   ///
-  /// [showMissing] - If the list should show missing documents. A missing
-  /// document is a document that does not exist but has sub-documents. These
-  /// documents will be returned with a key but will not have fields,
-  /// Document.create_time, or Document.update_time set. Requests with
-  /// `show_missing` may not specify `where` or `order_by`.
+  /// [showMissing] - If the list should show missing documents. A document is
+  /// missing if it does not exist, but there are sub-documents nested
+  /// underneath it. When true, such missing documents will be returned with a
+  /// key but will not have fields, `create_time`, or `update_time` set.
+  /// Requests with `show_missing` may not specify `where` or `order_by`.
   ///
-  /// [transaction] - Reads documents in a transaction.
+  /// [transaction] - Perform the read as part of an already active transaction.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -1092,7 +1468,7 @@ class ProjectsDatabasesDocumentsResource {
     core.String? transaction,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (mask_fieldPaths != null) 'mask.fieldPaths': mask_fieldPaths,
       if (orderBy != null) 'orderBy': [orderBy],
       if (pageSize != null) 'pageSize': ['${pageSize}'],
@@ -1103,18 +1479,18 @@ class ProjectsDatabasesDocumentsResource {
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' +
+    final url_ = 'v1/' +
         core.Uri.encodeFull('$parent') +
         '/' +
         commons.escapeVariable('$collectionId');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return ListDocumentsResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Lists all the collection IDs underneath a document.
@@ -1145,21 +1521,21 @@ class ProjectsDatabasesDocumentsResource {
     core.String parent, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$parent') + ':listCollectionIds';
+    final url_ = 'v1/' + core.Uri.encodeFull('$parent') + ':listCollectionIds';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return ListCollectionIdsResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Lists documents.
@@ -1173,30 +1549,39 @@ class ProjectsDatabasesDocumentsResource {
   /// `projects/my-project/databases/my-database/documents/chatrooms/my-chatroom`
   /// Value must have pattern `^projects/\[^/\]+/databases/\[^/\]+/documents$`.
   ///
-  /// [collectionId] - Required. The collection ID, relative to `parent`, to
-  /// list. For example: `chatrooms` or `messages`.
+  /// [collectionId] - Optional. The collection ID, relative to `parent`, to
+  /// list. For example: `chatrooms` or `messages`. This is optional, and when
+  /// not provided, Firestore will list documents from all collections under the
+  /// provided `parent`.
   ///
   /// [mask_fieldPaths] - The list of field paths in the mask. See
   /// Document.fields for a field path syntax reference.
   ///
-  /// [orderBy] - The order to sort results by. For example: `priority desc,
-  /// name`.
+  /// [orderBy] - Optional. The optional ordering of the documents to return.
+  /// For example: `priority desc, __name__ desc`. This mirrors the `ORDER BY`
+  /// used in Firestore queries but in a string representation. When absent,
+  /// documents are ordered based on `__name__ ASC`.
   ///
-  /// [pageSize] - The maximum number of documents to return.
+  /// [pageSize] - Optional. The maximum number of documents to return in a
+  /// single response. Firestore may return fewer than this value.
   ///
-  /// [pageToken] - The `next_page_token` value returned from a previous List
-  /// request, if any.
+  /// [pageToken] - Optional. A page token, received from a previous
+  /// `ListDocuments` response. Provide this to retrieve the subsequent page.
+  /// When paginating, all other parameters (with the exception of `page_size`)
+  /// must match the values set in the request that generated the page token.
   ///
-  /// [readTime] - Reads documents as they were at the given time. This may not
-  /// be older than 270 seconds.
+  /// [readTime] - Perform the read at the provided time. This must be a
+  /// microsecond precision timestamp within the past one hour, or if
+  /// Point-in-Time Recovery is enabled, can additionally be a whole minute
+  /// timestamp within the past 7 days.
   ///
-  /// [showMissing] - If the list should show missing documents. A missing
-  /// document is a document that does not exist but has sub-documents. These
-  /// documents will be returned with a key but will not have fields,
-  /// Document.create_time, or Document.update_time set. Requests with
-  /// `show_missing` may not specify `where` or `order_by`.
+  /// [showMissing] - If the list should show missing documents. A document is
+  /// missing if it does not exist, but there are sub-documents nested
+  /// underneath it. When true, such missing documents will be returned with a
+  /// key but will not have fields, `create_time`, or `update_time` set.
+  /// Requests with `show_missing` may not specify `where` or `order_by`.
   ///
-  /// [transaction] - Reads documents in a transaction.
+  /// [transaction] - Perform the read as part of an already active transaction.
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -1220,7 +1605,7 @@ class ProjectsDatabasesDocumentsResource {
     core.String? transaction,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (mask_fieldPaths != null) 'mask.fieldPaths': mask_fieldPaths,
       if (orderBy != null) 'orderBy': [orderBy],
       if (pageSize != null) 'pageSize': ['${pageSize}'],
@@ -1231,18 +1616,18 @@ class ProjectsDatabasesDocumentsResource {
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' +
+    final url_ = 'v1/' +
         core.Uri.encodeFull('$parent') +
         '/' +
         commons.escapeVariable('$collectionId');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return ListDocumentsResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Partitions a query by returning partition cursors that can be used to run
@@ -1277,21 +1662,21 @@ class ProjectsDatabasesDocumentsResource {
     core.String parent, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$parent') + ':partitionQuery';
+    final url_ = 'v1/' + core.Uri.encodeFull('$parent') + ':partitionQuery';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return PartitionQueryResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Updates or inserts a document.
@@ -1337,8 +1722,8 @@ class ProjectsDatabasesDocumentsResource {
     core.List<core.String>? updateMask_fieldPaths,
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (currentDocument_exists != null)
         'currentDocument.exists': ['${currentDocument_exists}'],
       if (currentDocument_updateTime != null)
@@ -1349,15 +1734,15 @@ class ProjectsDatabasesDocumentsResource {
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'PATCH',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Document.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Document.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Rolls back a transaction.
@@ -1385,21 +1770,21 @@ class ProjectsDatabasesDocumentsResource {
     core.String database, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url =
+    final url_ =
         'v1/' + core.Uri.encodeFull('$database') + '/documents:rollback';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Empty.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Empty.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Runs an aggregation query.
@@ -1437,22 +1822,24 @@ class ProjectsDatabasesDocumentsResource {
     core.String parent, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url =
+    final url_ =
         'v1/' + core.Uri.encodeFull('$parent') + ':runAggregationQuery';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return RunAggregationQueryResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+    return (response_ as core.List)
+        .map((value) => RunAggregationQueryResponseElement.fromJson(
+            value as core.Map<core.String, core.dynamic>))
+        .toList();
   }
 
   /// Runs a query.
@@ -1484,24 +1871,28 @@ class ProjectsDatabasesDocumentsResource {
     core.String parent, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$parent') + ':runQuery';
+    final url_ = 'v1/' + core.Uri.encodeFull('$parent') + ':runQuery';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return RunQueryResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+    return (response_ as core.List)
+        .map((value) => RunQueryResponseElement.fromJson(
+            value as core.Map<core.String, core.dynamic>))
+        .toList();
   }
 
   /// Streams batches of document updates and deletes, in order.
+  ///
+  /// This method is only available via gRPC or WebChannel (not REST).
   ///
   /// [request] - The metadata request object.
   ///
@@ -1527,21 +1918,21 @@ class ProjectsDatabasesDocumentsResource {
     core.String database, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$database') + '/documents:write';
+    final url_ = 'v1/' + core.Uri.encodeFull('$database') + '/documents:write';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
     return WriteResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
@@ -1585,20 +1976,20 @@ class ProjectsDatabasesOperationsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _body = convert.json.encode(request);
-    final _queryParams = <core.String, core.List<core.String>>{
+    final body_ = convert.json.encode(request);
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$name') + ':cancel';
+    final url_ = 'v1/' + core.Uri.encodeFull('$name') + ':cancel';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'POST',
-      body: _body,
-      queryParams: _queryParams,
+      body: body_,
+      queryParams: queryParams_,
     );
-    return Empty.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Empty.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Deletes a long-running operation.
@@ -1627,18 +2018,18 @@ class ProjectsDatabasesOperationsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'DELETE',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
-    return Empty.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Empty.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Gets the latest state of a long-running operation.
@@ -1666,31 +2057,24 @@ class ProjectsDatabasesOperationsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return GoogleLongrunningOperation.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Lists operations that match the specified filter in the request.
   ///
   /// If the server doesn't support this method, it returns `UNIMPLEMENTED`.
-  /// NOTE: the `name` binding allows API services to override the binding to
-  /// use different resource name schemes, such as `users / * /operations`. To
-  /// override the binding, API services can add a binding such as
-  /// `"/v1/{name=users / * }/operations"` to their service configuration. For
-  /// backwards compatibility, the default name includes the operations
-  /// collection id, however overriding users must ensure the name binding is
-  /// the parent resource, without the operations collection id.
   ///
   /// Request parameters:
   ///
@@ -1720,27 +2104,30 @@ class ProjectsDatabasesOperationsResource {
     core.String? pageToken,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (filter != null) 'filter': [filter],
       if (pageSize != null) 'pageSize': ['${pageSize}'],
       if (pageToken != null) 'pageToken': [pageToken],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$name') + '/operations';
+    final url_ = 'v1/' + core.Uri.encodeFull('$name') + '/operations';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return GoogleLongrunningListOperationsResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
 class ProjectsLocationsResource {
   final commons.ApiRequester _requester;
+
+  ProjectsLocationsBackupsResource get backups =>
+      ProjectsLocationsBackupsResource(_requester);
 
   ProjectsLocationsResource(commons.ApiRequester client) : _requester = client;
 
@@ -1765,18 +2152,18 @@ class ProjectsLocationsResource {
     core.String name, {
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$name');
+    final url_ = 'v1/' + core.Uri.encodeFull('$name');
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
-    return Location.fromJson(_response as core.Map<core.String, core.dynamic>);
+    return Location.fromJson(response_ as core.Map<core.String, core.dynamic>);
   }
 
   /// Lists information about the supported locations for this service.
@@ -1813,56 +2200,200 @@ class ProjectsLocationsResource {
     core.String? pageToken,
     core.String? $fields,
   }) async {
-    final _queryParams = <core.String, core.List<core.String>>{
+    final queryParams_ = <core.String, core.List<core.String>>{
       if (filter != null) 'filter': [filter],
       if (pageSize != null) 'pageSize': ['${pageSize}'],
       if (pageToken != null) 'pageToken': [pageToken],
       if ($fields != null) 'fields': [$fields],
     };
 
-    final _url = 'v1/' + core.Uri.encodeFull('$name') + '/locations';
+    final url_ = 'v1/' + core.Uri.encodeFull('$name') + '/locations';
 
-    final _response = await _requester.request(
-      _url,
+    final response_ = await _requester.request(
+      url_,
       'GET',
-      queryParams: _queryParams,
+      queryParams: queryParams_,
     );
     return ListLocationsResponse.fromJson(
-        _response as core.Map<core.String, core.dynamic>);
+        response_ as core.Map<core.String, core.dynamic>);
   }
 }
 
-/// Defines a aggregation that produces a single result.
+class ProjectsLocationsBackupsResource {
+  final commons.ApiRequester _requester;
+
+  ProjectsLocationsBackupsResource(commons.ApiRequester client)
+      : _requester = client;
+
+  /// Deletes a backup.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. Name of the backup to delete. format is
+  /// `projects/{project}/locations/{location}/backups/{backup}`.
+  /// Value must have pattern
+  /// `^projects/\[^/\]+/locations/\[^/\]+/backups/\[^/\]+$`.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [Empty].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<Empty> delete(
+    core.String name, {
+    core.String? $fields,
+  }) async {
+    final queryParams_ = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final url_ = 'v1/' + core.Uri.encodeFull('$name');
+
+    final response_ = await _requester.request(
+      url_,
+      'DELETE',
+      queryParams: queryParams_,
+    );
+    return Empty.fromJson(response_ as core.Map<core.String, core.dynamic>);
+  }
+
+  /// Gets information about a backup.
+  ///
+  /// Request parameters:
+  ///
+  /// [name] - Required. Name of the backup to fetch. Format is
+  /// `projects/{project}/locations/{location}/backups/{backup}`.
+  /// Value must have pattern
+  /// `^projects/\[^/\]+/locations/\[^/\]+/backups/\[^/\]+$`.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleFirestoreAdminV1Backup].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleFirestoreAdminV1Backup> get(
+    core.String name, {
+    core.String? $fields,
+  }) async {
+    final queryParams_ = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final url_ = 'v1/' + core.Uri.encodeFull('$name');
+
+    final response_ = await _requester.request(
+      url_,
+      'GET',
+      queryParams: queryParams_,
+    );
+    return GoogleFirestoreAdminV1Backup.fromJson(
+        response_ as core.Map<core.String, core.dynamic>);
+  }
+
+  /// Lists all the backups.
+  ///
+  /// Request parameters:
+  ///
+  /// [parent] - Required. The location to list backups from. Format is
+  /// `projects/{project}/locations/{location}`. Use `{location} = '-'` to list
+  /// backups from all locations for the given project. This allows listing
+  /// backups from a single location or from all locations.
+  /// Value must have pattern `^projects/\[^/\]+/locations/\[^/\]+$`.
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [GoogleFirestoreAdminV1ListBackupsResponse].
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future<GoogleFirestoreAdminV1ListBackupsResponse> list(
+    core.String parent, {
+    core.String? $fields,
+  }) async {
+    final queryParams_ = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final url_ = 'v1/' + core.Uri.encodeFull('$parent') + '/backups';
+
+    final response_ = await _requester.request(
+      url_,
+      'GET',
+      queryParams: queryParams_,
+    );
+    return GoogleFirestoreAdminV1ListBackupsResponse.fromJson(
+        response_ as core.Map<core.String, core.dynamic>);
+  }
+}
+
+/// Defines an aggregation that produces a single result.
 class Aggregation {
-  /// The name of the field to store the result of the aggregation into.
+  /// Optional name of the field to store the result of the aggregation into.
   ///
-  /// Requires: * Must be present. * Must be unique across all aggregation
-  /// aliases. * Conform to existing document field name limitations.
+  /// If not provided, Firestore will pick a default name following the format
+  /// `field_`. For example: ``` AGGREGATE COUNT_UP_TO(1) AS count_up_to_1,
+  /// COUNT_UP_TO(2), COUNT_UP_TO(3) AS count_up_to_3, COUNT(*) OVER ( ... );
+  /// ``` becomes: ``` AGGREGATE COUNT_UP_TO(1) AS count_up_to_1, COUNT_UP_TO(2)
+  /// AS field_1, COUNT_UP_TO(3) AS count_up_to_3, COUNT(*) AS field_2 OVER (
+  /// ... ); ``` Requires: * Must be unique across all aggregation aliases. *
+  /// Conform to document field name limitations.
   ///
-  /// Required.
+  /// Optional.
   core.String? alias;
+
+  /// Average aggregator.
+  Avg? avg;
 
   /// Count aggregator.
   Count? count;
 
+  /// Sum aggregator.
+  Sum? sum;
+
   Aggregation({
     this.alias,
+    this.avg,
     this.count,
+    this.sum,
   });
 
-  Aggregation.fromJson(core.Map _json)
+  Aggregation.fromJson(core.Map json_)
       : this(
           alias:
-              _json.containsKey('alias') ? _json['alias'] as core.String : null,
-          count: _json.containsKey('count')
+              json_.containsKey('alias') ? json_['alias'] as core.String : null,
+          avg: json_.containsKey('avg')
+              ? Avg.fromJson(
+                  json_['avg'] as core.Map<core.String, core.dynamic>)
+              : null,
+          count: json_.containsKey('count')
               ? Count.fromJson(
-                  _json['count'] as core.Map<core.String, core.dynamic>)
+                  json_['count'] as core.Map<core.String, core.dynamic>)
+              : null,
+          sum: json_.containsKey('sum')
+              ? Sum.fromJson(
+                  json_['sum'] as core.Map<core.String, core.dynamic>)
               : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
         if (alias != null) 'alias': alias!,
+        if (avg != null) 'avg': avg!,
         if (count != null) 'count': count!,
+        if (sum != null) 'sum': sum!,
       };
 }
 
@@ -1882,15 +2413,16 @@ class AggregationResult {
     this.aggregateFields,
   });
 
-  AggregationResult.fromJson(core.Map _json)
+  AggregationResult.fromJson(core.Map json_)
       : this(
-          aggregateFields: _json.containsKey('aggregateFields')
-              ? (_json['aggregateFields']
+          aggregateFields: json_.containsKey('aggregateFields')
+              ? (json_['aggregateFields']
                       as core.Map<core.String, core.dynamic>)
                   .map(
-                  (key, item) => core.MapEntry(
+                  (key, value) => core.MapEntry(
                     key,
-                    Value.fromJson(item as core.Map<core.String, core.dynamic>),
+                    Value.fromJson(
+                        value as core.Map<core.String, core.dynamic>),
                   ),
                 )
               : null,
@@ -1910,10 +2442,10 @@ class ArrayValue {
     this.values,
   });
 
-  ArrayValue.fromJson(core.Map _json)
+  ArrayValue.fromJson(core.Map json_)
       : this(
-          values: _json.containsKey('values')
-              ? (_json['values'] as core.List)
+          values: json_.containsKey('values')
+              ? (json_['values'] as core.List)
                   .map((value) => Value.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -1922,6 +2454,33 @@ class ArrayValue {
 
   core.Map<core.String, core.dynamic> toJson() => {
         if (values != null) 'values': values!,
+      };
+}
+
+/// Average of the values of the requested field.
+///
+/// * Only numeric values will be aggregated. All non-numeric values including
+/// `NULL` are skipped. * If the aggregated values contain `NaN`, returns `NaN`.
+/// Infinity math follows IEEE-754 standards. * If the aggregated value set is
+/// empty, returns `NULL`. * Always returns the result as a double.
+class Avg {
+  /// The field to aggregate on.
+  FieldReference? field;
+
+  Avg({
+    this.field,
+  });
+
+  Avg.fromJson(core.Map json_)
+      : this(
+          field: json_.containsKey('field')
+              ? FieldReference.fromJson(
+                  json_['field'] as core.Map<core.String, core.dynamic>)
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (field != null) 'field': field!,
       };
 }
 
@@ -1949,7 +2508,9 @@ class BatchGetDocumentsRequest {
 
   /// Reads documents as they were at the given time.
   ///
-  /// This may not be older than 270 seconds.
+  /// This must be a microsecond precision timestamp within the past one hour,
+  /// or if Point-in-Time Recovery is enabled, can additionally be a whole
+  /// minute timestamp within the past 7 days.
   core.String? readTime;
 
   /// Reads documents in a transaction.
@@ -1957,9 +2518,9 @@ class BatchGetDocumentsRequest {
   core.List<core.int> get transactionAsBytes =>
       convert.base64.decode(transaction!);
 
-  set transactionAsBytes(core.List<core.int> _bytes) {
+  set transactionAsBytes(core.List<core.int> bytes_) {
     transaction =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   BatchGetDocumentsRequest({
@@ -1970,26 +2531,26 @@ class BatchGetDocumentsRequest {
     this.transaction,
   });
 
-  BatchGetDocumentsRequest.fromJson(core.Map _json)
+  BatchGetDocumentsRequest.fromJson(core.Map json_)
       : this(
-          documents: _json.containsKey('documents')
-              ? (_json['documents'] as core.List)
+          documents: json_.containsKey('documents')
+              ? (json_['documents'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
-          mask: _json.containsKey('mask')
+          mask: json_.containsKey('mask')
               ? DocumentMask.fromJson(
-                  _json['mask'] as core.Map<core.String, core.dynamic>)
+                  json_['mask'] as core.Map<core.String, core.dynamic>)
               : null,
-          newTransaction: _json.containsKey('newTransaction')
-              ? TransactionOptions.fromJson(_json['newTransaction']
+          newTransaction: json_.containsKey('newTransaction')
+              ? TransactionOptions.fromJson(json_['newTransaction']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          readTime: _json.containsKey('readTime')
-              ? _json['readTime'] as core.String
+          readTime: json_.containsKey('readTime')
+              ? json_['readTime'] as core.String
               : null,
-          transaction: _json.containsKey('transaction')
-              ? _json['transaction'] as core.String
+          transaction: json_.containsKey('transaction')
+              ? json_['transaction'] as core.String
               : null,
         );
 
@@ -2002,8 +2563,7 @@ class BatchGetDocumentsRequest {
       };
 }
 
-/// The streamed response for Firestore.BatchGetDocuments.
-class BatchGetDocumentsResponse {
+class BatchGetDocumentsResponseElement {
   /// A document that was requested.
   Document? found;
 
@@ -2028,32 +2588,32 @@ class BatchGetDocumentsResponse {
   core.List<core.int> get transactionAsBytes =>
       convert.base64.decode(transaction!);
 
-  set transactionAsBytes(core.List<core.int> _bytes) {
+  set transactionAsBytes(core.List<core.int> bytes_) {
     transaction =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
-  BatchGetDocumentsResponse({
+  BatchGetDocumentsResponseElement({
     this.found,
     this.missing,
     this.readTime,
     this.transaction,
   });
 
-  BatchGetDocumentsResponse.fromJson(core.Map _json)
+  BatchGetDocumentsResponseElement.fromJson(core.Map json_)
       : this(
-          found: _json.containsKey('found')
+          found: json_.containsKey('found')
               ? Document.fromJson(
-                  _json['found'] as core.Map<core.String, core.dynamic>)
+                  json_['found'] as core.Map<core.String, core.dynamic>)
               : null,
-          missing: _json.containsKey('missing')
-              ? _json['missing'] as core.String
+          missing: json_.containsKey('missing')
+              ? json_['missing'] as core.String
               : null,
-          readTime: _json.containsKey('readTime')
-              ? _json['readTime'] as core.String
+          readTime: json_.containsKey('readTime')
+              ? json_['readTime'] as core.String
               : null,
-          transaction: _json.containsKey('transaction')
-              ? _json['transaction'] as core.String
+          transaction: json_.containsKey('transaction')
+              ? json_['transaction'] as core.String
               : null,
         );
 
@@ -2064,6 +2624,9 @@ class BatchGetDocumentsResponse {
         if (transaction != null) 'transaction': transaction!,
       };
 }
+
+/// The streamed response for Firestore.BatchGetDocuments.
+typedef BatchGetDocumentsResponse = core.List<BatchGetDocumentsResponseElement>;
 
 /// The request for Firestore.BatchWrite.
 class BatchWriteRequest {
@@ -2082,18 +2645,18 @@ class BatchWriteRequest {
     this.writes,
   });
 
-  BatchWriteRequest.fromJson(core.Map _json)
+  BatchWriteRequest.fromJson(core.Map json_)
       : this(
-          labels: _json.containsKey('labels')
-              ? (_json['labels'] as core.Map<core.String, core.dynamic>).map(
-                  (key, item) => core.MapEntry(
+          labels: json_.containsKey('labels')
+              ? (json_['labels'] as core.Map<core.String, core.dynamic>).map(
+                  (key, value) => core.MapEntry(
                     key,
-                    item as core.String,
+                    value as core.String,
                   ),
                 )
               : null,
-          writes: _json.containsKey('writes')
-              ? (_json['writes'] as core.List)
+          writes: json_.containsKey('writes')
+              ? (json_['writes'] as core.List)
                   .map((value) => Write.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -2123,16 +2686,16 @@ class BatchWriteResponse {
     this.writeResults,
   });
 
-  BatchWriteResponse.fromJson(core.Map _json)
+  BatchWriteResponse.fromJson(core.Map json_)
       : this(
-          status: _json.containsKey('status')
-              ? (_json['status'] as core.List)
+          status: json_.containsKey('status')
+              ? (json_['status'] as core.List)
                   .map((value) => Status.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          writeResults: _json.containsKey('writeResults')
-              ? (_json['writeResults'] as core.List)
+          writeResults: json_.containsKey('writeResults')
+              ? (json_['writeResults'] as core.List)
                   .map((value) => WriteResult.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -2156,11 +2719,11 @@ class BeginTransactionRequest {
     this.options,
   });
 
-  BeginTransactionRequest.fromJson(core.Map _json)
+  BeginTransactionRequest.fromJson(core.Map json_)
       : this(
-          options: _json.containsKey('options')
+          options: json_.containsKey('options')
               ? TransactionOptions.fromJson(
-                  _json['options'] as core.Map<core.String, core.dynamic>)
+                  json_['options'] as core.Map<core.String, core.dynamic>)
               : null,
         );
 
@@ -2182,9 +2745,9 @@ class CommitRequest {
   core.List<core.int> get transactionAsBytes =>
       convert.base64.decode(transaction!);
 
-  set transactionAsBytes(core.List<core.int> _bytes) {
+  set transactionAsBytes(core.List<core.int> bytes_) {
     transaction =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   /// The writes to apply.
@@ -2197,13 +2760,13 @@ class CommitRequest {
     this.writes,
   });
 
-  CommitRequest.fromJson(core.Map _json)
+  CommitRequest.fromJson(core.Map json_)
       : this(
-          transaction: _json.containsKey('transaction')
-              ? _json['transaction'] as core.String
+          transaction: json_.containsKey('transaction')
+              ? json_['transaction'] as core.String
               : null,
-          writes: _json.containsKey('writes')
-              ? (_json['writes'] as core.List)
+          writes: json_.containsKey('writes')
+              ? (json_['writes'] as core.List)
                   .map((value) => Write.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -2234,13 +2797,13 @@ class CommitResponse {
     this.writeResults,
   });
 
-  CommitResponse.fromJson(core.Map _json)
+  CommitResponse.fromJson(core.Map json_)
       : this(
-          commitTime: _json.containsKey('commitTime')
-              ? _json['commitTime'] as core.String
+          commitTime: json_.containsKey('commitTime')
+              ? json_['commitTime'] as core.String
               : null,
-          writeResults: _json.containsKey('writeResults')
-              ? (_json['writeResults'] as core.List)
+          writeResults: json_.containsKey('writeResults')
+              ? (json_['writeResults'] as core.List)
                   .map((value) => WriteResult.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -2264,6 +2827,8 @@ class CompositeFilter {
   /// Possible string values are:
   /// - "OPERATOR_UNSPECIFIED" : Unspecified. This value must not be used.
   /// - "AND" : Documents are required to satisfy all of the combined filters.
+  /// - "OR" : Documents are required to satisfy at least one of the combined
+  /// filters.
   core.String? op;
 
   CompositeFilter({
@@ -2271,15 +2836,15 @@ class CompositeFilter {
     this.op,
   });
 
-  CompositeFilter.fromJson(core.Map _json)
+  CompositeFilter.fromJson(core.Map json_)
       : this(
-          filters: _json.containsKey('filters')
-              ? (_json['filters'] as core.List)
+          filters: json_.containsKey('filters')
+              ? (json_['filters'] as core.List)
                   .map((value) => Filter.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          op: _json.containsKey('op') ? _json['op'] as core.String : null,
+          op: json_.containsKey('op') ? json_['op'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
@@ -2311,12 +2876,12 @@ class Cursor {
     this.values,
   });
 
-  Cursor.fromJson(core.Map _json)
+  Cursor.fromJson(core.Map json_)
       : this(
           before:
-              _json.containsKey('before') ? _json['before'] as core.bool : null,
-          values: _json.containsKey('values')
-              ? (_json['values'] as core.List)
+              json_.containsKey('before') ? json_['before'] as core.bool : null,
+          values: json_.containsKey('values')
+              ? (json_['values'] as core.List)
                   .map((value) => Value.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -2381,22 +2946,23 @@ class Document {
     this.updateTime,
   });
 
-  Document.fromJson(core.Map _json)
+  Document.fromJson(core.Map json_)
       : this(
-          createTime: _json.containsKey('createTime')
-              ? _json['createTime'] as core.String
+          createTime: json_.containsKey('createTime')
+              ? json_['createTime'] as core.String
               : null,
-          fields: _json.containsKey('fields')
-              ? (_json['fields'] as core.Map<core.String, core.dynamic>).map(
-                  (key, item) => core.MapEntry(
+          fields: json_.containsKey('fields')
+              ? (json_['fields'] as core.Map<core.String, core.dynamic>).map(
+                  (key, value) => core.MapEntry(
                     key,
-                    Value.fromJson(item as core.Map<core.String, core.dynamic>),
+                    Value.fromJson(
+                        value as core.Map<core.String, core.dynamic>),
                   ),
                 )
               : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
-          updateTime: _json.containsKey('updateTime')
-              ? _json['updateTime'] as core.String
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+          updateTime: json_.containsKey('updateTime')
+              ? json_['updateTime'] as core.String
               : null,
         );
 
@@ -2431,13 +2997,13 @@ class DocumentTransform {
     this.fieldTransforms,
   });
 
-  DocumentTransform.fromJson(core.Map _json)
+  DocumentTransform.fromJson(core.Map json_)
       : this(
-          document: _json.containsKey('document')
-              ? _json['document'] as core.String
+          document: json_.containsKey('document')
+              ? json_['document'] as core.String
               : null,
-          fieldTransforms: _json.containsKey('fieldTransforms')
-              ? (_json['fieldTransforms'] as core.List)
+          fieldTransforms: json_.containsKey('fieldTransforms')
+              ? (json_['fieldTransforms'] as core.List)
                   .map((value) => FieldTransform.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -2481,16 +3047,18 @@ class FieldFilter {
   /// - "ARRAY_CONTAINS" : The given `field` is an array that contains the given
   /// `value`.
   /// - "IN" : The given `field` is equal to at least one value in the given
-  /// array. Requires: * That `value` is a non-empty `ArrayValue` with at most
-  /// 10 values. * No other `IN` or `ARRAY_CONTAINS_ANY` or `NOT_IN`.
+  /// array. Requires: * That `value` is a non-empty `ArrayValue`, subject to
+  /// disjunction limits. * No `NOT_IN` filters in the same query.
   /// - "ARRAY_CONTAINS_ANY" : The given `field` is an array that contains any
   /// of the values in the given array. Requires: * That `value` is a non-empty
-  /// `ArrayValue` with at most 10 values. * No other `IN` or
-  /// `ARRAY_CONTAINS_ANY` or `NOT_IN`.
+  /// `ArrayValue`, subject to disjunction limits. * No other
+  /// `ARRAY_CONTAINS_ANY` filters within the same disjunction. * No `NOT_IN`
+  /// filters in the same query.
   /// - "NOT_IN" : The value of the `field` is not in the given array. Requires:
   /// * That `value` is a non-empty `ArrayValue` with at most 10 values. * No
-  /// other `IN`, `ARRAY_CONTAINS_ANY`, `NOT_IN`, `NOT_EQUAL`, `IS_NOT_NULL`, or
-  /// `IS_NOT_NAN`. * That `field` comes first in the `order_by`.
+  /// other `OR`, `IN`, `ARRAY_CONTAINS_ANY`, `NOT_IN`, `NOT_EQUAL`,
+  /// `IS_NOT_NULL`, or `IS_NOT_NAN`. * That `field` comes first in the
+  /// `order_by`.
   core.String? op;
 
   /// The value to compare to.
@@ -2502,16 +3070,16 @@ class FieldFilter {
     this.value,
   });
 
-  FieldFilter.fromJson(core.Map _json)
+  FieldFilter.fromJson(core.Map json_)
       : this(
-          field: _json.containsKey('field')
+          field: json_.containsKey('field')
               ? FieldReference.fromJson(
-                  _json['field'] as core.Map<core.String, core.dynamic>)
+                  json_['field'] as core.Map<core.String, core.dynamic>)
               : null,
-          op: _json.containsKey('op') ? _json['op'] as core.String : null,
-          value: _json.containsKey('value')
+          op: json_.containsKey('op') ? json_['op'] as core.String : null,
+          value: json_.containsKey('value')
               ? Value.fromJson(
-                  _json['value'] as core.Map<core.String, core.dynamic>)
+                  json_['value'] as core.Map<core.String, core.dynamic>)
               : null,
         );
 
@@ -2522,7 +3090,7 @@ class FieldFilter {
       };
 }
 
-/// A reference to a field, such as `max(messages.time) as max_time`.
+/// A reference to a field in a document, ex: `stats.operations`.
 typedef FieldReference = $FieldReference;
 
 /// A transformation of a field of the document.
@@ -2609,33 +3177,33 @@ class FieldTransform {
     this.setToServerValue,
   });
 
-  FieldTransform.fromJson(core.Map _json)
+  FieldTransform.fromJson(core.Map json_)
       : this(
-          appendMissingElements: _json.containsKey('appendMissingElements')
-              ? ArrayValue.fromJson(_json['appendMissingElements']
+          appendMissingElements: json_.containsKey('appendMissingElements')
+              ? ArrayValue.fromJson(json_['appendMissingElements']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          fieldPath: _json.containsKey('fieldPath')
-              ? _json['fieldPath'] as core.String
+          fieldPath: json_.containsKey('fieldPath')
+              ? json_['fieldPath'] as core.String
               : null,
-          increment: _json.containsKey('increment')
+          increment: json_.containsKey('increment')
               ? Value.fromJson(
-                  _json['increment'] as core.Map<core.String, core.dynamic>)
+                  json_['increment'] as core.Map<core.String, core.dynamic>)
               : null,
-          maximum: _json.containsKey('maximum')
+          maximum: json_.containsKey('maximum')
               ? Value.fromJson(
-                  _json['maximum'] as core.Map<core.String, core.dynamic>)
+                  json_['maximum'] as core.Map<core.String, core.dynamic>)
               : null,
-          minimum: _json.containsKey('minimum')
+          minimum: json_.containsKey('minimum')
               ? Value.fromJson(
-                  _json['minimum'] as core.Map<core.String, core.dynamic>)
+                  json_['minimum'] as core.Map<core.String, core.dynamic>)
               : null,
-          removeAllFromArray: _json.containsKey('removeAllFromArray')
-              ? ArrayValue.fromJson(_json['removeAllFromArray']
+          removeAllFromArray: json_.containsKey('removeAllFromArray')
+              ? ArrayValue.fromJson(json_['removeAllFromArray']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          setToServerValue: _json.containsKey('setToServerValue')
-              ? _json['setToServerValue'] as core.String
+          setToServerValue: json_.containsKey('setToServerValue')
+              ? json_['setToServerValue'] as core.String
               : null,
         );
 
@@ -2669,19 +3237,19 @@ class Filter {
     this.unaryFilter,
   });
 
-  Filter.fromJson(core.Map _json)
+  Filter.fromJson(core.Map json_)
       : this(
-          compositeFilter: _json.containsKey('compositeFilter')
-              ? CompositeFilter.fromJson(_json['compositeFilter']
+          compositeFilter: json_.containsKey('compositeFilter')
+              ? CompositeFilter.fromJson(json_['compositeFilter']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          fieldFilter: _json.containsKey('fieldFilter')
+          fieldFilter: json_.containsKey('fieldFilter')
               ? FieldFilter.fromJson(
-                  _json['fieldFilter'] as core.Map<core.String, core.dynamic>)
+                  json_['fieldFilter'] as core.Map<core.String, core.dynamic>)
               : null,
-          unaryFilter: _json.containsKey('unaryFilter')
+          unaryFilter: json_.containsKey('unaryFilter')
               ? UnaryFilter.fromJson(
-                  _json['unaryFilter'] as core.Map<core.String, core.dynamic>)
+                  json_['unaryFilter'] as core.Map<core.String, core.dynamic>)
               : null,
         );
 
@@ -2691,6 +3259,192 @@ class Filter {
         if (unaryFilter != null) 'unaryFilter': unaryFilter!,
       };
 }
+
+/// A Backup of a Cloud Firestore Database.
+///
+/// The backup contains all documents and index configurations for the given
+/// database at specific point in time.
+class GoogleFirestoreAdminV1Backup {
+  /// Name of the Firestore database that the backup is from.
+  ///
+  /// Format is `projects/{project}/databases/{database}`.
+  ///
+  /// Output only.
+  core.String? database;
+
+  /// The system-generated UUID4 for the Firestore database that the backup is
+  /// from.
+  ///
+  /// Output only.
+  core.String? databaseUid;
+
+  /// The timestamp at which this backup expires.
+  ///
+  /// Output only.
+  core.String? expireTime;
+
+  /// The unique resource name of the Backup.
+  ///
+  /// Format is `projects/{project}/locations/{location}/backups/{backup}`.
+  ///
+  /// Output only.
+  core.String? name;
+
+  /// The backup contains an externally consistent copy of the database at this
+  /// time.
+  ///
+  /// Output only.
+  core.String? snapshotTime;
+
+  /// The current state of the backup.
+  ///
+  /// Output only.
+  /// Possible string values are:
+  /// - "STATE_UNSPECIFIED" : The state is unspecified.
+  /// - "CREATING" : The pending backup is still being created. Operations on
+  /// the backup will be rejected in this state.
+  /// - "READY" : The backup is complete and ready to use.
+  /// - "NOT_AVAILABLE" : The backup is not available at this moment.
+  core.String? state;
+
+  /// Statistics about the backup.
+  ///
+  /// This data only becomes available after the backup is fully materialized to
+  /// secondary storage. This field will be empty till then.
+  ///
+  /// Output only.
+  GoogleFirestoreAdminV1Stats? stats;
+
+  GoogleFirestoreAdminV1Backup({
+    this.database,
+    this.databaseUid,
+    this.expireTime,
+    this.name,
+    this.snapshotTime,
+    this.state,
+    this.stats,
+  });
+
+  GoogleFirestoreAdminV1Backup.fromJson(core.Map json_)
+      : this(
+          database: json_.containsKey('database')
+              ? json_['database'] as core.String
+              : null,
+          databaseUid: json_.containsKey('databaseUid')
+              ? json_['databaseUid'] as core.String
+              : null,
+          expireTime: json_.containsKey('expireTime')
+              ? json_['expireTime'] as core.String
+              : null,
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+          snapshotTime: json_.containsKey('snapshotTime')
+              ? json_['snapshotTime'] as core.String
+              : null,
+          state:
+              json_.containsKey('state') ? json_['state'] as core.String : null,
+          stats: json_.containsKey('stats')
+              ? GoogleFirestoreAdminV1Stats.fromJson(
+                  json_['stats'] as core.Map<core.String, core.dynamic>)
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (database != null) 'database': database!,
+        if (databaseUid != null) 'databaseUid': databaseUid!,
+        if (expireTime != null) 'expireTime': expireTime!,
+        if (name != null) 'name': name!,
+        if (snapshotTime != null) 'snapshotTime': snapshotTime!,
+        if (state != null) 'state': state!,
+        if (stats != null) 'stats': stats!,
+      };
+}
+
+/// A backup schedule for a Cloud Firestore Database.
+///
+/// This resource is owned by the database it is backing up, and is deleted
+/// along with the database. The actual backups are not though.
+class GoogleFirestoreAdminV1BackupSchedule {
+  /// The timestamp at which this backup schedule was created and effective
+  /// since.
+  ///
+  /// No backups will be created for this schedule before this time.
+  ///
+  /// Output only.
+  core.String? createTime;
+
+  /// For a schedule that runs daily at a specified time.
+  GoogleFirestoreAdminV1DailyRecurrence? dailyRecurrence;
+
+  /// The unique backup schedule identifier across all locations and databases
+  /// for the given project.
+  ///
+  /// This will be auto-assigned. Format is
+  /// `projects/{project}/databases/{database}/backupSchedules/{backup_schedule}`
+  ///
+  /// Output only.
+  core.String? name;
+
+  /// At what relative time in the future, compared to its creation time, the
+  /// backup should be deleted, e.g. keep backups for 7 days.
+  core.String? retention;
+
+  /// The timestamp at which this backup schedule was most recently updated.
+  ///
+  /// When a backup schedule is first created, this is the same as create_time.
+  ///
+  /// Output only.
+  core.String? updateTime;
+
+  /// For a schedule that runs weekly on a specific day and time.
+  GoogleFirestoreAdminV1WeeklyRecurrence? weeklyRecurrence;
+
+  GoogleFirestoreAdminV1BackupSchedule({
+    this.createTime,
+    this.dailyRecurrence,
+    this.name,
+    this.retention,
+    this.updateTime,
+    this.weeklyRecurrence,
+  });
+
+  GoogleFirestoreAdminV1BackupSchedule.fromJson(core.Map json_)
+      : this(
+          createTime: json_.containsKey('createTime')
+              ? json_['createTime'] as core.String
+              : null,
+          dailyRecurrence: json_.containsKey('dailyRecurrence')
+              ? GoogleFirestoreAdminV1DailyRecurrence.fromJson(
+                  json_['dailyRecurrence']
+                      as core.Map<core.String, core.dynamic>)
+              : null,
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+          retention: json_.containsKey('retention')
+              ? json_['retention'] as core.String
+              : null,
+          updateTime: json_.containsKey('updateTime')
+              ? json_['updateTime'] as core.String
+              : null,
+          weeklyRecurrence: json_.containsKey('weeklyRecurrence')
+              ? GoogleFirestoreAdminV1WeeklyRecurrence.fromJson(
+                  json_['weeklyRecurrence']
+                      as core.Map<core.String, core.dynamic>)
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (createTime != null) 'createTime': createTime!,
+        if (dailyRecurrence != null) 'dailyRecurrence': dailyRecurrence!,
+        if (name != null) 'name': name!,
+        if (retention != null) 'retention': retention!,
+        if (updateTime != null) 'updateTime': updateTime!,
+        if (weeklyRecurrence != null) 'weeklyRecurrence': weeklyRecurrence!,
+      };
+}
+
+/// Represent a recurring schedule that runs at a specific time every day.
+///
+/// The time zone is UTC.
+typedef GoogleFirestoreAdminV1DailyRecurrence = $Empty;
 
 /// A Cloud Firestore Database.
 ///
@@ -2704,8 +3458,9 @@ class GoogleFirestoreAdminV1Database {
   /// this database, App Engine configuration will impact this database. This
   /// includes disabling of the application & database, as well as disabling
   /// writes to the database.
-  /// - "DISABLED" : Appengine has no affect on the ability of this database to
-  /// serve requests.
+  /// - "DISABLED" : App Engine has no effect on the ability of this database to
+  /// serve requests. This is the default setting for databases created with the
+  /// Firestore API.
   core.String? appEngineIntegrationMode;
 
   /// The concurrency control mode to use for this database.
@@ -2721,6 +3476,33 @@ class GoogleFirestoreAdminV1Database {
   /// Datastore. This mode is also available for Cloud Firestore with Datastore
   /// Mode but is not recommended.
   core.String? concurrencyMode;
+
+  /// The timestamp at which this database was created.
+  ///
+  /// Databases created before 2016 do not populate create_time.
+  ///
+  /// Output only.
+  core.String? createTime;
+
+  /// State of delete protection for the database.
+  /// Possible string values are:
+  /// - "DELETE_PROTECTION_STATE_UNSPECIFIED" : The default value. Delete
+  /// protection type is not specified
+  /// - "DELETE_PROTECTION_DISABLED" : Delete protection is disabled
+  /// - "DELETE_PROTECTION_ENABLED" : Delete protection is enabled
+  core.String? deleteProtectionState;
+
+  /// The earliest timestamp at which older versions of the data can be read
+  /// from the database.
+  ///
+  /// See \[version_retention_period\] above; this field is populated with `now
+  /// - version_retention_period`. This value is continuously updated, and
+  /// becomes stale the moment it is queried. If you are using this value to
+  /// recover data, make sure to account for the time from the moment when the
+  /// value is queried to the moment when you initiate the recovery.
+  ///
+  /// Output only.
+  core.String? earliestVersionTime;
 
   /// This checksum is computed by the server based on the value of other
   /// fields, and may be sent on update and delete requests to ensure the client
@@ -2749,6 +3531,18 @@ class GoogleFirestoreAdminV1Database {
   /// Format: `projects/{project}/databases/{database}`
   core.String? name;
 
+  /// Whether to enable the PITR feature on this database.
+  /// Possible string values are:
+  /// - "POINT_IN_TIME_RECOVERY_ENABLEMENT_UNSPECIFIED" : Not used.
+  /// - "POINT_IN_TIME_RECOVERY_ENABLED" : Reads are supported on selected
+  /// versions of the data from within the past 7 days: * Reads against any
+  /// timestamp within the past hour * Reads against 1-minute snapshots beyond 1
+  /// hour and within 7 days `version_retention_period` and
+  /// `earliest_version_time` can be used to determine the supported versions.
+  /// - "POINT_IN_TIME_RECOVERY_DISABLED" : Reads are supported on any version
+  /// of the data from within the past 1 hour.
+  core.String? pointInTimeRecoveryEnablement;
+
   /// The type of the database.
   ///
   /// See https://cloud.google.com/datastore/docs/firestore-or-datastore for
@@ -2760,50 +3554,180 @@ class GoogleFirestoreAdminV1Database {
   /// - "DATASTORE_MODE" : Firestore in Datastore Mode.
   core.String? type;
 
+  /// The system-generated UUID4 for this Database.
+  ///
+  /// Output only.
+  core.String? uid;
+
+  /// The timestamp at which this database was most recently updated.
+  ///
+  /// Note this only includes updates to the database resource and not data
+  /// contained by the database.
+  ///
+  /// Output only.
+  core.String? updateTime;
+
+  /// The period during which past versions of data are retained in the
+  /// database.
+  ///
+  /// Any read or query can specify a `read_time` within this window, and will
+  /// read the state of the database at that time. If the PITR feature is
+  /// enabled, the retention period is 7 days. Otherwise, the retention period
+  /// is 1 hour.
+  ///
+  /// Output only.
+  core.String? versionRetentionPeriod;
+
   GoogleFirestoreAdminV1Database({
     this.appEngineIntegrationMode,
     this.concurrencyMode,
+    this.createTime,
+    this.deleteProtectionState,
+    this.earliestVersionTime,
     this.etag,
     this.keyPrefix,
     this.locationId,
     this.name,
+    this.pointInTimeRecoveryEnablement,
     this.type,
+    this.uid,
+    this.updateTime,
+    this.versionRetentionPeriod,
   });
 
-  GoogleFirestoreAdminV1Database.fromJson(core.Map _json)
+  GoogleFirestoreAdminV1Database.fromJson(core.Map json_)
       : this(
           appEngineIntegrationMode:
-              _json.containsKey('appEngineIntegrationMode')
-                  ? _json['appEngineIntegrationMode'] as core.String
+              json_.containsKey('appEngineIntegrationMode')
+                  ? json_['appEngineIntegrationMode'] as core.String
                   : null,
-          concurrencyMode: _json.containsKey('concurrencyMode')
-              ? _json['concurrencyMode'] as core.String
+          concurrencyMode: json_.containsKey('concurrencyMode')
+              ? json_['concurrencyMode'] as core.String
               : null,
-          etag: _json.containsKey('etag') ? _json['etag'] as core.String : null,
-          keyPrefix: _json.containsKey('keyPrefix')
-              ? _json['keyPrefix'] as core.String
+          createTime: json_.containsKey('createTime')
+              ? json_['createTime'] as core.String
               : null,
-          locationId: _json.containsKey('locationId')
-              ? _json['locationId'] as core.String
+          deleteProtectionState: json_.containsKey('deleteProtectionState')
+              ? json_['deleteProtectionState'] as core.String
               : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
-          type: _json.containsKey('type') ? _json['type'] as core.String : null,
+          earliestVersionTime: json_.containsKey('earliestVersionTime')
+              ? json_['earliestVersionTime'] as core.String
+              : null,
+          etag: json_.containsKey('etag') ? json_['etag'] as core.String : null,
+          keyPrefix: json_.containsKey('keyPrefix')
+              ? json_['keyPrefix'] as core.String
+              : null,
+          locationId: json_.containsKey('locationId')
+              ? json_['locationId'] as core.String
+              : null,
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+          pointInTimeRecoveryEnablement:
+              json_.containsKey('pointInTimeRecoveryEnablement')
+                  ? json_['pointInTimeRecoveryEnablement'] as core.String
+                  : null,
+          type: json_.containsKey('type') ? json_['type'] as core.String : null,
+          uid: json_.containsKey('uid') ? json_['uid'] as core.String : null,
+          updateTime: json_.containsKey('updateTime')
+              ? json_['updateTime'] as core.String
+              : null,
+          versionRetentionPeriod: json_.containsKey('versionRetentionPeriod')
+              ? json_['versionRetentionPeriod'] as core.String
+              : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
         if (appEngineIntegrationMode != null)
           'appEngineIntegrationMode': appEngineIntegrationMode!,
         if (concurrencyMode != null) 'concurrencyMode': concurrencyMode!,
+        if (createTime != null) 'createTime': createTime!,
+        if (deleteProtectionState != null)
+          'deleteProtectionState': deleteProtectionState!,
+        if (earliestVersionTime != null)
+          'earliestVersionTime': earliestVersionTime!,
         if (etag != null) 'etag': etag!,
         if (keyPrefix != null) 'keyPrefix': keyPrefix!,
         if (locationId != null) 'locationId': locationId!,
         if (name != null) 'name': name!,
+        if (pointInTimeRecoveryEnablement != null)
+          'pointInTimeRecoveryEnablement': pointInTimeRecoveryEnablement!,
         if (type != null) 'type': type!,
+        if (uid != null) 'uid': uid!,
+        if (updateTime != null) 'updateTime': updateTime!,
+        if (versionRetentionPeriod != null)
+          'versionRetentionPeriod': versionRetentionPeriod!,
       };
 }
 
 /// The request for FirestoreAdmin.ExportDocuments.
-typedef GoogleFirestoreAdminV1ExportDocumentsRequest = $ExportDocumentsRequest;
+class GoogleFirestoreAdminV1ExportDocumentsRequest {
+  /// Which collection ids to export.
+  ///
+  /// Unspecified means all collections.
+  core.List<core.String>? collectionIds;
+
+  /// An empty list represents all namespaces.
+  ///
+  /// This is the preferred usage for databases that don't use namespaces. An
+  /// empty string element represents the default namespace. This should be used
+  /// if the database has data in non-default namespaces, but doesn't want to
+  /// include them. Each namespace in this list must be unique.
+  core.List<core.String>? namespaceIds;
+
+  /// The output URI.
+  ///
+  /// Currently only supports Google Cloud Storage URIs of the form:
+  /// `gs://BUCKET_NAME[/NAMESPACE_PATH]`, where `BUCKET_NAME` is the name of
+  /// the Google Cloud Storage bucket and `NAMESPACE_PATH` is an optional Google
+  /// Cloud Storage namespace path. When choosing a name, be sure to consider
+  /// Google Cloud Storage naming guidelines:
+  /// https://cloud.google.com/storage/docs/naming. If the URI is a bucket
+  /// (without a namespace path), a prefix will be generated based on the start
+  /// time.
+  core.String? outputUriPrefix;
+
+  /// The timestamp that corresponds to the version of the database to be
+  /// exported.
+  ///
+  /// The timestamp must be rounded to the minute, in the past, and not older
+  /// than 1 hour. If specified, then the exported documents will represent a
+  /// consistent view of the database at the provided time. Otherwise, there are
+  /// no guarantees about the consistency of the exported documents.
+  core.String? snapshotTime;
+
+  GoogleFirestoreAdminV1ExportDocumentsRequest({
+    this.collectionIds,
+    this.namespaceIds,
+    this.outputUriPrefix,
+    this.snapshotTime,
+  });
+
+  GoogleFirestoreAdminV1ExportDocumentsRequest.fromJson(core.Map json_)
+      : this(
+          collectionIds: json_.containsKey('collectionIds')
+              ? (json_['collectionIds'] as core.List)
+                  .map((value) => value as core.String)
+                  .toList()
+              : null,
+          namespaceIds: json_.containsKey('namespaceIds')
+              ? (json_['namespaceIds'] as core.List)
+                  .map((value) => value as core.String)
+                  .toList()
+              : null,
+          outputUriPrefix: json_.containsKey('outputUriPrefix')
+              ? json_['outputUriPrefix'] as core.String
+              : null,
+          snapshotTime: json_.containsKey('snapshotTime')
+              ? json_['snapshotTime'] as core.String
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (collectionIds != null) 'collectionIds': collectionIds!,
+        if (namespaceIds != null) 'namespaceIds': namespaceIds!,
+        if (outputUriPrefix != null) 'outputUriPrefix': outputUriPrefix!,
+        if (snapshotTime != null) 'snapshotTime': snapshotTime!,
+      };
+}
 
 /// Represents a single field in the database.
 ///
@@ -2840,23 +3764,35 @@ class GoogleFirestoreAdminV1Field {
   /// Required.
   core.String? name;
 
+  /// The TTL configuration for this `Field`.
+  ///
+  /// Setting or unsetting this will enable or disable the TTL for documents
+  /// that have this `Field`.
+  GoogleFirestoreAdminV1TtlConfig? ttlConfig;
+
   GoogleFirestoreAdminV1Field({
     this.indexConfig,
     this.name,
+    this.ttlConfig,
   });
 
-  GoogleFirestoreAdminV1Field.fromJson(core.Map _json)
+  GoogleFirestoreAdminV1Field.fromJson(core.Map json_)
       : this(
-          indexConfig: _json.containsKey('indexConfig')
+          indexConfig: json_.containsKey('indexConfig')
               ? GoogleFirestoreAdminV1IndexConfig.fromJson(
-                  _json['indexConfig'] as core.Map<core.String, core.dynamic>)
+                  json_['indexConfig'] as core.Map<core.String, core.dynamic>)
               : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+          ttlConfig: json_.containsKey('ttlConfig')
+              ? GoogleFirestoreAdminV1TtlConfig.fromJson(
+                  json_['ttlConfig'] as core.Map<core.String, core.dynamic>)
+              : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
         if (indexConfig != null) 'indexConfig': indexConfig!,
         if (name != null) 'name': name!,
+        if (ttlConfig != null) 'ttlConfig': ttlConfig!,
       };
 }
 
@@ -2874,42 +3810,65 @@ class GoogleFirestoreAdminV1ImportDocumentsRequest {
   /// google.firestore.admin.v1.ExportDocumentsResponse.output_uri_prefix.
   core.String? inputUriPrefix;
 
+  /// An empty list represents all namespaces.
+  ///
+  /// This is the preferred usage for databases that don't use namespaces. An
+  /// empty string element represents the default namespace. This should be used
+  /// if the database has data in non-default namespaces, but doesn't want to
+  /// include them. Each namespace in this list must be unique.
+  core.List<core.String>? namespaceIds;
+
   GoogleFirestoreAdminV1ImportDocumentsRequest({
     this.collectionIds,
     this.inputUriPrefix,
+    this.namespaceIds,
   });
 
-  GoogleFirestoreAdminV1ImportDocumentsRequest.fromJson(core.Map _json)
+  GoogleFirestoreAdminV1ImportDocumentsRequest.fromJson(core.Map json_)
       : this(
-          collectionIds: _json.containsKey('collectionIds')
-              ? (_json['collectionIds'] as core.List)
+          collectionIds: json_.containsKey('collectionIds')
+              ? (json_['collectionIds'] as core.List)
                   .map((value) => value as core.String)
                   .toList()
               : null,
-          inputUriPrefix: _json.containsKey('inputUriPrefix')
-              ? _json['inputUriPrefix'] as core.String
+          inputUriPrefix: json_.containsKey('inputUriPrefix')
+              ? json_['inputUriPrefix'] as core.String
+              : null,
+          namespaceIds: json_.containsKey('namespaceIds')
+              ? (json_['namespaceIds'] as core.List)
+                  .map((value) => value as core.String)
+                  .toList()
               : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
         if (collectionIds != null) 'collectionIds': collectionIds!,
         if (inputUriPrefix != null) 'inputUriPrefix': inputUriPrefix!,
+        if (namespaceIds != null) 'namespaceIds': namespaceIds!,
       };
 }
 
 /// Cloud Firestore indexes enable simple and complex queries against documents
 /// in a database.
 class GoogleFirestoreAdminV1Index {
+  /// The API scope supported by this index.
+  /// Possible string values are:
+  /// - "ANY_API" : The index can only be used by the Firestore Native query
+  /// API. This is the default.
+  /// - "DATASTORE_MODE_API" : The index can only be used by the Firestore in
+  /// Datastore Mode query API.
+  core.String? apiScope;
+
   /// The fields supported by this index.
   ///
-  /// For composite indexes, this is always 2 or more fields. The last field
-  /// entry is always for the field path `__name__`. If, on creation, `__name__`
-  /// was not specified as the last field, it will be added automatically with
-  /// the same direction as that of the last field defined. If the final field
-  /// in a composite index is not directional, the `__name__` will be ordered
-  /// ASCENDING (unless explicitly specified). For single field indexes, this
-  /// will always be exactly one entry with a field path equal to the field path
-  /// of the associated field.
+  /// For composite indexes, this requires a minimum of 2 and a maximum of 100
+  /// fields. The last field entry is always for the field path `__name__`. If,
+  /// on creation, `__name__` was not specified as the last field, it will be
+  /// added automatically with the same direction as that of the last field
+  /// defined. If the final field in a composite index is not directional, the
+  /// `__name__` will be ordered ASCENDING (unless explicitly specified). For
+  /// single field indexes, this will always be exactly one entry with a field
+  /// path equal to the field path of the associated field.
   core.List<GoogleFirestoreAdminV1IndexField>? fields;
 
   /// A server defined name for this index.
@@ -2938,6 +3897,8 @@ class GoogleFirestoreAdminV1Index {
   /// - "COLLECTION_GROUP" : Indexes with a collection group query scope
   /// specified allow queries against all collections that has the collection id
   /// specified by the index.
+  /// - "COLLECTION_RECURSIVE" : Include all the collections's ancestor in the
+  /// index. Only available for Datastore Mode databases.
   core.String? queryScope;
 
   /// The serving state of the index.
@@ -2960,29 +3921,34 @@ class GoogleFirestoreAdminV1Index {
   core.String? state;
 
   GoogleFirestoreAdminV1Index({
+    this.apiScope,
     this.fields,
     this.name,
     this.queryScope,
     this.state,
   });
 
-  GoogleFirestoreAdminV1Index.fromJson(core.Map _json)
+  GoogleFirestoreAdminV1Index.fromJson(core.Map json_)
       : this(
-          fields: _json.containsKey('fields')
-              ? (_json['fields'] as core.List)
+          apiScope: json_.containsKey('apiScope')
+              ? json_['apiScope'] as core.String
+              : null,
+          fields: json_.containsKey('fields')
+              ? (json_['fields'] as core.List)
                   .map((value) => GoogleFirestoreAdminV1IndexField.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
-          queryScope: _json.containsKey('queryScope')
-              ? _json['queryScope'] as core.String
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+          queryScope: json_.containsKey('queryScope')
+              ? json_['queryScope'] as core.String
               : null,
           state:
-              _json.containsKey('state') ? _json['state'] as core.String : null,
+              json_.containsKey('state') ? json_['state'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
+        if (apiScope != null) 'apiScope': apiScope!,
         if (fields != null) 'fields': fields!,
         if (name != null) 'name': name!,
         if (queryScope != null) 'queryScope': queryScope!,
@@ -3026,22 +3992,22 @@ class GoogleFirestoreAdminV1IndexConfig {
     this.usesAncestorConfig,
   });
 
-  GoogleFirestoreAdminV1IndexConfig.fromJson(core.Map _json)
+  GoogleFirestoreAdminV1IndexConfig.fromJson(core.Map json_)
       : this(
-          ancestorField: _json.containsKey('ancestorField')
-              ? _json['ancestorField'] as core.String
+          ancestorField: json_.containsKey('ancestorField')
+              ? json_['ancestorField'] as core.String
               : null,
-          indexes: _json.containsKey('indexes')
-              ? (_json['indexes'] as core.List)
+          indexes: json_.containsKey('indexes')
+              ? (json_['indexes'] as core.List)
                   .map((value) => GoogleFirestoreAdminV1Index.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          reverting: _json.containsKey('reverting')
-              ? _json['reverting'] as core.bool
+          reverting: json_.containsKey('reverting')
+              ? json_['reverting'] as core.bool
               : null,
-          usesAncestorConfig: _json.containsKey('usesAncestorConfig')
-              ? _json['usesAncestorConfig'] as core.bool
+          usesAncestorConfig: json_.containsKey('usesAncestorConfig')
+              ? json_['usesAncestorConfig'] as core.bool
               : null,
         );
 
@@ -3086,22 +4052,87 @@ class GoogleFirestoreAdminV1IndexField {
     this.order,
   });
 
-  GoogleFirestoreAdminV1IndexField.fromJson(core.Map _json)
+  GoogleFirestoreAdminV1IndexField.fromJson(core.Map json_)
       : this(
-          arrayConfig: _json.containsKey('arrayConfig')
-              ? _json['arrayConfig'] as core.String
+          arrayConfig: json_.containsKey('arrayConfig')
+              ? json_['arrayConfig'] as core.String
               : null,
-          fieldPath: _json.containsKey('fieldPath')
-              ? _json['fieldPath'] as core.String
+          fieldPath: json_.containsKey('fieldPath')
+              ? json_['fieldPath'] as core.String
               : null,
           order:
-              _json.containsKey('order') ? _json['order'] as core.String : null,
+              json_.containsKey('order') ? json_['order'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
         if (arrayConfig != null) 'arrayConfig': arrayConfig!,
         if (fieldPath != null) 'fieldPath': fieldPath!,
         if (order != null) 'order': order!,
+      };
+}
+
+/// The response for FirestoreAdmin.ListBackupSchedules.
+class GoogleFirestoreAdminV1ListBackupSchedulesResponse {
+  /// List of all backup schedules.
+  core.List<GoogleFirestoreAdminV1BackupSchedule>? backupSchedules;
+
+  GoogleFirestoreAdminV1ListBackupSchedulesResponse({
+    this.backupSchedules,
+  });
+
+  GoogleFirestoreAdminV1ListBackupSchedulesResponse.fromJson(core.Map json_)
+      : this(
+          backupSchedules: json_.containsKey('backupSchedules')
+              ? (json_['backupSchedules'] as core.List)
+                  .map((value) => GoogleFirestoreAdminV1BackupSchedule.fromJson(
+                      value as core.Map<core.String, core.dynamic>))
+                  .toList()
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (backupSchedules != null) 'backupSchedules': backupSchedules!,
+      };
+}
+
+/// The response for FirestoreAdmin.ListBackups.
+class GoogleFirestoreAdminV1ListBackupsResponse {
+  /// List of all backups for the project.
+  ///
+  /// Ordered by `location ASC, create_time DESC, name ASC`.
+  core.List<GoogleFirestoreAdminV1Backup>? backups;
+
+  /// List of locations that existing backups were not able to be fetched from.
+  ///
+  /// Instead of failing the entire requests when a single location is
+  /// unreachable, this response returns a partial result set and list of
+  /// locations unable to be reached here. The request can be retried against a
+  /// single location to get a concrete error.
+  core.List<core.String>? unreachable;
+
+  GoogleFirestoreAdminV1ListBackupsResponse({
+    this.backups,
+    this.unreachable,
+  });
+
+  GoogleFirestoreAdminV1ListBackupsResponse.fromJson(core.Map json_)
+      : this(
+          backups: json_.containsKey('backups')
+              ? (json_['backups'] as core.List)
+                  .map((value) => GoogleFirestoreAdminV1Backup.fromJson(
+                      value as core.Map<core.String, core.dynamic>))
+                  .toList()
+              : null,
+          unreachable: json_.containsKey('unreachable')
+              ? (json_['unreachable'] as core.List)
+                  .map((value) => value as core.String)
+                  .toList()
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (backups != null) 'backups': backups!,
+        if (unreachable != null) 'unreachable': unreachable!,
       };
 }
 
@@ -3114,10 +4145,10 @@ class GoogleFirestoreAdminV1ListDatabasesResponse {
     this.databases,
   });
 
-  GoogleFirestoreAdminV1ListDatabasesResponse.fromJson(core.Map _json)
+  GoogleFirestoreAdminV1ListDatabasesResponse.fromJson(core.Map json_)
       : this(
-          databases: _json.containsKey('databases')
-              ? (_json['databases'] as core.List)
+          databases: json_.containsKey('databases')
+              ? (json_['databases'] as core.List)
                   .map((value) => GoogleFirestoreAdminV1Database.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -3144,16 +4175,16 @@ class GoogleFirestoreAdminV1ListFieldsResponse {
     this.nextPageToken,
   });
 
-  GoogleFirestoreAdminV1ListFieldsResponse.fromJson(core.Map _json)
+  GoogleFirestoreAdminV1ListFieldsResponse.fromJson(core.Map json_)
       : this(
-          fields: _json.containsKey('fields')
-              ? (_json['fields'] as core.List)
+          fields: json_.containsKey('fields')
+              ? (json_['fields'] as core.List)
                   .map((value) => GoogleFirestoreAdminV1Field.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          nextPageToken: _json.containsKey('nextPageToken')
-              ? _json['nextPageToken'] as core.String
+          nextPageToken: json_.containsKey('nextPageToken')
+              ? json_['nextPageToken'] as core.String
               : null,
         );
 
@@ -3178,22 +4209,182 @@ class GoogleFirestoreAdminV1ListIndexesResponse {
     this.nextPageToken,
   });
 
-  GoogleFirestoreAdminV1ListIndexesResponse.fromJson(core.Map _json)
+  GoogleFirestoreAdminV1ListIndexesResponse.fromJson(core.Map json_)
       : this(
-          indexes: _json.containsKey('indexes')
-              ? (_json['indexes'] as core.List)
+          indexes: json_.containsKey('indexes')
+              ? (json_['indexes'] as core.List)
                   .map((value) => GoogleFirestoreAdminV1Index.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          nextPageToken: _json.containsKey('nextPageToken')
-              ? _json['nextPageToken'] as core.String
+          nextPageToken: json_.containsKey('nextPageToken')
+              ? json_['nextPageToken'] as core.String
               : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
         if (indexes != null) 'indexes': indexes!,
         if (nextPageToken != null) 'nextPageToken': nextPageToken!,
+      };
+}
+
+/// The request message for FirestoreAdmin.RestoreDatabase.
+class GoogleFirestoreAdminV1RestoreDatabaseRequest {
+  /// Backup to restore from.
+  ///
+  /// Must be from the same project as the parent. Format is:
+  /// `projects/{project_id}/locations/{location}/backups/{backup}`
+  ///
+  /// Required.
+  core.String? backup;
+
+  /// The ID to use for the database, which will become the final component of
+  /// the database's resource name.
+  ///
+  /// This database id must not be associated with an existing database. This
+  /// value should be 4-63 characters. Valid characters are /a-z-/ with first
+  /// character a letter and the last a letter or a number. Must not be
+  /// UUID-like /\[0-9a-f\]{8}(-\[0-9a-f\]{4}){3}-\[0-9a-f\]{12}/. "(default)"
+  /// database id is also valid.
+  ///
+  /// Required.
+  core.String? databaseId;
+
+  GoogleFirestoreAdminV1RestoreDatabaseRequest({
+    this.backup,
+    this.databaseId,
+  });
+
+  GoogleFirestoreAdminV1RestoreDatabaseRequest.fromJson(core.Map json_)
+      : this(
+          backup: json_.containsKey('backup')
+              ? json_['backup'] as core.String
+              : null,
+          databaseId: json_.containsKey('databaseId')
+              ? json_['databaseId'] as core.String
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (backup != null) 'backup': backup!,
+        if (databaseId != null) 'databaseId': databaseId!,
+      };
+}
+
+/// Backup specific statistics.
+class GoogleFirestoreAdminV1Stats {
+  /// The total number of documents contained in the backup.
+  ///
+  /// Output only.
+  core.String? documentCount;
+
+  /// The total number of index entries contained in the backup.
+  ///
+  /// Output only.
+  core.String? indexCount;
+
+  /// Summation of the size of all documents and index entries in the backup,
+  /// measured in bytes.
+  ///
+  /// Output only.
+  core.String? sizeBytes;
+
+  GoogleFirestoreAdminV1Stats({
+    this.documentCount,
+    this.indexCount,
+    this.sizeBytes,
+  });
+
+  GoogleFirestoreAdminV1Stats.fromJson(core.Map json_)
+      : this(
+          documentCount: json_.containsKey('documentCount')
+              ? json_['documentCount'] as core.String
+              : null,
+          indexCount: json_.containsKey('indexCount')
+              ? json_['indexCount'] as core.String
+              : null,
+          sizeBytes: json_.containsKey('sizeBytes')
+              ? json_['sizeBytes'] as core.String
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (documentCount != null) 'documentCount': documentCount!,
+        if (indexCount != null) 'indexCount': indexCount!,
+        if (sizeBytes != null) 'sizeBytes': sizeBytes!,
+      };
+}
+
+/// The TTL (time-to-live) configuration for documents that have this `Field`
+/// set.
+///
+/// Storing a timestamp value into a TTL-enabled field will be treated as the
+/// document's absolute expiration time. Timestamp values in the past indicate
+/// that the document is eligible for immediate expiration. Using any other data
+/// type or leaving the field absent will disable expiration for the individual
+/// document.
+class GoogleFirestoreAdminV1TtlConfig {
+  /// The state of the TTL configuration.
+  ///
+  /// Output only.
+  /// Possible string values are:
+  /// - "STATE_UNSPECIFIED" : The state is unspecified or unknown.
+  /// - "CREATING" : The TTL is being applied. There is an active long-running
+  /// operation to track the change. Newly written documents will have TTLs
+  /// applied as requested. Requested TTLs on existing documents are still being
+  /// processed. When TTLs on all existing documents have been processed, the
+  /// state will move to 'ACTIVE'.
+  /// - "ACTIVE" : The TTL is active for all documents.
+  /// - "NEEDS_REPAIR" : The TTL configuration could not be enabled for all
+  /// existing documents. Newly written documents will continue to have their
+  /// TTL applied. The LRO returned when last attempting to enable TTL for this
+  /// `Field` has failed, and may have more details.
+  core.String? state;
+
+  GoogleFirestoreAdminV1TtlConfig({
+    this.state,
+  });
+
+  GoogleFirestoreAdminV1TtlConfig.fromJson(core.Map json_)
+      : this(
+          state:
+              json_.containsKey('state') ? json_['state'] as core.String : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (state != null) 'state': state!,
+      };
+}
+
+/// Represents a recurring schedule that runs on a specified day of the week.
+///
+/// The time zone is UTC.
+class GoogleFirestoreAdminV1WeeklyRecurrence {
+  /// The day of week to run.
+  ///
+  /// DAY_OF_WEEK_UNSPECIFIED is not allowed.
+  /// Possible string values are:
+  /// - "DAY_OF_WEEK_UNSPECIFIED" : The day of the week is unspecified.
+  /// - "MONDAY" : Monday
+  /// - "TUESDAY" : Tuesday
+  /// - "WEDNESDAY" : Wednesday
+  /// - "THURSDAY" : Thursday
+  /// - "FRIDAY" : Friday
+  /// - "SATURDAY" : Saturday
+  /// - "SUNDAY" : Sunday
+  core.String? day;
+
+  GoogleFirestoreAdminV1WeeklyRecurrence({
+    this.day,
+  });
+
+  GoogleFirestoreAdminV1WeeklyRecurrence.fromJson(core.Map json_)
+      : this(
+          day: json_.containsKey('day') ? json_['day'] as core.String : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (day != null) 'day': day!,
       };
 }
 
@@ -3213,13 +4404,13 @@ class GoogleLongrunningListOperationsResponse {
     this.operations,
   });
 
-  GoogleLongrunningListOperationsResponse.fromJson(core.Map _json)
+  GoogleLongrunningListOperationsResponse.fromJson(core.Map json_)
       : this(
-          nextPageToken: _json.containsKey('nextPageToken')
-              ? _json['nextPageToken'] as core.String
+          nextPageToken: json_.containsKey('nextPageToken')
+              ? json_['nextPageToken'] as core.String
               : null,
-          operations: _json.containsKey('operations')
-              ? (_json['operations'] as core.List)
+          operations: json_.containsKey('operations')
+              ? (json_['operations'] as core.List)
                   .map((value) => GoogleLongrunningOperation.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -3262,7 +4453,7 @@ class GoogleLongrunningOperation {
   /// ending with `operations/{unique_id}`.
   core.String? name;
 
-  /// The normal response of the operation in case of success.
+  /// The normal, successful response of the operation.
   ///
   /// If the original method returns no data on success, such as `Delete`, the
   /// response is `google.protobuf.Empty`. If the original method is standard
@@ -3283,19 +4474,19 @@ class GoogleLongrunningOperation {
     this.response,
   });
 
-  GoogleLongrunningOperation.fromJson(core.Map _json)
+  GoogleLongrunningOperation.fromJson(core.Map json_)
       : this(
-          done: _json.containsKey('done') ? _json['done'] as core.bool : null,
-          error: _json.containsKey('error')
+          done: json_.containsKey('done') ? json_['done'] as core.bool : null,
+          error: json_.containsKey('error')
               ? Status.fromJson(
-                  _json['error'] as core.Map<core.String, core.dynamic>)
+                  json_['error'] as core.Map<core.String, core.dynamic>)
               : null,
-          metadata: _json.containsKey('metadata')
-              ? _json['metadata'] as core.Map<core.String, core.dynamic>
+          metadata: json_.containsKey('metadata')
+              ? json_['metadata'] as core.Map<core.String, core.dynamic>
               : null,
-          name: _json.containsKey('name') ? _json['name'] as core.String : null,
-          response: _json.containsKey('response')
-              ? _json['response'] as core.Map<core.String, core.dynamic>
+          name: json_.containsKey('name') ? json_['name'] as core.String : null,
+          response: json_.containsKey('response')
+              ? json_['response'] as core.Map<core.String, core.dynamic>
               : null,
         );
 
@@ -3316,35 +4507,7 @@ class GoogleLongrunningOperation {
 typedef LatLng = $LatLng;
 
 /// The request for Firestore.ListCollectionIds.
-class ListCollectionIdsRequest {
-  /// The maximum number of results to return.
-  core.int? pageSize;
-
-  /// A page token.
-  ///
-  /// Must be a value from ListCollectionIdsResponse.
-  core.String? pageToken;
-
-  ListCollectionIdsRequest({
-    this.pageSize,
-    this.pageToken,
-  });
-
-  ListCollectionIdsRequest.fromJson(core.Map _json)
-      : this(
-          pageSize: _json.containsKey('pageSize')
-              ? _json['pageSize'] as core.int
-              : null,
-          pageToken: _json.containsKey('pageToken')
-              ? _json['pageToken'] as core.String
-              : null,
-        );
-
-  core.Map<core.String, core.dynamic> toJson() => {
-        if (pageSize != null) 'pageSize': pageSize!,
-        if (pageToken != null) 'pageToken': pageToken!,
-      };
-}
+typedef ListCollectionIdsRequest = $ListCollectionIdsRequest;
 
 /// The response from Firestore.ListCollectionIds.
 typedef ListCollectionIdsResponse = $ListCollectionIdsResponse;
@@ -3354,7 +4517,9 @@ class ListDocumentsResponse {
   /// The Documents found.
   core.List<Document>? documents;
 
-  /// The next page token.
+  /// A token to retrieve the next page of documents.
+  ///
+  /// If this field is omitted, there are no subsequent pages.
   core.String? nextPageToken;
 
   ListDocumentsResponse({
@@ -3362,16 +4527,16 @@ class ListDocumentsResponse {
     this.nextPageToken,
   });
 
-  ListDocumentsResponse.fromJson(core.Map _json)
+  ListDocumentsResponse.fromJson(core.Map json_)
       : this(
-          documents: _json.containsKey('documents')
-              ? (_json['documents'] as core.List)
+          documents: json_.containsKey('documents')
+              ? (json_['documents'] as core.List)
                   .map((value) => Document.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          nextPageToken: _json.containsKey('nextPageToken')
-              ? _json['nextPageToken'] as core.String
+          nextPageToken: json_.containsKey('nextPageToken')
+              ? json_['nextPageToken'] as core.String
               : null,
         );
 
@@ -3394,16 +4559,16 @@ class ListLocationsResponse {
     this.nextPageToken,
   });
 
-  ListLocationsResponse.fromJson(core.Map _json)
+  ListLocationsResponse.fromJson(core.Map json_)
       : this(
-          locations: _json.containsKey('locations')
-              ? (_json['locations'] as core.List)
+          locations: json_.containsKey('locations')
+              ? (json_['locations'] as core.List)
                   .map((value) => Location.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          nextPageToken: _json.containsKey('nextPageToken')
-              ? _json['nextPageToken'] as core.String
+          nextPageToken: json_.containsKey('nextPageToken')
+              ? json_['nextPageToken'] as core.String
               : null,
         );
 
@@ -3413,7 +4578,7 @@ class ListLocationsResponse {
       };
 }
 
-/// A resource that represents Google Cloud Platform location.
+/// A resource that represents a Google Cloud location.
 typedef Location = $Location;
 
 /// A map value.
@@ -3430,13 +4595,14 @@ class MapValue {
     this.fields,
   });
 
-  MapValue.fromJson(core.Map _json)
+  MapValue.fromJson(core.Map json_)
       : this(
-          fields: _json.containsKey('fields')
-              ? (_json['fields'] as core.Map<core.String, core.dynamic>).map(
-                  (key, item) => core.MapEntry(
+          fields: json_.containsKey('fields')
+              ? (json_['fields'] as core.Map<core.String, core.dynamic>).map(
+                  (key, value) => core.MapEntry(
                     key,
-                    Value.fromJson(item as core.Map<core.String, core.dynamic>),
+                    Value.fromJson(
+                        value as core.Map<core.String, core.dynamic>),
                   ),
                 )
               : null,
@@ -3466,14 +4632,14 @@ class Order {
     this.field,
   });
 
-  Order.fromJson(core.Map _json)
+  Order.fromJson(core.Map json_)
       : this(
-          direction: _json.containsKey('direction')
-              ? _json['direction'] as core.String
+          direction: json_.containsKey('direction')
+              ? json_['direction'] as core.String
               : null,
-          field: _json.containsKey('field')
+          field: json_.containsKey('field')
               ? FieldReference.fromJson(
-                  _json['field'] as core.Map<core.String, core.dynamic>)
+                  json_['field'] as core.Map<core.String, core.dynamic>)
               : null,
         );
 
@@ -3515,6 +4681,13 @@ class PartitionQueryRequest {
   /// than the number of workers or compute instances available.
   core.String? partitionCount;
 
+  /// Reads documents as they were at the given time.
+  ///
+  /// This must be a microsecond precision timestamp within the past one hour,
+  /// or if Point-in-Time Recovery is enabled, can additionally be a whole
+  /// minute timestamp within the past 7 days.
+  core.String? readTime;
+
   /// A structured query.
   ///
   /// Query must specify collection with all descendants and be ordered by name
@@ -3526,22 +4699,26 @@ class PartitionQueryRequest {
     this.pageSize,
     this.pageToken,
     this.partitionCount,
+    this.readTime,
     this.structuredQuery,
   });
 
-  PartitionQueryRequest.fromJson(core.Map _json)
+  PartitionQueryRequest.fromJson(core.Map json_)
       : this(
-          pageSize: _json.containsKey('pageSize')
-              ? _json['pageSize'] as core.int
+          pageSize: json_.containsKey('pageSize')
+              ? json_['pageSize'] as core.int
               : null,
-          pageToken: _json.containsKey('pageToken')
-              ? _json['pageToken'] as core.String
+          pageToken: json_.containsKey('pageToken')
+              ? json_['pageToken'] as core.String
               : null,
-          partitionCount: _json.containsKey('partitionCount')
-              ? _json['partitionCount'] as core.String
+          partitionCount: json_.containsKey('partitionCount')
+              ? json_['partitionCount'] as core.String
               : null,
-          structuredQuery: _json.containsKey('structuredQuery')
-              ? StructuredQuery.fromJson(_json['structuredQuery']
+          readTime: json_.containsKey('readTime')
+              ? json_['readTime'] as core.String
+              : null,
+          structuredQuery: json_.containsKey('structuredQuery')
+              ? StructuredQuery.fromJson(json_['structuredQuery']
                   as core.Map<core.String, core.dynamic>)
               : null,
         );
@@ -3550,6 +4727,7 @@ class PartitionQueryRequest {
         if (pageSize != null) 'pageSize': pageSize!,
         if (pageToken != null) 'pageToken': pageToken!,
         if (partitionCount != null) 'partitionCount': partitionCount!,
+        if (readTime != null) 'readTime': readTime!,
         if (structuredQuery != null) 'structuredQuery': structuredQuery!,
       };
 }
@@ -3581,13 +4759,13 @@ class PartitionQueryResponse {
     this.partitions,
   });
 
-  PartitionQueryResponse.fromJson(core.Map _json)
+  PartitionQueryResponse.fromJson(core.Map json_)
       : this(
-          nextPageToken: _json.containsKey('nextPageToken')
-              ? _json['nextPageToken'] as core.String
+          nextPageToken: json_.containsKey('nextPageToken')
+              ? json_['nextPageToken'] as core.String
               : null,
-          partitions: _json.containsKey('partitions')
-              ? (_json['partitions'] as core.List)
+          partitions: json_.containsKey('partitions')
+              ? (json_['partitions'] as core.List)
                   .map((value) => Cursor.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -3615,10 +4793,10 @@ class Projection {
     this.fields,
   });
 
-  Projection.fromJson(core.Map _json)
+  Projection.fromJson(core.Map json_)
       : this(
-          fields: _json.containsKey('fields')
-              ? (_json['fields'] as core.List)
+          fields: json_.containsKey('fields')
+              ? (json_['fields'] as core.List)
                   .map((value) => FieldReference.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -3634,6 +4812,9 @@ class Projection {
 typedef ReadOnly = $ReadOnly;
 
 /// Options for a transaction that can be used to read and write documents.
+///
+/// Firestore does not allow 3rd party auth requests to create read-write.
+/// transactions.
 typedef ReadWrite = $ReadWrite;
 
 /// The request for Firestore.Rollback.
@@ -3649,7 +4830,9 @@ class RunAggregationQueryRequest {
 
   /// Executes the query at the given timestamp.
   ///
-  /// Requires: * Cannot be more than 270 seconds in the past.
+  /// This must be a microsecond precision timestamp within the past one hour,
+  /// or if Point-in-Time Recovery is enabled, can additionally be a whole
+  /// minute timestamp within the past 7 days.
   core.String? readTime;
 
   /// An aggregation query.
@@ -3662,9 +4845,9 @@ class RunAggregationQueryRequest {
   core.List<core.int> get transactionAsBytes =>
       convert.base64.decode(transaction!);
 
-  set transactionAsBytes(core.List<core.int> _bytes) {
+  set transactionAsBytes(core.List<core.int> bytes_) {
     transaction =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   RunAggregationQueryRequest({
@@ -3674,23 +4857,23 @@ class RunAggregationQueryRequest {
     this.transaction,
   });
 
-  RunAggregationQueryRequest.fromJson(core.Map _json)
+  RunAggregationQueryRequest.fromJson(core.Map json_)
       : this(
-          newTransaction: _json.containsKey('newTransaction')
-              ? TransactionOptions.fromJson(_json['newTransaction']
+          newTransaction: json_.containsKey('newTransaction')
+              ? TransactionOptions.fromJson(json_['newTransaction']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          readTime: _json.containsKey('readTime')
-              ? _json['readTime'] as core.String
+          readTime: json_.containsKey('readTime')
+              ? json_['readTime'] as core.String
               : null,
           structuredAggregationQuery:
-              _json.containsKey('structuredAggregationQuery')
+              json_.containsKey('structuredAggregationQuery')
                   ? StructuredAggregationQuery.fromJson(
-                      _json['structuredAggregationQuery']
+                      json_['structuredAggregationQuery']
                           as core.Map<core.String, core.dynamic>)
                   : null,
-          transaction: _json.containsKey('transaction')
-              ? _json['transaction'] as core.String
+          transaction: json_.containsKey('transaction')
+              ? json_['transaction'] as core.String
               : null,
         );
 
@@ -3703,15 +4886,19 @@ class RunAggregationQueryRequest {
       };
 }
 
-/// The response for Firestore.RunAggregationQuery.
-class RunAggregationQueryResponse {
-  /// The time at which the aggregate value is valid for.
+class RunAggregationQueryResponseElement {
+  /// The time at which the aggregate result was computed.
+  ///
+  /// This is always monotonically increasing; in this case, the previous
+  /// AggregationResult in the result stream are guaranteed not to have changed
+  /// between their `read_time` and this one. If the query returns no results, a
+  /// response with `read_time` and no `result` will be sent, and this
+  /// represents the time at which the query was run.
   core.String? readTime;
 
   /// A single aggregation result.
   ///
-  /// Not present when reporting partial progress or when the query produced
-  /// zero results.
+  /// Not present when reporting partial progress.
   AggregationResult? result;
 
   /// The transaction that was started as part of this request.
@@ -3722,28 +4909,28 @@ class RunAggregationQueryResponse {
   core.List<core.int> get transactionAsBytes =>
       convert.base64.decode(transaction!);
 
-  set transactionAsBytes(core.List<core.int> _bytes) {
+  set transactionAsBytes(core.List<core.int> bytes_) {
     transaction =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
-  RunAggregationQueryResponse({
+  RunAggregationQueryResponseElement({
     this.readTime,
     this.result,
     this.transaction,
   });
 
-  RunAggregationQueryResponse.fromJson(core.Map _json)
+  RunAggregationQueryResponseElement.fromJson(core.Map json_)
       : this(
-          readTime: _json.containsKey('readTime')
-              ? _json['readTime'] as core.String
+          readTime: json_.containsKey('readTime')
+              ? json_['readTime'] as core.String
               : null,
-          result: _json.containsKey('result')
+          result: json_.containsKey('result')
               ? AggregationResult.fromJson(
-                  _json['result'] as core.Map<core.String, core.dynamic>)
+                  json_['result'] as core.Map<core.String, core.dynamic>)
               : null,
-          transaction: _json.containsKey('transaction')
-              ? _json['transaction'] as core.String
+          transaction: json_.containsKey('transaction')
+              ? json_['transaction'] as core.String
               : null,
         );
 
@@ -3753,6 +4940,10 @@ class RunAggregationQueryResponse {
         if (transaction != null) 'transaction': transaction!,
       };
 }
+
+/// The response for Firestore.RunAggregationQuery.
+typedef RunAggregationQueryResponse
+    = core.List<RunAggregationQueryResponseElement>;
 
 /// The request for Firestore.RunQuery.
 class RunQueryRequest {
@@ -3764,7 +4955,9 @@ class RunQueryRequest {
 
   /// Reads documents as they were at the given time.
   ///
-  /// This may not be older than 270 seconds.
+  /// This must be a microsecond precision timestamp within the past one hour,
+  /// or if Point-in-Time Recovery is enabled, can additionally be a whole
+  /// minute timestamp within the past 7 days.
   core.String? readTime;
 
   /// A structured query.
@@ -3777,9 +4970,9 @@ class RunQueryRequest {
   core.List<core.int> get transactionAsBytes =>
       convert.base64.decode(transaction!);
 
-  set transactionAsBytes(core.List<core.int> _bytes) {
+  set transactionAsBytes(core.List<core.int> bytes_) {
     transaction =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   RunQueryRequest({
@@ -3789,21 +4982,21 @@ class RunQueryRequest {
     this.transaction,
   });
 
-  RunQueryRequest.fromJson(core.Map _json)
+  RunQueryRequest.fromJson(core.Map json_)
       : this(
-          newTransaction: _json.containsKey('newTransaction')
-              ? TransactionOptions.fromJson(_json['newTransaction']
+          newTransaction: json_.containsKey('newTransaction')
+              ? TransactionOptions.fromJson(json_['newTransaction']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          readTime: _json.containsKey('readTime')
-              ? _json['readTime'] as core.String
+          readTime: json_.containsKey('readTime')
+              ? json_['readTime'] as core.String
               : null,
-          structuredQuery: _json.containsKey('structuredQuery')
-              ? StructuredQuery.fromJson(_json['structuredQuery']
+          structuredQuery: json_.containsKey('structuredQuery')
+              ? StructuredQuery.fromJson(json_['structuredQuery']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          transaction: _json.containsKey('transaction')
-              ? _json['transaction'] as core.String
+          transaction: json_.containsKey('transaction')
+              ? json_['transaction'] as core.String
               : null,
         );
 
@@ -3815,10 +5008,13 @@ class RunQueryRequest {
       };
 }
 
-/// The response for Firestore.RunQuery.
-class RunQueryResponse {
+class RunQueryResponseElement {
   /// A query result, not set when reporting partial progress.
   Document? document;
+
+  /// If present, Firestore has completely finished the request and no more
+  /// documents will be returned.
+  core.bool? done;
 
   /// The time at which the document was read.
   ///
@@ -3842,42 +5038,48 @@ class RunQueryResponse {
   core.List<core.int> get transactionAsBytes =>
       convert.base64.decode(transaction!);
 
-  set transactionAsBytes(core.List<core.int> _bytes) {
+  set transactionAsBytes(core.List<core.int> bytes_) {
     transaction =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
-  RunQueryResponse({
+  RunQueryResponseElement({
     this.document,
+    this.done,
     this.readTime,
     this.skippedResults,
     this.transaction,
   });
 
-  RunQueryResponse.fromJson(core.Map _json)
+  RunQueryResponseElement.fromJson(core.Map json_)
       : this(
-          document: _json.containsKey('document')
+          document: json_.containsKey('document')
               ? Document.fromJson(
-                  _json['document'] as core.Map<core.String, core.dynamic>)
+                  json_['document'] as core.Map<core.String, core.dynamic>)
               : null,
-          readTime: _json.containsKey('readTime')
-              ? _json['readTime'] as core.String
+          done: json_.containsKey('done') ? json_['done'] as core.bool : null,
+          readTime: json_.containsKey('readTime')
+              ? json_['readTime'] as core.String
               : null,
-          skippedResults: _json.containsKey('skippedResults')
-              ? _json['skippedResults'] as core.int
+          skippedResults: json_.containsKey('skippedResults')
+              ? json_['skippedResults'] as core.int
               : null,
-          transaction: _json.containsKey('transaction')
-              ? _json['transaction'] as core.String
+          transaction: json_.containsKey('transaction')
+              ? json_['transaction'] as core.String
               : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
         if (document != null) 'document': document!,
+        if (done != null) 'done': done!,
         if (readTime != null) 'readTime': readTime!,
         if (skippedResults != null) 'skippedResults': skippedResults!,
         if (transaction != null) 'transaction': transaction!,
       };
 }
+
+/// The response for Firestore.RunQuery.
+typedef RunQueryResponse = core.List<RunQueryResponseElement>;
 
 /// The `Status` type defines a logical error model that is suitable for
 /// different programming environments, including REST APIs and RPC APIs.
@@ -3890,7 +5092,10 @@ typedef Status = $Status;
 
 /// Firestore query for running an aggregation over a StructuredQuery.
 class StructuredAggregationQuery {
-  /// Series of aggregations to apply on top of the `structured_query`.
+  /// Series of aggregations to apply over the results of the
+  /// `structured_query`.
+  ///
+  /// Requires: * A minimum of one and maximum of five aggregations per query.
   ///
   /// Optional.
   core.List<Aggregation>? aggregations;
@@ -3903,16 +5108,16 @@ class StructuredAggregationQuery {
     this.structuredQuery,
   });
 
-  StructuredAggregationQuery.fromJson(core.Map _json)
+  StructuredAggregationQuery.fromJson(core.Map json_)
       : this(
-          aggregations: _json.containsKey('aggregations')
-              ? (_json['aggregations'] as core.List)
+          aggregations: json_.containsKey('aggregations')
+              ? (json_['aggregations'] as core.List)
                   .map((value) => Aggregation.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          structuredQuery: _json.containsKey('structuredQuery')
-              ? StructuredQuery.fromJson(_json['structuredQuery']
+          structuredQuery: json_.containsKey('structuredQuery')
+              ? StructuredQuery.fromJson(json_['structuredQuery']
                   as core.Map<core.String, core.dynamic>)
               : null,
         );
@@ -3925,7 +5130,11 @@ class StructuredAggregationQuery {
 
 /// A Firestore query.
 class StructuredQuery {
-  /// A end point for the query results.
+  /// A potential prefix of a position in the result set to end the query at.
+  ///
+  /// This is similar to `START_AT` but with it controlling the end position
+  /// rather than the start position. Requires: * The number of values cannot be
+  /// greater than the number of fields specified in the `ORDER BY` clause.
   Cursor? endAt;
 
   /// The collections to query.
@@ -3933,33 +5142,57 @@ class StructuredQuery {
 
   /// The maximum number of results to return.
   ///
-  /// Applies after all other constraints. Must be \>= 0 if specified.
+  /// Applies after all other constraints. Requires: * The value must be greater
+  /// than or equal to zero if specified.
   core.int? limit;
 
-  /// The number of results to skip.
+  /// The number of documents to skip before returning the first result.
   ///
-  /// Applies before limit, but after all other constraints. Must be \>= 0 if
-  /// specified.
+  /// This applies after the constraints specified by the `WHERE`, `START AT`, &
+  /// `END AT` but before the `LIMIT` clause. Requires: * The value must be
+  /// greater than or equal to zero if specified.
   core.int? offset;
 
   /// The order to apply to the query results.
   ///
-  /// Firestore guarantees a stable ordering through the following rules: * Any
-  /// field required to appear in `order_by`, that is not already specified in
-  /// `order_by`, is appended to the order in field name order by default. * If
-  /// an order on `__name__` is not specified, it is appended by default. Fields
-  /// are appended with the same sort direction as the last order specified, or
-  /// 'ASCENDING' if no order was specified. For example: * `SELECT * FROM Foo
-  /// ORDER BY A` becomes `SELECT * FROM Foo ORDER BY A, __name__` * `SELECT *
-  /// FROM Foo ORDER BY A DESC` becomes `SELECT * FROM Foo ORDER BY A DESC,
-  /// __name__ DESC` * `SELECT * FROM Foo WHERE A > 1` becomes `SELECT * FROM
-  /// Foo WHERE A > 1 ORDER BY A, __name__`
+  /// Firestore allows callers to provide a full ordering, a partial ordering,
+  /// or no ordering at all. In all cases, Firestore guarantees a stable
+  /// ordering through the following rules: * The `order_by` is required to
+  /// reference all fields used with an inequality filter. * All fields that are
+  /// required to be in the `order_by` but are not already present are appended
+  /// in lexicographical ordering of the field name. * If an order on `__name__`
+  /// is not specified, it is appended by default. Fields are appended with the
+  /// same sort direction as the last order specified, or 'ASCENDING' if no
+  /// order was specified. For example: * `ORDER BY a` becomes `ORDER BY a ASC,
+  /// __name__ ASC` * `ORDER BY a DESC` becomes `ORDER BY a DESC, __name__ DESC`
+  /// * `WHERE a > 1` becomes `WHERE a > 1 ORDER BY a ASC, __name__ ASC` *
+  /// `WHERE __name__ > ... AND a > 1` becomes `WHERE __name__ > ... AND a > 1
+  /// ORDER BY a ASC, __name__ ASC`
   core.List<Order>? orderBy;
 
-  /// The projection to return.
+  /// Optional sub-set of the fields to return.
+  ///
+  /// This acts as a DocumentMask over the documents returned from a query. When
+  /// not set, assumes that the caller wants all fields returned.
   Projection? select;
 
-  /// A starting point for the query results.
+  /// A potential prefix of a position in the result set to start the query at.
+  ///
+  /// The ordering of the result set is based on the `ORDER BY` clause of the
+  /// original query. ``` SELECT * FROM k WHERE a = 1 AND b > 2 ORDER BY b ASC,
+  /// __name__ ASC; ``` This query's results are ordered by `(b ASC, __name__
+  /// ASC)`. Cursors can reference either the full ordering or a prefix of the
+  /// location, though it cannot reference more fields than what are in the
+  /// provided `ORDER BY`. Continuing off the example above, attaching the
+  /// following start cursors will have varying impact: - `START BEFORE (2,
+  /// /k/123)`: start the query right before `a = 1 AND b > 2 AND __name__ >
+  /// /k/123`. - `START AFTER (10)`: start the query right after `a = 1 AND b >
+  /// 10`. Unlike `OFFSET` which requires scanning over the first N results to
+  /// skip, a start cursor allows the query to begin at a logical position. This
+  /// position is not required to match an actual result, it will scan forward
+  /// from this position to find the next document. Requires: * The number of
+  /// values cannot be greater than the number of fields specified in the `ORDER
+  /// BY` clause.
   Cursor? startAt;
 
   /// The filter to apply.
@@ -3976,38 +5209,38 @@ class StructuredQuery {
     this.where,
   });
 
-  StructuredQuery.fromJson(core.Map _json)
+  StructuredQuery.fromJson(core.Map json_)
       : this(
-          endAt: _json.containsKey('endAt')
+          endAt: json_.containsKey('endAt')
               ? Cursor.fromJson(
-                  _json['endAt'] as core.Map<core.String, core.dynamic>)
+                  json_['endAt'] as core.Map<core.String, core.dynamic>)
               : null,
-          from: _json.containsKey('from')
-              ? (_json['from'] as core.List)
+          from: json_.containsKey('from')
+              ? (json_['from'] as core.List)
                   .map((value) => CollectionSelector.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          limit: _json.containsKey('limit') ? _json['limit'] as core.int : null,
+          limit: json_.containsKey('limit') ? json_['limit'] as core.int : null,
           offset:
-              _json.containsKey('offset') ? _json['offset'] as core.int : null,
-          orderBy: _json.containsKey('orderBy')
-              ? (_json['orderBy'] as core.List)
+              json_.containsKey('offset') ? json_['offset'] as core.int : null,
+          orderBy: json_.containsKey('orderBy')
+              ? (json_['orderBy'] as core.List)
                   .map((value) => Order.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          select: _json.containsKey('select')
+          select: json_.containsKey('select')
               ? Projection.fromJson(
-                  _json['select'] as core.Map<core.String, core.dynamic>)
+                  json_['select'] as core.Map<core.String, core.dynamic>)
               : null,
-          startAt: _json.containsKey('startAt')
+          startAt: json_.containsKey('startAt')
               ? Cursor.fromJson(
-                  _json['startAt'] as core.Map<core.String, core.dynamic>)
+                  json_['startAt'] as core.Map<core.String, core.dynamic>)
               : null,
-          where: _json.containsKey('where')
+          where: json_.containsKey('where')
               ? Filter.fromJson(
-                  _json['where'] as core.Map<core.String, core.dynamic>)
+                  json_['where'] as core.Map<core.String, core.dynamic>)
               : null,
         );
 
@@ -4020,6 +5253,42 @@ class StructuredQuery {
         if (select != null) 'select': select!,
         if (startAt != null) 'startAt': startAt!,
         if (where != null) 'where': where!,
+      };
+}
+
+/// Sum of the values of the requested field.
+///
+/// * Only numeric values will be aggregated. All non-numeric values including
+/// `NULL` are skipped. * If the aggregated values contain `NaN`, returns `NaN`.
+/// Infinity math follows IEEE-754 standards. * If the aggregated value set is
+/// empty, returns 0. * Returns a 64-bit integer if all aggregated numbers are
+/// integers and the sum result does not overflow. Otherwise, the result is
+/// returned as a double. Note that even if all the aggregated values are
+/// integers, the result is returned as a double if it cannot fit within a
+/// 64-bit signed integer. When this occurs, the returned value will lose
+/// precision. * When underflow occurs, floating-point aggregation is
+/// non-deterministic. This means that running the same query repeatedly without
+/// any changes to the underlying values could produce slightly different
+/// results each time. In those cases, values should be stored as integers over
+/// floating-point numbers.
+class Sum {
+  /// The field to aggregate on.
+  FieldReference? field;
+
+  Sum({
+    this.field,
+  });
+
+  Sum.fromJson(core.Map json_)
+      : this(
+          field: json_.containsKey('field')
+              ? FieldReference.fromJson(
+                  json_['field'] as core.Map<core.String, core.dynamic>)
+              : null,
+        );
+
+  core.Map<core.String, core.dynamic> toJson() => {
+        if (field != null) 'field': field!,
       };
 }
 
@@ -4036,15 +5305,15 @@ class TransactionOptions {
     this.readWrite,
   });
 
-  TransactionOptions.fromJson(core.Map _json)
+  TransactionOptions.fromJson(core.Map json_)
       : this(
-          readOnly: _json.containsKey('readOnly')
+          readOnly: json_.containsKey('readOnly')
               ? ReadOnly.fromJson(
-                  _json['readOnly'] as core.Map<core.String, core.dynamic>)
+                  json_['readOnly'] as core.Map<core.String, core.dynamic>)
               : null,
-          readWrite: _json.containsKey('readWrite')
+          readWrite: json_.containsKey('readWrite')
               ? ReadWrite.fromJson(
-                  _json['readWrite'] as core.Map<core.String, core.dynamic>)
+                  json_['readWrite'] as core.Map<core.String, core.dynamic>)
               : null,
         );
 
@@ -4077,13 +5346,13 @@ class UnaryFilter {
     this.op,
   });
 
-  UnaryFilter.fromJson(core.Map _json)
+  UnaryFilter.fromJson(core.Map json_)
       : this(
-          field: _json.containsKey('field')
+          field: json_.containsKey('field')
               ? FieldReference.fromJson(
-                  _json['field'] as core.Map<core.String, core.dynamic>)
+                  json_['field'] as core.Map<core.String, core.dynamic>)
               : null,
-          op: _json.containsKey('op') ? _json['op'] as core.String : null,
+          op: json_.containsKey('op') ? json_['op'] as core.String : null,
         );
 
   core.Map<core.String, core.dynamic> toJson() => {
@@ -4111,9 +5380,9 @@ class Value {
   core.List<core.int> get bytesValueAsBytes =>
       convert.base64.decode(bytesValue!);
 
-  set bytesValueAsBytes(core.List<core.int> _bytes) {
+  set bytesValueAsBytes(core.List<core.int> bytes_) {
     bytesValue =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   /// A double value.
@@ -4166,41 +5435,41 @@ class Value {
     this.timestampValue,
   });
 
-  Value.fromJson(core.Map _json)
+  Value.fromJson(core.Map json_)
       : this(
-          arrayValue: _json.containsKey('arrayValue')
+          arrayValue: json_.containsKey('arrayValue')
               ? ArrayValue.fromJson(
-                  _json['arrayValue'] as core.Map<core.String, core.dynamic>)
+                  json_['arrayValue'] as core.Map<core.String, core.dynamic>)
               : null,
-          booleanValue: _json.containsKey('booleanValue')
-              ? _json['booleanValue'] as core.bool
+          booleanValue: json_.containsKey('booleanValue')
+              ? json_['booleanValue'] as core.bool
               : null,
-          bytesValue: _json.containsKey('bytesValue')
-              ? _json['bytesValue'] as core.String
+          bytesValue: json_.containsKey('bytesValue')
+              ? json_['bytesValue'] as core.String
               : null,
-          doubleValue: _json.containsKey('doubleValue')
-              ? (_json['doubleValue'] as core.num).toDouble()
+          doubleValue: json_.containsKey('doubleValue')
+              ? (json_['doubleValue'] as core.num).toDouble()
               : null,
-          geoPointValue: _json.containsKey('geoPointValue')
+          geoPointValue: json_.containsKey('geoPointValue')
               ? LatLng.fromJson(
-                  _json['geoPointValue'] as core.Map<core.String, core.dynamic>)
+                  json_['geoPointValue'] as core.Map<core.String, core.dynamic>)
               : null,
-          integerValue: _json.containsKey('integerValue')
-              ? _json['integerValue'] as core.String
+          integerValue: json_.containsKey('integerValue')
+              ? json_['integerValue'] as core.String
               : null,
-          mapValue: _json.containsKey('mapValue')
+          mapValue: json_.containsKey('mapValue')
               ? MapValue.fromJson(
-                  _json['mapValue'] as core.Map<core.String, core.dynamic>)
+                  json_['mapValue'] as core.Map<core.String, core.dynamic>)
               : null,
-          nullValue: _json.containsKey('nullValue') ? 'NULL_VALUE' : null,
-          referenceValue: _json.containsKey('referenceValue')
-              ? _json['referenceValue'] as core.String
+          nullValue: json_.containsKey('nullValue') ? 'NULL_VALUE' : null,
+          referenceValue: json_.containsKey('referenceValue')
+              ? json_['referenceValue'] as core.String
               : null,
-          stringValue: _json.containsKey('stringValue')
-              ? _json['stringValue'] as core.String
+          stringValue: json_.containsKey('stringValue')
+              ? json_['stringValue'] as core.String
               : null,
-          timestampValue: _json.containsKey('timestampValue')
-              ? _json['timestampValue'] as core.String
+          timestampValue: json_.containsKey('timestampValue')
+              ? json_['timestampValue'] as core.String
               : null,
         );
 
@@ -4265,29 +5534,29 @@ class Write {
     this.updateTransforms,
   });
 
-  Write.fromJson(core.Map _json)
+  Write.fromJson(core.Map json_)
       : this(
-          currentDocument: _json.containsKey('currentDocument')
-              ? Precondition.fromJson(_json['currentDocument']
+          currentDocument: json_.containsKey('currentDocument')
+              ? Precondition.fromJson(json_['currentDocument']
                   as core.Map<core.String, core.dynamic>)
               : null,
-          delete: _json.containsKey('delete')
-              ? _json['delete'] as core.String
+          delete: json_.containsKey('delete')
+              ? json_['delete'] as core.String
               : null,
-          transform: _json.containsKey('transform')
+          transform: json_.containsKey('transform')
               ? DocumentTransform.fromJson(
-                  _json['transform'] as core.Map<core.String, core.dynamic>)
+                  json_['transform'] as core.Map<core.String, core.dynamic>)
               : null,
-          update: _json.containsKey('update')
+          update: json_.containsKey('update')
               ? Document.fromJson(
-                  _json['update'] as core.Map<core.String, core.dynamic>)
+                  json_['update'] as core.Map<core.String, core.dynamic>)
               : null,
-          updateMask: _json.containsKey('updateMask')
+          updateMask: json_.containsKey('updateMask')
               ? DocumentMask.fromJson(
-                  _json['updateMask'] as core.Map<core.String, core.dynamic>)
+                  json_['updateMask'] as core.Map<core.String, core.dynamic>)
               : null,
-          updateTransforms: _json.containsKey('updateTransforms')
-              ? (_json['updateTransforms'] as core.List)
+          updateTransforms: json_.containsKey('updateTransforms')
+              ? (json_['updateTransforms'] as core.List)
                   .map((value) => FieldTransform.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -4335,9 +5604,9 @@ class WriteRequest {
   core.List<core.int> get streamTokenAsBytes =>
       convert.base64.decode(streamToken!);
 
-  set streamTokenAsBytes(core.List<core.int> _bytes) {
+  set streamTokenAsBytes(core.List<core.int> bytes_) {
     streamToken =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   /// The writes to apply.
@@ -4354,24 +5623,24 @@ class WriteRequest {
     this.writes,
   });
 
-  WriteRequest.fromJson(core.Map _json)
+  WriteRequest.fromJson(core.Map json_)
       : this(
-          labels: _json.containsKey('labels')
-              ? (_json['labels'] as core.Map<core.String, core.dynamic>).map(
-                  (key, item) => core.MapEntry(
+          labels: json_.containsKey('labels')
+              ? (json_['labels'] as core.Map<core.String, core.dynamic>).map(
+                  (key, value) => core.MapEntry(
                     key,
-                    item as core.String,
+                    value as core.String,
                   ),
                 )
               : null,
-          streamId: _json.containsKey('streamId')
-              ? _json['streamId'] as core.String
+          streamId: json_.containsKey('streamId')
+              ? json_['streamId'] as core.String
               : null,
-          streamToken: _json.containsKey('streamToken')
-              ? _json['streamToken'] as core.String
+          streamToken: json_.containsKey('streamToken')
+              ? json_['streamToken'] as core.String
               : null,
-          writes: _json.containsKey('writes')
-              ? (_json['writes'] as core.List)
+          writes: json_.containsKey('writes')
+              ? (json_['writes'] as core.List)
                   .map((value) => Write.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -4407,9 +5676,9 @@ class WriteResponse {
   core.List<core.int> get streamTokenAsBytes =>
       convert.base64.decode(streamToken!);
 
-  set streamTokenAsBytes(core.List<core.int> _bytes) {
+  set streamTokenAsBytes(core.List<core.int> bytes_) {
     streamToken =
-        convert.base64.encode(_bytes).replaceAll('/', '_').replaceAll('+', '-');
+        convert.base64.encode(bytes_).replaceAll('/', '_').replaceAll('+', '-');
   }
 
   /// The result of applying the writes.
@@ -4424,19 +5693,19 @@ class WriteResponse {
     this.writeResults,
   });
 
-  WriteResponse.fromJson(core.Map _json)
+  WriteResponse.fromJson(core.Map json_)
       : this(
-          commitTime: _json.containsKey('commitTime')
-              ? _json['commitTime'] as core.String
+          commitTime: json_.containsKey('commitTime')
+              ? json_['commitTime'] as core.String
               : null,
-          streamId: _json.containsKey('streamId')
-              ? _json['streamId'] as core.String
+          streamId: json_.containsKey('streamId')
+              ? json_['streamId'] as core.String
               : null,
-          streamToken: _json.containsKey('streamToken')
-              ? _json['streamToken'] as core.String
+          streamToken: json_.containsKey('streamToken')
+              ? json_['streamToken'] as core.String
               : null,
-          writeResults: _json.containsKey('writeResults')
-              ? (_json['writeResults'] as core.List)
+          writeResults: json_.containsKey('writeResults')
+              ? (json_['writeResults'] as core.List)
                   .map((value) => WriteResult.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
@@ -4468,16 +5737,16 @@ class WriteResult {
     this.updateTime,
   });
 
-  WriteResult.fromJson(core.Map _json)
+  WriteResult.fromJson(core.Map json_)
       : this(
-          transformResults: _json.containsKey('transformResults')
-              ? (_json['transformResults'] as core.List)
+          transformResults: json_.containsKey('transformResults')
+              ? (json_['transformResults'] as core.List)
                   .map((value) => Value.fromJson(
                       value as core.Map<core.String, core.dynamic>))
                   .toList()
               : null,
-          updateTime: _json.containsKey('updateTime')
-              ? _json['updateTime'] as core.String
+          updateTime: json_.containsKey('updateTime')
+              ? json_['updateTime'] as core.String
               : null,
         );
 
