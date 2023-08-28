@@ -1,3 +1,9 @@
+## 0.2.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **FEAT**: upgrade to latest generator, patches & APIs.
+
 ## 0.1.1
 
 - Added support for the following private Firebase APIs:
